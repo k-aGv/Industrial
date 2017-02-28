@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 
-namespace EpPathFinding.cs
+namespace kagv.cs
 {
     
     public partial class Form1

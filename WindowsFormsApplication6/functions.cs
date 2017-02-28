@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 
-namespace EpPathFinding.cs
+namespace kagv.cs
 {
     
     public partial class Form1
@@ -1040,7 +1040,7 @@ namespace EpPathFinding.cs
         private void export()
         {
             sfd_exportmap.FileName = "";
-            sfd_exportmap.Filter = "k-aGv Map (*.kmap)|*.kmap";
+            sfd_exportmap.Filter = "kagv Map (*.kmap)|*.kmap";
 
             if (sfd_exportmap.ShowDialog() == DialogResult.OK)
             {
@@ -1061,7 +1061,7 @@ namespace EpPathFinding.cs
         private void import()
         {
 
-            ofd_importmap.Filter = "k-aGv Map (*.kmap)|*.kmap";
+            ofd_importmap.Filter = "kagv Map (*.kmap)|*.kmap";
             ofd_importmap.FileName = "";
 
             if (ofd_importmap.ShowDialog() == DialogResult.OK)

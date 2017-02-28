@@ -1,4 +1,4 @@
-﻿namespace EpPathFinding.cs
+﻿namespace kagv.cs
 {
     partial class Form1
     {

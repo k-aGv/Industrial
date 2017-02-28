@@ -206,3 +206,13 @@ C:\Users\Administrator\Desktop\menex final\WindowsFormsApplication6\obj\Debug\Ep
 C:\Users\Administrator\Desktop\menex final\WindowsFormsApplication6\obj\Debug\EpPathFinding.cs.Form1.resources
 C:\Users\Administrator\Desktop\menex final\WindowsFormsApplication6\obj\Debug\WindowsFormsApplication6.Properties.Resources.resources
 C:\Users\Administrator\Desktop\menex final\WindowsFormsApplication6\obj\Debug\WindowsFormsApplication6.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\WindowsFormsApplication6\bin\Debug\WindowsFormsApplication6.exe.config
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\WindowsFormsApplication6\obj\Debug\WindowsFormsApplication6.exe
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\WindowsFormsApplication6\obj\Debug\WindowsFormsApplication6.pdb
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\WindowsFormsApplication6\bin\Debug\WindowsFormsApplication6.exe
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\WindowsFormsApplication6\bin\Debug\WindowsFormsApplication6.pdb
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\WindowsFormsApplication6\obj\Debug\WindowsFormsApplication6.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\WindowsFormsApplication6\obj\Debug\kagv.cs.debug.resources
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\WindowsFormsApplication6\obj\Debug\kagv.cs.Form1.resources
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\WindowsFormsApplication6\obj\Debug\WindowsFormsApplication6.Properties.Resources.resources
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\WindowsFormsApplication6\obj\Debug\WindowsFormsApplication6.csproj.GenerateResource.Cache

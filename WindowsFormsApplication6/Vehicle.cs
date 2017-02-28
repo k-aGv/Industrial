@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace EpPathFinding.cs
+namespace kagv.cs
 {
 
     //enum FuelType { battery,gas,tsangk};

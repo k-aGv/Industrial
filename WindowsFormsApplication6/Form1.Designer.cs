@@ -1,4 +1,4 @@
-﻿namespace EpPathFinding.cs
+﻿namespace kagv.cs
 {
     partial class Form1
     {
@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.refresh_label = new System.Windows.Forms.Label();
             this.Global_label = new System.Windows.Forms.Label();
             this.THC_label = new System.Windows.Forms.Label();
             this.NOx_label = new System.Windows.Forms.Label();
@@ -60,6 +61,8 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showEmissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.increaseSpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decreaseSpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parametresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.useRecursiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,9 +83,6 @@
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
-            this.increaseSpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.decreaseSpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.refresh_label = new System.Windows.Forms.Label();
             this.menuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_AGVs)).BeginInit();
             this.settings_menu.SuspendLayout();
@@ -112,6 +112,15 @@
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(656, 75);
             this.menuPanel.TabIndex = 7;
+            // 
+            // refresh_label
+            // 
+            this.refresh_label.AutoSize = true;
+            this.refresh_label.Location = new System.Drawing.Point(12, 46);
+            this.refresh_label.Name = "refresh_label";
+            this.refresh_label.Size = new System.Drawing.Size(35, 13);
+            this.refresh_label.TabIndex = 19;
+            this.refresh_label.Text = "label1";
             // 
             // Global_label
             // 
@@ -332,6 +341,24 @@
             this.showEmissionsToolStripMenuItem.Text = "Show emissions";
             this.showEmissionsToolStripMenuItem.Click += new System.EventHandler(this.showEmissionsToolStripMenuItem_Click);
             // 
+            // increaseSpeedToolStripMenuItem
+            // 
+            this.increaseSpeedToolStripMenuItem.Name = "increaseSpeedToolStripMenuItem";
+            this.increaseSpeedToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl + (+)";
+            this.increaseSpeedToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemplus)));
+            this.increaseSpeedToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.increaseSpeedToolStripMenuItem.Text = "Increase speed";
+            this.increaseSpeedToolStripMenuItem.Click += new System.EventHandler(this.increaseSpeedToolStripMenuItem_Click);
+            // 
+            // decreaseSpeedToolStripMenuItem
+            // 
+            this.decreaseSpeedToolStripMenuItem.Name = "decreaseSpeedToolStripMenuItem";
+            this.decreaseSpeedToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl + (-)";
+            this.decreaseSpeedToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.OemMinus)));
+            this.decreaseSpeedToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.decreaseSpeedToolStripMenuItem.Text = "Decrease speed";
+            this.decreaseSpeedToolStripMenuItem.Click += new System.EventHandler(this.decreaseSpeedToolStripMenuItem_Click);
+            // 
             // aToolStripMenuItem
             // 
             this.aToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -481,33 +508,6 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // increaseSpeedToolStripMenuItem
-            // 
-            this.increaseSpeedToolStripMenuItem.Name = "increaseSpeedToolStripMenuItem";
-            this.increaseSpeedToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl + (+)";
-            this.increaseSpeedToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemplus)));
-            this.increaseSpeedToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.increaseSpeedToolStripMenuItem.Text = "Increase speed";
-            this.increaseSpeedToolStripMenuItem.Click += new System.EventHandler(this.increaseSpeedToolStripMenuItem_Click);
-            // 
-            // decreaseSpeedToolStripMenuItem
-            // 
-            this.decreaseSpeedToolStripMenuItem.Name = "decreaseSpeedToolStripMenuItem";
-            this.decreaseSpeedToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl + (-)";
-            this.decreaseSpeedToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.OemMinus)));
-            this.decreaseSpeedToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.decreaseSpeedToolStripMenuItem.Text = "Decrease speed";
-            this.decreaseSpeedToolStripMenuItem.Click += new System.EventHandler(this.decreaseSpeedToolStripMenuItem_Click);
-            // 
-            // refresh_label
-            // 
-            this.refresh_label.AutoSize = true;
-            this.refresh_label.Location = new System.Drawing.Point(12, 46);
-            this.refresh_label.Name = "refresh_label";
-            this.refresh_label.Size = new System.Drawing.Size(35, 13);
-            this.refresh_label.TabIndex = 19;
-            this.refresh_label.Text = "label1";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -519,7 +519,7 @@
             this.Controls.Add(this.settings_menu);
             this.MainMenuStrip = this.settings_menu;
             this.Name = "Form1";
-            this.Text = "K-aGv Simulation";
+            this.Text = "kagv Simulation";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);

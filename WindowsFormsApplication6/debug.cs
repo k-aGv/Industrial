@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace EpPathFinding.cs
+namespace kagv.cs
 {
     public partial class debug : Form
     {
