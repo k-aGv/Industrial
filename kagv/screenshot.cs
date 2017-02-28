@@ -12,15 +12,22 @@ namespace kagv
 {
     public partial class screenshot : Form
     {
-        public screenshot()
-        {
-            InitializeComponent();
-        }
         Size size;
         Point loc;
         Graphics gp;
         private string resources_path = System.IO.Directory.GetCurrentDirectory();
         int shotcounter = 0;
+        bool ismousedown = false;
+        Point ClickedCoords;
+        int firstClick = 1;//true
+        public Rectangle shot;
+        bool takingShot = false;
+
+        public screenshot()
+        {
+            InitializeComponent();
+        }
+       
         private void screenshot_Load(object sender, EventArgs e)
         {
             loc.X = Owner.Location.X+7 ;
@@ -37,11 +44,7 @@ namespace kagv
             if (e.Button == MouseButtons.Right && !takingShot)
                 this.Close();
         }
-        bool ismousedown = false;
-        Point ClickedCoords;
-        int firstClick = 1;//true
-        public Rectangle shot;
-        bool takingShot = false;
+        
         private void screenshot_MouseDown(object sender, MouseEventArgs e)
         {
             ismousedown = true;
@@ -57,7 +60,7 @@ namespace kagv
             ismousedown = false;
             firstClick = 3;//not true not false :P
 
-            if (e.Button == MouseButtons.Left && !badShot)
+            if (e.Button == MouseButtons.Left)
             {
                 
                 this.Opacity = 0;
@@ -73,25 +76,15 @@ namespace kagv
                     }
                     bitmap.Save(resources_path+"//screenshot_map_"+shotcounter+".png", System.Drawing.Imaging.ImageFormat.Png);
                 }
-                this.Opacity = 0.5;
                 this.Dispose();
-
-                /*
-                 * resetting
-                     shot = new Rectangle();
-                     gp.Clear(this.BackColor);
-                     firstClick = 1;
-                     takingShot = false;
-                 */
+               
             }
             else
-            {
                 this.Dispose();
-            }
 
 
         }
-        bool badShot = false;
+        
         private void screenshot_MouseMove(object sender, MouseEventArgs e)
         {
             if( ismousedown)
@@ -121,33 +114,11 @@ namespace kagv
                 }
 
                 if (shot.Width <= 0 || shot.Height <= 0)
-                {
-                    badShot = true;
                     return;
-                }
-                    /*
-                else if (e.X < ClickedCoords.X)
-                {
-                    rec_width = ClickedCoords.X - e.X;
-                    rec_height = ClickedCoords.Y - e.Y;
-                    shot = new Rectangle(
-                    ClickedCoords.X-rec_width
-                    , ClickedCoords.Y-rec_height
-                    , rec_width
-                    , rec_height);
-                }
-                else
-                {
-                    return;
-                }
-                */
-                badShot = false;
+                
                 gp.DrawRectangle(
                     p
                     , shot);
-
-
-
             }
         }
     }
