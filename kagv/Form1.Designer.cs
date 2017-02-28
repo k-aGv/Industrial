@@ -44,14 +44,13 @@
             this.rb_stop = new System.Windows.Forms.RadioButton();
             this.rb_start = new System.Windows.Forms.RadioButton();
             this.rb_wall = new System.Windows.Forms.RadioButton();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tp_info = new System.Windows.Forms.ToolTip(this.components);
             this.sfd_exportmap = new System.Windows.Forms.SaveFileDialog();
             this.ofd_importmap = new System.Windows.Forms.OpenFileDialog();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.timer5 = new System.Windows.Forms.Timer(this.components);
-            this.debugtimer = new System.Windows.Forms.Timer(this.components);
             this.ofd_importpic = new System.Windows.Forms.OpenFileDialog();
             this.settings_menu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -560,7 +559,7 @@
         private System.Windows.Forms.RadioButton rb_stop;
         private System.Windows.Forms.RadioButton rb_start;
         private System.Windows.Forms.RadioButton rb_wall;
-        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolTip tp_info;
         private System.Windows.Forms.SaveFileDialog sfd_exportmap;
         private System.Windows.Forms.OpenFileDialog ofd_importmap;
         private System.Windows.Forms.NumericUpDown nUD_AGVs;
@@ -571,7 +570,6 @@
         private System.Windows.Forms.Timer timer4;
         private System.Windows.Forms.Timer timer5;
         private System.Windows.Forms.RadioButton rb_load;
-        private System.Windows.Forms.Timer debugtimer;
         private System.Windows.Forms.OpenFileDialog ofd_importpic;
         private System.Windows.Forms.MenuStrip settings_menu;
         private System.Windows.Forms.ToolStripMenuItem aToolStripMenuItem;
