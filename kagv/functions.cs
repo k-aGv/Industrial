@@ -425,7 +425,7 @@ namespace kagv
         }
         private void halt(int index, int _c)
         {
-
+            timer_counter[index]--;
             int stepx = Convert.ToInt32(newsteps[index, 0, _c - 1]);
             int stepy = Convert.ToInt32(newsteps[index, 1, _c - 1]);
             AGVs[index].SetLocation(stepx - 9, stepy - 9);
