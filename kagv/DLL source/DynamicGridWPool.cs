@@ -5,7 +5,7 @@ using System.Text;
 using System.Collections;
 
 
-namespace kagv.cs
+namespace kagv
 {
     
     public class DynamicGridWPool : BaseGrid

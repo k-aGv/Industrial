@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace kagv.cs
+namespace kagv
 {
     public class GridPos : IEquatable<GridPos>
     {

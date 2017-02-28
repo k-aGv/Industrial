@@ -13,7 +13,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 
-namespace kagv.cs
+namespace kagv
 {
     
     public partial class Form1 : Form

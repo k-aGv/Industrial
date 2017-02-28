@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace kagv.cs
+namespace kagv
 {
 
     //enum FuelType { battery,gas,tsangk};
@@ -22,6 +22,8 @@ namespace kagv.cs
         private Form mirroredForm;
         private bool isBusyVar=false;
         private bool isLoadedVar = false; //WILL BE USED LATER
+        private string resources_path = System.IO.Directory.GetCurrentDirectory() + "\\Resources";
+
         public Point Location;
         public Point StartPoint;
 
@@ -54,7 +56,9 @@ namespace kagv.cs
             AgvIcon.SizeMode = PictureBoxSizeMode.StretchImage;
             AgvIcon.Size = new Size(18, 18);
             AgvIcon.Visible = true;
-            AgvIcon.Image = Image.FromFile(Directory.GetCurrentDirectory() + "\\empty.png");
+
+            AgvIcon.Image = _getEmbedResource("empty.png");
+
             AgvIcon.BackColor = Color.Transparent;
 
             //public exports
@@ -64,7 +68,17 @@ namespace kagv.cs
             
         }
 
+        private Image _getEmbedResource(string a)
+        {
+            System.Reflection.Assembly _assembly;
+            Stream _myStream;
+            _assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
+            _myStream = _assembly.GetManifestResourceStream("kagv.Resources."+a);
+            Image _b = Image.FromStream(_myStream);
+            return _b;
+            
+        }
         public Vehicle(Form handle) //overloaded constructor
         {
             mirroredForm = handle;
@@ -90,13 +104,13 @@ namespace kagv.cs
 
         public void setLoaded()
         {
-            this.AgvIcon.Image = Image.FromFile(Directory.GetCurrentDirectory() + "\\loaded.png");
+            this.AgvIcon.Image = _getEmbedResource("loaded.png");
             this.isLoadedVar = true;
         }
 
         public void setEmpty()
         {
-            this.AgvIcon.Image = Image.FromFile(Directory.GetCurrentDirectory() + "\\empty.png");
+            this.AgvIcon.Image = _getEmbedResource("empty.png");
             this.isLoadedVar = false;
         }
 

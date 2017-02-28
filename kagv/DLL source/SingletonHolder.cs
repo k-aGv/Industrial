@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 
-namespace kagv.cs
+namespace kagv
 {
     public class SingletonHolder<T> where T : new()
     {

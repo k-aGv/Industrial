@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 using Awesomium.Core;
 using Awesomium.Windows.Forms;
-namespace kagv.cs
+namespace kagv
 {
     public partial class gmaps : Form
     {

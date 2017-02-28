@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace kagv.cs
+namespace kagv
 {
     static class Program
     {

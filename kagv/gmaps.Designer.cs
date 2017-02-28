@@ -1,4 +1,4 @@
-﻿namespace kagv.cs
+﻿namespace kagv
 {
     partial class gmaps
     {
