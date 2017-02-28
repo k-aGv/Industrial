@@ -22,7 +22,7 @@ namespace kagv
         private Form mirroredForm;
         private bool isBusyVar=false;
         private bool isLoadedVar = false; //WILL BE USED LATER
-        private string resources_path = System.IO.Directory.GetCurrentDirectory() + "\\Resources";
+       
 
         public Point Location;
         public Point StartPoint;

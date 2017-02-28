@@ -16,7 +16,7 @@ namespace kagv
     
     public partial class Form1
     {
-        string resources_path = System.IO.Directory.GetCurrentDirectory() + "\\Resources";
+       
 
         List<GridPos> pos = new List<GridPos>(); //public declaration / partial redeclaration occurs in Reset(with overload)
         bool[,] is_trapped;
