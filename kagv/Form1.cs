@@ -710,18 +710,19 @@ namespace kagv
 
         private void increaseSpeedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval = timer1.Interval + 100;
+            if (timer1.Interval == 100)
+                return;
+
+            timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval = timer1.Interval - 100;
             refresh_label.Text = "Refresh rate:" + timer1.Interval + " ms";
 
         }
 
         private void decreaseSpeedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (timer1.Interval == 100)
-                return;
-
-            timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval = timer1.Interval - 100;
+            timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval = timer1.Interval + 100;
             refresh_label.Text = "Refresh rate:" + timer1.Interval + " ms";
+           
         }
 
         private void implementGoogleMapsToolStripMenuItem_Click(object sender, EventArgs e)
