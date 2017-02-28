@@ -17,15 +17,15 @@ namespace kagv
             InitializeComponent();
         }
         Size size;
-        Point l;
+        Point loc;
         Graphics gp;
         private string resources_path = System.IO.Directory.GetCurrentDirectory();
         int shotcounter = 0;
         private void screenshot_Load(object sender, EventArgs e)
         {
-            l.X = Owner.Location.X+7 ;
-            l.Y = Owner.Location.Y+50;
-            this.Location = l;
+            loc.X = Owner.Location.X+7 ;
+            loc.Y = Owner.Location.Y+50;
+            this.Location = loc;
 
             size.Height = Owner.Height -60;
             size.Width = Owner.Width-15;
@@ -111,6 +111,18 @@ namespace kagv
                     , ClickedCoords.Y
                     , rec_width
                     , rec_height);
+                }
+                else
+                {
+                    shot = new Rectangle(
+                        ClickedCoords.X
+                    , ClickedCoords.Y
+                    , rec_width
+                    , rec_height);
+                    shot = new Rectangle(e.X, ClickedCoords.Y,
+                                         ClickedCoords.X-e.X, e.Y-ClickedCoords.Y
+                                            );
+
                 }
 
                 if (shot.Width <= 0 || shot.Height <= 0)
