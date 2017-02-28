@@ -704,7 +704,8 @@ namespace kagv
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("madafakas\r\n"+Directory.GetCurrentDirectory());
+            About about = new About();
+            about.ShowDialog();
         }
 
         private void increaseSpeedToolStripMenuItem_Click(object sender, EventArgs e)
