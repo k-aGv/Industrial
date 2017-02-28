@@ -38,70 +38,7 @@ namespace kagv
 
             return agvs;
         }
-        /*
-        ///////////////////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////////////////
-        private bool isWallOnTop(int widthTrav, int heightTrav)
-        {
-            if (m_rectangles[widthTrav][heightTrav - 1].boxType == BoxType.Wall)
-                return true;
-            else
-                return false;
-        }
-        private bool isWallOnBot(int widthTrav, int heightTrav)
-        {
-            if (m_rectangles[widthTrav][heightTrav + 1].boxType == BoxType.Wall)
-                return true;
-            else
-                return false;
-        }
-        private bool isWallOnLeft(int widthTrav,int heightTrav)
-        {
-            if (m_rectangles[widthTrav - 1][heightTrav].boxType == BoxType.Wall)
-                return true;
-            else
-                return false;
-        }
-        private bool isWallOnRight(int widthTrav, int heightTrav)
-        {
-            if (m_rectangles[widthTrav + 1][heightTrav].boxType == BoxType.Wall)
-                return true;
-            else
-                return false;
-        }
-        private bool isWallOnLeftTop(int widthTrav,int heightTrav)
-        {
-            if (m_rectangles[widthTrav - 1][heightTrav - 1].boxType == BoxType.Wall)
-                return true;
-            else
-                return false;
-        }
-        private bool isWallOnLeftBot(int widthTrav, int heightTrav)
-        {
-            if (m_rectangles[widthTrav - 1][heightTrav + 1].boxType == BoxType.Wall)
-                return true;
-            else
-                return false;
-        }
-        private bool isWallOnRightTop(int widthTrav, int heightTrav)
-        {
-            if (m_rectangles[widthTrav + 1][heightTrav - 1].boxType == BoxType.Wall)
-                return true;
-            else
-                return false;
-        }
-        private bool isWallOnRightBot(int widthTrav, int heightTrav)
-        {
-            if (m_rectangles[widthTrav + 1][heightTrav + 1].boxType == BoxType.Wall)
-                return true;
-            else
-                return false;
-        }
-        ///////////////////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////////////////
-         * */
+        
         private void Redraw()
         {
             if (loads > 0)
@@ -241,8 +178,8 @@ namespace kagv
                             {
                                 removed = false;
                                 jumpParam.Reset(pos[0], loadPos[list_index]);
-                                if (JumpPointFinder.FindPath(jumpParam, paper).Count == 0)
-                                {
+                                if (JumpPointFinder.FindPath(jumpParam, paper).Count == 0) //if there's at LEAST 1 agv that cannot reach a Load, then that Load is  
+                                {                                                          //removed from the loadPos and not considered as available - marked 4 
                                     isLoad[loadPos[list_index].x, loadPos[list_index].y] = 4;
                                     loadPos.Remove(loadPos[list_index]);
                                     removed = true;
@@ -256,13 +193,11 @@ namespace kagv
                             } while (list_index < loadPos.Count);
 
                             if (loadPos.Count() == 0)
-                            {
-                                loadPos.Add(endPos); //an OLA ta loads einai trapped, tote san LoadPos tha xrisimopoiisei to endpos wste apla na kleisei i diadromi
-                            }
+                                loadPos.Add(endPos); //if EVERY load is trapped, use the endPos as LoadPos so as the agvs can complete their basic route (start -> end)
 
                           
 
-                                jumpParam.Reset(pos[pos_index], loadPos[0]);
+                            jumpParam.Reset(pos[pos_index], loadPos[0]);
                             resultList = JumpPointFinder.FindPath(jumpParam, paper);
                             AGVs[i].Busy(true);
 
@@ -280,8 +215,8 @@ namespace kagv
 
                                 }
                             }
-                            //is_trapped[i,0] -> kommati diadromis agv -> load
-                            //is_trapped[i,1] -> kommati diadromis load -> end
+                            //is_trapped[i,0] -> part of route agv -> load
+                            //is_trapped[i,1] -> part of route load -> end
                             else //leak catch
                                 myresultList.Add(new List<GridPos>()); //increases the size of the List so the resultList can fit without causing overflow
 
@@ -405,8 +340,8 @@ namespace kagv
 
             int c = myLines.GetLength(0);
 
-            myresultList[whichAGV] = new List<GridPos>(); //empties the correct (I think) cell of the 2D-List containing each AGVs routes
-            pos[whichAGV] = new GridPos(); //empties the correct (I think) start Pos for each AGV
+            myresultList[whichAGV] = new List<GridPos>(); //empties the correct cell of the 2D-List containing each AGVs routes
+            pos[whichAGV] = new GridPos(); //empties the correct start Pos for each AGV
 
             for (int i = 0; i < c; i++)
                 myLines[i, whichAGV] = null;
@@ -417,9 +352,7 @@ namespace kagv
 
             for (int i = 0; i < 2; i++)
                 for (int j = 0; j < 2000; j++)
-                {
                     newsteps[whichAGV, i, j] = 0;
-                }
 
             new_steps_counter[whichAGV] = 0;
         }
@@ -461,14 +394,6 @@ namespace kagv
             }
 
 
-            /*
-            label2.Visible = label3.Visible = true;
-            if (agv_index == 0)
-                label2.Text = AGVLocation[agv_index]+"";
-            if (agv_index == 1)
-                label3.Text = AGVLocation[agv_index]+"";
-            */
-
             update_emissions(agv_index);
 
             for (int widthTrav = 0; widthTrav < width; widthTrav++)
@@ -496,7 +421,7 @@ namespace kagv
 
                         }
                     }
-                    //TEEEEEEEEEEEEEEEEEEEEEEEEEST
+                    //handling what happens when an AGV reached the END
                     if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.End &&
                             AGVs[agv_index].GetLocation().X == m_rectangles[widthTrav][heightTrav].x &&
                             AGVs[agv_index].GetLocation().Y == m_rectangles[widthTrav][heightTrav].y)
@@ -556,7 +481,7 @@ namespace kagv
                         counter = 0;
 
                     }
-                    //end of test
+                    //end of handling
 
 
                     if (!(timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled || timer5.Enabled)) //if at least 1 timer is active, do not let the user access the Checkboxes etc. etc
@@ -592,11 +517,9 @@ namespace kagv
                     }
                 }
             }
-            if (!isAnyLoadLeft)
-            {
 
+            if (!isAnyLoadLeft)
                 return;
-            }
 
             //convert the end point to start point
             GridPos endPos = new GridPos();
@@ -632,7 +555,7 @@ namespace kagv
                 for (int heightTrav = 0; heightTrav < height; heightTrav++)
                 {
                     //this causes the 'bug' that agvs are scanning from left to right for loads
-                    if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Load && isLoad[widthTrav, heightTrav] == 1)// && isLoad[widthTrav, heightTrav] != 3)
+                    if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Load && isLoad[widthTrav, heightTrav] == 1)
                     {
                         isLoad[widthTrav, heightTrav] = 3;
 
@@ -662,8 +585,7 @@ namespace kagv
 
                 GridLine[,] tempLines = new GridLine[2000, myresultList.Count];// myresultList[0].Count + myresultList[1].Count]; 
 
-                //  for (int i = 0; i < pos.Count; i++)
-                //  {
+                
                 for (int j = 0; j < myresultList[whichAGV].Count - 1; j++)
                 {
                     //side:adds line to linearray.since it adds a new line,that means 
@@ -675,7 +597,7 @@ namespace kagv
                     tempLines[j, whichAGV] = line;
                 }
 
-                //  }
+                
                 resultCount = myresultList.Count - 1;
 
                 if (resultCount > 0)
@@ -716,10 +638,6 @@ namespace kagv
 
 
                 this.Invalidate();
-                // timer1.Stop();
-                // timer_counter[whichAGV] = 0;
-                // new_steps_counter[whichAGV] = 0;
-                // timer1.Start();
 
                 //return true;//if any other load exist
             }
@@ -836,7 +754,8 @@ namespace kagv
 
 
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
-            jumpParam = new JumpPointParam(searchGrid, useRecursive, crossCorners, crossAdjacent, mode);//new JumpPointParam(searchGrid, startPos, endPos, cbCrossCorners.Checked, HeuristicMode.EUCLIDEANSQR);
+            jumpParam = new JumpPointParam(searchGrid, useRecursive, crossCorners, crossAdjacent, mode);
+            //syntax of jumpParam-> JumpPointParam(searchGrid, startPos, endPos, cbCrossCorners.Checked, HeuristicMode.EUCLIDEANSQR);
 
 
         }
@@ -1023,9 +942,9 @@ namespace kagv
 
                 if (calibrated)
                 {
-                    newsteps[line_index, 0, new_steps_counter[line_index]] = currentLinePoints[i].X;//new
-                    newsteps[line_index, 1, new_steps_counter[line_index]] = currentLinePoints[i].Y;//new
-                    new_steps_counter[line_index]++;//new
+                    newsteps[line_index, 0, new_steps_counter[line_index]] = currentLinePoints[i].X;
+                    newsteps[line_index, 1, new_steps_counter[line_index]] = currentLinePoints[i].Y;
+                    new_steps_counter[line_index]++;
 
                 }
                 //init next steps

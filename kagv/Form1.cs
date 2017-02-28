@@ -50,12 +50,12 @@ namespace kagv
 
 
 
-                for (int i = 0; i < nUD_AGVs.Value; i++)//new
+                for (int i = 0; i < nUD_AGVs.Value; i++)
                 {
                     new_steps_counter[i] = 0;
                     if (!lol_empty)
                     {
-                        for (int resultTrav = 0; resultTrav < myresultList.Count; resultTrav++) //need for correct for limit 
+                        for (int resultTrav = 0; resultTrav < myresultList.Count; resultTrav++)
                         {
                             try
                             {
@@ -152,16 +152,11 @@ namespace kagv
                                     break;
                                 case BoxType.Start:
                                 case BoxType.End:
-
                                     break;
                             }
-                           
                         }
-                       
-
                     }
                 }
-                
             }
 
             if (e.Button == MouseButtons.Right)
@@ -638,19 +633,10 @@ namespace kagv
             ofd_importpic.Filter = "png picture (*.png)|*.png";
             ofd_importpic.FileName = "";
 
-
-
             if (ofd_importpic.ShowDialog() == DialogResult.OK)
                 this.BackgroundImage = Image.FromFile(ofd_importpic.FileName);
             else
                 return;
-            /*
-            PictureBox bckgrnd = new PictureBox();
-            bckgrnd.SizeMode = PictureBoxSizeMode.StretchImage;
-            bckgrnd.Image = Image.FromFile(ofd_importpic.FileName);
-            this.Controls.Add(bckgrnd);
-            bckgrnd.SendToBack();
-            */
         }
 
         private void showEmissionsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -701,10 +687,8 @@ namespace kagv
 
 
             timer_counter = new int[pos.Count];
-
             timers(pos.Count);
 
-            //menuPanel.Enabled = false;
             settings_menu.Enabled = false;
         }
 
@@ -738,9 +722,6 @@ namespace kagv
             maps.Show();
 
         }
-
-       
-
     }
 
 }
