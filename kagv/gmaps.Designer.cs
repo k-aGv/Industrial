@@ -57,10 +57,11 @@
             // getScreenshotToolStripMenuItem
             // 
             this.getScreenshotToolStripMenuItem.Name = "getScreenshotToolStripMenuItem";
-            this.getScreenshotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.getScreenshotToolStripMenuItem.Text = "Get screenshot";
+            this.getScreenshotToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.getScreenshotToolStripMenuItem.Text = "Take screenshot";
+            this.getScreenshotToolStripMenuItem.Click += new System.EventHandler(this.getScreenshotToolStripMenuItem_Click);
             // 
-            // webControl1
+            // mapControl
             // 
             this.mapControl.Location = new System.Drawing.Point(12, 27);
             this.mapControl.Size = new System.Drawing.Size(953, 470);
