@@ -171,7 +171,7 @@
             // rb_load
             // 
             this.rb_load.AutoSize = true;
-            this.rb_load.Location = new System.Drawing.Point(269, 32);
+            this.rb_load.Location = new System.Drawing.Point(187, 31);
             this.rb_load.Name = "rb_load";
             this.rb_load.Size = new System.Drawing.Size(49, 17);
             this.rb_load.TabIndex = 17;
@@ -202,7 +202,7 @@
             // 
             // nUD_AGVs
             // 
-            this.nUD_AGVs.Location = new System.Drawing.Point(204, 31);
+            this.nUD_AGVs.Location = new System.Drawing.Point(322, 8);
             this.nUD_AGVs.Maximum = new decimal(new int[] {
             5,
             0,
@@ -216,7 +216,7 @@
             // rb_stop
             // 
             this.rb_stop.AutoSize = true;
-            this.rb_stop.Location = new System.Drawing.Point(269, 55);
+            this.rb_stop.Location = new System.Drawing.Point(269, 31);
             this.rb_stop.Name = "rb_stop";
             this.rb_stop.Size = new System.Drawing.Size(47, 17);
             this.rb_stop.TabIndex = 4;
