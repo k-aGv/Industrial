@@ -723,6 +723,15 @@ namespace kagv.cs
             refresh_label.Text = "Refresh rate:" + timer1.Interval + " ms";
         }
 
+        private void implementGoogleMapsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            gmaps maps = new gmaps();
+            maps.setFormSize(this.Width, this.Height);
+            maps.Show();
+
+        }
+
     }
 
 }

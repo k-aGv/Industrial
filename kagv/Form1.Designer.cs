@@ -83,6 +83,8 @@
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.implementGoogleMapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_AGVs)).BeginInit();
             this.settings_menu.SuspendLayout();
@@ -435,7 +437,9 @@
             this.gridToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showToolStripMenuItem,
             this.borderColorToolStripMenuItem,
-            this.clearToolStripMenuItem});
+            this.clearToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.implementGoogleMapsToolStripMenuItem});
             this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
             this.gridToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.gridToolStripMenuItem.Text = "Grid";
@@ -447,7 +451,7 @@
             this.linesToolStripMenuItem,
             this.dotsToolStripMenuItem});
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.showToolStripMenuItem.Text = "Show...";
             // 
             // stepsToolStripMenuItem
@@ -474,7 +478,7 @@
             // borderColorToolStripMenuItem
             // 
             this.borderColorToolStripMenuItem.Name = "borderColorToolStripMenuItem";
-            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.borderColorToolStripMenuItem.Text = "Border Color";
             this.borderColorToolStripMenuItem.Click += new System.EventHandler(this.borderColorToolStripMenuItem_Click);
             // 
@@ -484,7 +488,7 @@
             this.wallsToolStripMenuItem,
             this.allToolStripMenuItem});
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             // 
             // wallsToolStripMenuItem
@@ -507,6 +511,18 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(202, 6);
+            // 
+            // implementGoogleMapsToolStripMenuItem
+            // 
+            this.implementGoogleMapsToolStripMenuItem.Name = "implementGoogleMapsToolStripMenuItem";
+            this.implementGoogleMapsToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.implementGoogleMapsToolStripMenuItem.Text = "Implement Google Maps";
+            this.implementGoogleMapsToolStripMenuItem.Click += new System.EventHandler(this.implementGoogleMapsToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -593,6 +609,8 @@
         private System.Windows.Forms.Label refresh_label;
         private System.Windows.Forms.ToolStripMenuItem increaseSpeedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decreaseSpeedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem implementGoogleMapsToolStripMenuItem;
 
     }
 }

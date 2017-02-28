@@ -2,24 +2,24 @@
 
 Compiling:Please read our [Manifest](https://github.com/k-aGv/manifest)
 
-PathFinding source code credits goes to:
-Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
-		<http://github.com/juhgiyo/eppathfinding.cs>
-		
-The MIT License (MIT)
-Copyright (c) 2013 Woong Gyu La <juhgiyo@gmail.com>
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+
+
+Adding Awesomium:
+
+1-Add DLLs included in Awesomium folder , as references
+*Awesomium.Core.dll
+*Awesomium.Windows.Forms.dll
+
+2-Select build/clean solution to make sure that you will build clearly
+
+Optional:To remove the warning but restrict the build platform:
+
+2-Build/Configuration manager/
+
+    Find your project in the list, under Platform it will say "Any CPU"
+    Select the "Any CPU" option from the drop down and then select <New..>
+    From that dialog, select x86 from the "New Platform" drop down and make sure "Any CPU" is selected in the "Copy settings from" drop down.
+    Hit OK/Close
+    You will want to select x86 for both the Debug and Release configurations.
+
+This will cause to create an x32 product!!
