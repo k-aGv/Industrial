@@ -1,5 +1,6 @@
 # k-aGv2
 
+Compiling:Please read our [Manifest](https://github.com/k-aGv/manifest)
 
 PathFinding source code credits goes to:
 Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
