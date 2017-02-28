@@ -7,7 +7,7 @@
     <ProjectGuid>{A15E43C5-923B-4020-9AEE-54BD6EDA5390}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>kaGv2</RootNamespace>
+    <RootNamespace>kagv.cs</RootNamespace>
     <AssemblyName>kaGv2</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
