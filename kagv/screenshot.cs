@@ -87,35 +87,47 @@ namespace kagv
         
         private void screenshot_MouseMove(object sender, MouseEventArgs e)
         {
-            if( ismousedown)
+            if (ismousedown)
             {
                 gp = this.CreateGraphics();
                 gp.Clear(this.BackColor);
                 Pen p = new Pen(Color.Red);
                 p.Width = 4;
 
-                int rec_width=0, rec_height=0;
                 if (e.X > ClickedCoords.X)
-                {
-                    rec_width = e.X - ClickedCoords.X;
-                    rec_height = e.Y - ClickedCoords.Y;
                     shot = new Rectangle(
-                    ClickedCoords.X
-                    , ClickedCoords.Y
-                    , rec_width
-                    , rec_height);
-                }
-                else
-                {
-                    shot = new Rectangle(e.X, ClickedCoords.Y,
-                                         ClickedCoords.X-e.X, e.Y-ClickedCoords.Y
-                                            );
+                                         ClickedCoords.X,
+                                         ClickedCoords.Y,
+                                         e.X - ClickedCoords.X,
+                                         e.Y - ClickedCoords.Y
+                                        );
+                else if (e.X < ClickedCoords.X)
+                    shot = new Rectangle(
+                                         e.X,
+                                         ClickedCoords.Y,
+                                         ClickedCoords.X - e.X,
+                                         e.Y - ClickedCoords.Y
+                                        );
 
-                }
+                if (e.Y < ClickedCoords.Y)
+                    shot = new Rectangle(
+                                         ClickedCoords.X,
+                                         e.Y,
+                                         e.X - ClickedCoords.X,
+                                         ClickedCoords.Y - e.Y
+                                        );
+
+                if (e.Y < ClickedCoords.Y && e.X < ClickedCoords.X)
+                    shot = new Rectangle(
+                                         e.X,
+                                         e.Y,
+                                         ClickedCoords.X - e.X,
+                                         ClickedCoords.Y - e.Y
+                                        );
 
                 if (shot.Width <= 0 || shot.Height <= 0)
                     return;
-                
+
                 gp.DrawRectangle(
                     p
                     , shot);
