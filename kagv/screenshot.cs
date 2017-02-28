@@ -114,11 +114,6 @@ namespace kagv
                 }
                 else
                 {
-                    shot = new Rectangle(
-                        ClickedCoords.X
-                    , ClickedCoords.Y
-                    , rec_width
-                    , rec_height);
                     shot = new Rectangle(e.X, ClickedCoords.Y,
                                          ClickedCoords.X-e.X, e.Y-ClickedCoords.Y
                                             );
