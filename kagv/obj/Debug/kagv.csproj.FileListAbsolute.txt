@@ -1,0 +1,9 @@
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\kagv\bin\Debug\kaGv2.exe.config
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\kagv\bin\Debug\kaGv2.exe
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\kagv\bin\Debug\kaGv2.pdb
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\kagv\obj\Debug\kagv.cs.debug.resources
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\kagv\obj\Debug\kagv.cs.Form1.resources
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\kagv\obj\Debug\kaGv2.Properties.Resources.resources
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\kagv\obj\Debug\kagv.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\kagv\obj\Debug\kaGv2.exe
+C:\Users\Administrator\Desktop\ptyxiaki_latest\k-aGv2\kagv\obj\Debug\kaGv2.pdb
