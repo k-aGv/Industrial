@@ -213,20 +213,26 @@ namespace kagv
 
                                 clickedBox = m_rectangles[widthTrav][heightTrav];
                             }
-
+                            tp.ToolTipIcon = ToolTipIcon.Info;
                             if (isPathBlock && pos != null)
+                            {
                                 isPath = "Is part of path:Yes\r\n";
+                                tp.Show(currentBoxType + currentBoxCoords + currentBoxIndex + isPath
+                                    , this
+                                    , clickedBox.boxRec.X 
+                                    , clickedBox.boxRec.Y - topBarOffset + 17);
+                                isBorder = false;
+                            }
                             else
                             {
                                 isPath = "Is part of path:No\r\n";
-                                clickedBox = new GridBox(e.X - 10, e.Y - 7, BoxType.Normal);
+                                clickedBox = new GridBox(e.X, e.Y, BoxType.Normal);
+                                tp.Show(currentBoxType + currentBoxCoords + currentBoxIndex + isPath
+                                    , this
+                                    , clickedBox.boxRec.X - 10
+                                    , clickedBox.boxRec.Y - topBarOffset + 12);
+                                isBorder = false;
                             }
-                            tp.ToolTipIcon = ToolTipIcon.Info;
-                            tp.Show(currentBoxType + currentBoxCoords + currentBoxIndex + isPath
-                            , this
-                            , clickedBox.boxRec.X
-                            , clickedBox.boxRec.Y - topBarOffset - 7);
-                            isBorder = false;
                         }
                     }
                 }
@@ -237,7 +243,7 @@ namespace kagv
                     tp.Show(currentBoxType + currentBoxCoords + currentBoxIndex + isPath
                                , this
                                , e.X - 8
-                               , e.Y - topBarOffset - 14);
+                               , e.Y - topBarOffset + 14);
                 }
 
             }
