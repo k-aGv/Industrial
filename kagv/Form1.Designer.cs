@@ -347,7 +347,7 @@
             // 
             this.increaseSpeedToolStripMenuItem.Name = "increaseSpeedToolStripMenuItem";
             this.increaseSpeedToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl + (+)";
-            this.increaseSpeedToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemplus)));
+            this.increaseSpeedToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
             this.increaseSpeedToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
             this.increaseSpeedToolStripMenuItem.Text = "Increase animation delay";
             this.increaseSpeedToolStripMenuItem.Click += new System.EventHandler(this.increaseSpeedToolStripMenuItem_Click);
@@ -356,7 +356,7 @@
             // 
             this.decreaseSpeedToolStripMenuItem.Name = "decreaseSpeedToolStripMenuItem";
             this.decreaseSpeedToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl + (-)";
-            this.decreaseSpeedToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.OemMinus)));
+            this.decreaseSpeedToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
             this.decreaseSpeedToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
             this.decreaseSpeedToolStripMenuItem.Text = "Decrease animation delay";
             this.decreaseSpeedToolStripMenuItem.Click += new System.EventHandler(this.decreaseSpeedToolStripMenuItem_Click);
