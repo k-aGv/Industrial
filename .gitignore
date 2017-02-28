@@ -1,4 +1,5 @@
 #Products
 /kagv/bin/*
 /kagv/obj/*
+*.suo
 \#*#
