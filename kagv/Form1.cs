@@ -92,7 +92,7 @@ namespace kagv
             THC_label.Text = "THC: ";
             Global_label.Text = "Global Warming eq: ";
 
-            refresh_label.Text = "Refresh rate:" + timer1.Interval + " ms";
+            refresh_label.Text = "Delay :" + timer1.Interval + " ms";
 
             nUD_AGVs.Value = 0;
             stepsToolStripMenuItem.Checked = true;
@@ -714,14 +714,14 @@ namespace kagv
                 return;
 
             timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval = timer1.Interval - 100;
-            refresh_label.Text = "Refresh rate:" + timer1.Interval + " ms";
+            refresh_label.Text = "Delay:" + timer1.Interval + " ms";
 
         }
 
         private void decreaseSpeedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval = timer1.Interval + 100;
-            refresh_label.Text = "Refresh rate:" + timer1.Interval + " ms";
+            refresh_label.Text = "Delay:" + timer1.Interval + " ms";
            
         }
 
