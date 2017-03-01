@@ -28,6 +28,12 @@ namespace kagv
             return newArray;
         }
 
+        private void updateParameters()
+        {
+            jumpParam.CrossAdjacentPoint = crossAdjacent;
+            jumpParam.CrossCorner = crossCorners;
+            jumpParam.UseRecursive = useRecursive; 
+        }
         private int getNumberOfAGVs()
         {
             int agvs=0;
@@ -754,7 +760,7 @@ namespace kagv
 
 
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
-            jumpParam = new JumpPointParam(searchGrid, useRecursive, crossCorners, crossAdjacent, mode);
+            jumpParam = new JumpPointParam(searchGrid, false, crossCorners, crossAdjacent, mode);
             //syntax of jumpParam-> JumpPointParam(searchGrid, startPos, endPos, cbCrossCorners.Checked, HeuristicMode.EUCLIDEANSQR);
 
 

@@ -500,33 +500,31 @@ namespace kagv
             }
             this.Invalidate();
         }
-
-
-        private void importpic_btn_Click(object sender, EventArgs e)
-        {
-
-          
-
-
-        }
        
         //parametres
         private void useRecursiveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
             useRecursive = (sender as ToolStripMenuItem).Checked;
+            updateParameters();
+            Redraw();
+
         }
 
         private void crossAdjacentPointToolStripMenuItem_Click(object sender, EventArgs e)
         {
             (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
             crossAdjacent = (sender as ToolStripMenuItem).Checked;
+            updateParameters();
+            Redraw();
         }
 
         private void crossCornerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
             crossCorners = (sender as ToolStripMenuItem).Checked;
+            updateParameters();
+            Redraw();
         }
 
         //heurestic mode
