@@ -29,6 +29,7 @@ namespace kagv
        
         private void screenshot_Load(object sender, EventArgs e)
         {
+            gp = this.CreateGraphics();
             this.Cursor = Cursors.Hand;
             loc.X = Owner.Location.X+7 ;
             loc.Y = Owner.Location.Y+50;
@@ -90,11 +91,11 @@ namespace kagv
         {
             if (ismousedown)
             {
-                gp = this.CreateGraphics();
-                gp.Clear(this.BackColor);
-                Pen p = new Pen(Color.Red);
+                
+                Pen p = new Pen(Color.Blue);
                 p.Width = 4;
 
+               
                 if (e.X > ClickedCoords.X)
                     shot = new Rectangle(
                                          ClickedCoords.X,
@@ -102,6 +103,7 @@ namespace kagv
                                          e.X - ClickedCoords.X,
                                          e.Y - ClickedCoords.Y
                                         );
+
                 else if (e.X < ClickedCoords.X)
                     shot = new Rectangle(
                                          e.X,
@@ -109,7 +111,7 @@ namespace kagv
                                          ClickedCoords.X - e.X,
                                          e.Y - ClickedCoords.Y
                                         );
-
+                
                 if (e.Y < ClickedCoords.Y)
                     shot = new Rectangle(
                                          ClickedCoords.X,
@@ -126,12 +128,18 @@ namespace kagv
                                          ClickedCoords.Y - e.Y
                                         );
 
+                
+
                 if (shot.Width <= 0 || shot.Height <= 0)
                     return;
 
+                gp.FillRectangle(new SolidBrush(this.BackColor), 0,0,this.Width,this.Height);
                 gp.DrawRectangle(
                     p
-                    , shot);
+                    ,shot);
+                gp.FillRectangle(
+                    new SolidBrush(Color.LightBlue)
+                    ,shot);
             }
         }
 
