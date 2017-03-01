@@ -129,6 +129,7 @@ namespace kagv
                     {
                         endPos.x = widthTrav;
                         endPos.y = heightTrav;
+                        endPointCoords = new Point(widthTrav * 20, heightTrav * 20 + topBarOffset);
                     }
 
                     if (mapHasLoads)

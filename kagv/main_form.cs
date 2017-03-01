@@ -491,7 +491,6 @@ namespace kagv
                             m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal)
                         {
                             m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + topBarOffset, BoxType.End);
-                            endPointCoords = new Point(widthTrav * 20, heightTrav * 20 + topBarOffset);
                             for (int i = 0; i < width; i++)
                                 for (int j = 0; j < height; j++)
                                     if (m_rectangles[i][j].boxType == BoxType.Start)
