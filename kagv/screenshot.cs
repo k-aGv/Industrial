@@ -21,7 +21,6 @@ namespace kagv
         Point ClickedCoords;
         int firstClick = 1;//true
         public Rectangle shot;
-        bool takingShot = false;
 
         public screenshot()
         {
@@ -30,6 +29,7 @@ namespace kagv
        
         private void screenshot_Load(object sender, EventArgs e)
         {
+            this.Cursor = Cursors.Hand;
             loc.X = Owner.Location.X+7 ;
             loc.Y = Owner.Location.Y+50;
             this.Location = loc;
@@ -41,8 +41,9 @@ namespace kagv
 
         private void screenshot_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && !takingShot)
-                this.Close();
+            if (e.Button == MouseButtons.Right)
+                   this.Close();
+                
         }
         
         private void screenshot_MouseDown(object sender, MouseEventArgs e)
@@ -132,6 +133,13 @@ namespace kagv
                     p
                     , shot);
             }
+        }
+
+        private void screenshot_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            gp.Dispose();
+            ClickedCoords=new Point();
+            size = new Size();
         }
     }
 }

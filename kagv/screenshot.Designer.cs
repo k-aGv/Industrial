@@ -38,6 +38,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "screenshot";
             this.Text = "screenshot";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.screenshot_FormClosing);
             this.Load += new System.EventHandler(this.screenshot_Load);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.screenshot_MouseClick);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.screenshot_MouseDown);

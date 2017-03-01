@@ -54,16 +54,16 @@ namespace kagv
         Font myFont = new Font("Tahoma", 8, FontStyle.Bold);
         private void getScreenshotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
-            this.Cursor = Cursors.Hand;
-
             screenshot s = new screenshot();
             s.Opacity = 0.5;
             s.Left = this.Left;
             s.Top = this.Top;
             s.Size = this.Size;
-            s.ShowDialog(this);
-            
+            try
+            {
+                s.ShowDialog(this);
+            }
+            catch (Exception z) { }
         }
 
         private void gmaps_FormClosing(object sender, FormClosingEventArgs e)
