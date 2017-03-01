@@ -77,6 +77,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "gmaps";
             this.Text = "gmaps";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.gmaps_FormClosing);
             this.Load += new System.EventHandler(this.gmaps_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

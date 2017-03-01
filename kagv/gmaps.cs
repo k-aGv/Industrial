@@ -63,6 +63,11 @@ namespace kagv
             s.ShowDialog(this);
             
         }
+
+        private void gmaps_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            mapControl.Dispose();
+        }
        
         
       
