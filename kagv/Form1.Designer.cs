@@ -38,7 +38,7 @@
             this.CO_label = new System.Windows.Forms.Label();
             this.CO2_label = new System.Windows.Forms.Label();
             this.rb_load = new System.Windows.Forms.RadioButton();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cb_type = new System.Windows.Forms.ComboBox();
             this.type_label = new System.Windows.Forms.Label();
             this.nUD_AGVs = new System.Windows.Forms.NumericUpDown();
             this.rb_stop = new System.Windows.Forms.RadioButton();
@@ -103,7 +103,7 @@
             this.menuPanel.Controls.Add(this.CO_label);
             this.menuPanel.Controls.Add(this.CO2_label);
             this.menuPanel.Controls.Add(this.rb_load);
-            this.menuPanel.Controls.Add(this.comboBox1);
+            this.menuPanel.Controls.Add(this.cb_type);
             this.menuPanel.Controls.Add(this.type_label);
             this.menuPanel.Controls.Add(this.nUD_AGVs);
             this.menuPanel.Controls.Add(this.rb_stop);
@@ -179,17 +179,17 @@
             this.rb_load.Text = "Load";
             this.rb_load.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // cb_type
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cb_type.FormattingEnabled = true;
+            this.cb_type.Items.AddRange(new object[] {
             "LPG",
             "DSL",
             "ELE"});
-            this.comboBox1.Location = new System.Drawing.Point(15, 21);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(62, 21);
-            this.comboBox1.TabIndex = 8;
+            this.cb_type.Location = new System.Drawing.Point(15, 21);
+            this.cb_type.Name = "cb_type";
+            this.cb_type.Size = new System.Drawing.Size(62, 21);
+            this.cb_type.TabIndex = 8;
             // 
             // type_label
             // 
@@ -564,7 +564,7 @@
         private System.Windows.Forms.OpenFileDialog ofd_importmap;
         private System.Windows.Forms.NumericUpDown nUD_AGVs;
         private System.Windows.Forms.Label type_label;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cb_type;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.Timer timer4;

@@ -85,7 +85,7 @@ namespace kagv
 
         private void main_form_Load(object sender, EventArgs e)
         {
-            comboBox1.SelectedItem = "LPG";
+            cb_type.SelectedItem = "LPG";
             CO2_label.Text = "CO2: ";
             CO_label.Text = "CO: ";
             NOx_label.Text = "NOx: ";

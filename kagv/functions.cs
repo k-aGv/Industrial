@@ -762,7 +762,7 @@ namespace kagv
         private void update_emissions(int whichAGV)
         {
 
-            if (comboBox1.SelectedItem.ToString() == "LPG")
+            if (cb_type.SelectedItem.ToString() == "LPG")
             {
                 if (AGVs[whichAGV].isBusy())
                 {
@@ -792,7 +792,7 @@ namespace kagv
                 }
             }
 
-            if (comboBox1.SelectedItem.ToString() == "DSL")
+            if (cb_type.SelectedItem.ToString() == "DSL")
             {
                 if (AGVs[whichAGV].isBusy())
                 {
@@ -822,7 +822,7 @@ namespace kagv
                 }
             }
 
-            if (comboBox1.SelectedItem.ToString() == "ELE")
+            if (cb_type.SelectedItem.ToString() == "ELE")
             {
                 if (AGVs[whichAGV].isBusy())
                 {
