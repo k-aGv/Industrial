@@ -28,6 +28,7 @@ namespace kagv
         }
         private void gmaps_Load(object sender, EventArgs e)
         {
+            url_label.Text = "Website:";
 			this.MaximizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -45,6 +46,7 @@ namespace kagv
             {
                 MessageBox.Show("An error occured while trying to load the Google Maps\r\n.Is there an internet connection?\r\n"+z);
             }
+            refreshURL.Start();
         }
 
        
@@ -67,6 +69,12 @@ namespace kagv
         private void gmaps_FormClosing(object sender, FormClosingEventArgs e)
         {
             mapControl.Dispose();
+            refreshURL.Stop();
+        }
+
+        private void refreshURL_Tick(object sender, EventArgs e)
+        {
+            url_label.Text ="Website:"+ mapControl.Source + "";
         }
        
         

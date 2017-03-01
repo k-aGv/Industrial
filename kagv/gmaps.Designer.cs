@@ -33,6 +33,8 @@
             this.mapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getScreenshotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mapControl = new Awesomium.Windows.Forms.WebControl(this.components);
+            this.url_label = new System.Windows.Forms.Label();
+            this.refreshURL = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,11 +69,25 @@
             this.mapControl.Size = new System.Drawing.Size(953, 470);
             this.mapControl.TabIndex = 0;
             // 
+            // url_label
+            // 
+            this.url_label.AutoSize = true;
+            this.url_label.Location = new System.Drawing.Point(80, 11);
+            this.url_label.Name = "url_label";
+            this.url_label.Size = new System.Drawing.Size(35, 13);
+            this.url_label.TabIndex = 2;
+            this.url_label.Text = "label1";
+            // 
+            // refreshURL
+            // 
+            this.refreshURL.Tick += new System.EventHandler(this.refreshURL_Tick);
+            // 
             // gmaps
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(977, 566);
+            this.Controls.Add(this.url_label);
             this.Controls.Add(this.mapControl);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -91,5 +107,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem mapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem getScreenshotToolStripMenuItem;
+        private System.Windows.Forms.Label url_label;
+        private System.Windows.Forms.Timer refreshURL;
     }
 }
