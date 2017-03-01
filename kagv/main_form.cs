@@ -716,7 +716,7 @@ namespace kagv
             
             gmaps maps = new gmaps();
             maps.setFormSize(this.Width, this.Height);
-            maps.Show();
+            maps.ShowDialog();
 
         }
     }
