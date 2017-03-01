@@ -16,16 +16,16 @@ using System.IO;
 namespace kagv
 {
     
-    public partial class Form1 : Form
+    public partial class main_form : Form
     {
        
 
-        public Form1()
+        public main_form()
         {
             InitializeComponent();
             initialization();
         }
-        private void Form1_Paint(object sender, PaintEventArgs e)
+        private void main_form_Paint(object sender, PaintEventArgs e)
         {
             paper = e.Graphics;
             paper.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
@@ -83,7 +83,7 @@ namespace kagv
 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void main_form_Load(object sender, EventArgs e)
         {
             comboBox1.SelectedItem = "LPG";
             CO2_label.Text = "CO2: ";
@@ -127,7 +127,7 @@ namespace kagv
 
         }
 
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        private void main_form_MouseDown(object sender, MouseEventArgs e)
         {
             if (timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled || timer5.Enabled)
                 return;
@@ -245,7 +245,7 @@ namespace kagv
 
         }
 
-        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        private void main_form_MouseMove(object sender, MouseEventArgs e)
         {
             if (isMouseDown && rb_wall.Checked)
             {
@@ -330,7 +330,7 @@ namespace kagv
             }
         }
 
-        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        private void main_form_MouseUp(object sender, MouseEventArgs e)
         {
             isMouseDown = false;
 
@@ -345,7 +345,7 @@ namespace kagv
 
         }
       
-        private void Form1_Shown(object sender, EventArgs e)
+        private void main_form_Shown(object sender, EventArgs e)
         {
 #if USE_DEBUG
             debug d = new debug();
@@ -379,7 +379,7 @@ namespace kagv
                 }
         }
 
-        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        private void main_form_MouseClick(object sender, MouseEventArgs e)
         {
 
             Point click_coords = new Point(e.X, e.Y);

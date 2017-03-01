@@ -1,6 +1,6 @@
 ﻿namespace kagv
 {
-    partial class Form1
+    partial class main_form
     {
         /// <summary>
         /// Required designer variable.
@@ -523,7 +523,7 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // Form1
+            // main_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -533,15 +533,15 @@
             this.Controls.Add(this.menuPanel);
             this.Controls.Add(this.settings_menu);
             this.MainMenuStrip = this.settings_menu;
-            this.Name = "Form1";
+            this.Name = "main_form";
             this.Text = "kagv Simulation";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.Shown += new System.EventHandler(this.Form1_Shown);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseUp);
+            this.Load += new System.EventHandler(this.main_form_Load);
+            this.Shown += new System.EventHandler(this.main_form_Shown);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.main_form_Paint);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseClick);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseUp);
             this.menuPanel.ResumeLayout(false);
             this.menuPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_AGVs)).EndInit();

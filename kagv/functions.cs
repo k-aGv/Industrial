@@ -14,7 +14,7 @@ using System.IO;
 namespace kagv
 {
     
-    public partial class Form1
+    public partial class main_form
     {
         T[,] ResizeArray<T>(T[,] original, int rows, int cols)
         {

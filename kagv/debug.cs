@@ -27,7 +27,7 @@ namespace kagv
             
            // textBox1.Text += Environment.StackTrace+"\r\n";
 
-            Form1 x = new Form1();
+            main_form x = new main_form();
             
             //var fields = x.GetType().GetFields().Select(f => f.Name).ToList();
             System.Reflection.FieldInfo[] fields = x.GetType().GetFields(System.Reflection.BindingFlags.NonPublic
