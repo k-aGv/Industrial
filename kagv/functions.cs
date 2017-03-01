@@ -749,11 +749,19 @@ namespace kagv
                     //the gridbox values) until 
                     //size=height or size = width.
                     if (imported)
+                    {
                         m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + topBarOffset, importmap[widthTrav, heightTrav]);
+                        if (importmap[widthTrav, heightTrav] == BoxType.Load)
+                        {
+                            isLoad[widthTrav, heightTrav] = 1;
+                            loads++;
+                        }
+                    }
                     else
+                    {
                         m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + topBarOffset, BoxType.Normal);
-
-                    isLoad[widthTrav, heightTrav] = 2;//is normal
+                        isLoad[widthTrav, heightTrav] = 2;//is normal
+                    }
                 }
             }
             if (imported)
@@ -1079,7 +1087,6 @@ namespace kagv
                 else
                     MessageBox.Show("You have chosen a not compatible file import.\r\nPlease try again.");
             }
-            Redraw();
         }
         private bool isvalid(Point _temp)
         {
