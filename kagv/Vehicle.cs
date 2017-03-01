@@ -22,7 +22,7 @@ namespace kagv
         private Form mirroredForm;
         private bool isBusyVar=false;
         private bool isLoadedVar = false; //WILL BE USED LATER
-       
+        
 
         public Point Location;
         public Point StartPoint;
@@ -130,7 +130,20 @@ namespace kagv
             else
                 return;
         }
-        
+
+        private int steps;
+        public int Steps
+        {
+            get
+            {
+                return this.steps;
+            }
+            set
+            {
+                this.steps = Steps;
+            }
+        }
+
         public void SetLocation(int X,int Y)
         {
             AgvLocation = new Point(X, Y);

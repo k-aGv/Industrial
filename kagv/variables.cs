@@ -69,8 +69,7 @@ namespace kagv
 
         //0 dimension=x
         //1 dimension=y
-        //double[,] steps = new double[2, 2000];//X-Y coords of all steps
-        double[, ,] newsteps = new double[5, 2, 2000];//new
+        double[, ,] newsteps = new double[5, 2, 2000];
 
         //Vehicle myagv;
         Vehicle[] AGVs = new Vehicle[5];
