@@ -28,6 +28,8 @@ namespace kagv
         }
         private void gmaps_Load(object sender, EventArgs e)
         {
+			this.MaximizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Width = w;
             this.Height = h;
