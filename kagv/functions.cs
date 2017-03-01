@@ -17,7 +17,6 @@ namespace kagv
     public partial class main_form
     {
 
-        Point[] markedbyagv;
 
         T[,] ResizeArray<T>(T[,] original, int rows, int cols)
         {
