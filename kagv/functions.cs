@@ -16,6 +16,9 @@ namespace kagv
     
     public partial class main_form
     {
+
+        Point[] markedbyagv;
+
         T[,] ResizeArray<T>(T[,] original, int rows, int cols)
         {
             var newArray = new T[rows, cols];
@@ -207,6 +210,8 @@ namespace kagv
                             jumpParam.Reset(pos[pos_index], loadPos[0]);
                             resultList = JumpPointFinder.FindPath(jumpParam, paper);
                             AGVs[i].Busy(true);
+                            
+
 
                             if (resultList.Count == 0)
                                 is_trapped[i, 0] = true;
@@ -259,6 +264,7 @@ namespace kagv
                                             if (isLoad[widthtrav, heightrav] == 1)
                                             {
                                                 isLoad[widthtrav, heightrav] = 3;
+                                                markedbyagv[i] = new Point(widthtrav, heightrav);
 
                                                 widthtrav = width;
                                                 heightrav = height;
@@ -327,7 +333,30 @@ namespace kagv
 
             this.Invalidate();
 
+
         }
+
+        private string getStepsToLoad(int whichAGV)
+        {
+            int ix = markedbyagv[whichAGV].X * 20;
+            int iy = (markedbyagv[whichAGV].Y * 20)+topBarOffset;
+
+            string step="n/a";
+
+            for (int i = 0; i < newsteps.GetLength(2); i++)
+                if (
+                    newsteps[whichAGV, 0, i] - 9 == ix &&
+                    newsteps[whichAGV, 1, i] - 9 == iy
+                    )
+                {
+                    step = i+"";
+                    i = newsteps.GetLength(2);
+                }
+
+            return step;
+        }
+
+
         private void Reset()
         {
             //+1 will safely recreate the array without any
@@ -375,7 +404,7 @@ namespace kagv
         
         private void animator(int counter, int agv_index)
         {
-
+            //label1.Text = "Load at step: "+getStepsToLoad(agv_index); //remove comment to see it working
             bool isfreeload = false;
 
             int stepx = Convert.ToInt32(newsteps[agv_index, 0, counter]);
@@ -453,7 +482,7 @@ namespace kagv
 
                             Reset(agv_index);
                             AGVs[agv_index].Busy(true);
-
+                            markedbyagv[agv_index] = new Point();
                             getNextLoad(agv_index);
 
                             AGVs[agv_index].Busy(false);
@@ -510,9 +539,13 @@ namespace kagv
 
 
             this.Invalidate();
+            
+            
 
         }
         //will be only called when the first load is unloaded to the end point
+
+        
         private void getNextLoad(int whichAGV)
         {
             bool isAnyLoadLeft = false;
@@ -567,6 +600,7 @@ namespace kagv
                     if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Load && isLoad[widthTrav, heightTrav] == 1)
                     {
                         isLoad[widthTrav, heightTrav] = 3;
+                        markedbyagv[whichAGV] = new Point(widthTrav, heightTrav);
 
                         loads--;
                         endPos.x = widthTrav;
@@ -577,6 +611,10 @@ namespace kagv
                     }
                 }
             }
+
+
+
+
             //*******************************************************************
             try
             {
@@ -594,7 +632,7 @@ namespace kagv
 
                 GridLine[,] tempLines = new GridLine[2000, myresultList.Count];// myresultList[0].Count + myresultList[1].Count]; 
 
-                
+
                 for (int j = 0; j < myresultList[whichAGV].Count - 1; j++)
                 {
                     //side:adds line to linearray.since it adds a new line,that means 
@@ -606,7 +644,7 @@ namespace kagv
                     tempLines[j, whichAGV] = line;
                 }
 
-                
+
                 resultCount = myresultList.Count - 1;
 
                 if (resultCount > 0)
@@ -644,9 +682,12 @@ namespace kagv
                 if (resultCount > 0)
                     myLines = ResizeArray(tempLines, resultCount, 5);
 
+                
 
 
                 this.Invalidate();
+
+                
 
                 //return true;//if any other load exist
             }
@@ -655,6 +696,8 @@ namespace kagv
                 MessageBox.Show(e + "");
             }
             // return false;
+
+            
         }
        
         private void timers(int agvs_number)

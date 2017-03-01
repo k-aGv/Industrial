@@ -49,7 +49,7 @@ namespace kagv
                 }
 
 
-
+                
                 for (int i = 0; i < nUD_AGVs.Value; i++)
                 {
                     new_steps_counter[i] = 0;
@@ -62,16 +62,13 @@ namespace kagv
                                 if (showLine)
                                     myLines[resultTrav, i].drawLine(paper);
                                 if (!isMouseDown)
-                                {
                                     DrawPoints(myLines[resultTrav, i], i);
-                                }
                             }
                             catch (Exception z)
                             {
                                 log = z.Data.ToString();
                             }
                         }
-
                     }
                 }
 
@@ -668,9 +665,11 @@ namespace kagv
             for (int i = 0; i < fromstart.Length; i++)
                 fromstart[i] = true;
 
+            markedbyagv = new Point[pos.Count];
             Redraw();
             AGVs = new Vehicle[pos.Count];
-
+            
+            
             for (int i = 0; i < pos.Count; i++)
             {
                 //initialization of each AGV location
@@ -678,10 +677,10 @@ namespace kagv
                                       m_rectangles[pos[i].x][pos[i].y].boxRec.X, //real form X-coordinates
                                       m_rectangles[pos[i].x][pos[i].y].boxRec.Y, //real form Y-coordinates
                                       18, 18);
-
             }
+            
 
-
+            
 
             timer_counter = new int[pos.Count];
             timers(pos.Count);

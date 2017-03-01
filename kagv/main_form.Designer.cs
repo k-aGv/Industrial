@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.refresh_label = new System.Windows.Forms.Label();
             this.Global_label = new System.Windows.Forms.Label();
             this.THC_label = new System.Windows.Forms.Label();
@@ -96,6 +97,7 @@
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.menuPanel.Controls.Add(this.label1);
             this.menuPanel.Controls.Add(this.refresh_label);
             this.menuPanel.Controls.Add(this.Global_label);
             this.menuPanel.Controls.Add(this.THC_label);
@@ -113,6 +115,15 @@
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(656, 75);
             this.menuPanel.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(84, 59);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(86, 13);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "getStepsToLoad";
             // 
             // refresh_label
             // 
@@ -609,6 +620,7 @@
         private System.Windows.Forms.ToolStripMenuItem decreaseSpeedToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem implementGoogleMapsToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
 
     }
 }
