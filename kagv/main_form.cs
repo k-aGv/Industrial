@@ -89,6 +89,13 @@ namespace kagv
             THC_label.Text = "THC: ";
             Global_label.Text = "Global Warming eq: ";
 
+            agv1steps_LB.Text = "";
+            agv2steps_LB.Text = "";
+            agv3steps_LB.Text = "";
+            agv4steps_LB.Text = "";
+            agv5steps_LB.Text = "";
+
+
             refresh_label.Text = "Delay :" + timer1.Interval + " ms";
 
             nUD_AGVs.Value = 0;
