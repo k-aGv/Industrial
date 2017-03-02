@@ -32,7 +32,7 @@ namespace kagv
             gp = this.CreateGraphics();
             this.Cursor = Cursors.Hand;
             loc.X = Owner.Location.X+7 ;
-            loc.Y = Owner.Location.Y+50;
+            loc.Y = Owner.Location.Y+55;
             this.Location = loc;
 
             size.Height = Owner.Height -60;
