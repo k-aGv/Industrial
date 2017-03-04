@@ -82,7 +82,6 @@ namespace kagv
 
         private void main_form_Load(object sender, EventArgs e)
         {
-            cb_type.SelectedItem = "LPG";
          
             agv1steps_LB.Text = "";
             agv2steps_LB.Text = "";

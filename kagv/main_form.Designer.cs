@@ -38,8 +38,6 @@
             this.agv1steps_LB = new System.Windows.Forms.Label();
             this.refresh_label = new System.Windows.Forms.Label();
             this.rb_load = new System.Windows.Forms.RadioButton();
-            this.cb_type = new System.Windows.Forms.ComboBox();
-            this.type_label = new System.Windows.Forms.Label();
             this.nUD_AGVs = new System.Windows.Forms.NumericUpDown();
             this.rb_stop = new System.Windows.Forms.RadioButton();
             this.rb_start = new System.Windows.Forms.RadioButton();
@@ -102,8 +100,6 @@
             this.menuPanel.Controls.Add(this.agv1steps_LB);
             this.menuPanel.Controls.Add(this.refresh_label);
             this.menuPanel.Controls.Add(this.rb_load);
-            this.menuPanel.Controls.Add(this.cb_type);
-            this.menuPanel.Controls.Add(this.type_label);
             this.menuPanel.Controls.Add(this.nUD_AGVs);
             this.menuPanel.Controls.Add(this.rb_stop);
             this.menuPanel.Controls.Add(this.rb_start);
@@ -177,27 +173,6 @@
             this.rb_load.TabStop = true;
             this.rb_load.Text = "Load";
             this.rb_load.UseVisualStyleBackColor = true;
-            // 
-            // cb_type
-            // 
-            this.cb_type.FormattingEnabled = true;
-            this.cb_type.Items.AddRange(new object[] {
-            "LPG",
-            "DSL",
-            "ELE"});
-            this.cb_type.Location = new System.Drawing.Point(15, 21);
-            this.cb_type.Name = "cb_type";
-            this.cb_type.Size = new System.Drawing.Size(62, 21);
-            this.cb_type.TabIndex = 8;
-            // 
-            // type_label
-            // 
-            this.type_label.AutoSize = true;
-            this.type_label.Location = new System.Drawing.Point(12, 5);
-            this.type_label.Name = "type_label";
-            this.type_label.Size = new System.Drawing.Size(65, 13);
-            this.type_label.TabIndex = 15;
-            this.type_label.Text = "Vehicle type";
             // 
             // nUD_AGVs
             // 
@@ -554,8 +529,6 @@
         private System.Windows.Forms.SaveFileDialog sfd_exportmap;
         private System.Windows.Forms.OpenFileDialog ofd_importmap;
         private System.Windows.Forms.NumericUpDown nUD_AGVs;
-        private System.Windows.Forms.Label type_label;
-        private System.Windows.Forms.ComboBox cb_type;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.Timer timer4;
