@@ -421,8 +421,8 @@
             this.parametresToolStripMenuItem,
             this.heuristicModeToolStripMenuItem});
             this.aToolStripMenuItem.Name = "aToolStripMenuItem";
-            this.aToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
-            this.aToolStripMenuItem.Text = "Algorythm";
+            this.aToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.aToolStripMenuItem.Text = "Algorithm";
             // 
             // parametresToolStripMenuItem
             // 
