@@ -335,12 +335,12 @@ namespace kagv
 
         }
 
-        private string getStepsToLoad(int whichAGV)
+        private int getStepsToLoad(int whichAGV)
         {
             int ix = markedbyagv[whichAGV].X * 20;
             int iy = (markedbyagv[whichAGV].Y * 20)+topBarOffset;
 
-            string step="n/a";
+            int step=-1;
 
             for (int i = 0; i < newsteps.GetLength(2); i++)
                 if (
@@ -348,11 +348,14 @@ namespace kagv
                     newsteps[whichAGV, 1, i] - 9 == iy
                     )
                 {
-                    step = i+"";
+                    step = i;
                     i = newsteps.GetLength(2);
                 }
 
-            return step;
+            if (step != -1)
+                return step;
+            else
+                return -1;
         }
 
 
@@ -403,54 +406,82 @@ namespace kagv
         
         private void displayStepsToLoad(int counter, int agv_index)
         {
-            string stepstoload;
+            int stepstoload;
             string agvinfo;
+
+            int steps;
             switch (agv_index)
             {
+                default:
                 case 0:
-                        stepstoload = Convert.ToInt32(getStepsToLoad(agv_index)) - counter + "";
+                    steps = getStepsToLoad(agv_index);
+                    if (steps == -1)
+                        agvinfo = "AGV 1: Moving straight to the end point";
+                    else
+                    {
+                        stepstoload = (getStepsToLoad(agv_index) - counter);
                         agvinfo = "AGV 1: Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
-                        if (Convert.ToInt32(stepstoload) < 0)
+                        if (stepstoload < 0)
                             agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
+                    }
+                    agv1steps_LB.Text = agvinfo;
 
-                        agv1steps_LB.Text = agvinfo;
-                    
                     break;
                 case 1:
-                        stepstoload = Convert.ToInt32(getStepsToLoad(agv_index)) - counter + "";
-                        agvinfo = "AGV 2: Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
-                        if (Convert.ToInt32(stepstoload) < 0)
-                            agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
+                     steps = getStepsToLoad(agv_index);
+                     if (steps == -1)
+                         agvinfo = "AGV 2: Moving straight to the end point";
+                     else
+                     {
+                         stepstoload = (getStepsToLoad(agv_index) - counter);
+                         agvinfo = "AGV 2: Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
+                         if (stepstoload < 0)
+                             agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
+                     }
+                    agv2steps_LB.Text = agvinfo;
 
-                        agv2steps_LB.Text = agvinfo;
-                    
                     break;
                 case 2:
-                        stepstoload = Convert.ToInt32(getStepsToLoad(agv_index)) - counter + "";
-                        agvinfo = "AGV 3: Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
-                        if (Convert.ToInt32(stepstoload) < 0)
-                            agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
+                     steps = getStepsToLoad(agv_index);
+                     if (steps == -1)
+                         agvinfo = "AGV 3: Moving straight to the end point";
+                     else
+                     {
+                         stepstoload = (getStepsToLoad(agv_index) - counter);
+                         agvinfo = "AGV 3: Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
+                         if (stepstoload < 0)
+                             agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
 
-                        agv3steps_LB.Text = agvinfo;
-                    
+                         agv3steps_LB.Text = agvinfo;
+                     }
                     break;
                 case 3:
-                        stepstoload = Convert.ToInt32(getStepsToLoad(agv_index)) - counter + "";
-                        agvinfo = "AGV 4: Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
-                        if (Convert.ToInt32(stepstoload) < 0)
-                            agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
+                     steps = getStepsToLoad(agv_index);
+                     if (steps == -1)
+                         agvinfo = "AGV 4: Moving straight to the end point";
+                     else
+                     {
+                         stepstoload = (getStepsToLoad(agv_index) - counter);
+                         agvinfo = "AGV 4: Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
+                         if (stepstoload < 0)
+                             agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
 
-                        agv4steps_LB.Text = agvinfo;
-                    
+                         agv4steps_LB.Text = agvinfo;
+                     }
                     break;
                 case 4:
-                        stepstoload = Convert.ToInt32(getStepsToLoad(agv_index)) - counter + "";
-                        agvinfo = "AGV 5: Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
-                        if (Convert.ToInt32(stepstoload) < 0)
-                            agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
+                     steps = getStepsToLoad(agv_index);
+                     if (steps == -1)
+                         agvinfo = "AGV 5: Moving straight to the end point";
+                     else
+                     {
+                         stepstoload = (getStepsToLoad(agv_index) - counter);
+                         agvinfo = "AGV 5: Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
+                         if (stepstoload < 0)
+                             agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
 
-                        agv5steps_LB.Text = agvinfo;
-                    
+                         agv5steps_LB.Text = agvinfo;
+                     }
                     break;
             }
         }
