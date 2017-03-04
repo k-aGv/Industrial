@@ -396,11 +396,17 @@ namespace kagv
         }
         private void halt(int index, int _c)
         {
-           
+
+
             timer_counter[index]--;
-            int stepx = Convert.ToInt32(newsteps[index, 0, _c - 1]);
-            int stepy = Convert.ToInt32(newsteps[index, 1, _c - 1]);
-            AGVs[index].SetLocation(stepx - 9, stepy - 9);
+            if (!(_c - 1 < 0)) //in case the intersection is in the 1st step of the route, then the index of that step will be 0. 
+            {                  //this means that trying to get to the "_c -1" step, will have the index decreased to -1 causing the "index out of bound" crash
+                int stepx = Convert.ToInt32(newsteps[index, 0, _c - 1]);
+                int stepy = Convert.ToInt32(newsteps[index, 1, _c - 1]);
+                AGVs[index].SetLocation(stepx - 9, stepy - 9);
+            }
+            else
+                return;
 
         }
         
