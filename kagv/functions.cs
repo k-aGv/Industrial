@@ -396,8 +396,6 @@ namespace kagv
         }
         private void halt(int index, int _c)
         {
-
-
             timer_counter[index]--;
             if (!(_c - 1 < 0)) //in case the intersection is in the 1st step of the route, then the index of that step will be 0. 
             {                  //this means that trying to get to the "_c -1" step, will have the index decreased to -1 causing the "index out of bound" crash
@@ -405,9 +403,6 @@ namespace kagv
                 int stepy = Convert.ToInt32(newsteps[index, 1, _c - 1]);
                 AGVs[index].SetLocation(stepx - 9, stepy - 9);
             }
-            else
-                return;
-
         }
         
         private void displayStepsToLoad(int counter, int agv_index)
@@ -665,13 +660,11 @@ namespace kagv
 
                         try
                         {
-                            pos.Add(new GridPos(0, 0));//create space to add the next agv
-                            pos[whichAGV].x = widthTrav;
-                            pos[whichAGV].y = heightTrav;
-
+                            pos[whichAGV] = new GridPos(widthTrav, heightTrav);
+                            
                             a = pos[whichAGV].x;
                             b = pos[whichAGV].y;
-                            pos[whichAGV] = new GridPos(pos[whichAGV].x, pos[whichAGV].y);
+
                         }
                         catch (Exception e) { MessageBox.Show(e + "\r\n getNextLoad()"); }
 
