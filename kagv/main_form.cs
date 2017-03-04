@@ -375,6 +375,7 @@ namespace kagv
                         this.Invalidate();
                     }
                 }
+            
         }
 
         private void main_form_MouseClick(object sender, MouseEventArgs e)
@@ -638,8 +639,9 @@ namespace kagv
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            nUD_AGVs.Value = getNumberOfAGVs();
-
+            if (nUD_AGVs.Value > 2)
+                gb_monitor.Width += gb_monitor.Width - 100;
+            
             if (myresultList.Count == 0)
             {
 

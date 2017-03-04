@@ -31,17 +31,19 @@
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
-            this.agv5steps_LB = new System.Windows.Forms.Label();
-            this.agv4steps_LB = new System.Windows.Forms.Label();
-            this.agv3steps_LB = new System.Windows.Forms.Label();
-            this.agv2steps_LB = new System.Windows.Forms.Label();
-            this.agv1steps_LB = new System.Windows.Forms.Label();
             this.refresh_label = new System.Windows.Forms.Label();
-            this.rb_load = new System.Windows.Forms.RadioButton();
+            this.agv1steps_LB = new System.Windows.Forms.Label();
+            this.agv5steps_LB = new System.Windows.Forms.Label();
+            this.gb_settings = new System.Windows.Forms.GroupBox();
+            this.gb_agvs = new System.Windows.Forms.GroupBox();
             this.nUD_AGVs = new System.Windows.Forms.NumericUpDown();
-            this.rb_stop = new System.Windows.Forms.RadioButton();
-            this.rb_start = new System.Windows.Forms.RadioButton();
             this.rb_wall = new System.Windows.Forms.RadioButton();
+            this.rb_start = new System.Windows.Forms.RadioButton();
+            this.rb_stop = new System.Windows.Forms.RadioButton();
+            this.rb_load = new System.Windows.Forms.RadioButton();
+            this.agv2steps_LB = new System.Windows.Forms.Label();
+            this.agv3steps_LB = new System.Windows.Forms.Label();
+            this.agv4steps_LB = new System.Windows.Forms.Label();
             this.tp_info = new System.Windows.Forms.ToolTip(this.components);
             this.sfd_exportmap = new System.Windows.Forms.SaveFileDialog();
             this.ofd_importmap = new System.Windows.Forms.OpenFileDialog();
@@ -81,9 +83,13 @@
             this.implementGoogleMapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
+            this.gb_monitor = new System.Windows.Forms.GroupBox();
             this.menuPanel.SuspendLayout();
+            this.gb_settings.SuspendLayout();
+            this.gb_agvs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_AGVs)).BeginInit();
             this.settings_menu.SuspendLayout();
+            this.gb_monitor.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -93,90 +99,67 @@
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.menuPanel.Controls.Add(this.agv5steps_LB);
-            this.menuPanel.Controls.Add(this.agv4steps_LB);
-            this.menuPanel.Controls.Add(this.agv3steps_LB);
-            this.menuPanel.Controls.Add(this.agv2steps_LB);
-            this.menuPanel.Controls.Add(this.agv1steps_LB);
-            this.menuPanel.Controls.Add(this.refresh_label);
-            this.menuPanel.Controls.Add(this.rb_load);
-            this.menuPanel.Controls.Add(this.nUD_AGVs);
-            this.menuPanel.Controls.Add(this.rb_stop);
-            this.menuPanel.Controls.Add(this.rb_start);
-            this.menuPanel.Controls.Add(this.rb_wall);
+            this.menuPanel.Controls.Add(this.gb_monitor);
+            this.menuPanel.Controls.Add(this.gb_settings);
             this.menuPanel.Location = new System.Drawing.Point(0, 27);
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(656, 75);
             this.menuPanel.TabIndex = 7;
             // 
-            // agv5steps_LB
-            // 
-            this.agv5steps_LB.AutoSize = true;
-            this.agv5steps_LB.Location = new System.Drawing.Point(580, 57);
-            this.agv5steps_LB.Name = "agv5steps_LB";
-            this.agv5steps_LB.Size = new System.Drawing.Size(35, 13);
-            this.agv5steps_LB.TabIndex = 24;
-            this.agv5steps_LB.Text = "label5";
-            // 
-            // agv4steps_LB
-            // 
-            this.agv4steps_LB.AutoSize = true;
-            this.agv4steps_LB.Location = new System.Drawing.Point(580, 44);
-            this.agv4steps_LB.Name = "agv4steps_LB";
-            this.agv4steps_LB.Size = new System.Drawing.Size(35, 13);
-            this.agv4steps_LB.TabIndex = 23;
-            this.agv4steps_LB.Text = "label4";
-            // 
-            // agv3steps_LB
-            // 
-            this.agv3steps_LB.AutoSize = true;
-            this.agv3steps_LB.Location = new System.Drawing.Point(580, 31);
-            this.agv3steps_LB.Name = "agv3steps_LB";
-            this.agv3steps_LB.Size = new System.Drawing.Size(35, 13);
-            this.agv3steps_LB.TabIndex = 22;
-            this.agv3steps_LB.Text = "label3";
-            // 
-            // agv2steps_LB
-            // 
-            this.agv2steps_LB.AutoSize = true;
-            this.agv2steps_LB.Location = new System.Drawing.Point(580, 18);
-            this.agv2steps_LB.Name = "agv2steps_LB";
-            this.agv2steps_LB.Size = new System.Drawing.Size(35, 13);
-            this.agv2steps_LB.TabIndex = 21;
-            this.agv2steps_LB.Text = "label2";
-            // 
-            // agv1steps_LB
-            // 
-            this.agv1steps_LB.AutoSize = true;
-            this.agv1steps_LB.Location = new System.Drawing.Point(580, 5);
-            this.agv1steps_LB.Name = "agv1steps_LB";
-            this.agv1steps_LB.Size = new System.Drawing.Size(35, 13);
-            this.agv1steps_LB.TabIndex = 20;
-            this.agv1steps_LB.Text = "label1";
-            // 
             // refresh_label
             // 
             this.refresh_label.AutoSize = true;
-            this.refresh_label.Location = new System.Drawing.Point(12, 46);
+            this.refresh_label.Location = new System.Drawing.Point(6, 49);
             this.refresh_label.Name = "refresh_label";
             this.refresh_label.Size = new System.Drawing.Size(35, 13);
             this.refresh_label.TabIndex = 19;
             this.refresh_label.Text = "label1";
             // 
-            // rb_load
+            // agv1steps_LB
             // 
-            this.rb_load.AutoSize = true;
-            this.rb_load.Location = new System.Drawing.Point(187, 31);
-            this.rb_load.Name = "rb_load";
-            this.rb_load.Size = new System.Drawing.Size(49, 17);
-            this.rb_load.TabIndex = 17;
-            this.rb_load.TabStop = true;
-            this.rb_load.Text = "Load";
-            this.rb_load.UseVisualStyleBackColor = true;
+            this.agv1steps_LB.AutoSize = true;
+            this.agv1steps_LB.Location = new System.Drawing.Point(6, 16);
+            this.agv1steps_LB.Name = "agv1steps_LB";
+            this.agv1steps_LB.Size = new System.Drawing.Size(35, 13);
+            this.agv1steps_LB.TabIndex = 20;
+            this.agv1steps_LB.Text = "label1";
+            // 
+            // agv5steps_LB
+            // 
+            this.agv5steps_LB.AutoSize = true;
+            this.agv5steps_LB.Location = new System.Drawing.Point(289, 49);
+            this.agv5steps_LB.Name = "agv5steps_LB";
+            this.agv5steps_LB.Size = new System.Drawing.Size(35, 13);
+            this.agv5steps_LB.TabIndex = 24;
+            this.agv5steps_LB.Text = "label5";
+            // 
+            // gb_settings
+            // 
+            this.gb_settings.Controls.Add(this.gb_agvs);
+            this.gb_settings.Controls.Add(this.rb_wall);
+            this.gb_settings.Controls.Add(this.rb_start);
+            this.gb_settings.Controls.Add(this.rb_stop);
+            this.gb_settings.Controls.Add(this.rb_load);
+            this.gb_settings.Location = new System.Drawing.Point(3, 5);
+            this.gb_settings.Name = "gb_settings";
+            this.gb_settings.Size = new System.Drawing.Size(216, 65);
+            this.gb_settings.TabIndex = 25;
+            this.gb_settings.TabStop = false;
+            this.gb_settings.Text = "Settings";
+            // 
+            // gb_agvs
+            // 
+            this.gb_agvs.Controls.Add(this.nUD_AGVs);
+            this.gb_agvs.Location = new System.Drawing.Point(145, 13);
+            this.gb_agvs.Name = "gb_agvs";
+            this.gb_agvs.Size = new System.Drawing.Size(65, 43);
+            this.gb_agvs.TabIndex = 18;
+            this.gb_agvs.TabStop = false;
+            this.gb_agvs.Text = "AGVs";
             // 
             // nUD_AGVs
             // 
-            this.nUD_AGVs.Location = new System.Drawing.Point(322, 8);
+            this.nUD_AGVs.Location = new System.Drawing.Point(16, 17);
             this.nUD_AGVs.Maximum = new decimal(new int[] {
             5,
             0,
@@ -187,21 +170,21 @@
             this.nUD_AGVs.TabIndex = 10;
             this.nUD_AGVs.ValueChanged += new System.EventHandler(this.nUD_AGVs_ValueChanged);
             // 
-            // rb_stop
+            // rb_wall
             // 
-            this.rb_stop.AutoSize = true;
-            this.rb_stop.Location = new System.Drawing.Point(269, 31);
-            this.rb_stop.Name = "rb_stop";
-            this.rb_stop.Size = new System.Drawing.Size(47, 17);
-            this.rb_stop.TabIndex = 4;
-            this.rb_stop.TabStop = true;
-            this.rb_stop.Text = "Stop";
-            this.rb_stop.UseVisualStyleBackColor = true;
+            this.rb_wall.AutoSize = true;
+            this.rb_wall.Location = new System.Drawing.Point(9, 19);
+            this.rb_wall.Name = "rb_wall";
+            this.rb_wall.Size = new System.Drawing.Size(76, 17);
+            this.rb_wall.TabIndex = 4;
+            this.rb_wall.TabStop = true;
+            this.rb_wall.Text = "Draw walls";
+            this.rb_wall.UseVisualStyleBackColor = true;
             // 
             // rb_start
             // 
             this.rb_start.AutoSize = true;
-            this.rb_start.Location = new System.Drawing.Point(269, 8);
+            this.rb_start.Location = new System.Drawing.Point(91, 19);
             this.rb_start.Name = "rb_start";
             this.rb_start.Size = new System.Drawing.Size(47, 17);
             this.rb_start.TabIndex = 4;
@@ -209,16 +192,54 @@
             this.rb_start.Text = "Start";
             this.rb_start.UseVisualStyleBackColor = true;
             // 
-            // rb_wall
+            // rb_stop
             // 
-            this.rb_wall.AutoSize = true;
-            this.rb_wall.Location = new System.Drawing.Point(187, 8);
-            this.rb_wall.Name = "rb_wall";
-            this.rb_wall.Size = new System.Drawing.Size(76, 17);
-            this.rb_wall.TabIndex = 4;
-            this.rb_wall.TabStop = true;
-            this.rb_wall.Text = "Draw walls";
-            this.rb_wall.UseVisualStyleBackColor = true;
+            this.rb_stop.AutoSize = true;
+            this.rb_stop.Location = new System.Drawing.Point(91, 42);
+            this.rb_stop.Name = "rb_stop";
+            this.rb_stop.Size = new System.Drawing.Size(47, 17);
+            this.rb_stop.TabIndex = 4;
+            this.rb_stop.TabStop = true;
+            this.rb_stop.Text = "Stop";
+            this.rb_stop.UseVisualStyleBackColor = true;
+            // 
+            // rb_load
+            // 
+            this.rb_load.AutoSize = true;
+            this.rb_load.Location = new System.Drawing.Point(9, 42);
+            this.rb_load.Name = "rb_load";
+            this.rb_load.Size = new System.Drawing.Size(49, 17);
+            this.rb_load.TabIndex = 17;
+            this.rb_load.TabStop = true;
+            this.rb_load.Text = "Load";
+            this.rb_load.UseVisualStyleBackColor = true;
+            // 
+            // agv2steps_LB
+            // 
+            this.agv2steps_LB.AutoSize = true;
+            this.agv2steps_LB.Location = new System.Drawing.Point(6, 32);
+            this.agv2steps_LB.Name = "agv2steps_LB";
+            this.agv2steps_LB.Size = new System.Drawing.Size(35, 13);
+            this.agv2steps_LB.TabIndex = 21;
+            this.agv2steps_LB.Text = "label2";
+            // 
+            // agv3steps_LB
+            // 
+            this.agv3steps_LB.AutoSize = true;
+            this.agv3steps_LB.Location = new System.Drawing.Point(289, 16);
+            this.agv3steps_LB.Name = "agv3steps_LB";
+            this.agv3steps_LB.Size = new System.Drawing.Size(35, 13);
+            this.agv3steps_LB.TabIndex = 22;
+            this.agv3steps_LB.Text = "label3";
+            // 
+            // agv4steps_LB
+            // 
+            this.agv4steps_LB.AutoSize = true;
+            this.agv4steps_LB.Location = new System.Drawing.Point(289, 33);
+            this.agv4steps_LB.Name = "agv4steps_LB";
+            this.agv4steps_LB.Size = new System.Drawing.Size(35, 13);
+            this.agv4steps_LB.TabIndex = 23;
+            this.agv4steps_LB.Text = "label4";
             // 
             // ofd_importmap
             // 
@@ -489,6 +510,21 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
+            // gb_monitor
+            // 
+            this.gb_monitor.Controls.Add(this.agv3steps_LB);
+            this.gb_monitor.Controls.Add(this.refresh_label);
+            this.gb_monitor.Controls.Add(this.agv4steps_LB);
+            this.gb_monitor.Controls.Add(this.agv1steps_LB);
+            this.gb_monitor.Controls.Add(this.agv5steps_LB);
+            this.gb_monitor.Controls.Add(this.agv2steps_LB);
+            this.gb_monitor.Location = new System.Drawing.Point(278, 5);
+            this.gb_monitor.Name = "gb_monitor";
+            this.gb_monitor.Size = new System.Drawing.Size(360, 65);
+            this.gb_monitor.TabIndex = 26;
+            this.gb_monitor.TabStop = false;
+            this.gb_monitor.Text = "Monitor";
+            // 
             // main_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -509,10 +545,14 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseUp);
             this.menuPanel.ResumeLayout(false);
-            this.menuPanel.PerformLayout();
+            this.gb_settings.ResumeLayout(false);
+            this.gb_settings.PerformLayout();
+            this.gb_agvs.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nUD_AGVs)).EndInit();
             this.settings_menu.ResumeLayout(false);
             this.settings_menu.PerformLayout();
+            this.gb_monitor.ResumeLayout(false);
+            this.gb_monitor.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -572,6 +612,9 @@
         private System.Windows.Forms.Label agv3steps_LB;
         private System.Windows.Forms.Label agv2steps_LB;
         private System.Windows.Forms.Label agv1steps_LB;
+        private System.Windows.Forms.GroupBox gb_settings;
+        private System.Windows.Forms.GroupBox gb_agvs;
+        private System.Windows.Forms.GroupBox gb_monitor;
 
     }
 }

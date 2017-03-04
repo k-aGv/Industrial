@@ -343,6 +343,7 @@ namespace kagv
             int step=-1;
 
             for (int i = 0; i < newsteps.GetLength(2); i++)
+            {
                 if (
                     newsteps[whichAGV, 0, i] - 9 == ix &&
                     newsteps[whichAGV, 1, i] - 9 == iy
@@ -351,11 +352,10 @@ namespace kagv
                     step = i;
                     i = newsteps.GetLength(2);
                 }
-
-            if (step != -1)
-                return step;
-            else
-                return -1;
+            }
+            if (step >= 0) return step;
+            else return -1;
+            
         }
 
 
@@ -412,7 +412,6 @@ namespace kagv
             int steps;
             switch (agv_index)
             {
-                default:
                 case 0:
                     steps = getStepsToLoad(agv_index);
                     if (steps == -1)
@@ -428,67 +427,67 @@ namespace kagv
 
                     break;
                 case 1:
-                     steps = getStepsToLoad(agv_index);
-                     if (steps == -1)
-                         agvinfo = "AGV 2: Moving straight to the end point";
-                     else
-                     {
-                         stepstoload = (getStepsToLoad(agv_index) - counter);
-                         agvinfo = "AGV 2: Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
-                         if (stepstoload < 0)
-                             agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
-                     }
+                    steps = getStepsToLoad(agv_index);
+                    if (steps == -1)
+                        agvinfo = "AGV 2: Moving straight to the end point";
+                    else
+                    {
+                        stepstoload = (getStepsToLoad(agv_index) - counter);
+                        agvinfo = "AGV 2: Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
+                        if (stepstoload < 0)
+                            agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
+                    }
                     agv2steps_LB.Text = agvinfo;
 
                     break;
                 case 2:
-                     steps = getStepsToLoad(agv_index);
-                     if (steps == -1)
-                         agvinfo = "AGV 3: Moving straight to the end point";
-                     else
-                     {
-                         stepstoload = (getStepsToLoad(agv_index) - counter);
-                         agvinfo = "AGV 3: Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
-                         if (stepstoload < 0)
-                             agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
+                    steps = getStepsToLoad(agv_index);
+                    if (steps == -1)
+                        agvinfo = "AGV 3: Moving straight to the end point";
+                    else
+                    {
+                        stepstoload = (getStepsToLoad(agv_index) - counter);
+                        agvinfo = "AGV 3: Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
+                        if (stepstoload < 0)
+                            agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
+                    }
+                    agv3steps_LB.Text = agvinfo;
 
-                         agv3steps_LB.Text = agvinfo;
-                     }
                     break;
                 case 3:
-                     steps = getStepsToLoad(agv_index);
-                     if (steps == -1)
-                         agvinfo = "AGV 4: Moving straight to the end point";
-                     else
-                     {
-                         stepstoload = (getStepsToLoad(agv_index) - counter);
-                         agvinfo = "AGV 4: Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
-                         if (stepstoload < 0)
-                             agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
+                    steps = getStepsToLoad(agv_index);
+                    if (steps == -1)
+                        agvinfo = "AGV 4: Moving straight to the end point";
+                    else
+                    {
+                        stepstoload = (getStepsToLoad(agv_index) - counter);
+                        agvinfo = "AGV 4: Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
+                        if (stepstoload < 0)
+                            agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
+                    }
+                    agv4steps_LB.Text = agvinfo;
 
-                         agv4steps_LB.Text = agvinfo;
-                     }
                     break;
                 case 4:
-                     steps = getStepsToLoad(agv_index);
-                     if (steps == -1)
-                         agvinfo = "AGV 5: Moving straight to the end point";
-                     else
-                     {
-                         stepstoload = (getStepsToLoad(agv_index) - counter);
-                         agvinfo = "AGV 5: Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
-                         if (stepstoload < 0)
-                             agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
+                    steps = getStepsToLoad(agv_index);
+                    if (steps == -1)
+                        agvinfo = "AGV 5: Moving straight to the end point";
+                    else
+                    {
+                        stepstoload = (getStepsToLoad(agv_index) - counter);
+                        agvinfo = "AGV 5: Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
+                        if (stepstoload < 0)
+                            agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
+                    }
+                    agv5steps_LB.Text = agvinfo;
 
-                         agv5steps_LB.Text = agvinfo;
-                     }
                     break;
             }
         }
 
         private void animator(int counter, int agv_index)
         {
-            displayStepsToLoad(counter, agv_index);
+            
 
             bool isfreeload = false;
 
@@ -497,6 +496,8 @@ namespace kagv
 
             if (stepx == 0 || stepx == 0)
                 return;
+
+            displayStepsToLoad(counter, agv_index);
 
             //RULES OF WHICH AGV WILL STOP WILL BE ADDED
             for (int i = 0; i < nUD_AGVs.Value; i++)
@@ -527,7 +528,7 @@ namespace kagv
                             m_rectangles[widthTrav][heightTrav].y == AGVs[agv_index].GetLocation().Y &&
                             !AGVs[agv_index].isBusy())
                         {
-
+                            
                             m_rectangles[widthTrav][heightTrav].SwitchLoad();
                             AGVs[agv_index].Busy(true);
                             AGVs[agv_index].setLoaded();
