@@ -37,11 +37,6 @@
             this.agv2steps_LB = new System.Windows.Forms.Label();
             this.agv1steps_LB = new System.Windows.Forms.Label();
             this.refresh_label = new System.Windows.Forms.Label();
-            this.Global_label = new System.Windows.Forms.Label();
-            this.THC_label = new System.Windows.Forms.Label();
-            this.NOx_label = new System.Windows.Forms.Label();
-            this.CO_label = new System.Windows.Forms.Label();
-            this.CO2_label = new System.Windows.Forms.Label();
             this.rb_load = new System.Windows.Forms.RadioButton();
             this.cb_type = new System.Windows.Forms.ComboBox();
             this.type_label = new System.Windows.Forms.Label();
@@ -64,7 +59,6 @@
             this.importPictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showEmissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.increaseSpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decreaseSpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -107,11 +101,6 @@
             this.menuPanel.Controls.Add(this.agv2steps_LB);
             this.menuPanel.Controls.Add(this.agv1steps_LB);
             this.menuPanel.Controls.Add(this.refresh_label);
-            this.menuPanel.Controls.Add(this.Global_label);
-            this.menuPanel.Controls.Add(this.THC_label);
-            this.menuPanel.Controls.Add(this.NOx_label);
-            this.menuPanel.Controls.Add(this.CO_label);
-            this.menuPanel.Controls.Add(this.CO2_label);
             this.menuPanel.Controls.Add(this.rb_load);
             this.menuPanel.Controls.Add(this.cb_type);
             this.menuPanel.Controls.Add(this.type_label);
@@ -177,51 +166,6 @@
             this.refresh_label.Size = new System.Drawing.Size(35, 13);
             this.refresh_label.TabIndex = 19;
             this.refresh_label.Text = "label1";
-            // 
-            // Global_label
-            // 
-            this.Global_label.AutoSize = true;
-            this.Global_label.Location = new System.Drawing.Point(393, 59);
-            this.Global_label.Name = "Global_label";
-            this.Global_label.Size = new System.Drawing.Size(35, 13);
-            this.Global_label.TabIndex = 18;
-            this.Global_label.Text = "label1";
-            // 
-            // THC_label
-            // 
-            this.THC_label.AutoSize = true;
-            this.THC_label.Location = new System.Drawing.Point(393, 46);
-            this.THC_label.Name = "THC_label";
-            this.THC_label.Size = new System.Drawing.Size(35, 13);
-            this.THC_label.TabIndex = 18;
-            this.THC_label.Text = "label1";
-            // 
-            // NOx_label
-            // 
-            this.NOx_label.AutoSize = true;
-            this.NOx_label.Location = new System.Drawing.Point(393, 33);
-            this.NOx_label.Name = "NOx_label";
-            this.NOx_label.Size = new System.Drawing.Size(35, 13);
-            this.NOx_label.TabIndex = 18;
-            this.NOx_label.Text = "label1";
-            // 
-            // CO_label
-            // 
-            this.CO_label.AutoSize = true;
-            this.CO_label.Location = new System.Drawing.Point(393, 18);
-            this.CO_label.Name = "CO_label";
-            this.CO_label.Size = new System.Drawing.Size(35, 13);
-            this.CO_label.TabIndex = 18;
-            this.CO_label.Text = "label1";
-            // 
-            // CO2_label
-            // 
-            this.CO2_label.AutoSize = true;
-            this.CO2_label.Location = new System.Drawing.Point(393, 5);
-            this.CO2_label.Name = "CO2_label";
-            this.CO2_label.Size = new System.Drawing.Size(35, 13);
-            this.CO2_label.TabIndex = 18;
-            this.CO2_label.Text = "label1";
             // 
             // rb_load
             // 
@@ -346,7 +290,6 @@
             this.importPictureToolStripMenuItem,
             this.toolStripMenuItem1,
             this.startToolStripMenuItem,
-            this.showEmissionsToolStripMenuItem,
             this.increaseSpeedToolStripMenuItem,
             this.decreaseSpeedToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -389,13 +332,6 @@
             this.startToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
-            // 
-            // showEmissionsToolStripMenuItem
-            // 
-            this.showEmissionsToolStripMenuItem.Name = "showEmissionsToolStripMenuItem";
-            this.showEmissionsToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
-            this.showEmissionsToolStripMenuItem.Text = "Show emissions";
-            this.showEmissionsToolStripMenuItem.Click += new System.EventHandler(this.showEmissionsToolStripMenuItem_Click);
             // 
             // increaseSpeedToolStripMenuItem
             // 
@@ -650,13 +586,7 @@
         private System.Windows.Forms.ToolStripMenuItem exportMapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importMapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importPictureToolStripMenuItem;
-        private System.Windows.Forms.Label Global_label;
-        private System.Windows.Forms.Label THC_label;
-        private System.Windows.Forms.Label NOx_label;
-        private System.Windows.Forms.Label CO_label;
-        private System.Windows.Forms.Label CO2_label;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem showEmissionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Label refresh_label;

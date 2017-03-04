@@ -81,8 +81,6 @@ namespace kagv
         bool imported;
         bool[] fromstart = new bool[5];
 
-        double CO2 = 0, CO = 0, NOx = 0, THC = 0, GlobalWarming = 0;
-
         bool calibrated = false;//flag checking if current point is correctly callibrated in the middle of the rectangle
         bool isMouseDown = false;
 

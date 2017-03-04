@@ -83,12 +83,7 @@ namespace kagv
         private void main_form_Load(object sender, EventArgs e)
         {
             cb_type.SelectedItem = "LPG";
-            CO2_label.Text = "CO2: ";
-            CO_label.Text = "CO: ";
-            NOx_label.Text = "NOx: ";
-            THC_label.Text = "THC: ";
-            Global_label.Text = "Global Warming eq: ";
-
+         
             agv1steps_LB.Text = "";
             agv2steps_LB.Text = "";
             agv3steps_LB.Text = "";
@@ -111,7 +106,7 @@ namespace kagv
             crossCornerToolStripMenuItem.Checked = crossCorners;
             crossAdjacentPointToolStripMenuItem.Checked = crossAdjacent;
             manhattanToolStripMenuItem.Checked = true;
-            showEmissionsToolStripMenuItem.Checked = true;
+            
 
             br = new SolidBrush(Color.BlueViolet);
             fontBR = new SolidBrush(Color.FromArgb(53, 153, 153));
@@ -640,12 +635,7 @@ namespace kagv
                 return;
         }
 
-        private void showEmissionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
-            CO2_label.Visible = CO_label.Visible = THC_label.Visible = Global_label.Visible = NOx_label.Visible = (sender as ToolStripMenuItem).Checked;
-            
-        }
+       
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
