@@ -32,13 +32,13 @@
             this.refreshURL = new System.Windows.Forms.Timer(this.components);
             this.mymap = new GMap.NET.WindowsForms.GMapControl();
             this.gb_settings = new System.Windows.Forms.GroupBox();
+            this.gb_provider = new System.Windows.Forms.GroupBox();
+            this.cb_provider = new System.Windows.Forms.ComboBox();
             this.btn_rec = new System.Windows.Forms.Button();
             this.cb_cross = new System.Windows.Forms.CheckBox();
             this.btn_visit = new System.Windows.Forms.Button();
             this.tb_location = new System.Windows.Forms.TextBox();
             this.sfd = new System.Windows.Forms.SaveFileDialog();
-            this.cb_provider = new System.Windows.Forms.ComboBox();
-            this.gb_provider = new System.Windows.Forms.GroupBox();
             this.gb_settings.SuspendLayout();
             this.gb_provider.SuspendLayout();
             this.SuspendLayout();
@@ -84,6 +84,25 @@
             this.gb_settings.TabStop = false;
             this.gb_settings.Text = "Settings";
             // 
+            // gb_provider
+            // 
+            this.gb_provider.Controls.Add(this.cb_provider);
+            this.gb_provider.Location = new System.Drawing.Point(6, 258);
+            this.gb_provider.Name = "gb_provider";
+            this.gb_provider.Size = new System.Drawing.Size(154, 57);
+            this.gb_provider.TabIndex = 5;
+            this.gb_provider.TabStop = false;
+            this.gb_provider.Text = "Map provider";
+            // 
+            // cb_provider
+            // 
+            this.cb_provider.FormattingEnabled = true;
+            this.cb_provider.Location = new System.Drawing.Point(6, 19);
+            this.cb_provider.Name = "cb_provider";
+            this.cb_provider.Size = new System.Drawing.Size(142, 21);
+            this.cb_provider.TabIndex = 4;
+            this.cb_provider.SelectedIndexChanged += new System.EventHandler(this.cb_provider_SelectedIndexChanged);
+            // 
             // btn_rec
             // 
             this.btn_rec.Location = new System.Drawing.Point(6, 125);
@@ -123,25 +142,6 @@
             this.tb_location.Name = "tb_location";
             this.tb_location.Size = new System.Drawing.Size(154, 20);
             this.tb_location.TabIndex = 0;
-            // 
-            // cb_provider
-            // 
-            this.cb_provider.FormattingEnabled = true;
-            this.cb_provider.Location = new System.Drawing.Point(6, 19);
-            this.cb_provider.Name = "cb_provider";
-            this.cb_provider.Size = new System.Drawing.Size(142, 21);
-            this.cb_provider.TabIndex = 4;
-            this.cb_provider.SelectedIndexChanged += new System.EventHandler(this.cb_provider_SelectedIndexChanged);
-            // 
-            // gb_provider
-            // 
-            this.gb_provider.Controls.Add(this.cb_provider);
-            this.gb_provider.Location = new System.Drawing.Point(6, 258);
-            this.gb_provider.Name = "gb_provider";
-            this.gb_provider.Size = new System.Drawing.Size(154, 57);
-            this.gb_provider.TabIndex = 5;
-            this.gb_provider.TabStop = false;
-            this.gb_provider.Text = "Map provider";
             // 
             // gmaps
             // 
