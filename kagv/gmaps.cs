@@ -43,7 +43,6 @@ namespace kagv
             mymap.Overlays.Add(myobjects);
             mymap.DragButton = MouseButtons.Left;
 
-           
             cb_provider.Items.Add("GoogleMapProvider");
             cb_provider.Items.Add("GoogleTerrainMapProvider");
             cb_provider.Text = "GoogleMapProvider";
