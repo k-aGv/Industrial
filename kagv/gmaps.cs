@@ -42,6 +42,7 @@ namespace kagv
             mymap.Zoom = 8;
             mymap.Overlays.Add(myobjects);
             mymap.DragButton = MouseButtons.Left;
+            mymap.InvertedMouseWheelZooming = true;
 
             cb_provider.Items.Add("GoogleMapProvider");
             cb_provider.Items.Add("GoogleTerrainMapProvider");
@@ -91,6 +92,8 @@ namespace kagv
 
             mymap.Refresh();
         }
+
+       
       
     }
 }
