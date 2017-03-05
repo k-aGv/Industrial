@@ -34,7 +34,7 @@ namespace kagv
 
 
             //map implementation
-            mymap.MapProvider = GMap.NET.MapProviders.GoogleTerrainMapProvider.Instance;//using it as FULL reference to have the complete list of providers
+            mymap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;//using it as FULL reference to have the complete list of providers
             GMaps.Instance.Mode = AccessMode.ServerOnly;
             mymap.SetPositionByKeywords("greece,thessaloniki");
             mymap.MinZoom = 0;
