@@ -141,7 +141,6 @@
             this.Padding = new System.Windows.Forms.Padding(4);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Screenshot";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Screenshot_FormClosing);
             this.Load += new System.EventHandler(this.Screenshot_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nud_zoom)).EndInit();
             this.ResumeLayout(false);
