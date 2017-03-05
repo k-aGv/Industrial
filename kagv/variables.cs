@@ -89,7 +89,6 @@ namespace kagv
         int[,] isLoad = new int[width, height];
         int loads = 0;
 
-        //mama-ngaloukia
         bool showLine = true;
         bool showDots = true;
         bool showSteps = true;

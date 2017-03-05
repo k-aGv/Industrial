@@ -610,7 +610,7 @@ namespace kagv
 
         private void allToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Application.Restart();
+            FullyRestore(sender, e);
         }
 
         private void exportMapToolStripMenuItem_Click(object sender, EventArgs e)

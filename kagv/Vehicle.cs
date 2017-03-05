@@ -79,11 +79,17 @@ namespace kagv
             return _b;
             
         }
+
+        
         public Vehicle(Form handle) //overloaded constructor
         {
             mirroredForm = handle;
         }
        
+        public void killIcon()
+        {
+            this.AgvIcon.Dispose();
+        }
         public bool isLoaded() //WILL BE USED LATER
         {
             if (isLoadedVar)

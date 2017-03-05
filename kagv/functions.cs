@@ -16,7 +16,85 @@ namespace kagv
     
     public partial class main_form
     {
+        
+        private void FullyRestore(object s,EventArgs e)
+        {
+            
+           Array.Clear(is_trapped,0, is_trapped.GetLength(0));
+           Array.Clear(is_trapped, 0, is_trapped.GetLength(1));
 
+            if (timer_counter != null)
+                Array.Clear(timer_counter,0, timer_counter.GetLength(0));
+
+
+            Array.Clear(currentLinePoints, 0, currentLinePoints.GetLength(0));
+           
+            //jagged array has to be resetted like this
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    m_rectangles[i][j] = new GridBox(i * 20, j * 20 + topBarOffset, BoxType.Normal);
+                }
+            }
+
+            if(markedbyagv!=null)
+                Array.Clear(markedbyagv, 0, markedbyagv.GetLength(0));
+
+            for (int i = 0; i < AGVs.GetLength(0); i++)
+            {
+                AGVs[i].killIcon();
+            }
+
+            if (importmap != null)
+            {
+                Array.Clear(importmap, 0, importmap.GetLength(0));
+                Array.Clear(importmap, 0, importmap.GetLength(1));
+            }
+
+            
+            myLines = new GridLine[2000, 5];
+            newsteps = new double[5, 2, 2000];
+            fromstart = new bool[5];
+            isLoad = new int[width, height];
+            AGVs = new Vehicle[5];
+            new_steps_counter = new int[5];
+
+            endPointCoords = new Point();
+
+            load_line = new List<GridLine>();
+            myresultList = new List<List<GridPos>>();
+            pos = resultList = new List<GridPos>();
+            searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
+            
+            
+            lol_empty = true;
+            imported = 
+            calibrated = 
+            isMouseDown = 
+            mapHasLoads = false;
+
+            currentLinePoints = null;
+            jumpParam = null;
+            paper = null;
+            loads = pos_index = 0;
+            log = "";
+
+            distanceBlocks
+                = a
+                = b
+                = resultCount
+                = formHeight
+                = formWidth
+                = new int();
+
+            initialization();
+            main_form_Load(s, e);
+
+            timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval =  100;
+            refresh_label.Text = "Delay:" + timer1.Interval + " ms";
+
+        }
 
         T[,] ResizeArray<T>(T[,] original, int rows, int cols)
         {
