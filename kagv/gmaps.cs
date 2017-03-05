@@ -26,7 +26,8 @@ namespace kagv
 
         private void gmaps_Load(object sender, EventArgs e)
         {
-           
+            MessageBox.Show("WORK IN PROGRESS-WILL EAT YOUR CAT");
+
             this.MaximizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.StartPosition = FormStartPosition.CenterScreen;
