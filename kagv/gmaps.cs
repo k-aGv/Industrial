@@ -24,9 +24,6 @@ namespace kagv
             InitializeComponent();
         }
 
-        private int w;
-        private int h;
-
         private void gmaps_Load(object sender, EventArgs e)
         {
            
@@ -87,17 +84,13 @@ namespace kagv
 
         private void cb_provider_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ( cb_provider.SelectedItem == "GoogleTerrainMapProvider")
+            if ( cb_provider.SelectedItem.ToString() == "GoogleTerrainMapProvider")
                 mymap.MapProvider = GMap.NET.MapProviders.GoogleTerrainMapProvider.Instance;
-            if (cb_provider.SelectedItem == "GoogleMapProvider")
+            if (cb_provider.SelectedItem.ToString() == "GoogleMapProvider")
                 mymap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
 
             mymap.Refresh();
         }
-        
-
-       
-        
       
     }
 }
