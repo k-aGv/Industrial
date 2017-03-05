@@ -31,9 +31,13 @@
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.gb_monitor = new System.Windows.Forms.GroupBox();
+            this.agv3steps_LB = new System.Windows.Forms.Label();
             this.refresh_label = new System.Windows.Forms.Label();
+            this.agv4steps_LB = new System.Windows.Forms.Label();
             this.agv1steps_LB = new System.Windows.Forms.Label();
             this.agv5steps_LB = new System.Windows.Forms.Label();
+            this.agv2steps_LB = new System.Windows.Forms.Label();
             this.gb_settings = new System.Windows.Forms.GroupBox();
             this.gb_agvs = new System.Windows.Forms.GroupBox();
             this.nUD_AGVs = new System.Windows.Forms.NumericUpDown();
@@ -41,9 +45,6 @@
             this.rb_start = new System.Windows.Forms.RadioButton();
             this.rb_stop = new System.Windows.Forms.RadioButton();
             this.rb_load = new System.Windows.Forms.RadioButton();
-            this.agv2steps_LB = new System.Windows.Forms.Label();
-            this.agv3steps_LB = new System.Windows.Forms.Label();
-            this.agv4steps_LB = new System.Windows.Forms.Label();
             this.tp_info = new System.Windows.Forms.ToolTip(this.components);
             this.sfd_exportmap = new System.Windows.Forms.SaveFileDialog();
             this.ofd_importmap = new System.Windows.Forms.OpenFileDialog();
@@ -83,13 +84,12 @@
             this.implementGoogleMapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
-            this.gb_monitor = new System.Windows.Forms.GroupBox();
             this.menuPanel.SuspendLayout();
+            this.gb_monitor.SuspendLayout();
             this.gb_settings.SuspendLayout();
             this.gb_agvs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_AGVs)).BeginInit();
             this.settings_menu.SuspendLayout();
-            this.gb_monitor.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -106,6 +106,30 @@
             this.menuPanel.Size = new System.Drawing.Size(656, 75);
             this.menuPanel.TabIndex = 7;
             // 
+            // gb_monitor
+            // 
+            this.gb_monitor.Controls.Add(this.agv3steps_LB);
+            this.gb_monitor.Controls.Add(this.refresh_label);
+            this.gb_monitor.Controls.Add(this.agv4steps_LB);
+            this.gb_monitor.Controls.Add(this.agv1steps_LB);
+            this.gb_monitor.Controls.Add(this.agv5steps_LB);
+            this.gb_monitor.Controls.Add(this.agv2steps_LB);
+            this.gb_monitor.Location = new System.Drawing.Point(278, 5);
+            this.gb_monitor.Name = "gb_monitor";
+            this.gb_monitor.Size = new System.Drawing.Size(360, 65);
+            this.gb_monitor.TabIndex = 26;
+            this.gb_monitor.TabStop = false;
+            this.gb_monitor.Text = "Monitor";
+            // 
+            // agv3steps_LB
+            // 
+            this.agv3steps_LB.AutoSize = true;
+            this.agv3steps_LB.Location = new System.Drawing.Point(289, 16);
+            this.agv3steps_LB.Name = "agv3steps_LB";
+            this.agv3steps_LB.Size = new System.Drawing.Size(35, 13);
+            this.agv3steps_LB.TabIndex = 22;
+            this.agv3steps_LB.Text = "label3";
+            // 
             // refresh_label
             // 
             this.refresh_label.AutoSize = true;
@@ -114,6 +138,15 @@
             this.refresh_label.Size = new System.Drawing.Size(35, 13);
             this.refresh_label.TabIndex = 19;
             this.refresh_label.Text = "label1";
+            // 
+            // agv4steps_LB
+            // 
+            this.agv4steps_LB.AutoSize = true;
+            this.agv4steps_LB.Location = new System.Drawing.Point(289, 33);
+            this.agv4steps_LB.Name = "agv4steps_LB";
+            this.agv4steps_LB.Size = new System.Drawing.Size(35, 13);
+            this.agv4steps_LB.TabIndex = 23;
+            this.agv4steps_LB.Text = "label4";
             // 
             // agv1steps_LB
             // 
@@ -132,6 +165,15 @@
             this.agv5steps_LB.Size = new System.Drawing.Size(35, 13);
             this.agv5steps_LB.TabIndex = 24;
             this.agv5steps_LB.Text = "label5";
+            // 
+            // agv2steps_LB
+            // 
+            this.agv2steps_LB.AutoSize = true;
+            this.agv2steps_LB.Location = new System.Drawing.Point(6, 32);
+            this.agv2steps_LB.Name = "agv2steps_LB";
+            this.agv2steps_LB.Size = new System.Drawing.Size(35, 13);
+            this.agv2steps_LB.TabIndex = 21;
+            this.agv2steps_LB.Text = "label2";
             // 
             // gb_settings
             // 
@@ -213,33 +255,6 @@
             this.rb_load.TabStop = true;
             this.rb_load.Text = "Load";
             this.rb_load.UseVisualStyleBackColor = true;
-            // 
-            // agv2steps_LB
-            // 
-            this.agv2steps_LB.AutoSize = true;
-            this.agv2steps_LB.Location = new System.Drawing.Point(6, 32);
-            this.agv2steps_LB.Name = "agv2steps_LB";
-            this.agv2steps_LB.Size = new System.Drawing.Size(35, 13);
-            this.agv2steps_LB.TabIndex = 21;
-            this.agv2steps_LB.Text = "label2";
-            // 
-            // agv3steps_LB
-            // 
-            this.agv3steps_LB.AutoSize = true;
-            this.agv3steps_LB.Location = new System.Drawing.Point(289, 16);
-            this.agv3steps_LB.Name = "agv3steps_LB";
-            this.agv3steps_LB.Size = new System.Drawing.Size(35, 13);
-            this.agv3steps_LB.TabIndex = 22;
-            this.agv3steps_LB.Text = "label3";
-            // 
-            // agv4steps_LB
-            // 
-            this.agv4steps_LB.AutoSize = true;
-            this.agv4steps_LB.Location = new System.Drawing.Point(289, 33);
-            this.agv4steps_LB.Name = "agv4steps_LB";
-            this.agv4steps_LB.Size = new System.Drawing.Size(35, 13);
-            this.agv4steps_LB.TabIndex = 23;
-            this.agv4steps_LB.Text = "label4";
             // 
             // ofd_importmap
             // 
@@ -510,21 +525,6 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // gb_monitor
-            // 
-            this.gb_monitor.Controls.Add(this.agv3steps_LB);
-            this.gb_monitor.Controls.Add(this.refresh_label);
-            this.gb_monitor.Controls.Add(this.agv4steps_LB);
-            this.gb_monitor.Controls.Add(this.agv1steps_LB);
-            this.gb_monitor.Controls.Add(this.agv5steps_LB);
-            this.gb_monitor.Controls.Add(this.agv2steps_LB);
-            this.gb_monitor.Location = new System.Drawing.Point(278, 5);
-            this.gb_monitor.Name = "gb_monitor";
-            this.gb_monitor.Size = new System.Drawing.Size(360, 65);
-            this.gb_monitor.TabIndex = 26;
-            this.gb_monitor.TabStop = false;
-            this.gb_monitor.Text = "Monitor";
-            // 
             // main_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -536,7 +536,7 @@
             this.Controls.Add(this.settings_menu);
             this.MainMenuStrip = this.settings_menu;
             this.Name = "main_form";
-            this.Text = "kagv Simulation";
+            this.Text = "kagv Simulation-Agro";
             this.Load += new System.EventHandler(this.main_form_Load);
             this.Shown += new System.EventHandler(this.main_form_Shown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.main_form_Paint);
@@ -545,14 +545,14 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseUp);
             this.menuPanel.ResumeLayout(false);
+            this.gb_monitor.ResumeLayout(false);
+            this.gb_monitor.PerformLayout();
             this.gb_settings.ResumeLayout(false);
             this.gb_settings.PerformLayout();
             this.gb_agvs.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nUD_AGVs)).EndInit();
             this.settings_menu.ResumeLayout(false);
             this.settings_menu.PerformLayout();
-            this.gb_monitor.ResumeLayout(false);
-            this.gb_monitor.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
