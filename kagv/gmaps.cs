@@ -7,13 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-using Awesomium.Core;
-using Awesomium.Windows.Forms;
+using GMap.NET;
+using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
+using GMap.NET.WindowsForms.ToolTips;
+
 namespace kagv
 {
     public partial class gmaps : Form
     {
-       
+        internal readonly GMapOverlay myobjects = new GMapOverlay("objects");
+
         public gmaps()
         {
             InitializeComponent();
@@ -21,61 +26,76 @@ namespace kagv
 
         private int w;
         private int h;
-        public void setFormSize(int a, int b)
-        {
-            w = a;
-            h = b;
-        }
+
         private void gmaps_Load(object sender, EventArgs e)
         {
-            url_label.Text = "Website:";
-			this.MaximizeBox = false;
+           
+            this.MaximizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.Width = w;
-            this.Height = h;
-            mapControl.Width = w-10;
-            mapControl.Height = h - menuStrip1.Height - 40;
 
-            mapControl.Location = new Point(1, menuStrip1.Height + 1);
-            try
-            {
-                mapControl.Source = new Uri("https://www.google.gr/maps/@40.6631136,22.9237417,15z?hl=en");
-            }
-            catch (Exception z)
-            {
-                MessageBox.Show("An error occured while trying to load the Google Maps\r\n.Is there an internet connection?\r\n"+z);
-            }
-            refreshURL.Start();
+
+            //map implementation
+            mymap.MapProvider = GMap.NET.MapProviders.GoogleTerrainMapProvider.Instance;//using it as FULL reference to have the complete list of providers
+            GMaps.Instance.Mode = AccessMode.ServerOnly;
+            mymap.SetPositionByKeywords("greece,thessaloniki");
+            mymap.MinZoom = 0;
+            mymap.MaxZoom = 18;
+            mymap.Zoom = 8;
+            mymap.Overlays.Add(myobjects);
+            mymap.DragButton = MouseButtons.Left;
+
+           
+            cb_provider.Items.Add("GoogleMapProvider");
+            cb_provider.Items.Add("GoogleTerrainMapProvider");
+            cb_provider.Text = "GoogleMapProvider";
+            //its not a joke ->
+            //____________________________________________________________________opacity______________R___________________________G_______________________B
+            mymap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            
+          
         }
 
-       
-
-        Font myFont = new Font("Tahoma", 8, FontStyle.Bold);
-        private void getScreenshotToolStripMenuItem_Click(object sender, EventArgs e)
+        private void btn_visit_Click(object sender, EventArgs e)
         {
-            screenshot s = new screenshot();
-            s.Opacity = 0.5;
-            s.Left = this.Left;
-            s.Top = this.Top;
-            s.Size = this.Size;
-            try
-            {
-                s.ShowDialog(this);
-            }
-            catch (Exception z) { }
+            mymap.SetPositionByKeywords(tb_location.Text);
         }
 
-        private void gmaps_FormClosing(object sender, FormClosingEventArgs e)
+        private void cb_cross_CheckedChanged(object sender, EventArgs e)
         {
-            mapControl.Dispose();
-            refreshURL.Stop();
+            mymap.ShowCenter = cb_cross.Checked;
+            mymap.Refresh();
         }
 
-        private void refreshURL_Tick(object sender, EventArgs e)
+        private void btn_marker_Click(object sender, EventArgs e)
         {
-            url_label.Text ="Website:"+ mapControl.Source + "";
+            Screenshot st = new Screenshot(this);
+            st.Owner = this;
+            st.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            mymap.Zoom += 1;
+            mymap.Refresh();
+        }
+
+        private void mymap_MouseClick(object sender, MouseEventArgs e)
+        {
+           
+        }
+
+        private void cb_provider_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if ( cb_provider.SelectedItem == "GoogleTerrainMapProvider")
+                mymap.MapProvider = GMap.NET.MapProviders.GoogleTerrainMapProvider.Instance;
+            if (cb_provider.SelectedItem == "GoogleMapProvider")
+                mymap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
+
+            mymap.Refresh();
+        }
+        
+
        
         
       
