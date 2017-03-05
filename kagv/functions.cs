@@ -525,8 +525,8 @@ namespace kagv
 
                     if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Load && isLoad[widthTrav, heightTrav] == 3)
                     {
-                        if (m_rectangles[widthTrav][heightTrav].x == AGVs[agv_index].GetLocation().X &&
-                            m_rectangles[widthTrav][heightTrav].y == AGVs[agv_index].GetLocation().Y &&
+                        if (markedbyagv[agv_index].X * 20 == AGVs[agv_index].GetLocation().X &&
+                            (markedbyagv[agv_index].Y * 20) + topBarOffset == AGVs[agv_index].GetLocation().Y &&
                             !AGVs[agv_index].isBusy())
                         {
                             
