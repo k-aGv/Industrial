@@ -79,6 +79,7 @@ namespace kagv
 
             pb_save.Value = 0;
             btn_save.Enabled = true;
+            nud_zoom.Enabled = true;
             gmap.mymap.Refresh();
         }
 
@@ -87,7 +88,6 @@ namespace kagv
             pb_save.Value = e.ProgressPercentage;
 
             GPoint p = (GPoint)e.UserState;
-            this.Text = "Static Map maker: Downloading[" + p + "]: " + tileArea.IndexOf(p) + " of " + tileArea.Count;
         }
 
         void bg_DoWork(object sender, DoWorkEventArgs e)
@@ -238,16 +238,16 @@ namespace kagv
                 lock (tileArea)
                 {
                     tileArea.Clear();
-                    tileArea.AddRange(gmap.mymap.MapProvider.Projection.GetAreaTileList(area.Value, (int)gmap.mymap.Zoom, 1));
+                    tileArea.AddRange(gmap.mymap.MapProvider.Projection.GetAreaTileList(area.Value, (int)nud_zoom.Value, 1));
                     tileArea.TrimExcess();
                 }
 
-
+                nud_zoom.Enabled = false;
                 pb_save.Value = 0;
                 btn_save.Enabled = false;
                 gmap.mymap.HoldInvalidation = true;
 
-                bg.RunWorkerAsync(new MapInfo(area.Value, (int)gmap.mymap.Zoom, gmap.mymap.MapProvider, false, false));
+                bg.RunWorkerAsync(new MapInfo(area.Value, (int)nud_zoom.Value, gmap.mymap.MapProvider, false, false));
                 gmap.mymap.Refresh();
             }
 
@@ -270,6 +270,10 @@ namespace kagv
         private void Screenshot_Load(object sender, EventArgs e)
         {
             this.Location = gmap.Location;
+
+            nud_zoom.Maximum = gmap.mymap.MaxZoom;
+            nud_zoom.Minimum = gmap.mymap.MinZoom;
+            nud_zoom.Value = Convert.ToDecimal(gmap.mymap.Zoom);
         }
     }
 

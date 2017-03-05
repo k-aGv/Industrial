@@ -34,6 +34,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cb_drawinfo = new System.Windows.Forms.CheckBox();
             this.cb_drawscale = new System.Windows.Forms.CheckBox();
+            this.nud_zoom = new System.Windows.Forms.NumericUpDown();
+            this.lb_zoom = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_zoom)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_save
@@ -74,9 +77,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(4, 42);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(176, 13);
+            this.label1.Size = new System.Drawing.Size(160, 13);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Hold alt while creating the rectangle";
+            this.label1.Text = "Hold alt while pressing right click";
             // 
             // cb_drawinfo
             // 
@@ -102,11 +105,29 @@
             this.cb_drawscale.Text = "Also draw scale info";
             this.cb_drawscale.UseVisualStyleBackColor = true;
             // 
+            // nud_zoom
+            // 
+            this.nud_zoom.Location = new System.Drawing.Point(47, 117);
+            this.nud_zoom.Name = "nud_zoom";
+            this.nud_zoom.Size = new System.Drawing.Size(45, 20);
+            this.nud_zoom.TabIndex = 8;
+            // 
+            // lb_zoom
+            // 
+            this.lb_zoom.AutoSize = true;
+            this.lb_zoom.Location = new System.Drawing.Point(7, 119);
+            this.lb_zoom.Name = "lb_zoom";
+            this.lb_zoom.Size = new System.Drawing.Size(34, 13);
+            this.lb_zoom.TabIndex = 9;
+            this.lb_zoom.Text = "Zoom";
+            // 
             // Screenshot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(352, 122);
+            this.ClientSize = new System.Drawing.Size(352, 144);
+            this.Controls.Add(this.lb_zoom);
+            this.Controls.Add(this.nud_zoom);
             this.Controls.Add(this.cb_drawscale);
             this.Controls.Add(this.cb_drawinfo);
             this.Controls.Add(this.label1);
@@ -122,6 +143,7 @@
             this.Text = "Screenshot";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Screenshot_FormClosing);
             this.Load += new System.EventHandler(this.Screenshot_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.nud_zoom)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,5 +157,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox cb_drawinfo;
         private System.Windows.Forms.CheckBox cb_drawscale;
+        private System.Windows.Forms.NumericUpDown nud_zoom;
+        private System.Windows.Forms.Label lb_zoom;
     }
 }
