@@ -13,6 +13,7 @@ using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using GMap.NET.WindowsForms.ToolTips;
 
+
 namespace kagv
 {
     public partial class gmaps : Form
@@ -32,10 +33,13 @@ namespace kagv
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.StartPosition = FormStartPosition.CenterScreen;
 
+            nud_opacity.Maximum = 255;
+            nud_opacity.Minimum = 0;
 
             //map implementation
             mymap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;//using it as FULL reference to have the complete list of providers
             GMaps.Instance.Mode = AccessMode.ServerOnly;
+            
             mymap.SetPositionByKeywords("greece,thessaloniki");
             mymap.MinZoom = 0;
             mymap.MaxZoom = 18;
@@ -50,14 +54,11 @@ namespace kagv
             //its not a joke ->
             //____________________________________________________________________opacity______________R___________________________G_______________________B
             mymap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            
+            nud_opacity.Value = 33;
           
         }
 
-        private void btn_visit_Click(object sender, EventArgs e)
-        {
-            mymap.SetPositionByKeywords(tb_location.Text);
-        }
+       
 
         private void cb_cross_CheckedChanged(object sender, EventArgs e)
         {
@@ -106,6 +107,29 @@ namespace kagv
             double remoteLat = mymap.FromLocalToLatLng(e.X, e.Y).Lat;
             double remoteLng = mymap.FromLocalToLatLng(e.X, e.Y).Lng;
             label6.Text = "Current coordinates:\r\n" + "X/Lat:" + remoteLat + "\r\n" + "Y/Lng:" + remoteLng;
+        }
+
+        private void cb_wheel_CheckedChanged(object sender, EventArgs e)
+        {
+            mymap.InvertedMouseWheelZooming = cb_wheel.Checked;
+            mymap.Refresh();
+        }
+
+        private void btn_color_Click(object sender, EventArgs e)
+        {
+            if (cd.ShowDialog() == DialogResult.OK)
+            {
+                mymap.SelectedAreaFillColor = Color.FromArgb((int)nud_opacity.Value, cd.Color);
+               
+                mymap.Refresh();
+            }
+        }
+
+        private void nud_opacity_ValueChanged(object sender, EventArgs e)
+        {
+            mymap.SelectedAreaFillColor = Color.FromArgb((int)nud_opacity.Value, mymap.SelectedAreaFillColor);
+            mymap.Refresh();
+            
         }
 
 
