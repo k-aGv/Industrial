@@ -16,19 +16,19 @@ namespace kagv
     
     public partial class main_form
     {
-        
-        private void FullyRestore(object s,EventArgs e)
+
+        private void FullyRestore(object s, EventArgs e)
         {
-            
-           Array.Clear(is_trapped,0, is_trapped.GetLength(0));
-           Array.Clear(is_trapped, 0, is_trapped.GetLength(1));
+
+            Array.Clear(is_trapped, 0, is_trapped.GetLength(0));
+            Array.Clear(is_trapped, 0, is_trapped.GetLength(1));
 
             if (timer_counter != null)
-                Array.Clear(timer_counter,0, timer_counter.GetLength(0));
+                Array.Clear(timer_counter, 0, timer_counter.GetLength(0));
 
 
             Array.Clear(currentLinePoints, 0, currentLinePoints.GetLength(0));
-           
+
             //jagged array has to be resetted like this
             for (int i = 0; i < width; i++)
             {
@@ -38,7 +38,7 @@ namespace kagv
                 }
             }
 
-            if(markedbyagv!=null)
+            if (markedbyagv != null)
                 Array.Clear(markedbyagv, 0, markedbyagv.GetLength(0));
 
             for (int i = 0; i < AGVs.GetLength(0); i++)
@@ -52,7 +52,7 @@ namespace kagv
                 Array.Clear(importmap, 0, importmap.GetLength(1));
             }
 
-            
+
             myLines = new GridLine[2000, 5];
             newsteps = new double[5, 2, 2000];
             fromstart = new bool[5];
@@ -66,12 +66,12 @@ namespace kagv
             myresultList = new List<List<GridPos>>();
             pos = resultList = new List<GridPos>();
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
-            
-            
+
+
             lol_empty = true;
-            imported = 
-            calibrated = 
-            isMouseDown = 
+            imported =
+            calibrated =
+            isMouseDown =
             mapHasLoads = false;
 
             currentLinePoints = null;
@@ -91,7 +91,7 @@ namespace kagv
             initialization();
             main_form_Load(s, e);
 
-            timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval =  100;
+            timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval = 100;
             refresh_label.Text = "Delay:" + timer1.Interval + " ms";
 
         }

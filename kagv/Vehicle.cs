@@ -89,6 +89,7 @@ namespace kagv
         public void killIcon()
         {
             this.AgvIcon.Dispose();
+            this.AgvPortrait.Dispose();
         }
         public bool isLoaded() //WILL BE USED LATER
         {
