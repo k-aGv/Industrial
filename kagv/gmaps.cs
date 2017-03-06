@@ -49,6 +49,7 @@ namespace kagv
 
             cb_provider.Items.Add("GoogleMapProvider");
             cb_provider.Items.Add("GoogleTerrainMapProvider");
+            cb_provider.Items.Add("GoogleSatelliteMapProvider");
             cb_provider.Text = "GoogleMapProvider";
             //its not a joke ->
             //____________________________________________________________________opacity______________R___________________________G_______________________B
@@ -89,6 +90,8 @@ namespace kagv
                 mymap.MapProvider = GMap.NET.MapProviders.GoogleTerrainMapProvider.Instance;
             if (cb_provider.SelectedItem.ToString() == "GoogleMapProvider")
                 mymap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
+            if (cb_provider.SelectedItem.ToString() == "GoogleSatelliteMapProvider")
+                mymap.MapProvider = GMap.NET.MapProviders.BingSatelliteMapProvider.Instance;
 
             mymap.Refresh();
         }
