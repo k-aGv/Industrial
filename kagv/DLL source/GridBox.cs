@@ -8,7 +8,6 @@ using System.Drawing;
 namespace kagv
 {
     enum BoxType { Start, End, Wall, Normal , Load};
-  
 
     class GridBox:IDisposable
     {
@@ -28,7 +27,6 @@ namespace kagv
             switch (iType)
             {
                 case BoxType.Normal:
-                    //brush = new SolidBrush(Color.WhiteSmoke);
                     brush = new SolidBrush(Color.WhiteSmoke);
                     break;
                 case BoxType.End:
@@ -62,7 +60,16 @@ namespace kagv
         }
 
        
-      
+        public void BeTransparent()
+        {
+            switch (this.boxType)
+            {
+                case BoxType.Normal:
+                    this.brush = new SolidBrush(Color.Transparent);
+                    break;
+            }
+        }
+
         public void SwitchBox()
         {
             switch (this.boxType)
@@ -76,7 +83,6 @@ namespace kagv
                 case BoxType.Wall:
                     if (this.brush != null)
                         this.brush.Dispose();
-                    //this.brush = new SolidBrush(Color.WhiteSmoke);
                     this.brush = new SolidBrush(Color.WhiteSmoke);
                     this.boxType = BoxType.Normal;
                     break;
@@ -93,7 +99,6 @@ namespace kagv
         {
             if (this.brush != null)
                 this.brush.Dispose();
-            //this.brush = new SolidBrush(Color.WhiteSmoke);
             this.brush = new SolidBrush(Color.WhiteSmoke);
             this.boxType = BoxType.Normal;
 
@@ -112,7 +117,6 @@ namespace kagv
                 case BoxType.Load:
                     if (this.brush != null)
                         this.brush.Dispose();
-                    //this.brush = new SolidBrush(Color.WhiteSmoke);
                     this.brush = new SolidBrush(Color.WhiteSmoke);
                     this.boxType = BoxType.Normal;
                     break;
@@ -125,7 +129,6 @@ namespace kagv
         {
             if (this.brush != null)
                 this.brush.Dispose();
-           //this.brush = new SolidBrush(Color.WhiteSmoke);
            this.brush = new SolidBrush(Color.WhiteSmoke);
            this.boxType = BoxType.Normal;
         }

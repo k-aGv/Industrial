@@ -634,9 +634,17 @@ namespace kagv
             ofd_importpic.FileName = "";
 
             if (ofd_importpic.ShowDialog() == DialogResult.OK)
+            {
                 this.BackgroundImage = Image.FromFile(ofd_importpic.FileName);
+                for (int i = 0; i < width; i++)
+                    for (int j = 0; j < height; j++)
+                        m_rectangles[i][j].BeTransparent();
+                this.Invalidate();
+            }
             else
                 return;
+
+            
         }
 
        
