@@ -249,6 +249,10 @@ namespace kagv
             {
                 if (e.Button == MouseButtons.Left)
                 {
+                    if (m_lastBoxSelect.boxType == BoxType.Start ||
+                        m_lastBoxSelect.boxType == BoxType.End)
+                        return;
+
                     if (m_lastBoxSelect == null)
                     {
                         for (int widthTrav = 0; widthTrav < width; widthTrav++)
