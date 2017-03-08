@@ -64,19 +64,13 @@ namespace kagv
                                 if (!isMouseDown)
                                     DrawPoints(myLines[resultTrav, i], i);
                             }
-                            catch (Exception z)
-                            {
-                                log = z.Data.ToString();
-                            }
+                            catch { }
                         }
                     }
                 }
 
             }
-            catch (Exception z)
-            {
-                log = z.Data.ToString();
-            }
+            catch  { }
 
         }
 
