@@ -19,15 +19,17 @@ namespace kagv
 
         private void FullyRestore(object s, EventArgs e)
         {
-
-            Array.Clear(is_trapped, 0, is_trapped.GetLength(0));
-            Array.Clear(is_trapped, 0, is_trapped.GetLength(1));
+            if (is_trapped != null)
+            {
+                Array.Clear(is_trapped, 0, is_trapped.GetLength(0));
+                Array.Clear(is_trapped, 0, is_trapped.GetLength(1));
+            }
 
             if (timer_counter != null)
                 Array.Clear(timer_counter, 0, timer_counter.GetLength(0));
 
-
-            Array.Clear(currentLinePoints, 0, currentLinePoints.GetLength(0));
+            if (currentLinePoints!=null)
+                Array.Clear(currentLinePoints, 0, currentLinePoints.GetLength(0));
 
             //jagged array has to be resetted like this
             for (int i = 0; i < width; i++)
@@ -51,6 +53,9 @@ namespace kagv
                 Array.Clear(importmap, 0, importmap.GetLength(0));
                 Array.Clear(importmap, 0, importmap.GetLength(1));
             }
+
+            if (this.BackgroundImage != null)
+                this.BackgroundImage = null;
 
 
             myLines = new GridLine[2000, 5];
@@ -172,10 +177,10 @@ namespace kagv
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
                 {
-                    if (m_rectangles[i][j].boxType != BoxType.Wall)
-                        searchGrid.SetWalkableAt(new GridPos(i, j), true);
-                    else
+                    if (m_rectangles[i][j].boxType == BoxType.Wall)
                         searchGrid.SetWalkableAt(new GridPos(i, j), false);
+                    else
+                        searchGrid.SetWalkableAt(new GridPos(i, j), true);
 
                     if (beforeStart)
                     {
