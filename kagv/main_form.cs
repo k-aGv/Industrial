@@ -470,11 +470,7 @@ namespace kagv
                             m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal)
                         {
                             m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + topBarOffset, BoxType.Start);
-                            //redraws the path if start is moved to another box
-                            for (int i = 0; i < width; i++)
-                                for (int j = 0; j < height; j++)
-                                    if (m_rectangles[i][j].boxType == BoxType.End)
-                                        Redraw();
+                            Redraw();
                         }
 
 
