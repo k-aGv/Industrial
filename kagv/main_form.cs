@@ -689,6 +689,8 @@ namespace kagv
             timer_counter = new int[pos.Count];
             timers(pos.Count);
 
+            
+
             settings_menu.Enabled = false;
         }
 
