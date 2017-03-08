@@ -621,7 +621,7 @@ namespace kagv
 
         private void allToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FullyRestore(sender, e);
+            FullyRestore();
         }
 
         private void exportMapToolStripMenuItem_Click(object sender, EventArgs e)

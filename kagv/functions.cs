@@ -17,7 +17,7 @@ namespace kagv
     public partial class main_form
     {
 
-        private void FullyRestore(object s, EventArgs e)
+        private void FullyRestore()
         {
             if (is_trapped != null)
             {
@@ -96,7 +96,7 @@ namespace kagv
                 = new int();
 
             initialization();
-            main_form_Load(s, e);
+            main_form_Load(new object(), new EventArgs());
 
             timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval = 100;
             refresh_label.Text = "Delay:" + timer1.Interval + " ms";
