@@ -1010,13 +1010,15 @@ namespace kagv
                                     currentLinePoints[i].Y - 3,
                                     5, 5);
 
-                            if (showSteps)
-                                paper.DrawString(new_steps_counter[line_index] + ""
-                                   , stepFont
-                                   , fontBR
-                                   , currentLinePoints[i]);
+                            using (Font stepFont = new Font("Tahoma", 8, FontStyle.Bold))//Font used for numbering the steps/current block)
+                            {
+                                if (showSteps)
+                                    paper.DrawString(new_steps_counter[line_index] + ""
+                                       , stepFont
+                                       , fontBR
+                                       , currentLinePoints[i]);
 
-
+                            }
                             calibrated = true;
 
                         }

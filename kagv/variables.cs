@@ -36,7 +36,7 @@ namespace kagv
         int bottomBarOffset = 50 + 10;//distance between grid and the bottom of the form
 
         //Used to find the final point
-        Font stepFont = new Font("Tahoma", 8, FontStyle.Bold);//Font used for numbering the steps/current block
+        
         BaseGrid searchGrid;
         JumpPointParam jumpParam;//custom jump method.we disabled all features hohoho
         Graphics paper;//main graphics for grid etc.
