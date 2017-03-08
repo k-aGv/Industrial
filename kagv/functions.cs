@@ -636,31 +636,32 @@ namespace kagv
             }
             else
             {
-                if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - topBarOffset) / 20].x &&
-                    AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - topBarOffset) / 20].y)
-                    switch (agv_index)
-                    {
-                        case 0:
-                            timer1.Stop();
-                            agv1steps_LB.Text = "AGV 1: Finished";
-                            break;
-                        case 1:
-                            timer2.Stop();
-                            agv2steps_LB.Text = "AGV 2: Finished";
-                            break;
-                        case 2:
-                            timer3.Stop();
-                            agv3steps_LB.Text = "AGV 3: Finished";
-                            break;
-                        case 3:
-                            timer4.Stop();
-                            agv4steps_LB.Text = "AGV 4: Finished";
-                            break;
-                        case 4:
-                            timer5.Stop();
-                            agv5steps_LB.Text = "AGV 5: Finished";
-                            break;
-                    }
+                if (isLoad[markedbyagv[agv_index].X, markedbyagv[agv_index].Y] == 2)
+                    if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - topBarOffset) / 20].x &&
+                        AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - topBarOffset) / 20].y)
+                        switch (agv_index)
+                        {
+                            case 0:
+                                timer1.Stop();
+                                agv1steps_LB.Text = "AGV 1: Finished";
+                                break;
+                            case 1:
+                                timer2.Stop();
+                                agv2steps_LB.Text = "AGV 2: Finished";
+                                break;
+                            case 2:
+                                timer3.Stop();
+                                agv3steps_LB.Text = "AGV 3: Finished";
+                                break;
+                            case 3:
+                                timer4.Stop();
+                                agv4steps_LB.Text = "AGV 4: Finished";
+                                break;
+                            case 4:
+                                timer5.Stop();
+                                agv5steps_LB.Text = "AGV 5: Finished";
+                                break;
+                        }
             }
             //end of handling
 
