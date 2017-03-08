@@ -61,6 +61,7 @@ namespace kagv
             new_steps_counter = new int[5];
 
             endPointCoords = new Point();
+            selectedColor = Color.DarkGray; 
 
             load_line = new List<GridLine>();
             myresultList = new List<List<GridPos>>();
@@ -109,6 +110,29 @@ namespace kagv
             return newArray;
         }
 
+        private void updateBorderVisibility(bool hide)
+        {
+            if (hide)
+            {
+                for (int i = 0; i < width; i++)
+                    for (int j = 0; j < height; j++)
+                        m_rectangles[i][j].BeTransparent();
+                this.BackColor = Color.DarkGray;
+            }
+            else
+            {
+                for (int i = 0; i < width; i++)
+                    for (int j = 0; j < height; j++)
+                    {
+                        if (m_rectangles[i][j].boxType == BoxType.Normal)
+                            m_rectangles[i][j].BeVisible();
+                    }
+
+                this.BackColor = selectedColor;
+            }
+
+            //no need of invalidation since its done after the call of this function
+        }
         private void updateParameters()
         {
             jumpParam.CrossAdjacentPoint = crossAdjacent;

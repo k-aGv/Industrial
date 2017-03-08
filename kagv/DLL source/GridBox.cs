@@ -70,6 +70,16 @@ namespace kagv
             }
         }
 
+        public void BeVisible()
+        {
+            switch (this.boxType)
+            {
+                case BoxType.Normal:
+                    this.brush = new SolidBrush(Color.WhiteSmoke);
+                    break;
+            }
+        }
+
         public void SwitchBox()
         {
             switch (this.boxType)

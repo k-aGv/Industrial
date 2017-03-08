@@ -96,6 +96,7 @@ namespace kagv
             stepsToolStripMenuItem.Checked = true;
             linesToolStripMenuItem.Checked = true;
             dotsToolStripMenuItem.Checked = true;
+            bordersToolStripMenuItem.Checked = true;
             rb_start.Checked = true;
             this.BackColor = Color.DarkGray;
 
@@ -570,7 +571,9 @@ namespace kagv
                 showLine = linesToolStripMenuItem.Checked;
             else if (sender as ToolStripMenuItem == stepsToolStripMenuItem)
                 showSteps = stepsToolStripMenuItem.Checked;
-           
+            else if (sender as ToolStripMenuItem == bordersToolStripMenuItem)
+               updateBorderVisibility(!bordersToolStripMenuItem.Checked);
+
             Redraw();
             this.Invalidate();
             
@@ -579,7 +582,11 @@ namespace kagv
         private void borderColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (cd_grid.ShowDialog() == DialogResult.OK)
+            {
                 this.BackColor = cd_grid.Color;
+                selectedColor = cd_grid.Color;
+                borderColorToolStripMenuItem.Checked = true;
+            }
         }
 
         private void wallsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -732,6 +739,14 @@ namespace kagv
             maps.ShowDialog();
 
         }
+
+        private void borderColorToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.BackColor = Color.DarkGray;
+            borderColorToolStripMenuItem.Checked = false;
+        }
+
+      
     }
 
 }
