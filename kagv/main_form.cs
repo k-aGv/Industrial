@@ -485,7 +485,7 @@ namespace kagv
                 for (int widthTrav = 0; widthTrav < width; widthTrav++)
                     for (int heightTrav = 0; heightTrav < height; heightTrav++)
                         if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.End)
-                            m_rectangles[widthTrav][heightTrav].SwitchEnd_StartToNormal();
+                            m_rectangles[widthTrav][heightTrav].SwitchEnd_StartToNormal();//allow only one end point
 
 
                 for (int widthTrav = 0; widthTrav < width; widthTrav++)
@@ -495,10 +495,7 @@ namespace kagv
                             m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal)
                         {
                             m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + topBarOffset, BoxType.End);
-                            for (int i = 0; i < width; i++)
-                                for (int j = 0; j < height; j++)
-                                    if (m_rectangles[i][j].boxType == BoxType.Start)
-                                        Redraw();
+                            Redraw();
                         }
             }
             this.Invalidate();
@@ -747,6 +744,8 @@ namespace kagv
         }
 
       
+
+       
     }
 
 }
