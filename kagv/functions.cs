@@ -28,8 +28,7 @@ namespace kagv
             if (timer_counter != null)
                 Array.Clear(timer_counter, 0, timer_counter.GetLength(0));
 
-            if (currentLinePoints!=null)
-                Array.Clear(currentLinePoints, 0, currentLinePoints.GetLength(0));
+           
 
             //jagged array has to be resetted like this
             for (int i = 0; i < width; i++)
@@ -81,7 +80,6 @@ namespace kagv
             isMouseDown =
             mapHasLoads = false;
 
-            currentLinePoints = null;
             jumpParam = null;
             paper = null;
             loads = pos_index = 0;
@@ -950,6 +948,7 @@ namespace kagv
         }
         private void DrawPoints(GridLine x, int line_index)
         {
+            Point[] currentLinePoints;//1d array of points.used to track all the points of current line
 
             int x1 = x.fromX;
             int y1 = x.fromY;

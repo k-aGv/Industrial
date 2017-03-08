@@ -37,7 +37,6 @@ namespace kagv
 
         //Used to find the final point
         Font stepFont = new Font("Tahoma", 8, FontStyle.Bold);//Font used for numbering the steps/current block
-        Point[] currentLinePoints;//1d array of points.used to track all the points of current line
         BaseGrid searchGrid;
         JumpPointParam jumpParam;//custom jump method.we disabled all features hohoho
         Graphics paper;//main graphics for grid etc.
