@@ -85,7 +85,6 @@ namespace kagv
             jumpParam = null;
             paper = null;
             loads = pos_index = 0;
-            log = "";
 
             distanceBlocks
                 = a

@@ -20,7 +20,6 @@ namespace kagv
 
         List<GridPos> pos = new List<GridPos>(); //public declaration / partial redeclaration occurs in Reset(with overload)
         bool[,] is_trapped;
-        string log;
         int resultCount;
         int[] timer_counter;// = 0;
         public static int width = 64;//blocks of grid

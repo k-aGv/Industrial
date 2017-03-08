@@ -556,7 +556,6 @@
             this.Name = "main_form";
             this.Text = "kagv Simulation-Agro";
             this.Load += new System.EventHandler(this.main_form_Load);
-            this.Shown += new System.EventHandler(this.main_form_Shown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.main_form_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseClick);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseDown);

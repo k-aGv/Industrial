@@ -1,6 +1,4 @@
-﻿//#define USE_DEBUG
-#undef USE_DEBUG
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -342,16 +340,6 @@ namespace kagv
 
         }
       
-        private void main_form_Shown(object sender, EventArgs e)
-        {
-#if USE_DEBUG
-            debug d = new debug();
-            d.Activate();
-            d.BringToFront();
-            d.Show();
-#endif
-        }
-
 
         private void nUD_AGVs_ValueChanged(object sender, EventArgs e)
         {
