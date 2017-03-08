@@ -67,8 +67,9 @@ namespace kagv
             pos = resultList = new List<GridPos>();
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
 
-
+            beforeStart =
             lol_empty = true;
+
             imported =
             calibrated =
             isMouseDown =
@@ -151,6 +152,18 @@ namespace kagv
                         searchGrid.SetWalkableAt(new GridPos(i, j), true);
                     else
                         searchGrid.SetWalkableAt(new GridPos(i, j), false);
+
+                    if (beforeStart)
+                    {
+                        if (m_rectangles[i][j].boxType == BoxType.Start)
+                            searchGrid.SetWalkableAt(new GridPos(i, j), false);
+                       
+                    }
+                    else
+                    {
+                        if (m_rectangles[i][j].boxType == BoxType.Start)
+                            searchGrid.SetWalkableAt(new GridPos(i, j), true);
+                    }
 
                     if (m_rectangles[i][j].boxType == BoxType.Start)
                     {

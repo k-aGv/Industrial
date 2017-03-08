@@ -80,7 +80,7 @@ namespace kagv
         BoxType[,] importmap;
         bool imported;
         bool[] fromstart = new bool[5];
-
+        bool beforeStart = true;
         bool calibrated = false;//flag checking if current point is correctly callibrated in the middle of the rectangle
         bool isMouseDown = false;
 

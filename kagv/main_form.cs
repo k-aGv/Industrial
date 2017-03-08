@@ -666,11 +666,14 @@ namespace kagv
                 return;
             }
 
+
             for (int i = 0; i < fromstart.Length; i++)
                 fromstart[i] = true;
 
+            beforeStart = false;
             markedbyagv = new Point[pos.Count];
             Redraw();
+           
             AGVs = new Vehicle[pos.Count];
             
             
@@ -683,9 +686,6 @@ namespace kagv
                                       18, 18);
             }
             
-
-            
-
             timer_counter = new int[pos.Count];
             timers(pos.Count);
 
