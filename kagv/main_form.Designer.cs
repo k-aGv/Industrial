@@ -81,11 +81,11 @@
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wallsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.borderColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.implementGoogleMapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
-            this.borderColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuPanel.SuspendLayout();
             this.gb_monitor.SuspendLayout();
             this.gb_settings.SuspendLayout();
@@ -506,16 +506,23 @@
             // wallsToolStripMenuItem
             // 
             this.wallsToolStripMenuItem.Name = "wallsToolStripMenuItem";
-            this.wallsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.wallsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.wallsToolStripMenuItem.Text = "Walls";
             this.wallsToolStripMenuItem.Click += new System.EventHandler(this.wallsToolStripMenuItem_Click);
             // 
             // allToolStripMenuItem
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.allToolStripMenuItem.Text = "All";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.allToolStripMenuItem_Click);
+            // 
+            // borderColorToolStripMenuItem1
+            // 
+            this.borderColorToolStripMenuItem1.Name = "borderColorToolStripMenuItem1";
+            this.borderColorToolStripMenuItem1.Size = new System.Drawing.Size(141, 22);
+            this.borderColorToolStripMenuItem1.Text = "Border Color";
+            this.borderColorToolStripMenuItem1.Click += new System.EventHandler(this.borderColorToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -535,13 +542,6 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // borderColorToolStripMenuItem1
-            // 
-            this.borderColorToolStripMenuItem1.Name = "borderColorToolStripMenuItem1";
-            this.borderColorToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.borderColorToolStripMenuItem1.Text = "Border Color";
-            this.borderColorToolStripMenuItem1.Click += new System.EventHandler(this.borderColorToolStripMenuItem1_Click);
             // 
             // main_form
             // 
