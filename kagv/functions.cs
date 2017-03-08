@@ -568,67 +568,70 @@ namespace kagv
                 }
             }
 
-            if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - topBarOffset) / 20].x &&
+            if(!fromstart[agv_index])
+                if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - topBarOffset) / 20].x &&
                     AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - topBarOffset) / 20].y)
-            {
-                AGVs[agv_index].Busy(false);
-
-                for (int k = 0; k < width; k++)
-                {
-                    for (int b = 0; b < height; b++)
-                    {
-                        if (isLoad[k, b] == 1)
-                            isfreeload = true;
-                    }
-                }
-
-                if (loads > 0 && isfreeload)
                 {
 
-                    Reset(agv_index);
-                    AGVs[agv_index].Busy(true);
-                    markedbyagv[agv_index] = new Point();
-                    getNextLoad(agv_index);
 
                     AGVs[agv_index].Busy(false);
-                    AGVs[agv_index].setEmpty();
 
-                }
-                else
-                {
-                    AGVs[agv_index].setEmpty();
-                    isfreeload = false;
-
-                    switch (agv_index)
+                    for (int k = 0; k < width; k++)
                     {
-                        case 0:
-                            timer1.Stop();
-                            agv1steps_LB.Text = "AGV 1: Finished";
-                            break;
-                        case 1:
-                            timer2.Stop();
-                            agv2steps_LB.Text = "AGV 2: Finished";
-                            break;
-                        case 2:
-                            timer3.Stop();
-                            agv3steps_LB.Text = "AGV 3: Finished";
-                            break;
-                        case 3:
-                            timer4.Stop();
-                            agv4steps_LB.Text = "AGV 4: Finished";
-                            break;
-                        case 4:
-                            timer5.Stop();
-                            agv5steps_LB.Text = "AGV 5: Finished";
-                            break;
+                        for (int b = 0; b < height; b++)
+                        {
+                            if (isLoad[k, b] == 1)
+                                isfreeload = true;
+                        }
                     }
 
+                    if (loads > 0 && isfreeload)
+                    {
+
+                        Reset(agv_index);
+                        AGVs[agv_index].Busy(true);
+                        markedbyagv[agv_index] = new Point();
+                        getNextLoad(agv_index);
+
+                        AGVs[agv_index].Busy(false);
+                        AGVs[agv_index].setEmpty();
+
+                    }
+                    else
+                    {
+                        AGVs[agv_index].setEmpty();
+                        isfreeload = false;
+
+                        switch (agv_index)
+                        {
+                            case 0:
+                                timer1.Stop();
+                                agv1steps_LB.Text = "AGV 1: Finished";
+                                break;
+                            case 1:
+                                timer2.Stop();
+                                agv2steps_LB.Text = "AGV 2: Finished";
+                                break;
+                            case 2:
+                                timer3.Stop();
+                                agv3steps_LB.Text = "AGV 3: Finished";
+                                break;
+                            case 3:
+                                timer4.Stop();
+                                agv4steps_LB.Text = "AGV 4: Finished";
+                                break;
+                            case 4:
+                                timer5.Stop();
+                                agv5steps_LB.Text = "AGV 5: Finished";
+                                break;
+                        }
+
+                    }
+
+                    timer_counter[agv_index] = -1;
+                    counter = 0;
+
                 }
-
-                timer_counter[agv_index] = -1;
-                counter = 0;
-
-            }
             //end of handling
 
 
