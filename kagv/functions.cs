@@ -428,16 +428,7 @@ namespace kagv
 
             new_steps_counter[whichAGV] = 0;
         }
-        private void halt(int index, int _c)
-        {
-            timer_counter[index]--;
-            if (!(_c - 1 < 0)) //in case the intersection is in the 1st step of the route, then the index of that step will be 0. 
-            {                  //this means that trying to get to the "_c -1" step, will have the index decreased to -1 causing the "index out of bound" crash
-                int stepx = Convert.ToInt32(newsteps[index, 0, _c - 1]);
-                int stepy = Convert.ToInt32(newsteps[index, 1, _c - 1]);
-                AGVs[index].SetLocation(stepx - 9, stepy - 9);
-            }
-        }
+       
         
         private void displayStepsToLoad(int counter, int agv_index)
         {
@@ -520,16 +511,28 @@ namespace kagv
             }
         }
 
+        private void halt(int index, int _c)
+        {
+            timer_counter[index]--;
+            if (!(_c - 1 < 0)) //in case the intersection is in the 1st step of the route, then the index of that step will be 0. 
+            {                  //this means that trying to get to the "_c -1" step, will have the index decreased to -1 causing the "index out of bound" crash
+                int stepx = Convert.ToInt32(newsteps[index, 0, _c - 1]);
+                int stepy = Convert.ToInt32(newsteps[index, 1, _c - 1]);
+                AGVs[index].SetLocation(stepx - 9, stepy - 9);
+            }
+        }
+
         private void animator(int counter, int agv_index)
         {
-            bool isfreeload = false;
-
+            
             int stepx = Convert.ToInt32(newsteps[agv_index, 0, counter]);
             int stepy = Convert.ToInt32(newsteps[agv_index, 1, counter]);
 
             if (stepx == 0 || stepx == 0)
                 return;
 
+            bool isfreeload = false;
+            bool halted = false;
             displayStepsToLoad(counter, agv_index);
 
             //RULES OF WHICH AGV WILL STOP WILL BE ADDED
@@ -544,9 +547,13 @@ namespace kagv
                 {
 
                     halt(agv_index, counter);
+                    halted = true;
                 }
                 else
+                {
+                    if(!halted)
                     AGVs[agv_index].SetLocation(stepx - 9, stepy - 9);
+                }
 
             }
 
