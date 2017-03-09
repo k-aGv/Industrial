@@ -86,7 +86,6 @@ namespace kagv
 
                 a
                 = b
-                = resultCount
                 = formHeight
                 = formWidth
                 = new int();
@@ -399,10 +398,9 @@ namespace kagv
 
                     tempLines[j, i] = line;
                 }
-            resultCount = myresultList.Count - 1;
 
-            if (resultCount > 0)
-                myLines = ResizeArray(tempLines, resultCount, 5);
+            if ((myresultList.Count - 1)  > 0)
+                myLines = ResizeArray(tempLines, myresultList.Count - 1, 5);
 
             this.Invalidate();
         }
@@ -435,7 +433,7 @@ namespace kagv
         {
             //+1 will safely recreate the array without any
             //overflow issues like above situation
-            myLines = new GridLine[resultCount + 1, 5];
+            myLines = new GridLine[myresultList.Count, 5];
 
             newsteps = new double[5, 2, 2000];
 
@@ -762,11 +760,8 @@ namespace kagv
                 }
 
 
-                resultCount = myresultList.Count - 1;
-
-                if (resultCount > 0)
-                    myLines = ResizeArray(tempLines, resultCount, 5);
-
+                if ((myresultList.Count - 1) > 0)
+                    myLines = ResizeArray(tempLines, myresultList.Count - 1, 5);
 
                 //return to exit
                 jumpParam.Reset(endPos, pos[whichAGV]);
@@ -794,13 +789,8 @@ namespace kagv
 
                 }
 
-                resultCount = myresultList.Count - 1;
-
-                if (resultCount > 0)
-                    myLines = ResizeArray(tempLines, resultCount, 5);
-
-                
-
+                if ((myresultList.Count - 1) > 0)
+                    myLines = ResizeArray(tempLines, myresultList.Count - 1, 5);
 
                 this.Invalidate();
 
