@@ -82,7 +82,7 @@ namespace kagv
         bool showDots = true;
         bool showSteps = true;
 
-        Color selectedColor=Color.DarkGray; 
-
+        Color selectedColor=Color.DarkGray;
+        Color boxDefaultColor = Color.WhiteSmoke;
     }
 }

@@ -59,17 +59,9 @@ namespace kagv
             }
         }
 
-       public void Hover(bool on,Color c)
+        public void Hover(Color c)
         {
-           if (on)
-           {
-               if (this.brush != null)
-                   this.brush.Dispose();
-               this.brush = new SolidBrush(c);
-           }
-           else
-               this.brush = new SolidBrush(c);
-
+            this.brush = new SolidBrush(c);
         }
         public void BeTransparent()
         {

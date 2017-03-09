@@ -336,19 +336,19 @@ namespace kagv
                         && m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal)
                     {
                         if (rb_load.Checked)
-                            m_rectangles[widthTrav][heightTrav].Hover(true, Color.FromArgb(150, Color.FromArgb(138, 109, 86)));
+                            m_rectangles[widthTrav][heightTrav].Hover( Color.FromArgb(150, Color.FromArgb(138, 109, 86)));
                         else if (rb_start.Checked)
-                            m_rectangles[widthTrav][heightTrav].Hover(true, Color.LightGreen);
+                            m_rectangles[widthTrav][heightTrav].Hover( Color.LightGreen);
                         else if (rb_stop.Checked)
-                            m_rectangles[widthTrav][heightTrav].Hover(true, Color.FromArgb(80, Color.FromArgb(255, 26, 26)));
+                            m_rectangles[widthTrav][heightTrav].Hover( Color.FromArgb(80, Color.FromArgb(255, 26, 26)));
                         else //wall
-                            m_rectangles[widthTrav][heightTrav].Hover(true, Color.FromArgb(20,Color.LightGray));
+                            m_rectangles[widthTrav][heightTrav].Hover( Color.FromArgb(20,Color.LightGray));
 
                         this.Invalidate();
                     }
                     else if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal )
                     {
-                        m_rectangles[widthTrav][heightTrav].Hover(false, boxDefaultColor);
+                        m_rectangles[widthTrav][heightTrav].Hover( boxDefaultColor);
                         this.Invalidate();
                     }
                     
@@ -644,7 +644,7 @@ namespace kagv
         {
             import();
         }
-        Color boxDefaultColor = Color.WhiteSmoke;
+
         private void importPictureToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
