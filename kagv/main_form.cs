@@ -726,6 +726,15 @@ namespace kagv
                 case Keys.F5:
                     allToolStripMenuItem_Click(new object(), new EventArgs());
                     return true;
+                case Keys.Up:
+                    increaseSpeedToolStripMenuItem_Click(new object(), new EventArgs());
+                    return true;
+                case Keys.Down:
+                    decreaseSpeedToolStripMenuItem_Click(new object(), new EventArgs());
+                    return true;
+                case Keys.Space:
+                    startToolStripMenuItem_Click(new object(), new EventArgs());
+                    return true;
                 default:
                     return false;
             }

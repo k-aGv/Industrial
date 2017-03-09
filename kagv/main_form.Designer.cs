@@ -312,21 +312,21 @@
             // exportMapToolStripMenuItem
             // 
             this.exportMapToolStripMenuItem.Name = "exportMapToolStripMenuItem";
-            this.exportMapToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
+            this.exportMapToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.exportMapToolStripMenuItem.Text = "Export map";
             this.exportMapToolStripMenuItem.Click += new System.EventHandler(this.exportMapToolStripMenuItem_Click);
             // 
             // importMapToolStripMenuItem
             // 
             this.importMapToolStripMenuItem.Name = "importMapToolStripMenuItem";
-            this.importMapToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
+            this.importMapToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.importMapToolStripMenuItem.Text = "Import map";
             this.importMapToolStripMenuItem.Click += new System.EventHandler(this.importMapToolStripMenuItem_Click);
             // 
             // importPictureToolStripMenuItem
             // 
             this.importPictureToolStripMenuItem.Name = "importPictureToolStripMenuItem";
-            this.importPictureToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
+            this.importPictureToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.importPictureToolStripMenuItem.Text = "Import picture";
             this.importPictureToolStripMenuItem.Click += new System.EventHandler(this.importPictureToolStripMenuItem_Click);
             // 
@@ -336,31 +336,29 @@
             this.toolStripMenuItem1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.toolStripMenuItem1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(291, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(293, 6);
             // 
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Space)));
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
+            this.startToolStripMenuItem.ShortcutKeyDisplayString = "(Space)";
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
             // increaseSpeedToolStripMenuItem
             // 
             this.increaseSpeedToolStripMenuItem.Name = "increaseSpeedToolStripMenuItem";
-            this.increaseSpeedToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl + (UP)";
-            this.increaseSpeedToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
-            this.increaseSpeedToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
+            this.increaseSpeedToolStripMenuItem.ShortcutKeyDisplayString = "(UP Arrow)";
+            this.increaseSpeedToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.increaseSpeedToolStripMenuItem.Text = "Increase animation delay";
             this.increaseSpeedToolStripMenuItem.Click += new System.EventHandler(this.increaseSpeedToolStripMenuItem_Click);
             // 
             // decreaseSpeedToolStripMenuItem
             // 
             this.decreaseSpeedToolStripMenuItem.Name = "decreaseSpeedToolStripMenuItem";
-            this.decreaseSpeedToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl + (DOWN)";
-            this.decreaseSpeedToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
-            this.decreaseSpeedToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
+            this.decreaseSpeedToolStripMenuItem.ShortcutKeyDisplayString = "(DOWN Arrow)";
+            this.decreaseSpeedToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.decreaseSpeedToolStripMenuItem.Text = "Decrease animation delay";
             this.decreaseSpeedToolStripMenuItem.Click += new System.EventHandler(this.decreaseSpeedToolStripMenuItem_Click);
             // 
@@ -506,7 +504,7 @@
             // wallsToolStripMenuItem
             // 
             this.wallsToolStripMenuItem.Name = "wallsToolStripMenuItem";
-            this.wallsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.wallsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.wallsToolStripMenuItem.Text = "Walls";
             this.wallsToolStripMenuItem.Click += new System.EventHandler(this.wallsToolStripMenuItem_Click);
             // 
@@ -514,14 +512,14 @@
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
             this.allToolStripMenuItem.ShortcutKeyDisplayString = "(F5)";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.allToolStripMenuItem.Text = "All";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.allToolStripMenuItem_Click);
             // 
             // borderColorToolStripMenuItem1
             // 
             this.borderColorToolStripMenuItem1.Name = "borderColorToolStripMenuItem1";
-            this.borderColorToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.borderColorToolStripMenuItem1.Size = new System.Drawing.Size(141, 22);
             this.borderColorToolStripMenuItem1.Text = "Border Color";
             this.borderColorToolStripMenuItem1.Click += new System.EventHandler(this.borderColorToolStripMenuItem1_Click);
             // 
