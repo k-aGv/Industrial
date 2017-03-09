@@ -148,6 +148,21 @@ namespace kagv
             return agvs;
         }
 
+        private bool availableLoad(GridPos b)
+        {
+           // MessageBox.Show(b.x + " " + b.y); block
+            if( m_rectangles[b.x-1][b.y].boxType==BoxType.Normal
+                || m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
+                || m_rectangles[b.x - 1][b.y - 1].boxType == BoxType.Normal
+                || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
+                || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal
+                || m_rectangles[b.x + 1][b.y + 1].boxType == BoxType.Normal)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
         private void Redraw()
         {
             if (loads > 0)
@@ -166,7 +181,7 @@ namespace kagv
             pos = new List<GridPos>();
             pos_index = 0;
 
-
+            
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
                 {
@@ -250,6 +265,7 @@ namespace kagv
             //myresultList [number of agv] [number of part-line].element
             myresultList = new List<List<GridPos>>(); //List containing Lists -> List<GridPos>
 
+
             for (int i = 0; i < pos.Count; i++)
             {
                 if (AGVs[i].isBusy() == false)
@@ -264,11 +280,11 @@ namespace kagv
 
                             int list_index = 0;
                             bool removed;
+
                             do
                             {
                                 removed = false;
-                                jumpParam.Reset(pos[0], loadPos[list_index]);
-                                if (JumpPointFinder.FindPath(jumpParam, paper).Count == 0) //if there's at LEAST 1 agv that cannot reach a Load, then that Load is  
+                                if (!availableLoad(loadPos[list_index])) //if there's at LEAST 1 agv that cannot reach a Load, then that Load is  
                                 {                                                          //removed from the loadPos and not considered as available - marked 4 
                                     isLoad[loadPos[list_index].x, loadPos[list_index].y] = 4;
                                     loadPos.Remove(loadPos[list_index]);
@@ -280,6 +296,7 @@ namespace kagv
                                 if (!removed)
                                     list_index++;
                             } while (list_index < loadPos.Count);
+
 
                             if (loadPos.Count() == 0)
                                 loadPos.Add(endPos); //if EVERY load is trapped, use the endPos as LoadPos so as the agvs can complete their basic route (start -> end)
@@ -574,7 +591,13 @@ namespace kagv
                         Reset(agv_index);
                         AGVs[agv_index].Busy(true);
                         markedbyagv[agv_index] = new Point();
-                        getNextLoad(agv_index);
+                        System.Threading.Tasks.Task _thread = new System.Threading.Tasks.Task(() =>
+                        {
+                            getNextLoad(agv_index);
+                        });
+
+                        _thread.Start();
+                        _thread.Wait();
 
                         AGVs[agv_index].Busy(false);
                         AGVs[agv_index].setEmpty();

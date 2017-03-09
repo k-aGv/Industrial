@@ -74,7 +74,12 @@ namespace kagv
 
         private void main_form_Load(object sender, EventArgs e)
         {
-         
+
+            
+            var _proc = System.Diagnostics.Process.GetCurrentProcess();
+            _proc.ProcessorAffinity = new IntPtr(0x0003);//use cores 1,2 
+            //ptr flag has to be (bin) 0011 so its IntPtr 0x0003
+
             agv1steps_LB.Text = "";
             agv2steps_LB.Text = "";
             agv3steps_LB.Text = "";
@@ -399,7 +404,12 @@ namespace kagv
                                 case BoxType.End:
                                     break;
                             }
-                            Redraw();
+                            Task s = new Task( () => 
+                                {
+                                     Redraw();
+                                });
+                            s.Start();
+                            s.Wait();
                         }
 
 
