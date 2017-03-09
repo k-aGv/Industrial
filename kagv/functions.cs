@@ -679,10 +679,10 @@ namespace kagv
             }
 
             if (!timer1.Enabled && !timer2.Enabled && !timer3.Enabled && !timer4.Enabled && !timer5.Enabled)//when all agvs has finished their tasks
-               myresultList = new List<List<GridPos>>();//clear all the paths
+                myresultList = new List<List<GridPos>>();//clear all the paths
 
             this.Invalidate();
-            
+            this.Refresh();
 
         }
         //will be only called when the first load is unloaded to the end point

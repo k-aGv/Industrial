@@ -24,12 +24,7 @@ namespace kagv
             }
             AGVs[0].Steps=mysteps;
 
-            System.Threading.Tasks.Task _thread = 
-                new System.Threading.Tasks.Task(() =>
-            animator(timer_counter[0], 0));
-
-            _thread.Start();
-            _thread.Wait();
+            animator(timer_counter[0], 0);
 
             timer_counter[0]++;
         }
@@ -48,12 +43,7 @@ namespace kagv
             }
             AGVs[1].Steps=mysteps;
 
-            System.Threading.Tasks.Task _thread =
-                new System.Threading.Tasks.Task(() =>
-            animator(timer_counter[1], 1));
-
-            _thread.Start();
-            _thread.Wait();
+            animator(timer_counter[1], 1);
 
             timer_counter[1]++;
         }
@@ -70,12 +60,7 @@ namespace kagv
             }
             AGVs[2].Steps = mysteps;
 
-            System.Threading.Tasks.Task _thread =
-                new System.Threading.Tasks.Task(() =>
-            animator(timer_counter[2], 2));
-
-            _thread.Start();
-            _thread.Wait();
+            animator(timer_counter[2], 2);
 
             timer_counter[2]++;
         }
@@ -92,12 +77,7 @@ namespace kagv
             }
             AGVs[3].Steps = mysteps;
 
-            System.Threading.Tasks.Task _thread =
-                new System.Threading.Tasks.Task(() =>
-            animator(timer_counter[3], 3));
-
-            _thread.Start();
-            _thread.Wait();
+            animator(timer_counter[3], 3);
 
             timer_counter[3]++;
         }
@@ -114,12 +94,7 @@ namespace kagv
             }
             AGVs[4].Steps = mysteps;
 
-            System.Threading.Tasks.Task _thread =
-                new System.Threading.Tasks.Task(() =>
-            animator(timer_counter[4], 4));
-
-            _thread.Start();
-            _thread.Wait();
+            animator(timer_counter[4], 4);
 
             timer_counter[4]++;
         }
