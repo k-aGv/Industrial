@@ -123,7 +123,10 @@ namespace kagv
                     for (int j = 0; j < height; j++)
                     {
                         if (m_rectangles[i][j].boxType == BoxType.Normal)
+                        {
                             m_rectangles[i][j].BeVisible();
+                            boxDefaultColor = Color.WhiteSmoke;
+                        }
                     }
 
                 this.BackColor = selectedColor;

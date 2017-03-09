@@ -318,12 +318,40 @@ namespace kagv
                                                 break;
 
                                         }
-                                        
+                                        return;
                                     }
                                 }
                             }
                         }
                     }
+                }
+            }
+
+
+            for (int widthTrav = 0; widthTrav < width; widthTrav++)
+            {
+                for (int heightTrav = 0; heightTrav < height; heightTrav++)
+                {
+                    if ( m_rectangles[widthTrav][heightTrav].boxRec.Contains(new Point(e.X,e.Y))
+                        && m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal)
+                    {
+                        if (rb_load.Checked)
+                            m_rectangles[widthTrav][heightTrav].Hover(true, Color.FromArgb(150, Color.FromArgb(138, 109, 86)));
+                        else if (rb_start.Checked)
+                            m_rectangles[widthTrav][heightTrav].Hover(true, Color.LightGreen);
+                        else if (rb_stop.Checked)
+                            m_rectangles[widthTrav][heightTrav].Hover(true, Color.FromArgb(80, Color.FromArgb(255, 26, 26)));
+                        else //wall
+                            m_rectangles[widthTrav][heightTrav].Hover(true, Color.FromArgb(20,Color.LightGray));
+
+                        this.Invalidate();
+                    }
+                    else if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal )
+                    {
+                        m_rectangles[widthTrav][heightTrav].Hover(false, boxDefaultColor);
+                        this.Invalidate();
+                    }
+                    
                 }
             }
         }
@@ -616,7 +644,7 @@ namespace kagv
         {
             import();
         }
-
+        Color boxDefaultColor = Color.WhiteSmoke;
         private void importPictureToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -628,8 +656,13 @@ namespace kagv
                 this.BackgroundImage = Image.FromFile(ofd_importpic.FileName);
                 for (int i = 0; i < width; i++)
                     for (int j = 0; j < height; j++)
+                    {
                         m_rectangles[i][j].BeTransparent();
+                        boxDefaultColor = Color.Transparent;
+
+                    }
                 this.Invalidate();
+                bordersToolStripMenuItem.Checked = false;
             }
             else
                 return;
