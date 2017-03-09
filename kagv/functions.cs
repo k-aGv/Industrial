@@ -86,8 +86,6 @@ namespace kagv
 
                 a
                 = b
-                = formHeight
-                = formWidth
                 = new int();
 
             initialization();
@@ -884,9 +882,6 @@ namespace kagv
             this.Size = new Size(this.Width, this.Height + bottomBarOffset);
             this.MaximizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            formHeight = height;
-            formWidth = width;
-
 
             //m_rectangels is an array of two 1d arrays
             //declares the length of the first 1d array
@@ -989,10 +984,10 @@ namespace kagv
 
                 Point _p = new Point(a, b);
 
-                for (int k = 0; k < formWidth; k++)
+                for (int k = 0; k < width; k++)
                 {
 
-                    for (int l = 0; l < formHeight; l++)
+                    for (int l = 0; l < height; l++)
                     {
 
                         if (m_rectangles[k][l].boxRec.Contains(_p))

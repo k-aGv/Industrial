@@ -23,8 +23,6 @@ namespace kagv
         int[] timer_counter;// = 0;
         public static int width = 64;//blocks of grid
         public static int height = 32; //32
-        int formHeight;//form's height
-        int formWidth;//form's width
         //int steps_counter = 0;//amount of steps done
         //int[] new_steps_counter;//new - not used yet - will be needed for when we get to animate the move of more vehicles
         int[] new_steps_counter = new int[5];
