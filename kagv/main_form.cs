@@ -719,9 +719,9 @@ namespace kagv
             borderColorToolStripMenuItem.Checked = false;
         }
 
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        protected override bool ProcessCmdKey(ref Message _msg, Keys _keyData)
         {
-            switch (keyData)
+            switch (_keyData)
             {
                 case Keys.F5:
                     allToolStripMenuItem_Click(new object(), new EventArgs());
