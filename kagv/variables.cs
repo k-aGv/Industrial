@@ -29,13 +29,10 @@ namespace kagv
         //int steps_counter = 0;//amount of steps done
         //int[] new_steps_counter;//new - not used yet - will be needed for when we get to animate the move of more vehicles
         int[] new_steps_counter = new int[5];
-        int distanceBlocks;//the quantity of blocks,matching the current line's length
         int a; //temporary X.Used to calculate the remained length of current line
         int b; //temporary Y.Used to calculate the remained length of current line
         int topBarOffset = 75 + 24 + 2;//distance from top to the grid=offset+menubar+2pixel of gray border
         int bottomBarOffset = 50 + 10;//distance between grid and the bottom of the form
-
-        //Used to find the final point
         
         BaseGrid searchGrid;
         JumpPointParam jumpParam;//custom jump method.we disabled all features hohoho
@@ -48,9 +45,6 @@ namespace kagv
         HeuristicMode mode = HeuristicMode.MANHATTAN;
 
         List<GridLine> load_line = new List<GridLine>();
-
-        SolidBrush br;
-        SolidBrush fontBR;
 
         GridBox m_lastBoxSelect;
         BoxType m_lastBoxType;

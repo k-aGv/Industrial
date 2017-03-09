@@ -84,8 +84,7 @@ namespace kagv
             paper = null;
             loads = pos_index = 0;
 
-            distanceBlocks
-                = a
+                a
                 = b
                 = resultCount
                 = formHeight
@@ -958,6 +957,9 @@ namespace kagv
 
             double side = getSide(m_rectangles[0][0].height
                             , m_rectangles[0][0].height);
+
+            int distanceBlocks = -1; //the quantity of blocks,matching the current line's length
+
             if ((x1 < x2) && (y1 < y2)) //diagonal-right bottom direction
                 distanceBlocks = Convert.ToInt32(distance / side);
             else if ((x1 < x2) && (y1 > y2)) //diagonal-right top direction
@@ -973,6 +975,7 @@ namespace kagv
             }
             else
                 MessageBox.Show("Unexpected error");
+            
 
             currentLinePoints = new Point[distanceBlocks];
             double t;
@@ -1006,17 +1009,21 @@ namespace kagv
                             currentLinePoints[i].Y = sideY;
 
                             if (showDots)
-                                paper.FillEllipse(br, currentLinePoints[i].X - 3,
-                                    currentLinePoints[i].Y - 3,
-                                    5, 5);
+                            {
+                                using ( SolidBrush br = new SolidBrush(Color.BlueViolet) )
+                                    paper.FillEllipse(br, currentLinePoints[i].X - 3,
+                                        currentLinePoints[i].Y - 3,
+                                        5, 5);
+                            }
 
                             using (Font stepFont = new Font("Tahoma", 8, FontStyle.Bold))//Font used for numbering the steps/current block)
                             {
-                                if (showSteps)
-                                    paper.DrawString(new_steps_counter[line_index] + ""
-                                       , stepFont
-                                       , fontBR
-                                       , currentLinePoints[i]);
+                                using ( SolidBrush fontBR = new SolidBrush(Color.FromArgb(53, 153, 153)))
+                                    if (showSteps)
+                                        paper.DrawString(new_steps_counter[line_index] + ""
+                                        , stepFont
+                                        , fontBR
+                                        , currentLinePoints[i]);
 
                             }
                             calibrated = true;

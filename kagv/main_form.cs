@@ -99,9 +99,7 @@ namespace kagv
             crossAdjacentPointToolStripMenuItem.Checked = crossAdjacent;
             manhattanToolStripMenuItem.Checked = true;
             
-
-            br = new SolidBrush(Color.BlueViolet);
-            fontBR = new SolidBrush(Color.FromArgb(53, 153, 153));
+            
             menuPanel.Location = new Point(0, 24 + 1);//24=menu bar Y
             // menuPanel.Height = topBarOffset -;
             menuPanel.Width = this.Width;
