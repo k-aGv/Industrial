@@ -719,6 +719,20 @@ namespace kagv
             borderColorToolStripMenuItem.Checked = false;
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            switch (keyData)
+            {
+                case Keys.F5:
+                    allToolStripMenuItem_Click(new object(), new EventArgs());
+                    return true;
+                default:
+                    return false;
+            }
+            
+        }
+
+      
       
 
        
