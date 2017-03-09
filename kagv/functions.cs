@@ -610,7 +610,7 @@ namespace kagv
                                 agv5steps_LB.Text = "AGV 5: Finished";
                                 break;
                         }
-
+                       
                     }
 
                     timer_counter[agv_index] = -1;
@@ -657,7 +657,11 @@ namespace kagv
 
             }
 
+            if (!timer1.Enabled && !timer2.Enabled && !timer3.Enabled && !timer4.Enabled && !timer5.Enabled)//when all agvs has finished their tasks
+               myresultList = new List<List<GridPos>>();//clear all the paths
+
             this.Invalidate();
+            
 
         }
         //will be only called when the first load is unloaded to the end point
