@@ -436,12 +436,9 @@ namespace kagv
                                 case BoxType.End:
                                     break;
                             }
-                            Task s = new Task( () => 
-                                {
-                                     Redraw();
-                                });
-                            s.Start();
-                            s.Wait();
+                       
+                            Redraw();
+
                         }
 
 
