@@ -90,7 +90,9 @@ namespace kagv
 
             initialization();
             main_form_Load(new object(), new EventArgs());
-
+            for (int i = 0; i < AGVs.GetLength(0); i++)
+                AGVs[i].Busy(false);
+            
             timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval = 100;
             refresh_label.Text = "Delay:" + timer1.Interval + " ms";
 
