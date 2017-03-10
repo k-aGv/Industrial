@@ -25,6 +25,7 @@ namespace kagv
         }
         private void main_form_Paint(object sender, PaintEventArgs e)
         {
+
             paper = e.Graphics;
             paper.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             try
@@ -94,6 +95,9 @@ namespace kagv
             linesToolStripMenuItem.Checked = true;
             dotsToolStripMenuItem.Checked = true;
             bordersToolStripMenuItem.Checked = true;
+
+            triggerStartMenu(false);
+
             rb_start.Checked = true;
             this.BackColor = Color.DarkGray;
 
@@ -398,7 +402,7 @@ namespace kagv
 
         private void main_form_MouseClick(object sender, MouseEventArgs e)
         {
-
+            
             Point click_coords = new Point(e.X, e.Y);
             if (!isvalid(click_coords) || e.Button != MouseButtons.Left || nUD_AGVs.Value == 0)
                 return;
@@ -512,6 +516,10 @@ namespace kagv
                             Redraw();
                         }
             }
+
+            if (myresultList.Count > 0)
+                triggerStartMenu(true);
+
             this.Invalidate();
         }
        
@@ -632,6 +640,7 @@ namespace kagv
 
         private void allToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             FullyRestore();
         }
 
@@ -672,29 +681,12 @@ namespace kagv
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+           
             nUD_AGVs.Value = getNumberOfAGVs();
 
             if (nUD_AGVs.Value > 2)
-                gb_monitor.Width += gb_monitor.Width - 100;
-            
-            if (myresultList.Count == 0)
-            {
-
-                if (!menuPanel.Enabled)
-                    menuPanel.Enabled = true;
-                if (!settings_menu.Enabled)
-                    settings_menu.Enabled = true;
-
-                DialogResult result;
-                result = MessageBox.Show(this, "No available path found.\r\nDo you wish to run without adding any elements?", "Empty layout", MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
-                    MessageBox.Show("That is not possible.\r\nPlease create a path first.", "Empty layout");
-                else
-                    MessageBox.Show("Then, please, create a path.", "Empty layout");
-
-                return;
-            }
-
+                gb_monitor.Width += gb_monitor.Width - 100;  
 
             for (int i = 0; i < fromstart.Length; i++)
                 fromstart[i] = true;
@@ -704,7 +696,8 @@ namespace kagv
             Redraw();
            
             AGVs = new Vehicle[pos.Count];
-            
+
+          //  MessageBox.Show(pos.Count + " " + (AGVs.Count() - 1) + " after restore()");
             
             for (int i = 0; i < pos.Count; i++)
             {
@@ -717,10 +710,8 @@ namespace kagv
             
             timer_counter = new int[pos.Count];
             timers(pos.Count);
-
-            
-
             settings_menu.Enabled = false;
+
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)

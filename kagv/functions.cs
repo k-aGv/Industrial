@@ -61,15 +61,14 @@ namespace kagv
             newsteps = new double[5, 2, 2000];
             fromstart = new bool[5];
             isLoad = new int[width, height];
-            AGVs = new Vehicle[5];
             new_steps_counter = new int[5];
 
-            endPointCoords = new Point();
+            endPointCoords = new Point(-1,-1);
             selectedColor = Color.DarkGray; 
 
             load_line = new List<GridLine>();
             myresultList = new List<List<GridPos>>();
-            pos = resultList = new List<GridPos>();
+            resultList = new List<GridPos>();
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
 
             beforeStart =
@@ -84,12 +83,14 @@ namespace kagv
             paper = null;
             loads = pos_index = 0;
 
-                a
-                = b
-                = new int();
+            a
+            = b
+            = new int();
 
+            AGVs = new Vehicle[5];
+           
             initialization();
-            main_form_Load(new object(), new EventArgs());
+            main_form_Load(new object(),  new EventArgs());
 
             timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval = 100;
             refresh_label.Text = "Delay:" + timer1.Interval + " ms";
@@ -168,6 +169,8 @@ namespace kagv
         }
         private void Redraw()
         {
+            
+
             if (loads > 0)
                 mapHasLoads = true;
             else
@@ -182,6 +185,7 @@ namespace kagv
             GridPos endPos = new GridPos();
 
             pos = new List<GridPos>();
+
             pos_index = 0;
 
             
@@ -268,7 +272,7 @@ namespace kagv
             //myresultList [number of agv] [number of part-line].element
             myresultList = new List<List<GridPos>>(); //List containing Lists -> List<GridPos>
 
-
+            
             for (int i = 0; i < pos.Count; i++)
             {
                 if (AGVs[i].isBusy() == false)
@@ -682,15 +686,34 @@ namespace kagv
             }
 
             if (!timer1.Enabled && !timer2.Enabled && !timer3.Enabled && !timer4.Enabled && !timer5.Enabled)//when all agvs has finished their tasks
+            {
                 myresultList = new List<List<GridPos>>();//clear all the paths
+                triggerStartMenu(false);
+            }
 
+           
             this.Invalidate();
             this.Refresh();
 
         }
         //will be only called when the first load is unloaded to the end point
 
-        
+        private void triggerStartMenu(bool t)
+        {
+            startToolStripMenuItem.Enabled = t;
+            if( !t )
+            {
+                startToolStripMenuItem.Text = "Start            Clear and redraw the components please.";
+                if ( endPointCoords.X == -1 && endPointCoords.Y == -1 )
+                    startToolStripMenuItem.Text = "Start            Create a complete path please.";
+                startToolStripMenuItem.ShortcutKeyDisplayString = "";
+            }
+            else
+            {
+                startToolStripMenuItem.Text = "Start";
+                startToolStripMenuItem.ShortcutKeyDisplayString = "(Space)";
+            }
+        }
         private void getNextLoad(int whichAGV)
         {
             bool isAnyLoadLeft = false;
@@ -900,6 +923,7 @@ namespace kagv
             for (int i = 0; i < AGVs.Count(); i++)
             {
                 AGVs[i] = new Vehicle(this);
+                AGVs[i].Busy(false);
             }
 
             this.DoubleBuffered = true;

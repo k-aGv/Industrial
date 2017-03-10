@@ -39,6 +39,7 @@ namespace kagv
         bool useRecursive = true;
         bool crossAdjacent = false;
         bool crossCorners = false;
+
         HeuristicMode mode = HeuristicMode.MANHATTAN;
 
         List<GridLine> load_line = new List<GridLine>();
@@ -63,7 +64,7 @@ namespace kagv
 
         //Vehicle myagv;
         Vehicle[] AGVs = new Vehicle[5];
-        Point endPointCoords = new Point();
+        Point endPointCoords = new Point(-1,-1);
 
         //import stuff
         BoxType[,] importmap;
