@@ -158,9 +158,35 @@ namespace kagv
 
         private bool availableLoad(GridPos b)
         {
+   
             if (!crossAdjacent && !crossCorners)//since we do not pass through corners ,we got to check only UP,DOWN,LEFT,RIGHT
             {
-                if (b.x == 0)
+                if (b.y == (height-1)) // bottom
+                {
+                    if (m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x - 1][b.y].boxType == BoxType.Normal
+                    || m_rectangles[b.x+1][b.y].boxType == BoxType.Normal)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
+
+                }
+                if (b.x == (width-1)) // right
+                {
+                    if (m_rectangles[b.x-1][b.y].boxType == BoxType.Normal
+                    || m_rectangles[b.x][b.y-1].boxType == BoxType.Normal
+                    || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
+
+                }
+
+                if (b.x == 0) // left
                 {
                     if (m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
                     || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
@@ -172,7 +198,7 @@ namespace kagv
                         return false;
 
                 }
-                if (b.y == 0)
+                if (b.y == 0) // top
                 {
                     if (m_rectangles[b.x - 1][b.y].boxType == BoxType.Normal
                     || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
@@ -196,7 +222,35 @@ namespace kagv
             }
             else
             {
-                if (b.x == 0)
+                if (b.y == (height-1)) // bottom
+                {
+                    if (m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x - 1][b.y].boxType == BoxType.Normal
+                    || m_rectangles[b.x - 1][b.y-1].boxType == BoxType.Normal
+                    || m_rectangles[b.x + 1][b.y + 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
+
+                }
+                if (b.x == (width-1)) // right
+                {
+                    if (m_rectangles[b.x - 1][b.y].boxType == BoxType.Normal
+                    || m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x-1][b.y - 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x-1][b.y + 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
+
+                }
+                if (b.x == 0) //left
                 {
                     if (m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
                     || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
@@ -210,7 +264,7 @@ namespace kagv
                         return false;
 
                 }
-                if (b.y == 0)
+                if (b.y == 0) //top
                 {
                     if (m_rectangles[b.x - 1][b.y].boxType == BoxType.Normal
                     || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
