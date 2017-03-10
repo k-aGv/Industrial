@@ -59,7 +59,7 @@ namespace kagv
             }
         }
 
-        public void Hover(Color c)
+        public void onHover(Color c)
         {
             this.brush = new SolidBrush(c);
         }
