@@ -158,18 +158,91 @@ namespace kagv
 
         private bool availableLoad(GridPos b)
         {
-           // MessageBox.Show(b.x + " " + b.y); block
-            if( m_rectangles[b.x-1][b.y].boxType==BoxType.Normal
-                || m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
-                || m_rectangles[b.x - 1][b.y - 1].boxType == BoxType.Normal
-                || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
-                || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal
-                || m_rectangles[b.x + 1][b.y + 1].boxType == BoxType.Normal)
+            if (!crossAdjacent && !crossCorners)//since we do not pass through corners ,we got to check only UP,DOWN,LEFT,RIGHT
             {
-                return true;
+                if (b.x == 0)
+                {
+                    if (m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
+                    || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
+
+                }
+                if (b.y == 0)
+                {
+                    if (m_rectangles[b.x - 1][b.y].boxType == BoxType.Normal
+                    || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
+                    || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
+                }
+
+                if (m_rectangles[b.x - 1][b.y].boxType == BoxType.Normal
+                    || m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
+                    || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal)
+                {
+                    return true;
+                }
+                else
+                    return false;
             }
             else
-                return false;
+            {
+                if (b.x == 0)
+                {
+                    if (m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
+                    || m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x + 1][b.y + 1].boxType == BoxType.Normal)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
+
+                }
+                if (b.y == 0)
+                {
+                    if (m_rectangles[b.x - 1][b.y].boxType == BoxType.Normal
+                    || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
+                    || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x + 1][b.y + 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x - 1][b.y + 1].boxType == BoxType.Normal)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
+                }
+
+                if (m_rectangles[b.x - 1][b.y].boxType == BoxType.Normal
+                    || m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x - 1][b.y - 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x - 1][b.y + 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
+                    || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x + 1][b.y - 1].boxType == BoxType.Normal
+                    || m_rectangles[b.x + 1][b.y + 1].boxType == BoxType.Normal)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+
+
+
+            
         }
         private void Redraw()
         {
