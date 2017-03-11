@@ -1241,10 +1241,12 @@ namespace kagv
 
             if (ofd_importmap.ShowDialog() == DialogResult.OK)
             {
-                imported = true;
+                
                 StreamReader reader = new StreamReader(ofd_importmap.FileName);
                 if (reader.ReadLine().Count() == 9)
                 {
+                    imported = true;
+
                     string map_details = reader.ReadLine();
 
                     char[] delim = { ' ' };
