@@ -154,7 +154,7 @@ namespace kagv {
 
             if (!(timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled || timer5.Enabled)) //if at least 1 timer is active, do not let the user access the Checkboxes etc. etc
             {
-                menuPanel.Enabled = true;
+                gb_settings.Enabled = true;
                 settings_menu.Enabled = true;
 
             }

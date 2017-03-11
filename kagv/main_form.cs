@@ -314,6 +314,8 @@ namespace kagv {
         }
 
         private void main_form_MouseUp(object sender, MouseEventArgs e) {
+            if (timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled || timer5.Enabled) return;
+
             isMouseDown = false;
 
             for (int i = 0; i < new_steps_counter.Count(); i++)
@@ -348,6 +350,8 @@ namespace kagv {
         }
 
         private void main_form_MouseClick(object sender, MouseEventArgs e) {
+
+            if (timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled || timer5.Enabled) return;
 
             Point click_coords = new Point(e.X, e.Y);
             if (!isvalid(click_coords) || e.Button != MouseButtons.Left || nUD_AGVs.Value == 0)
@@ -610,6 +614,7 @@ namespace kagv {
             timer_counter = new int[StartPos.Count];
             timers(StartPos.Count);
             settings_menu.Enabled = false;
+            gb_settings.Enabled = false;
 
         }
 
