@@ -156,35 +156,8 @@ namespace kagv
             return agvs;
         }
 
-        private bool isAvailableLoad(GridPos b)
-        {
-            BaseGrid mygrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
-            JumpPointParam param = new JumpPointParam(mygrid, false, crossCorners, crossAdjacent, mode);
-            
-            for(int i  = 0 ; i < nUD_AGVs.Value ; i++)
-            {
-                for (int w= 0 ; w < width ; w++)
-                {
-                    for(int h=0;h<height;h++)
-                    {
-                        if(m_rectangles[w][h].boxType == BoxType.Load)
-                        {
-                            GridPos load = new GridPos(w, h);
-                            param.Reset(StartPos[i], load);
-                            List<GridPos> s = JumpPointFinder.FindPath(param, paper);
-                            if (s.Count != 0)
-                                return true;
-                        }
-                    }
-                }
-
-            }
-
-            return false;
-        }
         private void Redraw()
         {
-            
 
             if (loads > 0)
                 mapHasLoads = true;
@@ -306,7 +279,8 @@ namespace kagv
                             do
                             {
                                 removed = false;
-                                if (!isAvailableLoad(loadPos[list_index])) //if there's at LEAST 1 agv that cannot reach a Load, then that Load is  
+                                jumpParam.Reset(StartPos[0], loadPos[list_index]);
+                                if (JumpPointFinder.FindPath(jumpParam, paper).Count == 0) //if there's at LEAST 1 agv that cannot reach a Load, then that Load is  
                                 {                                        //removed from the loadPos and not considered as available - marked 4 
                                     isLoad[loadPos[list_index].x, loadPos[list_index].y] = 4;
                                     loadPos.Remove(loadPos[list_index]);
