@@ -80,6 +80,7 @@ namespace kagv {
             linesToolStripMenuItem.Checked = true;
             dotsToolStripMenuItem.Checked = true;
             bordersToolStripMenuItem.Checked = true;
+            highlightOverCurrentBoxToolStripMenuItem.Checked = true;
 
             triggerStartMenu(false);
 
@@ -212,6 +213,10 @@ namespace kagv {
         }
 
         private void main_form_MouseMove(object sender, MouseEventArgs e) {
+
+            if (AllJumpPointsList.Count > 0)
+                triggerStartMenu(true);
+
             if (isMouseDown && rb_wall.Checked) {
                 if (e.Button == MouseButtons.Left) {
                     if (m_lastBoxSelect.boxType == BoxType.Start ||
@@ -290,27 +295,30 @@ namespace kagv {
                )
                 return;
 
-            for (int widthTrav = 0; widthTrav < width; widthTrav++) {
-                for (int heightTrav = 0; heightTrav < height; heightTrav++) {
-                    if (m_rectangles[widthTrav][heightTrav].boxRec.Contains(new Point(e.X, e.Y))
-                        && m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal) {
-                        if (rb_load.Checked)
-                            m_rectangles[widthTrav][heightTrav].onHover(Color.FromArgb(150, Color.FromArgb(138, 109, 86)));
-                        else if (rb_start.Checked)
-                            m_rectangles[widthTrav][heightTrav].onHover(Color.LightGreen);
-                        else if (rb_stop.Checked)
-                            m_rectangles[widthTrav][heightTrav].onHover(Color.FromArgb(80, Color.FromArgb(255, 26, 26)));
-                        else //wall
-                            m_rectangles[widthTrav][heightTrav].onHover(Color.FromArgb(20, Color.LightGray));
 
-                        this.Invalidate();
-                    } else if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal) {
-                        m_rectangles[widthTrav][heightTrav].onHover(boxDefaultColor);
-                        this.Invalidate();
+            if (allowHighlight) {
+                for (int widthTrav = 0; widthTrav < width; widthTrav++) {
+                    for (int heightTrav = 0; heightTrav < height; heightTrav++) {
+                        if (m_rectangles[widthTrav][heightTrav].boxRec.Contains(new Point(e.X, e.Y))
+                            && m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal) {
+                            if (rb_load.Checked)
+                                m_rectangles[widthTrav][heightTrav].onHover(Color.FromArgb(150, Color.FromArgb(138, 109, 86)));
+                            else if (rb_start.Checked)
+                                m_rectangles[widthTrav][heightTrav].onHover(Color.LightGreen);
+                            else if (rb_stop.Checked)
+                                m_rectangles[widthTrav][heightTrav].onHover(Color.FromArgb(80, Color.FromArgb(255, 26, 26)));
+                            else //wall
+                                m_rectangles[widthTrav][heightTrav].onHover(Color.FromArgb(20, Color.LightGray));
+
+                            this.Invalidate();
+                        } else if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal) {
+                            m_rectangles[widthTrav][heightTrav].onHover(boxDefaultColor);
+                            this.Invalidate();
+                        }
+
                     }
-
                 }
-            }
+            } 
         }
 
         private void main_form_MouseUp(object sender, MouseEventArgs e) {
@@ -444,8 +452,7 @@ namespace kagv {
                         }
             }
 
-            if (AllJumpPointsList.Count > 0)
-                triggerStartMenu(true);
+            
 
             this.Invalidate();
         }
@@ -512,6 +519,8 @@ namespace kagv {
                 showSteps = stepsToolStripMenuItem.Checked;
             else if (sender as ToolStripMenuItem == bordersToolStripMenuItem)
                 updateBorderVisibility(!bordersToolStripMenuItem.Checked);
+            else if (sender as ToolStripMenuItem == highlightOverCurrentBoxToolStripMenuItem)
+                allowHighlight = highlightOverCurrentBoxToolStripMenuItem.Checked;
 
             Redraw();
             this.Invalidate();
@@ -596,6 +605,7 @@ namespace kagv {
                 fromstart[i] = true;
 
             beforeStart = false;
+            allowHighlight = false;
             markedbyagv = new Point[StartPos.Count];
             Redraw();
 

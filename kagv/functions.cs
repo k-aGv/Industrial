@@ -162,6 +162,8 @@ namespace kagv {
             if (!timer1.Enabled && !timer2.Enabled && !timer3.Enabled && !timer4.Enabled && !timer5.Enabled)//when all agvs has finished their tasks
             {
                 AllJumpPointsList = new List<List<GridPos>>();//clear all the paths
+                allowHighlight = false;
+                highlightOverCurrentBoxToolStripMenuItem.Checked = allowHighlight;
                 triggerStartMenu(false);
             }
 
@@ -318,6 +320,7 @@ namespace kagv {
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
 
             beforeStart =
+            allowHighlight =
             NoJumpPointsFound = true;
 
             imported =
@@ -428,6 +431,9 @@ namespace kagv {
                         if (m_rectangles[i][j].boxType == BoxType.Start)
                             searchGrid.SetWalkableAt(new GridPos(i, j), true);
                     }
+
+                    if (m_rectangles[i][j].boxType == BoxType.Normal)
+                        m_rectangles[i][j].onHover(boxDefaultColor);
 
                     if (m_rectangles[i][j].boxType == BoxType.Start) {
                         start_found = true;

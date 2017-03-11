@@ -86,6 +86,7 @@
             this.implementGoogleMapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
+            this.highlightOverCurrentBoxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuPanel.SuspendLayout();
             this.gb_monitor.SuspendLayout();
             this.gb_settings.SuspendLayout();
@@ -451,7 +452,8 @@
             this.stepsToolStripMenuItem,
             this.linesToolStripMenuItem,
             this.dotsToolStripMenuItem,
-            this.bordersToolStripMenuItem});
+            this.bordersToolStripMenuItem,
+            this.highlightOverCurrentBoxToolStripMenuItem});
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
             this.showToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.showToolStripMenuItem.Text = "Show...";
@@ -459,28 +461,28 @@
             // stepsToolStripMenuItem
             // 
             this.stepsToolStripMenuItem.Name = "stepsToolStripMenuItem";
-            this.stepsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.stepsToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.stepsToolStripMenuItem.Text = "...Steps";
             this.stepsToolStripMenuItem.Click += new System.EventHandler(this.stepsToolStripMenuItem_Click);
             // 
             // linesToolStripMenuItem
             // 
             this.linesToolStripMenuItem.Name = "linesToolStripMenuItem";
-            this.linesToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.linesToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.linesToolStripMenuItem.Text = "...Lines";
             this.linesToolStripMenuItem.Click += new System.EventHandler(this.stepsToolStripMenuItem_Click);
             // 
             // dotsToolStripMenuItem
             // 
             this.dotsToolStripMenuItem.Name = "dotsToolStripMenuItem";
-            this.dotsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.dotsToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.dotsToolStripMenuItem.Text = "...Dots";
             this.dotsToolStripMenuItem.Click += new System.EventHandler(this.stepsToolStripMenuItem_Click);
             // 
             // bordersToolStripMenuItem
             // 
             this.bordersToolStripMenuItem.Name = "bordersToolStripMenuItem";
-            this.bordersToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.bordersToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.bordersToolStripMenuItem.Text = "...Borders";
             this.bordersToolStripMenuItem.Click += new System.EventHandler(this.stepsToolStripMenuItem_Click);
             // 
@@ -541,6 +543,13 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // highlightOverCurrentBoxToolStripMenuItem
+            // 
+            this.highlightOverCurrentBoxToolStripMenuItem.Name = "highlightOverCurrentBoxToolStripMenuItem";
+            this.highlightOverCurrentBoxToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.highlightOverCurrentBoxToolStripMenuItem.Text = "...Highlight over current box";
+            this.highlightOverCurrentBoxToolStripMenuItem.Click += new System.EventHandler(this.stepsToolStripMenuItem_Click);
             // 
             // main_form
             // 
@@ -633,6 +642,7 @@
         private System.Windows.Forms.GroupBox gb_monitor;
         private System.Windows.Forms.ToolStripMenuItem bordersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem borderColorToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem highlightOverCurrentBoxToolStripMenuItem;
 
     }
 }

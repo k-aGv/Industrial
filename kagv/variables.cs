@@ -81,6 +81,7 @@ namespace kagv
         bool showLine = true;
         bool showDots = true;
         bool showSteps = true;
+        bool allowHighlight = true;
 
         Color selectedColor=Color.DarkGray;
         Color boxDefaultColor = Color.WhiteSmoke;
