@@ -25,7 +25,6 @@ namespace kagv
         }
         private void main_form_Paint(object sender, PaintEventArgs e)
         {
-
             paper = e.Graphics;
             paper.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             try
@@ -436,9 +435,6 @@ namespace kagv
                                 case BoxType.End:
                                     break;
                             }
-                       
-                            Redraw();
-
                         }
 
 
@@ -469,8 +465,6 @@ namespace kagv
                                 starts_position[0, starts_counter] = widthTrav;
                                 starts_position[1, starts_counter] = heightTrav;
                                 starts_counter++;
-
-
                             }
                             if (starts_counter == nUD_AGVs.Value)
                             {
@@ -489,7 +483,6 @@ namespace kagv
                             m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal)
                         {
                             m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + topBarOffset, BoxType.Start);
-                            Redraw();
                         }
 
 
@@ -510,7 +503,6 @@ namespace kagv
                             m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal)
                         {
                             m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + topBarOffset, BoxType.End);
-                            Redraw();
                         }
             }
 
