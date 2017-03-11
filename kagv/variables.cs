@@ -18,23 +18,21 @@ namespace kagv
     {
        
 
-        List<GridPos> pos = new List<GridPos>(); //public declaration / partial redeclaration occurs in Reset(with overload)
+        List<GridPos> StartPos = new List<GridPos>(); //Contains the coords of the Start boxes
         bool[,] is_trapped;
         int[] timer_counter;// = 0;
         public static int width = 64;//blocks of grid
         public static int height = 32; //32
-        //int steps_counter = 0;//amount of steps done
-        //int[] new_steps_counter;//new - not used yet - will be needed for when we get to animate the move of more vehicles
-        int[] new_steps_counter = new int[5];
+        
         int a; //temporary X.Used to calculate the remained length of current line
         int b; //temporary Y.Used to calculate the remained length of current line
         int topBarOffset = 75 + 24 + 2;//distance from top to the grid=offset+menubar+2pixel of gray border
         int bottomBarOffset = 50 + 10;//distance between grid and the bottom of the form
         
         BaseGrid searchGrid;
-        JumpPointParam jumpParam;//custom jump method.we disabled all features hohoho
-        Graphics paper;//main graphics for grid etc.
-        GridBox[][] m_rectangles;//2d array.contains ALL coords    
+        JumpPointParam jumpParam;//custom jump method with its features exposed
+        Graphics paper;//main graphics for grid
+        GridBox[][] m_rectangles;//2d array. Contains grid information (coords of each box, boxtype, etc etc)  
 
         bool useRecursive = true;
         bool crossAdjacent = false;
@@ -49,18 +47,19 @@ namespace kagv
         ToolTip tp;
         Point[] markedbyagv; //contains the relative coords of the marked loads (example: markedbyagv[0] has the coords that the 1st agv has marked)
 
-        GridLine[,] myLines = new GridLine[2000, 5];
+        GridLine[,] AGVspath = new GridLine[2000, 5];
 
         int pos_index = 0;//index of GridPos[] pos array
-        List<List<GridPos>> myresultList = new List<List<GridPos>>();//new -> List of Lists (let's say Parent List)
-        List<GridPos> resultList = new List<GridPos>();
-        bool lol_empty;//confirms whether the list_of_lists is empty or not
+        List<List<GridPos>> AllJumpPointsList = new List<List<GridPos>>();//Contains all the JumpPoints that are needed for the paths to be calculated & drawn
+        List<GridPos> JumpPointsList = new List<GridPos>();
+        bool NoJumpPointsFound;//confirms whether the list_of_lists is empty or not
 
         //current load x/y for 5 agv's currently targetting/carrying loads
 
         //0 dimension=x
         //1 dimension=y
         double[, ,] newsteps = new double[5, 2, 2000];
+        int[] new_steps_counter = new int[5];
 
         //Vehicle myagv;
         Vehicle[] AGVs = new Vehicle[5];

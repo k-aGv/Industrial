@@ -52,16 +52,16 @@ namespace kagv
                 for (int i = 0; i < nUD_AGVs.Value; i++)
                 {
                     new_steps_counter[i] = 0;
-                    if (!lol_empty)
+                    if (!NoJumpPointsFound)
                     {
-                        for (int resultTrav = 0; resultTrav < myresultList.Count; resultTrav++)
+                        for (int resultTrav = 0; resultTrav < AllJumpPointsList.Count; resultTrav++)
                         {
                             try
                             {
                                 if (showLine)
-                                    myLines[resultTrav, i].drawLine(paper);
+                                    AGVspath[resultTrav, i].drawLine(paper);
                                 if (!isMouseDown)
-                                    DrawPoints(myLines[resultTrav, i], i);
+                                    DrawPoints(AGVspath[resultTrav, i], i);
                             }
                             catch { }
                         }
@@ -186,9 +186,9 @@ namespace kagv
                                 "Index: " +
                                 "iX: " + widthTrav + " " + "iY: " + heightTrav + "\r\n";
 
-                            if (pos != null)
+                            if (StartPos != null)
                             {
-                                for (int j = 0; j < pos.Count; j++)
+                                for (int j = 0; j < StartPos.Count; j++)
                                     for (int i = 0; i < newsteps.GetLength(2); i++)
                                     {
                                         if (m_rectangles[widthTrav][heightTrav].boxRec.Contains
@@ -207,7 +207,7 @@ namespace kagv
                                 clickedBox = m_rectangles[widthTrav][heightTrav];
                             }
                             tp.ToolTipIcon = ToolTipIcon.Info;
-                            if (isPathBlock && pos != null)
+                            if (isPathBlock && StartPos != null)
                             {
                                 isPath = "Is part of path:Yes\r\n";
                                 tp.Show(currentBoxType + currentBoxCoords + currentBoxIndex + isPath
@@ -514,7 +514,7 @@ namespace kagv
                         }
             }
 
-            if (myresultList.Count > 0)
+            if (AllJumpPointsList.Count > 0)
                 triggerStartMenu(true);
 
             this.Invalidate();
@@ -611,7 +611,7 @@ namespace kagv
             {
                 for (int agv = 0; agv < nUD_AGVs.Value; agv++)
                 {
-                    myresultList[agv].Clear();
+                    AllJumpPointsList[agv].Clear();
                 }
             }
 
@@ -689,24 +689,24 @@ namespace kagv
                 fromstart[i] = true;
 
             beforeStart = false;
-            markedbyagv = new Point[pos.Count];
+            markedbyagv = new Point[StartPos.Count];
             Redraw();
-           
-            AGVs = new Vehicle[pos.Count];
+
+            AGVs = new Vehicle[StartPos.Count];
 
           //  MessageBox.Show(pos.Count + " " + (AGVs.Count() - 1) + " after restore()");
-            
-            for (int i = 0; i < pos.Count; i++)
+
+            for (int i = 0; i < StartPos.Count; i++)
             {
                 //initialization of each AGV location
                 AGVs[i] = new Vehicle(this,
-                                      m_rectangles[pos[i].x][pos[i].y].boxRec.X, //real form X-coordinates
-                                      m_rectangles[pos[i].x][pos[i].y].boxRec.Y, //real form Y-coordinates
+                                      m_rectangles[StartPos[i].x][StartPos[i].y].boxRec.X, //real form X-coordinates
+                                      m_rectangles[StartPos[i].x][StartPos[i].y].boxRec.Y, //real form Y-coordinates
                                       18, 18);
             }
-            
-            timer_counter = new int[pos.Count];
-            timers(pos.Count);
+
+            timer_counter = new int[StartPos.Count];
+            timers(StartPos.Count);
             settings_menu.Enabled = false;
 
         }
