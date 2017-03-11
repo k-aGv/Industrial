@@ -11,499 +11,11 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 
-namespace kagv
-{
-    
-    public partial class main_form
-    {
+namespace kagv {
 
-        private void FullyRestore()
-        {
-            if (is_trapped != null)
-            {
-                Array.Clear(is_trapped, 0, is_trapped.GetLength(0));
-                Array.Clear(is_trapped, 0, is_trapped.GetLength(1));
-            }
+    public partial class main_form {
+        private void animator(int counter, int agv_index) {
 
-            if (timer_counter != null)
-                Array.Clear(timer_counter, 0, timer_counter.GetLength(0));
-
-           
-
-            //jagged array has to be resetted like this
-            for (int i = 0; i < width; i++)
-            {
-                for (int j = 0; j < height; j++)
-                {
-                    m_rectangles[i][j] = new GridBox(i * 20, j * 20 + topBarOffset, BoxType.Normal);
-                }
-            }
-
-            if (markedbyagv != null)
-                Array.Clear(markedbyagv, 0, markedbyagv.GetLength(0));
-
-            for (int i = 0; i < AGVs.GetLength(0); i++)
-            {
-                AGVs[i].killIcon();
-            }
-
-            if (importmap != null)
-            {
-                Array.Clear(importmap, 0, importmap.GetLength(0));
-                Array.Clear(importmap, 0, importmap.GetLength(1));
-            }
-
-            if (this.BackgroundImage != null)
-                this.BackgroundImage = null;
-
-
-            AGVspath = new GridLine[2000, 5];
-            newsteps = new double[5, 2, 2000];
-            fromstart = new bool[5];
-            isLoad = new int[width, height];
-            new_steps_counter = new int[5];
-
-            endPointCoords = new Point(-1,-1);
-            selectedColor = Color.DarkGray; 
-
-            load_line = new List<GridLine>();
-            AllJumpPointsList = new List<List<GridPos>>();
-            JumpPointsList = new List<GridPos>();
-            searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
-
-            beforeStart =
-            NoJumpPointsFound = true;
-
-            imported =
-            calibrated =
-            isMouseDown =
-            mapHasLoads = false;
-
-            jumpParam = null;
-            paper = null;
-            loads = pos_index = 0;
-
-            a
-            = b
-            = new int();
-
-            AGVs = new Vehicle[5];
-           
-            initialization();
-
-            main_form_Load(new object(), new EventArgs());
-            for (int i = 0; i < AGVs.GetLength(0); i++)
-                AGVs[i].Busy(false);
-            
-
-            timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval = 100;
-            refresh_label.Text = "Delay:" + timer1.Interval + " ms";
-
-        }
-
-        T[,] ResizeArray<T>(T[,] original, int rows, int cols)
-        {
-            var newArray = new T[rows, cols];
-            int minRows = Math.Min(rows, original.GetLength(0));
-            int minCols = Math.Min(cols, original.GetLength(1));
-            for (int i = 0; i < minRows; i++)
-                for (int j = 0; j < minCols; j++)
-                    newArray[i, j] = original[i, j];
-
-            return newArray;
-        }
-
-        private void updateBorderVisibility(bool hide)
-        {
-            if (hide)
-            {
-                for (int i = 0; i < width; i++)
-                    for (int j = 0; j < height; j++)
-                        m_rectangles[i][j].BeTransparent();
-                this.BackColor = Color.DarkGray;
-            }
-            else
-            {
-                for (int i = 0; i < width; i++)
-                    for (int j = 0; j < height; j++)
-                    {
-                        if (m_rectangles[i][j].boxType == BoxType.Normal)
-                        {
-                            m_rectangles[i][j].BeVisible();
-                            boxDefaultColor = Color.WhiteSmoke;
-                        }
-                    }
-
-                this.BackColor = selectedColor;
-            }
-
-            //no need of invalidation since its done after the call of this function
-        }
-        private void updateParameters()
-        {
-            jumpParam.CrossAdjacentPoint = crossAdjacent;
-            jumpParam.CrossCorner = crossCorners;
-            jumpParam.UseRecursive = useRecursive; 
-        }
-        private int getNumberOfAGVs()
-        {
-            int agvs=0;
-            for (int i = 0; i < width; i++)
-                for (int j = 0; j < height; j++)
-                if(m_rectangles[i][j].boxType==BoxType.Start)
-                    agvs++;
-
-            return agvs;
-        }
-
-        private void Redraw()
-        {
-
-            if (loads > 0)
-                mapHasLoads = true;
-            else
-                mapHasLoads = false;
-
-            bool start_found = false;
-            bool end_found = false;
-
-            List<GridPos> loadPos = new List<GridPos>();
-            int loadPos_index = 0;
-
-            GridPos endPos = new GridPos();
-
-            StartPos = new List<GridPos>();
-
-            pos_index = 0;
-
-            
-            for (int i = 0; i < width; i++)
-                for (int j = 0; j < height; j++)
-                {
-                    if (m_rectangles[i][j].boxType == BoxType.Wall)
-                        searchGrid.SetWalkableAt(new GridPos(i, j), false);
-                    else
-                        searchGrid.SetWalkableAt(new GridPos(i, j), true);
-
-                    if (beforeStart)
-                    {
-                        if (m_rectangles[i][j].boxType == BoxType.Start)
-                            searchGrid.SetWalkableAt(new GridPos(i, j), false);
-                       
-                    }
-                    else
-                    {
-                        if (m_rectangles[i][j].boxType == BoxType.Start)
-                            searchGrid.SetWalkableAt(new GridPos(i, j), true);
-                    }
-
-                    if (m_rectangles[i][j].boxType == BoxType.Start)
-                    {
-                        start_found = true;
-
-                        StartPos.Add(new GridPos(0, 0));//create space to add the next agv
-                        StartPos[pos_index].x = i;
-                        StartPos[pos_index].y = j;
-
-                        a = StartPos[pos_index].x;
-                        b = StartPos[pos_index].y;
-
-                        if (pos_index < StartPos.Count)
-                        {
-                            StartPos[pos_index] = new GridPos(StartPos[pos_index].x, StartPos[pos_index].y);
-                            pos_index++;
-                        }
-                    }
-
-                    if (m_rectangles[i][j].boxType == BoxType.End)
-                    {
-                        end_found = true;
-                        endPos.x = i;
-                        endPos.y = j;
-                        endPointCoords = new Point(i * 20, j * 20 + topBarOffset);
-                    }
-
-                    if (mapHasLoads)
-                    {
-                        if (isLoad[i, j] == 1 || isLoad[i, j] == 4)
-                        {
-                            loadPos.Add(new GridPos());
-                            loadPos[loadPos_index].x = i;
-                            loadPos[loadPos_index].y = j;
-                            loadPos_index++;
-                        }
-                    }
-                }
-
-            Reset();
-            if (!start_found || !end_found)
-                return;
-
-            NoJumpPointsFound = true;
-
-            if (AGVs != null)
-                for (int i = 0; i < AGVs.Count(); i++)
-                    if (AGVs[i] != null)
-                    {
-                        AGVs[i].updateAGV();
-                        AGVs[i].Busy(false);//initialize the status of AGVs, as 'available'
-                    }
-
-            loadPos_index = 0;
-            pos_index = 0;
-            is_trapped = new bool[StartPos.Count, 2];
-            //is_trapped[i,0] -> unavailable path for Start to Load
-            //is_trapped[i,1] -> unavailable path for Load to End
-
-
-            //architecture of myresultList
-            //myresultList [number of agv] [number of part-line].element
-            AllJumpPointsList = new List<List<GridPos>>(); //List containing Lists -> List<GridPos>
-
-
-            for (int i = 0; i < StartPos.Count; i++)
-            {
-                if (AGVs[i].isBusy() == false)
-                {
-                    if (loadPos.Count() == 0)
-                        mapHasLoads = false;
-
-                    //create the path from start to load,if load exists
-                    switch (mapHasLoads)
-                    {
-                        case true:
-
-                            int list_index = 0;
-                            bool removed;
-
-                            do
-                            {
-                                removed = false;
-                                jumpParam.Reset(StartPos[0], loadPos[list_index]);
-                                if (JumpPointFinder.FindPath(jumpParam, paper).Count == 0) //if there's at LEAST 1 agv that cannot reach a Load, then that Load is  
-                                {                                        //removed from the loadPos and not considered as available - marked 4 
-                                    isLoad[loadPos[list_index].x, loadPos[list_index].y] = 4;
-                                    loadPos.Remove(loadPos[list_index]);
-                                    removed = true;
-                                }
-                                else
-                                    isLoad[loadPos[list_index].x, loadPos[list_index].y] = 1;
-
-                                if (!removed)
-                                    list_index++;
-                            } while (list_index < loadPos.Count);
-
-
-                            if (loadPos.Count() == 0)
-                                loadPos.Add(endPos); //if EVERY load is trapped, use the endPos as LoadPos so as the agvs can complete their basic route (start -> end)
-
-
-                            jumpParam.Reset(StartPos[pos_index], loadPos[0]);
-                            JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
-                            AGVs[i].Busy(true);
-
-                            //is_trapped[i,0] -> part of route agv -> load
-                            //is_trapped[i,1] -> part of route load -> end
-                            if (JumpPointsList.Count == 0)
-                                is_trapped[i, 0] = true;
-                            else
-                                is_trapped[i, 0] = false;
-
-                            if (!is_trapped[i, 0])
-                                for (int j = 0; j < JumpPointsList.Count; j++)
-                                {
-                                    AllJumpPointsList.Add(new List<GridPos>());
-                                    AllJumpPointsList[i].Add(JumpPointsList[j]); //adds the list containing all the JumpPoints, for every direction, to a parent List 
-                                }
-                            else //leak catch
-                                AllJumpPointsList.Add(new List<GridPos>()); //increases the size of the List so the resultList can fit without causing overflow
-
-
-
-
-                            //from load to end
-                            jumpParam.Reset(loadPos[0], endPos);
-                            JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
-                            if (JumpPointsList.Count == 0)//recheck if load-to-end is a trapped path
-                                is_trapped[i, 1] = true;
-                            else
-                                is_trapped[i, 1] = false;
-
-
-                            if (!is_trapped[i, 1])
-                                for (int j = 0; j < JumpPointsList.Count; j++)
-                                {
-                                    AllJumpPointsList.Add(new List<GridPos>());
-
-                                    AllJumpPointsList[i].Add(JumpPointsList[j]); //adds the list containing all the JumpPoints, for every direction, to a parent List 
-                                    NoJumpPointsFound = false;
-                                }
-
-
-                            if (!is_trapped[i, 0] && !is_trapped[i, 1])
-                            {
-                                //marks the load that each AGV picks up on the 1st route, as 3, so each agv knows where to go after delivering the 1st load
-                                if (fromstart[i])
-                                {
-                                    for (int widthtrav = 0; widthtrav < width; widthtrav++)
-                                        for (int heightrav = 0; heightrav < height; heightrav++)
-                                            if (isLoad[widthtrav, heightrav] == 1)
-                                            {
-                                                isLoad[widthtrav, heightrav] = 3;
-                                                markedbyagv[i] = new Point(widthtrav, heightrav);
-
-                                                widthtrav = width;
-                                                heightrav = height;
-                                            }
-                                }
-                                loadPos.Remove(loadPos[0]);
-                            }
-                            else if (is_trapped[i, 1])
-                                loadPos.Remove(loadPos[0]);
-                            break;
-
-
-
-
-                        case false:
-                            jumpParam.Reset(StartPos[pos_index], endPos);
-                            JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
-
-                            if (JumpPointsList.Count == 0)
-                                is_trapped[i, 0] = true;
-                            else
-                                is_trapped[i, 0] = false;
-
-
-                            if (!is_trapped[i, 0])
-                                for (int j = 0; j < JumpPointsList.Count; j++)
-                                {
-                                    AllJumpPointsList.Add(new List<GridPos>());
-                                    AllJumpPointsList[i].Add(JumpPointsList[j]); //adds the list containing all the JumpPoints, for every direction, to a parent List 
-
-                                    NoJumpPointsFound = false;
-                                }
-                            else //leak catch
-                                AllJumpPointsList.Add(new List<GridPos>()); //increases the size of the List so the resultList can fit without causing overflow
-
-                            break;
-
-                    }
-                }
-                pos_index++;
-            }
-
-
-
-            GridLine[,] pathForResize = new GridLine[2000, AllJumpPointsList.Count]; 
-
-
-            for (int i = 0; i < StartPos.Count; i++)
-                for (int j = 0; j < AllJumpPointsList[i].Count - 1; j++)
-                {
-                    //side:adds line to linearray.since it adds a new line,that means 
-                    //that the new line IS the correct path
-                    GridLine line = new GridLine(m_rectangles[AllJumpPointsList[i][j].x][AllJumpPointsList[i][j].y],
-                                            m_rectangles[AllJumpPointsList[i][j + 1].x][AllJumpPointsList[i][j + 1].y]
-                                               ); 
-
-                    pathForResize[j, i] = line;
-                }
-
-            if ((AllJumpPointsList.Count - 1) > 0)
-                AGVspath = ResizeArray(pathForResize, AllJumpPointsList.Count - 1, 5);
-
-            this.Invalidate();
-        }
-
-        private int getStepsToLoad(int whichAGV)
-        {
-            int ix = markedbyagv[whichAGV].X * 20;
-            int iy = (markedbyagv[whichAGV].Y * 20)+topBarOffset;
-
-            int step=-1;
-
-            for (int i = 0; i < newsteps.GetLength(2); i++)
-            {
-                if (
-                    newsteps[whichAGV, 0, i] - 9 == ix &&
-                    newsteps[whichAGV, 1, i] - 9 == iy
-                    )
-                {
-                    step = i;
-                    i = newsteps.GetLength(2);
-                }
-            }
-            if (step >= 0) return step;
-            else return -1;
-            
-        }
-
-
-        private void Reset()
-        {
-            AGVspath = new GridLine[AllJumpPointsList.Count, 5];
-
-            newsteps = new double[5, 2, 2000];
-
-            for (int i = 0; i < new_steps_counter.Count(); i++)
-                new_steps_counter[i] = 0;
-
-        }
-        private void Reset(int whichAGV) //overloaded Reset
-        {
-            int c = AGVspath.GetLength(0);
-
-            AllJumpPointsList[whichAGV] = new List<GridPos>(); //empties the correct cell of the 2D-List containing each AGVs routes
-            StartPos[whichAGV] = new GridPos(); //empties the correct start Pos for each AGV
-
-            for (int i = 0; i < c; i++)
-                AGVspath[i, whichAGV] = null;
-
-            for (int i = 0; i < 2; i++)
-                for (int j = 0; j < 2000; j++)
-                    newsteps[whichAGV, i, j] = 0;
-
-            new_steps_counter[whichAGV] = 0;
-        }
-
-
-        private void displayStepsToLoad(int counter, int agv_index)
-        {
-            int stepstoload;
-            string agvinfo;
-          
-            if ( getStepsToLoad(agv_index) == -1)
-                agvinfo = "AGV " + (agv_index + 1) + ": Moving straight to the end point";
-            else
-            {
-                stepstoload = (getStepsToLoad(agv_index) - counter);
-                agvinfo = "AGV " + (agv_index + 1) + ": Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
-                if (stepstoload < 0)
-                    agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
-            }
-
-            gb_monitor.Controls.Find(
-                "agv" + (agv_index + 1) + "steps_LB",
-                 true)
-                 [0].Text = agvinfo;
-           
-        }
-
-        private void halt(int index, int _c)
-        {
-            timer_counter[index]--;
-            if (!(_c - 1 < 0)) //in case the intersection is in the 1st step of the route, then the index of that step will be 0. 
-            {                  //this means that trying to get to the "_c -1" step, will have the index decreased to -1 causing the "index out of bound" crash
-                int stepx = Convert.ToInt32(newsteps[index, 0, _c - 1]);
-                int stepy = Convert.ToInt32(newsteps[index, 1, _c - 1]);
-                AGVs[index].SetLocation(stepx - 9, stepy - 9);
-            }
-        }
-
-        private void animator(int counter, int agv_index)
-        {
-            
             int stepx = Convert.ToInt32(newsteps[agv_index, 0, counter]);
             int stepy = Convert.ToInt32(newsteps[agv_index, 1, counter]);
 
@@ -515,23 +27,19 @@ namespace kagv
             displayStepsToLoad(counter, agv_index);
 
             //RULES OF WHICH AGV WILL STOP WILL BE ADDED
-            for (int i = 0; i < nUD_AGVs.Value; i++)
-            {
+            for (int i = 0; i < nUD_AGVs.Value; i++) {
 
                 if (agv_index != i
                     && AGVs[i].GetLocation() != new Point(0, 0)//i dont like that much tho
                     && AGVs[agv_index].GetLocation() == AGVs[i].GetLocation()
                     && AGVs[agv_index].GetLocation() != endPointCoords
-                    )
-                {
+                    ) {
 
                     halt(agv_index, counter);
                     halted = true;
-                }
-                else
-                {
-                    if(!halted)
-                    AGVs[agv_index].SetLocation(stepx - 9, stepy - 9);
+                } else {
+                    if (!halted)
+                        AGVs[agv_index].SetLocation(stepx - 9, stepy - 9);
                 }
 
             }
@@ -539,14 +47,12 @@ namespace kagv
 
             if (markedbyagv[agv_index].X * 20 == AGVs[agv_index].GetLocation().X &&
                 (markedbyagv[agv_index].Y * 20) + topBarOffset == AGVs[agv_index].GetLocation().Y &&
-                !AGVs[agv_index].isBusy())
-            {
+                !AGVs[agv_index].isBusy()) {
 
                 m_rectangles[markedbyagv[agv_index].X][markedbyagv[agv_index].Y].SwitchLoad();
                 AGVs[agv_index].Busy(true);
                 AGVs[agv_index].setLoaded();
-                if (fromstart[agv_index])
-                {
+                if (fromstart[agv_index]) {
                     loads--;
                     isLoad[markedbyagv[agv_index].X, markedbyagv[agv_index].Y] = 2;
 
@@ -554,32 +60,26 @@ namespace kagv
                 }
             }
 
-            if (!fromstart[agv_index])
-            {
+            if (!fromstart[agv_index]) {
                 if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - topBarOffset) / 20].x &&
-                    AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - topBarOffset) / 20].y)
-                {
+                    AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - topBarOffset) / 20].y) {
 
 
                     AGVs[agv_index].Busy(false);
 
-                    for (int k = 0; k < width; k++)
-                    {
-                        for (int b = 0; b < height; b++)
-                        {
+                    for (int k = 0; k < width; k++) {
+                        for (int b = 0; b < height; b++) {
                             if (isLoad[k, b] == 1)
                                 isfreeload = true;
                         }
                     }
 
-                    if (loads > 0 && isfreeload)
-                    {
+                    if (loads > 0 && isfreeload) {
 
                         Reset(agv_index);
                         AGVs[agv_index].Busy(true);
                         markedbyagv[agv_index] = new Point();
-                        System.Threading.Tasks.Task _thread = new System.Threading.Tasks.Task(() =>
-                        {
+                        System.Threading.Tasks.Task _thread = new System.Threading.Tasks.Task(() => {
                             getNextLoad(agv_index);
                         });
 
@@ -589,14 +89,11 @@ namespace kagv
                         AGVs[agv_index].Busy(false);
                         AGVs[agv_index].setEmpty();
 
-                    }
-                    else
-                    {
+                    } else {
                         AGVs[agv_index].setEmpty();
                         isfreeload = false;
 
-                        switch (agv_index)
-                        {
+                        switch (agv_index) {
                             case 0:
                                 timer1.Stop();
                                 agv1steps_LB.Text = "AGV 1: Finished";
@@ -618,21 +115,18 @@ namespace kagv
                                 agv5steps_LB.Text = "AGV 5: Finished";
                                 break;
                         }
-                       
+
                     }
 
                     timer_counter[agv_index] = -1;
                     counter = 0;
 
                 }
-            }
-            else
-            {
+            } else {
                 if (isLoad[markedbyagv[agv_index].X, markedbyagv[agv_index].Y] == 2)
                     if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - topBarOffset) / 20].x &&
                         AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - topBarOffset) / 20].y)
-                        switch (agv_index)
-                        {
+                        switch (agv_index) {
                             case 0:
                                 timer1.Stop();
                                 agv1steps_LB.Text = "AGV 1: Finished";
@@ -671,301 +165,12 @@ namespace kagv
                 triggerStartMenu(false);
             }
 
-           
+
             this.Invalidate();
             this.Refresh();
 
         }
-        
-
-        private void triggerStartMenu(bool t)
-        {
-            startToolStripMenuItem.Enabled = t;
-            if( !t )
-            {
-                startToolStripMenuItem.Text = "Start            Clear and redraw the components please.";
-                if ( endPointCoords.X == -1 && endPointCoords.Y == -1 )
-                    startToolStripMenuItem.Text = "Start            Create a complete path please.";
-                startToolStripMenuItem.ShortcutKeyDisplayString = "";
-            }
-            else
-            {
-                startToolStripMenuItem.Text = "Start";
-                startToolStripMenuItem.ShortcutKeyDisplayString = "(Space)";
-            }
-        }
-        private void getNextLoad(int whichAGV)
-        {
-            bool isAnyLoadLeft = false;
-            for (int widthTrav = 0; widthTrav < width; widthTrav++)
-            {
-                for (int heightTrav = 0; heightTrav < height; heightTrav++)
-                {
-                    if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Load)
-                    {
-                        isAnyLoadLeft = true;
-                    }
-                }
-            }
-
-            if (!isAnyLoadLeft)
-                return;
-
-            //convert the end point to start point
-            GridPos endPos = new GridPos();
-            for (int widthTrav = 0; widthTrav < width; widthTrav++)
-            {
-                for (int heightTrav = 0; heightTrav < height; heightTrav++)
-                {
-
-                    if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.End)
-                    {
-
-                        try
-                        {
-                            StartPos[whichAGV] = new GridPos(widthTrav, heightTrav);
-
-                            a = StartPos[whichAGV].x;
-                            b = StartPos[whichAGV].y;
-
-                        }
-                        catch (Exception e) { MessageBox.Show(e + "\r\n getNextLoad()"); }
-
-                    }
-                }
-            }
-            //*******************************************************************
-            //*******************************************************************
-            //*******************************************************************
-            //*******************************************************************
-            for (int widthTrav = 0; widthTrav < width; widthTrav++)
-            {
-                for (int heightTrav = 0; heightTrav < height; heightTrav++)
-                {
-                    //this causes the 'bug' that agvs are scanning from left to right for loads
-                    if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Load && isLoad[widthTrav, heightTrav] == 1)
-                    {
-                        isLoad[widthTrav, heightTrav] = 3;
-                        markedbyagv[whichAGV] = new Point(widthTrav, heightTrav);
-
-                        loads--;
-                        endPos.x = widthTrav;
-                        endPos.y = heightTrav;
-
-                        widthTrav = width;
-                        heightTrav = height;
-                    }
-                }
-            }
-
-
-
-
-            //*******************************************************************
-            try
-            {
-                jumpParam.Reset(StartPos[whichAGV], endPos); //THIS was the problem why the 2nd agv had no route. StartPos[] was redeclared with 1 cell. The incoming whichAGV
-                                                             //had its value set to 1 (for the 2nd agv), causing the StartPos[] to overflow, catching the exception and skipping
-                                                             //the calculation of the route
-                JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
-
-
-                for (int j = 0; j < JumpPointsList.Count; j++)
-                {
-                    AllJumpPointsList.Add(new List<GridPos>());
-                    AllJumpPointsList[whichAGV].Add(JumpPointsList[j]); //adds the list containing all the JumpPoints, for every direction, to a parent List 
-                }
-
-                GridLine[,] pathForResize = new GridLine[2000, AllJumpPointsList.Count];
-
-
-                for (int j = 0; j < AllJumpPointsList[whichAGV].Count - 1; j++)
-                {
-                    //side:adds line to linearray.since it adds a new line,that means 
-                    //that the new line IS the correct path
-                    GridLine line = new GridLine(m_rectangles[AllJumpPointsList[whichAGV][j].x][AllJumpPointsList[whichAGV][j].y],
-                                            m_rectangles[AllJumpPointsList[whichAGV][j + 1].x][AllJumpPointsList[whichAGV][j + 1].y]
-                                               );
-
-                    pathForResize[j, whichAGV] = line;
-                }
-
-
-                if ((AllJumpPointsList.Count - 1) > 0)
-                    AGVspath = ResizeArray(pathForResize, AllJumpPointsList.Count - 1, 5);
-
-                //return to exit
-                jumpParam.Reset(endPos, StartPos[whichAGV]);
-                JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
-                for (int j = 0; j < JumpPointsList.Count; j++)
-                {
-                    AllJumpPointsList.Add(new List<GridPos>());
-                    AllJumpPointsList[whichAGV].Add(JumpPointsList[j]); //adds the list containing all the JumpPoints, for every direction, to a parent List 
-                }
-
-                pathForResize = new GridLine[2000, AllJumpPointsList.Count];
-
-                for (int i = 0; i < StartPos.Count; i++)
-                {
-                    for (int j = 0; j < AllJumpPointsList[i].Count - 1; j++)
-                    {
-                        //side:adds line to linearray.since it adds a new line,that means 
-                        //that the new line IS the correct path
-                        GridLine line = new GridLine(m_rectangles[AllJumpPointsList[i][j].x][AllJumpPointsList[i][j].y],
-                                                m_rectangles[AllJumpPointsList[i][j + 1].x][AllJumpPointsList[i][j + 1].y]
-                                                   ); 
-
-                        pathForResize[j, i] = line;
-                    }
-
-                }
-
-                if ((AllJumpPointsList.Count - 1) > 0)
-                    AGVspath = ResizeArray(pathForResize, AllJumpPointsList.Count - 1, 5);
-
-                this.Invalidate();
-
-                
-
-                //return true;//if any other load exist
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e + "");
-            }
-            // return false;
-
-            
-        }
-       
-        private void timers(int agvs_number)
-        {
-            //agvs_number = how many agvs I have placed
-            //every timer is responsible for every agv for up to 5 AGVs
-
-            if (agvs_number == 1 && !is_trapped[0, 0] && !is_trapped[0, 1])
-            {
-                timer1.Start();
-            }
-
-            if (agvs_number == 2)
-            {
-                if (!is_trapped[0, 0] && !is_trapped[0, 1])
-                {
-                    timer1.Start();
-                }
-                if (!is_trapped[1, 0] && !is_trapped[1, 1])
-                {
-                    timer2.Start();
-                }
-            }
-            if (agvs_number == 3)
-            {
-                if (!is_trapped[0, 0] && !is_trapped[0, 1])
-                    timer1.Start();
-                if (!is_trapped[1, 0] && !is_trapped[1, 1])
-                    timer2.Start();
-                if (!is_trapped[2, 0] && !is_trapped[2, 1])
-                    timer3.Start();
-            }
-            if (agvs_number == 4)
-            {
-                if (!is_trapped[0, 0] && !is_trapped[0, 1])
-                    timer1.Start();
-                if (!is_trapped[1, 0] && !is_trapped[1, 1])
-                    timer2.Start();
-                if (!is_trapped[2, 0] && !is_trapped[2, 1])
-                    timer3.Start();
-                if (!is_trapped[3, 0] && !is_trapped[3, 1])
-                    timer4.Start();
-            }
-            if (agvs_number == 5)
-            {
-                if (!is_trapped[0, 0] && !is_trapped[0, 1])
-                    timer1.Start();
-                if (!is_trapped[1, 0] && !is_trapped[1, 1])
-                    timer2.Start();
-                if (!is_trapped[2, 0] && !is_trapped[2, 1])
-                    timer3.Start();
-                if (!is_trapped[3, 0] && !is_trapped[3, 1])
-                    timer4.Start();
-                if (!is_trapped[4, 0] && !is_trapped[4, 1])
-                    timer5.Start();
-            }
-
-
-        }
-
-
-        
-        private void initialization()
-        {
-            for (int i = 0; i < AGVs.Count(); i++)
-            {
-                AGVs[i] = new Vehicle(this);
-                AGVs[i].Busy(false);
-            }
-
-            this.DoubleBuffered = true;
-            this.Width = ((width + 1) * 20) - 3; //3 because 2=boarder and the 1 comes from "width+1"
-            this.Height = (height + 1) * 20 + bottomBarOffset;
-            this.Size = new Size(this.Width, this.Height + bottomBarOffset);
-            this.MaximizeBox = false;
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-
-            //m_rectangels is an array of two 1d arrays
-            //declares the length of the first 1d array
-            m_rectangles = new GridBox[width][];
-
-            for (int widthTrav = 0; widthTrav < width; widthTrav++)
-            {
-                //declares the length of the seconds 1d array
-                m_rectangles[widthTrav] = new GridBox[height];
-                for (int heightTrav = 0; heightTrav < height; heightTrav++)
-                {
-
-                    //dynamically add the gridboxes into the m_rectangles.
-                    //size of the m_rectangels is constantly increasing(while adding
-                    //the gridbox values) until 
-                    //size=height or size = width.
-                    if (imported)
-                    {
-                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + topBarOffset, importmap[widthTrav, heightTrav]);
-                        if (importmap[widthTrav, heightTrav] == BoxType.Load)
-                        {
-                            isLoad[widthTrav, heightTrav] = 1;
-                            loads++;
-                        }
-                    }
-                    else
-                    {
-                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + topBarOffset, BoxType.Normal);
-                        isLoad[widthTrav, heightTrav] = 2;
-                    }
-                }
-            }
-            if (imported)
-                imported = false;
-
-
-
-            searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
-            jumpParam = new JumpPointParam(searchGrid, false, crossCorners, crossAdjacent, mode);
-            //syntax of jumpParam-> JumpPointParam(searchGrid, startPos, endPos, cbCrossCorners.Checked, HeuristicMode.EUCLIDEANSQR);
-
-
-        }
-      
-        private double GetLength(double x1, double y1, double x2, double y2)
-        {
-            return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
-        }
-        private double getSide(int w, int h)
-        {
-            return (System.Math.Sqrt((w * w) + (h * h)));
-        }
-        private void DrawPoints(GridLine x, int line_index)
-        {
+        private void DrawPoints(GridLine x, int line_index) {
             Point[] currentLinePoints;//1d array of points.used to track all the points of current line
 
             int x1 = x.fromX;
@@ -991,16 +196,14 @@ namespace kagv
             {
                 distanceBlocks = Convert.ToInt32(distance / m_rectangles[0][0].width);
                 //we do not need hypotenuse here
-            }
-            else
+            } else
                 MessageBox.Show("Unexpected error");
-            
+
 
             currentLinePoints = new Point[distanceBlocks];
             double t;
 
-            for (int i = 0; i < distanceBlocks; i++)
-            {
+            for (int i = 0; i < distanceBlocks; i++) {
                 calibrated = false;
 
                 if (distance != 0)
@@ -1014,23 +217,19 @@ namespace kagv
 
                 Point _p = new Point(a, b);
 
-                for (int k = 0; k < width; k++)
-                {
+                for (int k = 0; k < width; k++) {
 
-                    for (int l = 0; l < height; l++)
-                    {
+                    for (int l = 0; l < height; l++) {
 
-                        if (m_rectangles[k][l].boxRec.Contains(_p))
-                        {
+                        if (m_rectangles[k][l].boxRec.Contains(_p)) {
                             //+9 is the width/2 - handling boxes from their centre
                             int sideX = m_rectangles[k][l].boxRec.X + 9;
                             int sideY = m_rectangles[k][l].boxRec.Y + 9;
                             currentLinePoints[i].X = sideX;
                             currentLinePoints[i].Y = sideY;
 
-                            if (showDots)
-                            {
-                                using ( SolidBrush br = new SolidBrush(Color.BlueViolet) )
+                            if (showDots) {
+                                using (SolidBrush br = new SolidBrush(Color.BlueViolet))
                                     paper.FillEllipse(br, currentLinePoints[i].X - 3,
                                         currentLinePoints[i].Y - 3,
                                         5, 5);
@@ -1038,7 +237,7 @@ namespace kagv
 
                             using (Font stepFont = new Font("Tahoma", 8, FontStyle.Bold))//Font used for numbering the steps/current block)
                             {
-                                using ( SolidBrush fontBR = new SolidBrush(Color.FromArgb(53, 153, 153)))
+                                using (SolidBrush fontBR = new SolidBrush(Color.FromArgb(53, 153, 153)))
                                     if (showSteps)
                                         paper.DrawString(new_steps_counter[line_index] + ""
                                         , stepFont
@@ -1054,8 +253,7 @@ namespace kagv
 
                 }
 
-                if (calibrated)
-                {
+                if (calibrated) {
                     newsteps[line_index, 0, new_steps_counter[line_index]] = currentLinePoints[i].X;
                     newsteps[line_index, 1, new_steps_counter[line_index]] = currentLinePoints[i].Y;
                     new_steps_counter[line_index]++;
@@ -1070,19 +268,698 @@ namespace kagv
 
 
         }
-        private void export()
+
+        private void FullyRestore() {
+            if (is_trapped != null) {
+                Array.Clear(is_trapped, 0, is_trapped.GetLength(0));
+                Array.Clear(is_trapped, 0, is_trapped.GetLength(1));
+            }
+
+            if (timer_counter != null)
+                Array.Clear(timer_counter, 0, timer_counter.GetLength(0));
+
+
+
+            //jagged array has to be resetted like this
+            for (int i = 0; i < width; i++) {
+                for (int j = 0; j < height; j++) {
+                    m_rectangles[i][j] = new GridBox(i * 20, j * 20 + topBarOffset, BoxType.Normal);
+                }
+            }
+
+            if (markedbyagv != null)
+                Array.Clear(markedbyagv, 0, markedbyagv.GetLength(0));
+
+            for (int i = 0; i < AGVs.GetLength(0); i++) {
+                AGVs[i].killIcon();
+            }
+
+            if (importmap != null) {
+                Array.Clear(importmap, 0, importmap.GetLength(0));
+                Array.Clear(importmap, 0, importmap.GetLength(1));
+            }
+
+            if (this.BackgroundImage != null)
+                this.BackgroundImage = null;
+
+
+            AGVspath = new GridLine[2000, 5];
+            newsteps = new double[5, 2, 2000];
+            fromstart = new bool[5];
+            isLoad = new int[width, height];
+            new_steps_counter = new int[5];
+
+            endPointCoords = new Point(-1, -1);
+            selectedColor = Color.DarkGray;
+
+            load_line = new List<GridLine>();
+            AllJumpPointsList = new List<List<GridPos>>();
+            JumpPointsList = new List<GridPos>();
+            searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
+
+            beforeStart =
+            NoJumpPointsFound = true;
+
+            imported =
+            calibrated =
+            isMouseDown =
+            mapHasLoads = false;
+
+            jumpParam = null;
+            paper = null;
+            loads = pos_index = 0;
+
+            a
+            = b
+            = new int();
+
+            AGVs = new Vehicle[5];
+
+            initialization();
+
+            main_form_Load(new object(), new EventArgs());
+            for (int i = 0; i < AGVs.GetLength(0); i++)
+                AGVs[i].Busy(false);
+
+
+            timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval = 100;
+            refresh_label.Text = "Delay:" + timer1.Interval + " ms";
+
+        }
+
+        T[,] ResizeArray<T>(T[,] original, int rows, int cols) {
+            var newArray = new T[rows, cols];
+            int minRows = Math.Min(rows, original.GetLength(0));
+            int minCols = Math.Min(cols, original.GetLength(1));
+            for (int i = 0; i < minRows; i++)
+                for (int j = 0; j < minCols; j++)
+                    newArray[i, j] = original[i, j];
+
+            return newArray;
+        }
+
+        private void updateBorderVisibility(bool hide) {
+            if (hide) {
+                for (int i = 0; i < width; i++)
+                    for (int j = 0; j < height; j++)
+                        m_rectangles[i][j].BeTransparent();
+                this.BackColor = Color.DarkGray;
+            } else {
+                for (int i = 0; i < width; i++)
+                    for (int j = 0; j < height; j++) {
+                        if (m_rectangles[i][j].boxType == BoxType.Normal) {
+                            m_rectangles[i][j].BeVisible();
+                            boxDefaultColor = Color.WhiteSmoke;
+                        }
+                    }
+
+                this.BackColor = selectedColor;
+            }
+
+            //no need of invalidation since its done after the call of this function
+        }
+        private void updateParameters() {
+            jumpParam.CrossAdjacentPoint = crossAdjacent;
+            jumpParam.CrossCorner = crossCorners;
+            jumpParam.UseRecursive = useRecursive;
+        }
+        private int getNumberOfAGVs() {
+            int agvs = 0;
+            for (int i = 0; i < width; i++)
+                for (int j = 0; j < height; j++)
+                    if (m_rectangles[i][j].boxType == BoxType.Start)
+                        agvs++;
+
+            return agvs;
+        }
+
+        private void Redraw() {
+
+            if (loads > 0)
+                mapHasLoads = true;
+            else
+                mapHasLoads = false;
+
+            bool start_found = false;
+            bool end_found = false;
+
+            List<GridPos> loadPos = new List<GridPos>();
+            int loadPos_index = 0;
+
+            GridPos endPos = new GridPos();
+
+            StartPos = new List<GridPos>();
+
+            pos_index = 0;
+
+
+            for (int i = 0; i < width; i++)
+                for (int j = 0; j < height; j++) {
+                    if (m_rectangles[i][j].boxType == BoxType.Wall)
+                        searchGrid.SetWalkableAt(new GridPos(i, j), false);
+                    else
+                        searchGrid.SetWalkableAt(new GridPos(i, j), true);
+
+                    if (beforeStart) {
+                        if (m_rectangles[i][j].boxType == BoxType.Start)
+                            searchGrid.SetWalkableAt(new GridPos(i, j), false);
+
+                    } else {
+                        if (m_rectangles[i][j].boxType == BoxType.Start)
+                            searchGrid.SetWalkableAt(new GridPos(i, j), true);
+                    }
+
+                    if (m_rectangles[i][j].boxType == BoxType.Start) {
+                        start_found = true;
+
+                        StartPos.Add(new GridPos(0, 0));//create space to add the next agv
+                        StartPos[pos_index].x = i;
+                        StartPos[pos_index].y = j;
+
+                        a = StartPos[pos_index].x;
+                        b = StartPos[pos_index].y;
+
+                        if (pos_index < StartPos.Count) {
+                            StartPos[pos_index] = new GridPos(StartPos[pos_index].x, StartPos[pos_index].y);
+                            pos_index++;
+                        }
+                    }
+
+                    if (m_rectangles[i][j].boxType == BoxType.End) {
+                        end_found = true;
+                        endPos.x = i;
+                        endPos.y = j;
+                        endPointCoords = new Point(i * 20, j * 20 + topBarOffset);
+                    }
+
+                    if (mapHasLoads) {
+                        if (isLoad[i, j] == 1 || isLoad[i, j] == 4) {
+                            loadPos.Add(new GridPos());
+                            loadPos[loadPos_index].x = i;
+                            loadPos[loadPos_index].y = j;
+                            loadPos_index++;
+                        }
+                    }
+                }
+
+            Reset();
+            if (!start_found || !end_found)
+                return;
+
+            NoJumpPointsFound = true;
+
+            if (AGVs != null)
+                for (int i = 0; i < AGVs.Count(); i++)
+                    if (AGVs[i] != null) {
+                        AGVs[i].updateAGV();
+                        AGVs[i].Busy(false);//initialize the status of AGVs, as 'available'
+                    }
+
+            loadPos_index = 0;
+            pos_index = 0;
+            is_trapped = new bool[StartPos.Count, 2];
+            //is_trapped[i,0] -> unavailable path for Start to Load
+            //is_trapped[i,1] -> unavailable path for Load to End
+
+
+            //architecture of myresultList
+            //myresultList [number of agv] [number of part-line].element
+            AllJumpPointsList = new List<List<GridPos>>(); //List containing Lists -> List<GridPos>
+
+
+            for (int i = 0; i < StartPos.Count; i++) {
+                if (AGVs[i].isBusy() == false) {
+                    if (loadPos.Count() == 0)
+                        mapHasLoads = false;
+
+                    //create the path from start to load,if load exists
+                    switch (mapHasLoads) {
+                        case true:
+
+                            int list_index = 0;
+                            bool removed;
+
+                            do {
+                                removed = false;
+                                jumpParam.Reset(StartPos[0], loadPos[list_index]);
+                                if (JumpPointFinder.FindPath(jumpParam, paper).Count == 0) //if there's at LEAST 1 agv that cannot reach a Load, then that Load is  
+                                {                                        //removed from the loadPos and not considered as available - marked 4 
+                                    isLoad[loadPos[list_index].x, loadPos[list_index].y] = 4;
+                                    loadPos.Remove(loadPos[list_index]);
+                                    removed = true;
+                                } else
+                                    isLoad[loadPos[list_index].x, loadPos[list_index].y] = 1;
+
+                                if (!removed)
+                                    list_index++;
+                            } while (list_index < loadPos.Count);
+
+
+                            if (loadPos.Count() == 0)
+                                loadPos.Add(endPos); //if EVERY load is trapped, use the endPos as LoadPos so as the agvs can complete their basic route (start -> end)
+
+
+                            jumpParam.Reset(StartPos[pos_index], loadPos[0]);
+                            JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
+                            AGVs[i].Busy(true);
+
+                            //is_trapped[i,0] -> part of route agv -> load
+                            //is_trapped[i,1] -> part of route load -> end
+                            if (JumpPointsList.Count == 0)
+                                is_trapped[i, 0] = true;
+                            else
+                                is_trapped[i, 0] = false;
+
+                            if (!is_trapped[i, 0])
+                                for (int j = 0; j < JumpPointsList.Count; j++) {
+                                    AllJumpPointsList.Add(new List<GridPos>());
+                                    AllJumpPointsList[i].Add(JumpPointsList[j]); //adds the list containing all the JumpPoints, for every direction, to a parent List 
+                                } else //leak catch
+                                AllJumpPointsList.Add(new List<GridPos>()); //increases the size of the List so the resultList can fit without causing overflow
+
+
+
+
+                            //from load to end
+                            jumpParam.Reset(loadPos[0], endPos);
+                            JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
+                            if (JumpPointsList.Count == 0)//recheck if load-to-end is a trapped path
+                                is_trapped[i, 1] = true;
+                            else
+                                is_trapped[i, 1] = false;
+
+
+                            if (!is_trapped[i, 1])
+                                for (int j = 0; j < JumpPointsList.Count; j++) {
+                                    AllJumpPointsList.Add(new List<GridPos>());
+
+                                    AllJumpPointsList[i].Add(JumpPointsList[j]); //adds the list containing all the JumpPoints, for every direction, to a parent List 
+                                    NoJumpPointsFound = false;
+                                }
+
+
+                            if (!is_trapped[i, 0] && !is_trapped[i, 1]) {
+                                //marks the load that each AGV picks up on the 1st route, as 3, so each agv knows where to go after delivering the 1st load
+                                if (fromstart[i]) {
+                                    for (int widthtrav = 0; widthtrav < width; widthtrav++)
+                                        for (int heightrav = 0; heightrav < height; heightrav++)
+                                            if (isLoad[widthtrav, heightrav] == 1) {
+                                                isLoad[widthtrav, heightrav] = 3;
+                                                markedbyagv[i] = new Point(widthtrav, heightrav);
+
+                                                widthtrav = width;
+                                                heightrav = height;
+                                            }
+                                }
+                                loadPos.Remove(loadPos[0]);
+                            } else if (is_trapped[i, 1])
+                                loadPos.Remove(loadPos[0]);
+                            break;
+
+
+
+
+                        case false:
+                            jumpParam.Reset(StartPos[pos_index], endPos);
+                            JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
+
+                            if (JumpPointsList.Count == 0)
+                                is_trapped[i, 0] = true;
+                            else
+                                is_trapped[i, 0] = false;
+
+
+                            if (!is_trapped[i, 0])
+                                for (int j = 0; j < JumpPointsList.Count; j++) {
+                                    AllJumpPointsList.Add(new List<GridPos>());
+                                    AllJumpPointsList[i].Add(JumpPointsList[j]); //adds the list containing all the JumpPoints, for every direction, to a parent List 
+
+                                    NoJumpPointsFound = false;
+                                } else //leak catch
+                                AllJumpPointsList.Add(new List<GridPos>()); //increases the size of the List so the resultList can fit without causing overflow
+
+                            break;
+
+                    }
+                }
+                pos_index++;
+            }
+
+
+
+            GridLine[,] pathForResize = new GridLine[2000, AllJumpPointsList.Count];
+
+
+            for (int i = 0; i < StartPos.Count; i++)
+                for (int j = 0; j < AllJumpPointsList[i].Count - 1; j++) {
+                    //side:adds line to linearray.since it adds a new line,that means 
+                    //that the new line IS the correct path
+                    GridLine line = new GridLine(m_rectangles[AllJumpPointsList[i][j].x][AllJumpPointsList[i][j].y],
+                                            m_rectangles[AllJumpPointsList[i][j + 1].x][AllJumpPointsList[i][j + 1].y]
+                                               );
+
+                    pathForResize[j, i] = line;
+                }
+
+            if ((AllJumpPointsList.Count - 1) > 0)
+                AGVspath = ResizeArray(pathForResize, AllJumpPointsList.Count - 1, 5);
+
+            this.Invalidate();
+        }
+
+        private int getStepsToLoad(int whichAGV) {
+            int ix = markedbyagv[whichAGV].X * 20;
+            int iy = (markedbyagv[whichAGV].Y * 20) + topBarOffset;
+
+            int step = -1;
+
+            for (int i = 0; i < newsteps.GetLength(2); i++) {
+                if (
+                    newsteps[whichAGV, 0, i] - 9 == ix &&
+                    newsteps[whichAGV, 1, i] - 9 == iy
+                    ) {
+                    step = i;
+                    i = newsteps.GetLength(2);
+                }
+            }
+            if (step >= 0) return step;
+            else return -1;
+
+        }
+
+
+        private void Reset() {
+            AGVspath = new GridLine[AllJumpPointsList.Count, 5];
+
+            newsteps = new double[5, 2, 2000];
+
+            for (int i = 0; i < new_steps_counter.Count(); i++)
+                new_steps_counter[i] = 0;
+
+        }
+        private void Reset(int whichAGV) //overloaded Reset
         {
+            int c = AGVspath.GetLength(0);
+
+            AllJumpPointsList[whichAGV] = new List<GridPos>(); //empties the correct cell of the 2D-List containing each AGVs routes
+            StartPos[whichAGV] = new GridPos(); //empties the correct start Pos for each AGV
+
+            for (int i = 0; i < c; i++)
+                AGVspath[i, whichAGV] = null;
+
+            for (int i = 0; i < 2; i++)
+                for (int j = 0; j < 2000; j++)
+                    newsteps[whichAGV, i, j] = 0;
+
+            new_steps_counter[whichAGV] = 0;
+        }
+
+
+        private void displayStepsToLoad(int counter, int agv_index) {
+            int stepstoload;
+            string agvinfo;
+
+            if (getStepsToLoad(agv_index) == -1)
+                agvinfo = "AGV " + (agv_index + 1) + ": Moving straight to the end point";
+            else {
+                stepstoload = (getStepsToLoad(agv_index) - counter);
+                agvinfo = "AGV " + (agv_index + 1) + ": Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
+                if (stepstoload < 0)
+                    agvinfo = "AGV " + (agv_index + 1) + " is Loaded.";
+            }
+
+            gb_monitor.Controls.Find(
+                "agv" + (agv_index + 1) + "steps_LB",
+                 true)
+                 [0].Text = agvinfo;
+
+        }
+
+        private void halt(int index, int _c) {
+            timer_counter[index]--;
+            if (!(_c - 1 < 0)) //in case the intersection is in the 1st step of the route, then the index of that step will be 0. 
+            {                  //this means that trying to get to the "_c -1" step, will have the index decreased to -1 causing the "index out of bound" crash
+                int stepx = Convert.ToInt32(newsteps[index, 0, _c - 1]);
+                int stepy = Convert.ToInt32(newsteps[index, 1, _c - 1]);
+                AGVs[index].SetLocation(stepx - 9, stepy - 9);
+            }
+        }
+
+
+
+        private void triggerStartMenu(bool t) {
+            startToolStripMenuItem.Enabled = t;
+            if (!t) {
+                startToolStripMenuItem.Text = "Start            Clear and redraw the components please.";
+                if (endPointCoords.X == -1 && endPointCoords.Y == -1)
+                    startToolStripMenuItem.Text = "Start            Create a complete path please.";
+                startToolStripMenuItem.ShortcutKeyDisplayString = "";
+            } else {
+                startToolStripMenuItem.Text = "Start";
+                startToolStripMenuItem.ShortcutKeyDisplayString = "(Space)";
+            }
+        }
+        private void getNextLoad(int whichAGV) {
+            bool isAnyLoadLeft = false;
+            for (int widthTrav = 0; widthTrav < width; widthTrav++) {
+                for (int heightTrav = 0; heightTrav < height; heightTrav++) {
+                    if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Load) {
+                        isAnyLoadLeft = true;
+                    }
+                }
+            }
+
+            if (!isAnyLoadLeft)
+                return;
+
+            //convert the end point to start point
+            GridPos endPos = new GridPos();
+            for (int widthTrav = 0; widthTrav < width; widthTrav++) {
+                for (int heightTrav = 0; heightTrav < height; heightTrav++) {
+
+                    if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.End) {
+
+                        try {
+                            StartPos[whichAGV] = new GridPos(widthTrav, heightTrav);
+
+                            a = StartPos[whichAGV].x;
+                            b = StartPos[whichAGV].y;
+
+                        } catch (Exception e) { MessageBox.Show(e + "\r\n getNextLoad()"); }
+
+                    }
+                }
+            }
+            //*******************************************************************
+            //*******************************************************************
+            //*******************************************************************
+            //*******************************************************************
+            for (int widthTrav = 0; widthTrav < width; widthTrav++) {
+                for (int heightTrav = 0; heightTrav < height; heightTrav++) {
+                    //this causes the 'bug' that agvs are scanning from left to right for loads
+                    if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Load && isLoad[widthTrav, heightTrav] == 1) {
+                        isLoad[widthTrav, heightTrav] = 3;
+                        markedbyagv[whichAGV] = new Point(widthTrav, heightTrav);
+
+                        loads--;
+                        endPos.x = widthTrav;
+                        endPos.y = heightTrav;
+
+                        widthTrav = width;
+                        heightTrav = height;
+                    }
+                }
+            }
+
+
+
+
+            //*******************************************************************
+            try {
+                jumpParam.Reset(StartPos[whichAGV], endPos); //THIS was the problem why the 2nd agv had no route. StartPos[] was redeclared with 1 cell. The incoming whichAGV
+                //had its value set to 1 (for the 2nd agv), causing the StartPos[] to overflow, catching the exception and skipping
+                //the calculation of the route
+                JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
+
+
+                for (int j = 0; j < JumpPointsList.Count; j++) {
+                    AllJumpPointsList.Add(new List<GridPos>());
+                    AllJumpPointsList[whichAGV].Add(JumpPointsList[j]); //adds the list containing all the JumpPoints, for every direction, to a parent List 
+                }
+
+                GridLine[,] pathForResize = new GridLine[2000, AllJumpPointsList.Count];
+
+
+                for (int j = 0; j < AllJumpPointsList[whichAGV].Count - 1; j++) {
+                    //side:adds line to linearray.since it adds a new line,that means 
+                    //that the new line IS the correct path
+                    GridLine line = new GridLine(m_rectangles[AllJumpPointsList[whichAGV][j].x][AllJumpPointsList[whichAGV][j].y],
+                                            m_rectangles[AllJumpPointsList[whichAGV][j + 1].x][AllJumpPointsList[whichAGV][j + 1].y]
+                                               );
+
+                    pathForResize[j, whichAGV] = line;
+                }
+
+
+                if ((AllJumpPointsList.Count - 1) > 0)
+                    AGVspath = ResizeArray(pathForResize, AllJumpPointsList.Count - 1, 5);
+
+                //return to exit
+                jumpParam.Reset(endPos, StartPos[whichAGV]);
+                JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
+                for (int j = 0; j < JumpPointsList.Count; j++) {
+                    AllJumpPointsList.Add(new List<GridPos>());
+                    AllJumpPointsList[whichAGV].Add(JumpPointsList[j]); //adds the list containing all the JumpPoints, for every direction, to a parent List 
+                }
+
+                pathForResize = new GridLine[2000, AllJumpPointsList.Count];
+
+                for (int i = 0; i < StartPos.Count; i++) {
+                    for (int j = 0; j < AllJumpPointsList[i].Count - 1; j++) {
+                        //side:adds line to linearray.since it adds a new line,that means 
+                        //that the new line IS the correct path
+                        GridLine line = new GridLine(m_rectangles[AllJumpPointsList[i][j].x][AllJumpPointsList[i][j].y],
+                                                m_rectangles[AllJumpPointsList[i][j + 1].x][AllJumpPointsList[i][j + 1].y]
+                                                   );
+
+                        pathForResize[j, i] = line;
+                    }
+
+                }
+
+                if ((AllJumpPointsList.Count - 1) > 0)
+                    AGVspath = ResizeArray(pathForResize, AllJumpPointsList.Count - 1, 5);
+
+                this.Invalidate();
+
+
+
+                //return true;//if any other load exist
+            } catch (Exception e) {
+                MessageBox.Show(e + "");
+            }
+            // return false;
+
+
+        }
+
+        private void timers(int agvs_number) {
+            //agvs_number = how many agvs I have placed
+            //every timer is responsible for every agv for up to 5 AGVs
+
+            if (agvs_number == 1 && !is_trapped[0, 0] && !is_trapped[0, 1]) {
+                timer1.Start();
+            }
+
+            if (agvs_number == 2) {
+                if (!is_trapped[0, 0] && !is_trapped[0, 1]) {
+                    timer1.Start();
+                }
+                if (!is_trapped[1, 0] && !is_trapped[1, 1]) {
+                    timer2.Start();
+                }
+            }
+            if (agvs_number == 3) {
+                if (!is_trapped[0, 0] && !is_trapped[0, 1])
+                    timer1.Start();
+                if (!is_trapped[1, 0] && !is_trapped[1, 1])
+                    timer2.Start();
+                if (!is_trapped[2, 0] && !is_trapped[2, 1])
+                    timer3.Start();
+            }
+            if (agvs_number == 4) {
+                if (!is_trapped[0, 0] && !is_trapped[0, 1])
+                    timer1.Start();
+                if (!is_trapped[1, 0] && !is_trapped[1, 1])
+                    timer2.Start();
+                if (!is_trapped[2, 0] && !is_trapped[2, 1])
+                    timer3.Start();
+                if (!is_trapped[3, 0] && !is_trapped[3, 1])
+                    timer4.Start();
+            }
+            if (agvs_number == 5) {
+                if (!is_trapped[0, 0] && !is_trapped[0, 1])
+                    timer1.Start();
+                if (!is_trapped[1, 0] && !is_trapped[1, 1])
+                    timer2.Start();
+                if (!is_trapped[2, 0] && !is_trapped[2, 1])
+                    timer3.Start();
+                if (!is_trapped[3, 0] && !is_trapped[3, 1])
+                    timer4.Start();
+                if (!is_trapped[4, 0] && !is_trapped[4, 1])
+                    timer5.Start();
+            }
+
+
+        }
+
+
+
+        private void initialization() {
+            for (int i = 0; i < AGVs.Count(); i++) {
+                AGVs[i] = new Vehicle(this);
+                AGVs[i].Busy(false);
+            }
+
+            this.DoubleBuffered = true;
+            this.Width = ((width + 1) * 20) - 3; //3 because 2=boarder and the 1 comes from "width+1"
+            this.Height = (height + 1) * 20 + bottomBarOffset;
+            this.Size = new Size(this.Width, this.Height + bottomBarOffset);
+            this.MaximizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+
+            //m_rectangels is an array of two 1d arrays
+            //declares the length of the first 1d array
+            m_rectangles = new GridBox[width][];
+
+            for (int widthTrav = 0; widthTrav < width; widthTrav++) {
+                //declares the length of the seconds 1d array
+                m_rectangles[widthTrav] = new GridBox[height];
+                for (int heightTrav = 0; heightTrav < height; heightTrav++) {
+
+                    //dynamically add the gridboxes into the m_rectangles.
+                    //size of the m_rectangels is constantly increasing(while adding
+                    //the gridbox values) until 
+                    //size=height or size = width.
+                    if (imported) {
+                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + topBarOffset, importmap[widthTrav, heightTrav]);
+                        if (importmap[widthTrav, heightTrav] == BoxType.Load) {
+                            isLoad[widthTrav, heightTrav] = 1;
+                            loads++;
+                        }
+                    } else {
+                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + topBarOffset, BoxType.Normal);
+                        isLoad[widthTrav, heightTrav] = 2;
+                    }
+                }
+            }
+            if (imported)
+                imported = false;
+
+
+
+            searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
+            jumpParam = new JumpPointParam(searchGrid, false, crossCorners, crossAdjacent, mode);
+            //syntax of jumpParam-> JumpPointParam(searchGrid, startPos, endPos, cbCrossCorners.Checked, HeuristicMode.EUCLIDEANSQR);
+
+
+        }
+
+        private double GetLength(double x1, double y1, double x2, double y2) {
+            return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
+        }
+        private double getSide(int w, int h) {
+            return (System.Math.Sqrt((w * w) + (h * h)));
+        }
+        private void export() {
             sfd_exportmap.FileName = "";
             sfd_exportmap.Filter = "kagv Map (*.kmap)|*.kmap";
 
-            if (sfd_exportmap.ShowDialog() == DialogResult.OK)
-            {
+            if (sfd_exportmap.ShowDialog() == DialogResult.OK) {
                 StreamWriter writer = new StreamWriter(sfd_exportmap.FileName);
                 writer.WriteLine("Map info:\r\nWidth blocks: " + width + "  Height blocks: " + height + "\r\n");
-                for (int i = 0; i < width; i++)
-                {
-                    for (int j = 0; j < height; j++)
-                    {
+                for (int i = 0; i < width; i++) {
+                    for (int j = 0; j < height; j++) {
                         writer.Write(m_rectangles[i][j].boxType + " ");
                     }
                     writer.Write("\r\n");
@@ -1091,18 +968,15 @@ namespace kagv
             }
 
         }
-        private void import()
-        {
+        private void import() {
 
             ofd_importmap.Filter = "kagv Map (*.kmap)|*.kmap";
             ofd_importmap.FileName = "";
 
-            if (ofd_importmap.ShowDialog() == DialogResult.OK)
-            {
-                
+            if (ofd_importmap.ShowDialog() == DialogResult.OK) {
+
                 StreamReader reader = new StreamReader(ofd_importmap.FileName);
-                if (reader.ReadLine().Count() == 9)
-                {
+                if (reader.ReadLine().Count() == 9) {
                     imported = true;
 
                     string map_details = reader.ReadLine();
@@ -1117,18 +991,13 @@ namespace kagv
                     int width_blocks = 0;
                     int height_blocks = 0;
 
-                    foreach (string _s in words)
-                    {
+                    foreach (string _s in words) {
                         isNumber = int.TryParse(_s, out _tempNumber);
-                        if (isNumber)
-                        {
-                            if (whichNumber == 1)
-                            {
+                        if (isNumber) {
+                            if (whichNumber == 1) {
                                 width_blocks = Convert.ToInt32(_s);
                                 whichNumber++;
-                            }
-                            else if (whichNumber == 2)
-                            {
+                            } else if (whichNumber == 2) {
                                 height_blocks = Convert.ToInt32(_s);
                             }
 
@@ -1142,19 +1011,14 @@ namespace kagv
                     words = reader.ReadLine().Split(delim);
 
                     int starts_counter = 0;
-                    for (int z = 0; z < importmap.GetLength(0); z++)
-                    {
+                    for (int z = 0; z < importmap.GetLength(0); z++) {
                         int i = 0;
-                        foreach (string _s in words)
-                        {
-                            if (i < importmap.GetLength(1))
-                            {
-                                if (_s == "Start")
-                                {
+                        foreach (string _s in words) {
+                            if (i < importmap.GetLength(1)) {
+                                if (_s == "Start") {
                                     importmap[z, i] = BoxType.Start;
                                     starts_counter++;
-                                }
-                                else if (_s == "End")
+                                } else if (_s == "End")
                                     importmap[z, i] = BoxType.End;
                                 else if (_s == "Normal")
                                     importmap[z, i] = BoxType.Normal;
@@ -1165,17 +1029,13 @@ namespace kagv
                                 i++;
                             }
                         }
-                        if (z == importmap.GetLength(0) - 1)
-                        { }
-                        else
+                        if (z == importmap.GetLength(0) - 1) { } else
                             words = reader.ReadLine().Split(delim);
                     }
                     reader.Close();
 
-                    for (int z = 0; z < importmap.GetLength(0); z++)
-                    {
-                        for (int i = 0; i < importmap.GetLength(1); i++)
-                        {
+                    for (int z = 0; z < importmap.GetLength(0); z++) {
+                        for (int i = 0; i < importmap.GetLength(1); i++) {
                             m_rectangles[z][i].boxType = importmap[z, i];
                         }
 
@@ -1183,13 +1043,11 @@ namespace kagv
                     nUD_AGVs.Value = starts_counter;
                     initialization();
                     Redraw();
-                }
-                else
+                } else
                     MessageBox.Show("You have chosen a not compatible file import.\r\nPlease try again.");
             }
         }
-        private bool isvalid(Point _temp)
-        {
+        private bool isvalid(Point _temp) {
 
             if (_temp.X > m_rectangles[width - 1][height - 1].boxRec.X + 19
             || _temp.Y > m_rectangles[width - 1][height - 1].boxRec.Y + 19) // 18 because its 20-boarder size

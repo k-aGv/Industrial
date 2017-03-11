@@ -9,36 +9,33 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace kagv
-{
+namespace kagv {
 
     //enum FuelType { battery,gas,tsangk};
-    
-    public class Vehicle : IDisposable
-    {
+
+    public class Vehicle : IDisposable {
         private Panel AgvPortrait;
         private PictureBox AgvIcon;
         private Point AgvLocation;
         private Form mirroredForm;
-        private bool isBusyVar=false;
+        private bool isBusyVar = false;
         private bool isLoadedVar = false; //WILL BE USED LATER
-        
+
 
         public Point Location;
         public Point StartPoint;
 
         public Point targetPoint;
 
-        public Vehicle(Form handle, int StartX, int StartY, int SizeX, int SizeY)
-        {
+        public Vehicle(Form handle, int StartX, int StartY, int SizeX, int SizeY) {
             //private exports
             mirroredForm = handle;
             isBusyVar = false;
-            
+
             AgvPortrait = new Panel();
             AgvPortrait.Name = "AGVPORTRAIT";
             AgvIcon = new PictureBox();
-            
+
             AgvPortrait.Controls.Add(AgvIcon);
 
             Size _size = new Size(18, 18);
@@ -65,35 +62,31 @@ namespace kagv
             Location = AgvPortrait.Location;
             StartPoint = new Point(StartX, StartY);
 
-            
+
         }
 
-        private Image _getEmbedResource(string a)
-        {
+        private Image _getEmbedResource(string a) {
             System.Reflection.Assembly _assembly;
             Stream _myStream;
             _assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
-            _myStream = _assembly.GetManifestResourceStream("kagv.Resources."+a);
+            _myStream = _assembly.GetManifestResourceStream("kagv.Resources." + a);
             Image _b = Image.FromStream(_myStream);
             return _b;
-            
+
         }
 
-        
+
         public Vehicle(Form handle) //overloaded constructor
         {
             mirroredForm = handle;
         }
-       
-        public void killIcon()
-        {
-            try
-            {
+
+        public void killIcon() {
+            try {
                 this.AgvIcon.Dispose();
                 this.AgvPortrait.Dispose();
-            }
-            catch { }
+            } catch { }
         }
         public bool isLoaded() //WILL BE USED LATER
         {
@@ -103,82 +96,67 @@ namespace kagv
                 return false;
         }
 
-        public void Busy(bool x)
-        {
+        public void Busy(bool x) {
             isBusyVar = x;
         }
 
-        public bool isBusy()
-        {
+        public bool isBusy() {
             return isBusyVar;
         }
 
-        public void setLoaded()
-        {
+        public void setLoaded() {
             this.AgvIcon.Image = _getEmbedResource("loaded.png");
             this.isLoadedVar = true;
         }
 
-        public void setEmpty()
-        {
+        public void setEmpty() {
             this.AgvIcon.Image = _getEmbedResource("empty.png");
             this.isLoadedVar = false;
         }
 
-        public void updateAGV()
-        {
-            if (mirroredForm.Controls.Count != 0)
-            {
-                foreach (Control p in mirroredForm.Controls)
-                {
+        public void updateAGV() {
+            if (mirroredForm.Controls.Count != 0) {
+                foreach (Control p in mirroredForm.Controls) {
                     if (p == AgvIcon)
                         mirroredForm.Controls.Remove(p);
-                    if (p.Name=="AGVPORTRAIT")
+                    if (p.Name == "AGVPORTRAIT")
                         mirroredForm.Controls.Remove(p);
                 }
-                
-            }
-            else
+
+            } else
                 return;
         }
 
         private int steps;
-        public int Steps
-        {
-            get
-            {
+        public int Steps {
+            get {
                 return this.steps;
             }
-            set
-            {
+            set {
                 this.steps = Steps;
             }
         }
 
-        public void SetLocation(int X,int Y)
-        {
+        public void SetLocation(int X, int Y) {
             AgvLocation = new Point(X, Y);
             AgvPortrait.Location = AgvLocation;
             Location = AgvLocation;
         }
-        public void SetLocation(Point loc)
-        {
+        public void SetLocation(Point loc) {
             AgvLocation = loc;
             AgvPortrait.Location = AgvLocation;
             Location = AgvLocation;
         }
-       
-        public Point GetLocation()
-        {
+
+        public Point GetLocation() {
             return new Point(AgvLocation.X, AgvLocation.Y);
         }
 
 
-        public void Dispose()
-        {
+        public void Dispose() {
             AgvPortrait.Dispose();
         }
-       
+
     }
-     
+
 }

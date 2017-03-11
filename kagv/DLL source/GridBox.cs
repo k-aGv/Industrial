@@ -5,27 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace kagv
-{
-    enum BoxType { Start, End, Wall, Normal , Load};
+namespace kagv {
+    enum BoxType { Start, End, Wall, Normal, Load };
 
-    class GridBox:IDisposable
-    {
+    class GridBox : IDisposable {
         public int x, y, width, height;
         public SolidBrush brush;
         public Rectangle boxRec;
         public BoxType boxType;
         public int startID;
 
-        private Color myBrown=Color.FromArgb(138,109,86);
+        private Color myBrown = Color.FromArgb(138, 109, 86);
         private Graphics graphs;
-        public GridBox(int iX, int iY,BoxType iType)
-        {
+        public GridBox(int iX, int iY, BoxType iType) {
             this.x = iX;
             this.y = iY;
             this.boxType = iType;
-            switch (iType)
-            {
+            switch (iType) {
                 case BoxType.Normal:
                     brush = new SolidBrush(Color.WhiteSmoke);
                     break;
@@ -41,17 +37,15 @@ namespace kagv
                 case BoxType.Load:
                     brush = new SolidBrush(myBrown);
                     break;
-            
+
             }
             width = 19;
             height = 19;
             boxRec = new Rectangle(x, y, width, height);
         }
 
-        public void DrawBox(Graphics iPaper,BoxType iType)
-        {
-            if (iType == boxType)
-            {
+        public void DrawBox(Graphics iPaper, BoxType iType) {
+            if (iType == boxType) {
                 boxRec.X = x;
                 boxRec.Y = y;
                 iPaper.FillRectangle(brush, boxRec);
@@ -59,34 +53,27 @@ namespace kagv
             }
         }
 
-        public void onHover(Color c)
-        {
+        public void onHover(Color c) {
             this.brush = new SolidBrush(c);
         }
-        public void BeTransparent()
-        {
-            switch (this.boxType)
-            {
+        public void BeTransparent() {
+            switch (this.boxType) {
                 case BoxType.Normal:
                     this.brush = new SolidBrush(Color.Transparent);
                     break;
             }
         }
 
-        public void BeVisible()
-        {
-            switch (this.boxType)
-            {
+        public void BeVisible() {
+            switch (this.boxType) {
                 case BoxType.Normal:
                     this.brush = new SolidBrush(Color.WhiteSmoke);
                     break;
             }
         }
 
-        public void SwitchBox()
-        {
-            switch (this.boxType)
-            {
+        public void SwitchBox() {
+            switch (this.boxType) {
                 case BoxType.Normal:
                     if (this.brush != null)
                         this.brush.Dispose();
@@ -102,14 +89,12 @@ namespace kagv
 
             }
         }
-        public void SetAsTargetted(Graphics iPaper)
-        {
-            iPaper.FillRectangle(new SolidBrush(Color.Orange),boxRec);
+        public void SetAsTargetted(Graphics iPaper) {
+            iPaper.FillRectangle(new SolidBrush(Color.Orange), boxRec);
         }
 
 
-        public void SwitchEnd_StartToNormal()
-        {
+        public void SwitchEnd_StartToNormal() {
             if (this.brush != null)
                 this.brush.Dispose();
             this.brush = new SolidBrush(Color.WhiteSmoke);
@@ -117,10 +102,8 @@ namespace kagv
 
         }
 
-        public void SwitchLoad()
-        {
-            switch (this.boxType)
-            {
+        public void SwitchLoad() {
+            switch (this.boxType) {
                 case BoxType.Normal:
                     if (this.brush != null)
                         this.brush.Dispose();
@@ -137,36 +120,32 @@ namespace kagv
             }
         }
 
-              
-        public void SetNormalBox()
-        {
+
+        public void SetNormalBox() {
             if (this.brush != null)
                 this.brush.Dispose();
-           this.brush = new SolidBrush(Color.WhiteSmoke);
-           this.boxType = BoxType.Normal;
+            this.brush = new SolidBrush(Color.WhiteSmoke);
+            this.boxType = BoxType.Normal;
         }
 
-        public void SetStartBox(int _id)
-        {
+        public void SetStartBox(int _id) {
             if (this.brush != null)
                 this.brush.Dispose();
             this.brush = new SolidBrush(Color.Green);
             this.boxType = BoxType.Start;
-            startID = _id;             
+            startID = _id;
         }
 
-        public void SetEndBox()
-        {
+        public void SetEndBox() {
             if (this.brush != null)
                 this.brush.Dispose();
             this.brush = new SolidBrush(Color.Red);
-            this.boxType = BoxType.End; 
+            this.boxType = BoxType.End;
         }
 
 
-        public void Dispose()
-        {
-            if(this.brush!=null)
+        public void Dispose() {
+            if (this.brush != null)
                 this.brush.Dispose();
 
         }

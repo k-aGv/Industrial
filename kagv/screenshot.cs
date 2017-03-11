@@ -14,19 +14,16 @@ using System.IO.Compression;
 using System.Text;
 using System.Globalization;
 
-namespace kagv
-{
+namespace kagv {
     //mapinfo struct
-    public struct MapInfo
-    {
+    public struct MapInfo {
         public RectLatLng Area;
         public int Zoom;
         public GMapProvider Type;
         public bool MakeWorldFile;
         public bool MakeKmz;//WE DONT USE IT BUT STRUCT NEEDS IT
 
-        public MapInfo(RectLatLng Area, int Zoom, GMapProvider Type, bool makeWorldFile, bool MakeKmz)
-        {
+        public MapInfo(RectLatLng Area, int Zoom, GMapProvider Type, bool makeWorldFile, bool MakeKmz) {
             this.Area = Area;
             this.Zoom = Zoom;
             this.Type = Type;
@@ -36,8 +33,7 @@ namespace kagv
     }
 
 
-    public partial class Screenshot : Form
-    {
+    public partial class Screenshot : Form {
         gmaps gmap;
         RectLatLng AreaGpx = RectLatLng.Empty;
 
@@ -57,22 +53,14 @@ namespace kagv
             bg.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bg_RunWorkerCompleted);
         }
 
-        void bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (!e.Cancelled)
-            {
-                if (e.Error != null)
-                {
+        void bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
+            if (!e.Cancelled) {
+                if (e.Error != null) {
                     MessageBox.Show("Error:" + e.Error.ToString(), "GMap.NET", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else if (e.Result != null)
-                {
-                    try
-                    {
+                } else if (e.Result != null) {
+                    try {
                         Process.Start(e.Result as string);
-                    }
-                    catch
-                    {
+                    } catch {
                     }
                 }
             }
@@ -83,18 +71,15 @@ namespace kagv
             gmap.mymap.Refresh();
         }
 
-        void bg_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
+        void bg_ProgressChanged(object sender, ProgressChangedEventArgs e) {
             pb_save.Value = e.ProgressPercentage;
 
             GPoint p = (GPoint)e.UserState;
         }
 
-        void bg_DoWork(object sender, DoWorkEventArgs e)
-        {
+        void bg_DoWork(object sender, DoWorkEventArgs e) {
             MapInfo info = (MapInfo)e.Argument;
-            if (!info.Area.IsEmpty)
-            {
+            if (!info.Area.IsEmpty) {
                 string bigImage = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + Path.DirectorySeparatorChar + "GMap at zoom " + info.Zoom + " - " + info.Type + "-" + DateTime.Now.Ticks + ".jpg";
                 e.Result = bigImage;
 
@@ -106,22 +91,17 @@ namespace kagv
 
                 int padding = info.MakeWorldFile || info.MakeKmz ? 0 : 22;
                 {
-                    using (Bitmap bmpDestination = new Bitmap((int)(pxDelta.X + padding * 2), (int)(pxDelta.Y + padding * 2)))
-                    {
-                        using (Graphics gfx = Graphics.FromImage(bmpDestination))
-                        {
+                    using (Bitmap bmpDestination = new Bitmap((int)(pxDelta.X + padding * 2), (int)(pxDelta.Y + padding * 2))) {
+                        using (Graphics gfx = Graphics.FromImage(bmpDestination)) {
                             gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
                             gfx.SmoothingMode = SmoothingMode.HighQuality;
 
                             int i = 0;
 
                             // get tiles & combine into one
-                            lock (tileArea)
-                            {
-                                foreach (var p in tileArea)
-                                {
-                                    if (bg.CancellationPending)
-                                    {
+                            lock (tileArea) {
+                                foreach (var p in tileArea) {
+                                    if (bg.CancellationPending) {
                                         e.Cancel = true;
                                         return;
                                     }
@@ -129,25 +109,20 @@ namespace kagv
                                     int pc = (int)(((double)++i / tileArea.Count) * 100);
                                     bg.ReportProgress(pc, p);
 
-                                    foreach (var tp in info.Type.Overlays)
-                                    {
+                                    foreach (var tp in info.Type.Overlays) {
                                         Exception ex;
                                         GMapImage tile;
 
                                         // tile number inversion(BottomLeft -> TopLeft) for pergo maps
-                                        if (tp.InvertedAxisY)
-                                        {
+                                        if (tp.InvertedAxisY) {
                                             tile = GMaps.Instance.GetImageFrom(tp, new GPoint(p.X, maxOfTiles.Height - p.Y), info.Zoom, out ex) as GMapImage;
-                                        }
-                                        else // ok
+                                        } else // ok
                                         {
                                             tile = GMaps.Instance.GetImageFrom(tp, p, info.Zoom, out ex) as GMapImage;
                                         }
 
-                                        if (tile != null)
-                                        {
-                                            using (tile)
-                                            {
+                                        if (tile != null) {
+                                            using (tile) {
                                                 long x = p.X * info.Type.Projection.TileSize.Width - topLeftPx.X + padding;
                                                 long y = p.Y * info.Type.Projection.TileSize.Width - topLeftPx.Y + padding;
                                                 {
@@ -160,21 +135,17 @@ namespace kagv
                             }
 
                             // draw info
-                            if (!info.MakeWorldFile)
-                            {
+                            if (!info.MakeWorldFile) {
                                 System.Drawing.Rectangle rect = new System.Drawing.Rectangle();
                                 {
                                     rect.Location = new System.Drawing.Point(padding, padding);
                                     rect.Size = new System.Drawing.Size((int)pxDelta.X, (int)pxDelta.Y);
                                 }
 
-                                using (Font f = new Font(FontFamily.GenericSansSerif, 9, FontStyle.Bold))
-                                {
-                                    if (cb_drawinfo.Checked)
-                                    {
+                                using (Font f = new Font(FontFamily.GenericSansSerif, 9, FontStyle.Bold)) {
+                                    if (cb_drawinfo.Checked) {
                                         // draw bounds & coordinates
-                                        using (Pen p = new Pen(Brushes.DimGray, 3))
-                                        {
+                                        using (Pen p = new Pen(Brushes.DimGray, 3)) {
                                             p.DashStyle = System.Drawing.Drawing2D.DashStyle.DashDot;
 
                                             gfx.DrawRectangle(p, rect);
@@ -191,11 +162,9 @@ namespace kagv
                                         }
                                     }
 
-                                    if (cb_drawscale.Checked)
-                                    {
+                                    if (cb_drawscale.Checked) {
                                         // draw scale
-                                        using (Pen p = new Pen(Brushes.Blue, 1))
-                                        {
+                                        using (Pen p = new Pen(Brushes.Blue, 1)) {
                                             double rez = info.Type.Projection.GetGroundResolution(info.Zoom, info.Area.Bottom);
                                             int px100 = (int)(100.0 / rez); // 100 meters
                                             int px1000 = (int)(1000.0 / rez); // 1km   
@@ -220,23 +189,19 @@ namespace kagv
         }
 
 
-        private void btn_save_Click(object sender, EventArgs e)
-        {
+        private void btn_save_Click(object sender, EventArgs e) {
             RectLatLng? area = null; //abstract structure
 
 
             area = gmap.mymap.SelectedArea;
-            if (area.Value.IsEmpty)
-            {
+            if (area.Value.IsEmpty) {
                 MessageBox.Show("Select map area holding ALT", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
 
-            if (!bg.IsBusy)
-            {
-                lock (tileArea)
-                {
+            if (!bg.IsBusy) {
+                lock (tileArea) {
                     tileArea.Clear();
                     tileArea.AddRange(gmap.mymap.MapProvider.Projection.GetAreaTileList(area.Value, (int)nud_zoom.Value, 1));
                     tileArea.TrimExcess();
@@ -253,22 +218,18 @@ namespace kagv
 
         }
 
-        private void btn_cancel_Click(object sender, EventArgs e)
-        {
-            if (bg.IsBusy)
-            {
+        private void btn_cancel_Click(object sender, EventArgs e) {
+            if (bg.IsBusy) {
                 bg.CancelAsync();
             }
             this.Close();
         }
 
-        private void Screenshot_FormClosing(object sender, FormClosingEventArgs e)
-        {
+        private void Screenshot_FormClosing(object sender, FormClosingEventArgs e) {
             tileArea.Clear();
         }
 
-        private void Screenshot_Load(object sender, EventArgs e)
-        {
+        private void Screenshot_Load(object sender, EventArgs e) {
             this.Location = gmap.Location;
 
             nud_zoom.Maximum = gmap.mymap.MaxZoom;
@@ -277,5 +238,5 @@ namespace kagv
         }
     }
 
-    
+
 }

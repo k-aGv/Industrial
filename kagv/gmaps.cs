@@ -14,19 +14,15 @@ using GMap.NET.WindowsForms.Markers;
 using GMap.NET.WindowsForms.ToolTips;
 
 
-namespace kagv
-{
-    public partial class gmaps : Form
-    {
+namespace kagv {
+    public partial class gmaps : Form {
         internal readonly GMapOverlay myobjects = new GMapOverlay("objects");
 
-        public gmaps()
-        {
+        public gmaps() {
             InitializeComponent();
         }
 
-        private void gmaps_Load(object sender, EventArgs e)
-        {
+        private void gmaps_Load(object sender, EventArgs e) {
 
             this.MaximizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -38,7 +34,7 @@ namespace kagv
             //map implementation
             mymap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;//using it as FULL reference to have the complete list of providers
             GMaps.Instance.Mode = AccessMode.ServerOnly;
-            
+
             mymap.SetPositionByKeywords("greece,thessaloniki");
             mymap.MinZoom = 0;
             mymap.MaxZoom = 18;
@@ -55,38 +51,33 @@ namespace kagv
             //____________________________________________________________________opacity______________R___________________________G_______________________B
             mymap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             nud_opacity.Value = 33;
-          
+
         }
 
-       
 
-        private void cb_cross_CheckedChanged(object sender, EventArgs e)
-        {
+
+        private void cb_cross_CheckedChanged(object sender, EventArgs e) {
             mymap.ShowCenter = cb_cross.Checked;
             mymap.Refresh();
         }
 
-        private void btn_marker_Click(object sender, EventArgs e)
-        {
+        private void btn_marker_Click(object sender, EventArgs e) {
             Screenshot st = new Screenshot(this);
             st.Owner = this;
             st.Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
+        private void button1_Click(object sender, EventArgs e) {
             mymap.Zoom += 1;
             mymap.Refresh();
         }
 
-        private void mymap_MouseClick(object sender, MouseEventArgs e)
-        {
-           
+        private void mymap_MouseClick(object sender, MouseEventArgs e) {
+
         }
 
-        private void cb_provider_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if ( cb_provider.SelectedItem.ToString() == "GoogleTerrainMapProvider")
+        private void cb_provider_SelectedIndexChanged(object sender, EventArgs e) {
+            if (cb_provider.SelectedItem.ToString() == "GoogleTerrainMapProvider")
                 mymap.MapProvider = GMap.NET.MapProviders.GoogleTerrainMapProvider.Instance;
             if (cb_provider.SelectedItem.ToString() == "GoogleMapProvider")
                 mymap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
@@ -96,14 +87,13 @@ namespace kagv
             mymap.Refresh();
         }
 
-        private void mymap_MouseMove(object sender, MouseEventArgs e)
-        {
-            label1.Text = mymap.ViewArea+"" ;
+        private void mymap_MouseMove(object sender, MouseEventArgs e) {
+            label1.Text = mymap.ViewArea + "";
 
-            label2.Text = "Lat:\r\n"+ mymap.ViewArea.Lat+"";
-            label3.Text = "Lng:\r\n"+mymap.ViewArea.Lng+"";
-            label4.Text = "WidthLng:\r\n"+mymap.ViewArea.WidthLng + "";
-            label5.Text = "HeightLat:\r\n"+mymap.ViewArea.HeightLat + "";
+            label2.Text = "Lat:\r\n" + mymap.ViewArea.Lat + "";
+            label3.Text = "Lng:\r\n" + mymap.ViewArea.Lng + "";
+            label4.Text = "WidthLng:\r\n" + mymap.ViewArea.WidthLng + "";
+            label5.Text = "HeightLat:\r\n" + mymap.ViewArea.HeightLat + "";
 
 
             double remoteLat = mymap.FromLocalToLatLng(e.X, e.Y).Lat;
@@ -111,31 +101,27 @@ namespace kagv
             label6.Text = "Current coordinates:\r\n" + "X/Lat:" + remoteLat + "\r\n" + "Y/Lng:" + remoteLng;
         }
 
-        private void cb_wheel_CheckedChanged(object sender, EventArgs e)
-        {
+        private void cb_wheel_CheckedChanged(object sender, EventArgs e) {
             mymap.InvertedMouseWheelZooming = cb_wheel.Checked;
             mymap.Refresh();
         }
 
-        private void btn_color_Click(object sender, EventArgs e)
-        {
-            if (cd.ShowDialog() == DialogResult.OK)
-            {
+        private void btn_color_Click(object sender, EventArgs e) {
+            if (cd.ShowDialog() == DialogResult.OK) {
                 mymap.SelectedAreaFillColor = Color.FromArgb((int)nud_opacity.Value, cd.Color);
-               
+
                 mymap.Refresh();
             }
         }
 
-        private void nud_opacity_ValueChanged(object sender, EventArgs e)
-        {
+        private void nud_opacity_ValueChanged(object sender, EventArgs e) {
             mymap.SelectedAreaFillColor = Color.FromArgb((int)nud_opacity.Value, mymap.SelectedAreaFillColor);
             mymap.Refresh();
-            
+
         }
 
 
-       
-      
+
+
     }
 }
