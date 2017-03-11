@@ -156,147 +156,31 @@ namespace kagv
             return agvs;
         }
 
-        private bool availableLoad(GridPos b)
+        private bool isAvailableLoad(GridPos b)
         {
-   
-            if (!crossAdjacent && !crossCorners)//since we do not pass through corners ,we got to check only UP,DOWN,LEFT,RIGHT
-            {
-                if (b.y == (height-1)) // bottom
-                {
-                    if (m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x - 1][b.y].boxType == BoxType.Normal
-                    || m_rectangles[b.x+1][b.y].boxType == BoxType.Normal)
-                    {
-                        return true;
-                    }
-                    else
-                        return false;
-
-                }
-                if (b.x == (width-1)) // right
-                {
-                    if (m_rectangles[b.x-1][b.y].boxType == BoxType.Normal
-                    || m_rectangles[b.x][b.y-1].boxType == BoxType.Normal
-                    || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal)
-                    {
-                        return true;
-                    }
-                    else
-                        return false;
-
-                }
-
-                if (b.x == 0) // left
-                {
-                    if (m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
-                    || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal)
-                    {
-                        return true;
-                    }
-                    else
-                        return false;
-
-                }
-                if (b.y == 0) // top
-                {
-                    if (m_rectangles[b.x - 1][b.y].boxType == BoxType.Normal
-                    || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
-                    || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal)
-                    {
-                        return true;
-                    }
-                    else
-                        return false;
-                }
-
-                if (m_rectangles[b.x - 1][b.y].boxType == BoxType.Normal
-                    || m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
-                    || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal)
-                {
-                    return true;
-                }
-                else
-                    return false;
-            }
-            else
-            {
-                if (b.y == (height-1)) // bottom
-                {
-                    if (m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x - 1][b.y].boxType == BoxType.Normal
-                    || m_rectangles[b.x - 1][b.y-1].boxType == BoxType.Normal
-                    || m_rectangles[b.x + 1][b.y + 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal)
-                    {
-                        return true;
-                    }
-                    else
-                        return false;
-
-                }
-                if (b.x == (width-1)) // right
-                {
-                    if (m_rectangles[b.x - 1][b.y].boxType == BoxType.Normal
-                    || m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x-1][b.y - 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x-1][b.y + 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal)
-                    {
-                        return true;
-                    }
-                    else
-                        return false;
-
-                }
-                if (b.x == 0) //left
-                {
-                    if (m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
-                    || m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x + 1][b.y + 1].boxType == BoxType.Normal)
-                    {
-                        return true;
-                    }
-                    else
-                        return false;
-
-                }
-                if (b.y == 0) //top
-                {
-                    if (m_rectangles[b.x - 1][b.y].boxType == BoxType.Normal
-                    || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
-                    || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x + 1][b.y + 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x - 1][b.y + 1].boxType == BoxType.Normal)
-                    {
-                        return true;
-                    }
-                    else
-                        return false;
-                }
-
-                if (m_rectangles[b.x - 1][b.y].boxType == BoxType.Normal
-                    || m_rectangles[b.x][b.y - 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x - 1][b.y - 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x - 1][b.y + 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x + 1][b.y].boxType == BoxType.Normal
-                    || m_rectangles[b.x][b.y + 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x + 1][b.y - 1].boxType == BoxType.Normal
-                    || m_rectangles[b.x + 1][b.y + 1].boxType == BoxType.Normal)
-                {
-                    return true;
-                }
-                else
-                    return false;
-            }
-
-
-
-
+            BaseGrid mygrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
+            JumpPointParam param = new JumpPointParam(mygrid, false, crossCorners, crossAdjacent, mode);
             
+            for(int i  = 0 ; i < nUD_AGVs.Value ; i++)
+            {
+                for (int w= 0 ; w < width ; w++)
+                {
+                    for(int h=0;h<height;h++)
+                    {
+                        if(m_rectangles[w][h].boxType == BoxType.Load)
+                        {
+                            GridPos load = new GridPos(w, h);
+                            param.Reset(StartPos[i], load);
+                            List<GridPos> s = JumpPointFinder.FindPath(param, paper);
+                            if (s.Count != 0)
+                                return true;
+                        }
+                    }
+                }
+
+            }
+
+            return false;
         }
         private void Redraw()
         {
@@ -422,7 +306,7 @@ namespace kagv
                             do
                             {
                                 removed = false;
-                                if (!availableLoad(loadPos[list_index])) //if there's at LEAST 1 agv that cannot reach a Load, then that Load is  
+                                if (!isAvailableLoad(loadPos[list_index])) //if there's at LEAST 1 agv that cannot reach a Load, then that Load is  
                                 {                                        //removed from the loadPos and not considered as available - marked 4 
                                     isLoad[loadPos[list_index].x, loadPos[list_index].y] = 4;
                                     loadPos.Remove(loadPos[list_index]);
