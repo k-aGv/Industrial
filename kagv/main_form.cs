@@ -330,6 +330,14 @@ namespace kagv
                 }
             }
 
+            if (
+                 timer1.Enabled ||
+                 timer2.Enabled ||
+                 timer3.Enabled ||
+                 timer4.Enabled ||
+                 timer5.Enabled
+               )
+                return;
 
             for (int widthTrav = 0; widthTrav < width; widthTrav++)
             {
