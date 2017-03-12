@@ -4,15 +4,15 @@ using System.IO;
 
 namespace kagv {
 
-    public class Vehicle {
+     class Vehicle {
         private Panel AgvPortrait;
         private PictureBox AgvIcon;
         private Point AgvLocation;
         private Form mirroredForm;
         private bool isBusyVar = false;
-        private bool isLoadedVar = false; 
+        private bool isLoadedVar = false;
 
-
+        
         private double[,] steps = new double[2, 2000];
         private int steps_counter;
 
@@ -37,8 +37,6 @@ namespace kagv {
 
         public Point Location;
         public Point StartPoint;
-
-        public Point targetPoint;
 
         public Vehicle(Form handle, int StartX, int StartY, int SizeX, int SizeY) {
             //private exports
