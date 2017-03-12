@@ -621,7 +621,7 @@ namespace kagv {
                 AGVs[i] = new Vehicle(this,
                                       m_rectangles[StartPos[i].x][StartPos[i].y].boxRec.X, //real form X-coordinates
                                       m_rectangles[StartPos[i].x][StartPos[i].y].boxRec.Y, //real form Y-coordinates
-                                      18, 18);
+                                      19, 19);
             }
 
             timer_counter = new int[StartPos.Count];
