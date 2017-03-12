@@ -16,8 +16,11 @@ namespace kagv {
     public partial class main_form {
         private void animator(int counter, int agv_index) {
 
-            int stepx = Convert.ToInt32(newsteps[agv_index, 0, counter]);
-            int stepy = Convert.ToInt32(newsteps[agv_index, 1, counter]);
+            //int stepx = Convert.ToInt32(newsteps[0, counter]);
+            //int stepy = Convert.ToInt32(newsteps[1, counter]);
+
+            int stepx = Convert.ToInt32(AGVs[agv_index].Steps[0, AGVs[agv_index].StepsCounter]);
+            int stepy = Convert.ToInt32(AGVs[agv_index].Steps[1, AGVs[agv_index].StepsCounter]);
 
             if (stepx == 0 || stepx == 0)
                 return;
@@ -172,7 +175,7 @@ namespace kagv {
             this.Refresh();
 
         }
-        private void DrawPoints(GridLine x, int line_index) {
+        private void DrawPoints(GridLine x, int agv_index) {
             Point[] currentLinePoints;//1d array of points.used to track all the points of current line
 
             int x1 = x.fromX;
@@ -241,7 +244,7 @@ namespace kagv {
                             {
                                 using (SolidBrush fontBR = new SolidBrush(Color.FromArgb(53, 153, 153)))
                                     if (showSteps)
-                                        paper.DrawString(new_steps_counter[line_index] + ""
+                                        paper.DrawString(AGVs[agv_index].StepsCounter + ""
                                         , stepFont
                                         , fontBR
                                         , currentLinePoints[i]);
@@ -256,9 +259,9 @@ namespace kagv {
                 }
 
                 if (calibrated) {
-                    newsteps[line_index, 0, new_steps_counter[line_index]] = currentLinePoints[i].X;
-                    newsteps[line_index, 1, new_steps_counter[line_index]] = currentLinePoints[i].Y;
-                    new_steps_counter[line_index]++;
+                    AGVs[agv_index].Steps[0, AGVs[agv_index].StepsCounter] = currentLinePoints[i].X;
+                    AGVs[agv_index].Steps[1, AGVs[agv_index].StepsCounter] = currentLinePoints[i].Y;
+                    AGVs[agv_index].StepsCounter++;
 
                 }
                 //init next steps
@@ -306,10 +309,13 @@ namespace kagv {
 
 
             AGVspath = new GridLine[2000, 5];
-            newsteps = new double[5, 2, 2000];
+            for (int i = 0; i<AGVs.Length; i++) {
+                AGVs[i].Steps = new double[2, 2000];
+                AGVs[i].StepsCounter = new int();
+            }
             fromstart = new bool[5];
             isLoad = new int[width, height];
-            new_steps_counter = new int[5];
+            
 
             endPointCoords = new Point(-1, -1);
             selectedColor = Color.DarkGray;
@@ -639,13 +645,13 @@ namespace kagv {
 
             int step = -1;
 
-            for (int i = 0; i < newsteps.GetLength(2); i++) {
+            for (int i = 0; i < AGVs[whichAGV].Steps.GetLength(1); i++) {
                 if (
-                    newsteps[whichAGV, 0, i] - 9 == ix &&
-                    newsteps[whichAGV, 1, i] - 9 == iy
+                    AGVs[whichAGV].Steps[0, i] - 9 == ix &&
+                    AGVs[whichAGV].Steps[1, i] - 9 == iy
                     ) {
                     step = i;
-                    i = newsteps.GetLength(2);
+                    i = AGVs[whichAGV].Steps.GetLength(1);
                 }
             }
             if (step >= 0) return step;
@@ -657,10 +663,10 @@ namespace kagv {
         private void Reset() {
             AGVspath = new GridLine[AllJumpPointsList.Count, 5];
 
-            newsteps = new double[5, 2, 2000];
-
-            for (int i = 0; i < new_steps_counter.Count(); i++)
-                new_steps_counter[i] = 0;
+            for (int i = 0; i < AGVs.Length; i++) {
+                AGVs[i].Steps = new double[2, 2000];
+                AGVs[i].StepsCounter = new int();
+            }
 
         }
         private void Reset(int whichAGV) //overloaded Reset
@@ -675,9 +681,9 @@ namespace kagv {
 
             for (int i = 0; i < 2; i++)
                 for (int j = 0; j < 2000; j++)
-                    newsteps[whichAGV, i, j] = 0;
+                    AGVs[whichAGV].Steps[i, j] = 0;
 
-            new_steps_counter[whichAGV] = 0;
+            AGVs[whichAGV].StepsCounter = 0;
         }
 
 
@@ -705,8 +711,8 @@ namespace kagv {
             timer_counter[index]--;
             if (!(_c - 1 < 0)) //in case the intersection is in the 1st step of the route, then the index of that step will be 0. 
             {                  //this means that trying to get to the "_c -1" step, will have the index decreased to -1 causing the "index out of bound" crash
-                int stepx = Convert.ToInt32(newsteps[index, 0, _c - 1]);
-                int stepy = Convert.ToInt32(newsteps[index, 1, _c - 1]);
+                int stepx = Convert.ToInt32(AGVs[index].Steps[0, _c - 1]);
+                int stepy = Convert.ToInt32(AGVs[index].Steps[1, _c - 1]);
                 AGVs[index].SetLocation(stepx - 9, stepy - 9);
             }
         }

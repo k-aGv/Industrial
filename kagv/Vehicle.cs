@@ -20,6 +20,7 @@ namespace kagv {
         private Form mirroredForm;
         private bool isBusyVar = false;
         private bool isLoadedVar = false; //WILL BE USED LATER
+        private double[,] steps = new double[2, 2000];
 
 
         public Point Location;
@@ -127,14 +128,25 @@ namespace kagv {
                 return;
         }
 
-        private int steps;
-        public int Steps {
+        private int steps_counter;
+        public int StepsCounter {
+            get {
+                return this.steps_counter;
+            }
+            set {
+                this.steps_counter = StepsCounter;
+            }
+        }
+
+        public double[,] Steps {
             get {
                 return this.steps;
             }
             set {
                 this.steps = Steps;
             }
+           
+
         }
 
         public void SetLocation(int X, int Y) {

@@ -42,7 +42,7 @@ namespace kagv {
 
 
                 for (int i = 0; i < nUD_AGVs.Value; i++) {
-                    new_steps_counter[i] = 0;
+                    AGVs[i].StepsCounter = 0;
                     if (!NoJumpPointsFound) {
                         for (int resultTrav = 0; resultTrav < AllJumpPointsList.Count; resultTrav++) {
                             try {
@@ -164,13 +164,17 @@ namespace kagv {
 
                             if (StartPos != null) {
                                 for (int j = 0; j < StartPos.Count; j++)
-                                    for (int i = 0; i < newsteps.GetLength(2); i++) {
+                                    for (int i = 0; i < 2000; i++) {
                                         if (m_rectangles[widthTrav][heightTrav].boxRec.Contains
-                                            (
+                                            (/*
                                                    new Point(
                                                         Convert.ToInt32(newsteps[j, 0, i]),
                                                         Convert.ToInt32(newsteps[j, 1, i])
-                                                        )
+                                                        )*/
+                                                   new Point(
+                                                       Convert.ToInt32(AGVs[j].Steps[0,i]),
+                                                       Convert.ToInt32(AGVs[j].Steps[1,i])
+                                                       )
                                             )) {
                                             isPathBlock = true;
                                         }
@@ -326,8 +330,8 @@ namespace kagv {
 
             isMouseDown = false;
 
-            for (int i = 0; i < new_steps_counter.Count(); i++)
-                new_steps_counter[i] = 0;
+            for (int i = 0; i < StartPos.Count; i++)
+                AGVs[i].StepsCounter = 0;
             if (e.Button == MouseButtons.Right) {
                 tp.Hide(this);
             }
@@ -607,10 +611,10 @@ namespace kagv {
             beforeStart = false;
             allowHighlight = false;
             markedbyagv = new Point[StartPos.Count];
-            Redraw();
+            //Redraw();
 
             AGVs = new Vehicle[StartPos.Count];
-
+            Redraw();
             //  MessageBox.Show(pos.Count + " " + (AGVs.Count() - 1) + " after restore()");
 
             for (int i = 0; i < StartPos.Count; i++) {

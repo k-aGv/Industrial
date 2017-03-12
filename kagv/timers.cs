@@ -13,12 +13,12 @@ namespace kagv {
         private void timer1_Tick(object sender, EventArgs e) {
             int mysteps = 0;
             for (int i = 0; i < 2000; i++) {
-                if (newsteps[0, 0, i] == 0 || newsteps[0, 1, i] == 0)
+                if (AGVs[0].Steps[0, i] == 0 || AGVs[0].Steps[1, i] == 0)
                     i = 2000;
                 else
                     mysteps++;
             }
-            AGVs[0].Steps = mysteps;
+            AGVs[0].StepsCounter = mysteps;
 
             animator(timer_counter[0], 0);
 
@@ -30,12 +30,12 @@ namespace kagv {
 
             int mysteps = 0;
             for (int i = 0; i < 2000; i++) {
-                if (newsteps[1, 0, i] == 0 || newsteps[1, 1, i] == 0)
+                if (AGVs[1].Steps[0, i] == 0 || AGVs[1].Steps[1, i] == 0)
                     i = 2000;
                 else
                     mysteps++;
             }
-            AGVs[1].Steps = mysteps;
+            AGVs[1].StepsCounter = mysteps;
 
             animator(timer_counter[1], 1);
 
@@ -45,12 +45,12 @@ namespace kagv {
         private void timer3_Tick(object sender, EventArgs e) {
             int mysteps = 0;
             for (int i = 0; i < 2000; i++) {
-                if (newsteps[2, 0, i] == 0 || newsteps[2, 1, i] == 0)
+                if (AGVs[2].Steps[0, i] == 0 || AGVs[2].Steps[1, i] == 0)
                     i = 2000;
                 else
                     mysteps++;
             }
-            AGVs[2].Steps = mysteps;
+            AGVs[2].StepsCounter = mysteps;
 
             animator(timer_counter[2], 2);
 
@@ -60,12 +60,12 @@ namespace kagv {
         private void timer4_Tick(object sender, EventArgs e) {
             int mysteps = 0;
             for (int i = 0; i < 2000; i++) {
-                if (newsteps[3, 0, i] == 0 || newsteps[3, 1, i] == 0)
+                if (AGVs[3].Steps[0, i] == 0 || AGVs[3].Steps[1, i] == 0)
                     i = 2000;
                 else
                     mysteps++;
             }
-            AGVs[3].Steps = mysteps;
+            AGVs[3].StepsCounter = mysteps;
 
             animator(timer_counter[3], 3);
 
@@ -75,12 +75,12 @@ namespace kagv {
         private void timer5_Tick(object sender, EventArgs e) {
             int mysteps = 0;
             for (int i = 0; i < 2000; i++) {
-                if (newsteps[4, 0, i] == 0 || newsteps[4, 1, i] == 0)
+                if (AGVs[4].Steps[0, i] == 0 || AGVs[4].Steps[1, i] == 0)
                     i = 2000;
                 else
                     mysteps++;
             }
-            AGVs[4].Steps = mysteps;
+            AGVs[4].StepsCounter = mysteps;
 
             animator(timer_counter[4], 4);
 

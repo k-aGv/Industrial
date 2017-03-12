@@ -58,8 +58,8 @@ namespace kagv
 
         //0 dimension=x
         //1 dimension=y
-        double[, ,] newsteps = new double[5, 2, 2000];
-        int[] new_steps_counter = new int[5];
+        
+        //int[] new_steps_counter = new int[5];
 
         //Vehicle myagv;
         Vehicle[] AGVs = new Vehicle[5];
