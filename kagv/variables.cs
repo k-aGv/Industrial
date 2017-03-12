@@ -54,14 +54,6 @@ namespace kagv
         List<GridPos> JumpPointsList = new List<GridPos>();
         bool NoJumpPointsFound;//confirms whether the list_of_lists is empty or not
 
-        //current load x/y for 5 agv's currently targetting/carrying loads
-
-        //0 dimension=x
-        //1 dimension=y
-        
-        //int[] new_steps_counter = new int[5];
-
-        //Vehicle myagv;
         Vehicle[] AGVs = new Vehicle[5];
         Point endPointCoords = new Point(-1,-1);
 

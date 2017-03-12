@@ -1,27 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 
 namespace kagv {
 
-    //enum FuelType { battery,gas,tsangk};
-
-    public class Vehicle : IDisposable {
+    public class Vehicle {
         private Panel AgvPortrait;
         private PictureBox AgvIcon;
         private Point AgvLocation;
         private Form mirroredForm;
         private bool isBusyVar = false;
-        private bool isLoadedVar = false; //WILL BE USED LATER
-        private double[,] steps = new double[2, 2000];
+        private bool isLoadedVar = false; 
 
+
+        private double[,] steps = new double[2, 2000];
+        private int steps_counter;
+
+        public int StepsCounter {
+            get {
+                return this.steps_counter;
+            }
+            set {
+                this.steps_counter = value;
+            }
+        }
+
+
+        public double[,] Steps {
+            get {
+                return this.steps;
+            }
+            set {
+                this.steps = value;
+            }
+        }
 
         public Point Location;
         public Point StartPoint;
@@ -66,6 +78,11 @@ namespace kagv {
 
         }
 
+        public Vehicle(Form handle) //overloaded constructor
+        {
+            mirroredForm = handle;
+        }
+
         private Image _getEmbedResource(string a) {
             System.Reflection.Assembly _assembly;
             Stream _myStream;
@@ -77,19 +94,13 @@ namespace kagv {
 
         }
 
-
-        public Vehicle(Form handle) //overloaded constructor
-        {
-            mirroredForm = handle;
-        }
-
         public void killIcon() {
             try {
                 this.AgvIcon.Dispose();
                 this.AgvPortrait.Dispose();
             } catch { }
         }
-        public bool isLoaded() //WILL BE USED LATER
+        public bool isLoaded() 
         {
             if (isLoadedVar)
                 return true;
@@ -128,27 +139,7 @@ namespace kagv {
                 return;
         }
 
-        private int steps_counter;
-        public int StepsCounter {
-            get {
-                return this.steps_counter;
-            }
-            set {
-                this.steps_counter = value;
-            }
-        }
-
-        public double[,] Steps {
-            get {
-                return this.steps;
-            }
-            set {
-                this.steps = value;
-            }
-           
-
-        }
-
+        
         public void SetLocation(int X, int Y) {
             AgvLocation = new Point(X, Y);
             AgvPortrait.Location = AgvLocation;
@@ -162,11 +153,6 @@ namespace kagv {
 
         public Point GetLocation() {
             return new Point(AgvLocation.X, AgvLocation.Y);
-        }
-
-
-        public void Dispose() {
-            AgvPortrait.Dispose();
         }
 
     }
