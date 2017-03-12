@@ -34,9 +34,9 @@ namespace kagv
         Graphics paper;//main graphics for grid
         GridBox[][] m_rectangles;//2d array. Contains grid information (coords of each box, boxtype, etc etc)  
 
-        bool useRecursive = true;
+        bool useRecursive = false;
         bool crossAdjacent = false;
-        bool crossCorners = false;
+        bool crossCorners = true;
 
         HeuristicMode mode = HeuristicMode.MANHATTAN;
 
