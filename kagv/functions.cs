@@ -316,7 +316,6 @@ namespace kagv {
             endPointCoords = new Point(-1, -1);
             selectedColor = Color.DarkGray;
 
-            load_line = new List<GridLine>();
             AllJumpPointsList = new List<List<GridPos>>();
             JumpPointsList = new List<GridPos>();
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
