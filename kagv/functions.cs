@@ -14,17 +14,17 @@ using System.IO;
 namespace kagv {
 
     public partial class main_form {
-        private void animator(int counter, int agv_index) {
+        private void animator(int steps_counter, int agv_index) {
 
-            int stepx = Convert.ToInt32(AGVs[agv_index].Steps[0, counter]);
-            int stepy = Convert.ToInt32(AGVs[agv_index].Steps[1, counter]);
+            int stepx = Convert.ToInt32(AGVs[agv_index].Steps[0, steps_counter]);
+            int stepy = Convert.ToInt32(AGVs[agv_index].Steps[1, steps_counter]);
 
             if (stepx == 0 || stepx == 0)
                 return;
 
             bool isfreeload = false;
             bool halted = false;
-            displayStepsToLoad(counter, agv_index);
+            displayStepsToLoad(steps_counter, agv_index);
 
             //RULES OF WHICH AGV WILL STOP WILL BE ADDED
             for (int i = 0; i < nUD_AGVs.Value; i++) {
@@ -35,7 +35,7 @@ namespace kagv {
                     && AGVs[agv_index].GetLocation() != endPointCoords
                     ) {
 
-                    halt(agv_index, counter);
+                        halt(agv_index, steps_counter);
                     halted = true;
                 } else {
                     if (!halted)
@@ -119,7 +119,7 @@ namespace kagv {
                     }
 
                     timer_counter[agv_index] = -1;
-                    counter = 0;
+                    steps_counter = 0;
 
                 }
             } else {
