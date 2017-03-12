@@ -332,6 +332,7 @@ namespace kagv {
 
             for (int i = 0; i < StartPos.Count; i++)
                 AGVs[i].StepsCounter = 0;
+
             if (e.Button == MouseButtons.Right) {
                 tp.Hide(this);
             }
@@ -611,11 +612,9 @@ namespace kagv {
             beforeStart = false;
             allowHighlight = false;
             markedbyagv = new Point[StartPos.Count];
-            //Redraw();
+            Redraw();
 
             AGVs = new Vehicle[StartPos.Count];
-            Redraw();
-            //  MessageBox.Show(pos.Count + " " + (AGVs.Count() - 1) + " after restore()");
 
             for (int i = 0; i < StartPos.Count; i++) {
                 //initialization of each AGV location

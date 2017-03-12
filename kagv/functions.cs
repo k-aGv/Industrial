@@ -16,11 +16,8 @@ namespace kagv {
     public partial class main_form {
         private void animator(int counter, int agv_index) {
 
-            //int stepx = Convert.ToInt32(newsteps[0, counter]);
-            //int stepy = Convert.ToInt32(newsteps[1, counter]);
-
-            int stepx = Convert.ToInt32(AGVs[agv_index].Steps[0, AGVs[agv_index].StepsCounter]);
-            int stepy = Convert.ToInt32(AGVs[agv_index].Steps[1, AGVs[agv_index].StepsCounter]);
+            int stepx = Convert.ToInt32(AGVs[agv_index].Steps[0, counter]);
+            int stepy = Convert.ToInt32(AGVs[agv_index].Steps[1, counter]);
 
             if (stepx == 0 || stepx == 0)
                 return;
@@ -262,7 +259,6 @@ namespace kagv {
                     AGVs[agv_index].Steps[0, AGVs[agv_index].StepsCounter] = currentLinePoints[i].X;
                     AGVs[agv_index].Steps[1, AGVs[agv_index].StepsCounter] = currentLinePoints[i].Y;
                     AGVs[agv_index].StepsCounter++;
-
                 }
                 //init next steps
                 x1 = currentLinePoints[i].X;

@@ -134,7 +134,7 @@ namespace kagv {
                 return this.steps_counter;
             }
             set {
-                this.steps_counter = StepsCounter;
+                this.steps_counter = value;
             }
         }
 
@@ -143,7 +143,7 @@ namespace kagv {
                 return this.steps;
             }
             set {
-                this.steps = Steps;
+                this.steps = value;
             }
            
 
