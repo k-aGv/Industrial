@@ -40,8 +40,6 @@ namespace kagv
 
         HeuristicMode mode = HeuristicMode.MANHATTAN;
 
-        List<GridLine> load_line = new List<GridLine>();
-
         GridBox m_lastBoxSelect;
         BoxType m_lastBoxType;
         ToolTip tp;
