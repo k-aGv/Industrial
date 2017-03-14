@@ -48,10 +48,10 @@ namespace kagv {
 
             if (markedbyagv[agv_index].X * 20 == AGVs[agv_index].GetLocation().X &&
                 (markedbyagv[agv_index].Y * 20) + topBarOffset == AGVs[agv_index].GetLocation().Y &&
-                !AGVs[agv_index].isBusy()) {
+                !AGVs[agv_index].Status.Busy) {
 
                 m_rectangles[markedbyagv[agv_index].X][markedbyagv[agv_index].Y].SwitchLoad();
-                AGVs[agv_index].Busy(true);
+                AGVs[agv_index].Status.Busy=true;
                 AGVs[agv_index].setLoaded();
                 if (fromstart[agv_index]) {
                     loads--;
@@ -66,7 +66,7 @@ namespace kagv {
                     AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - topBarOffset) / 20].y) {
 
 
-                    AGVs[agv_index].Busy(false);
+                    AGVs[agv_index].Status.Busy=false;
 
                     for (int k = 0; k < width; k++) {
                         for (int b = 0; b < height; b++) {
@@ -78,12 +78,12 @@ namespace kagv {
                     if (loads > 0 && isfreeload) {
 
                         Reset(agv_index);
-                        AGVs[agv_index].Busy(true);
+                        AGVs[agv_index].Status.Busy=true;
                         markedbyagv[agv_index] = new Point();
                         getNextLoad(agv_index);
 
 
-                        AGVs[agv_index].Busy(false);
+                        AGVs[agv_index].Status.Busy = false;
                         AGVs[agv_index].setEmpty();
 
                     } else {
@@ -345,7 +345,7 @@ namespace kagv {
 
             main_form_Load(new object(), new EventArgs());
             for (int i = 0; i < AGVs.GetLength(0); i++)
-                AGVs[i].Busy(false);
+                AGVs[i].Status.Busy = false;
 
 
             timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval = 100;
@@ -481,7 +481,7 @@ namespace kagv {
                 for (int i = 0; i < AGVs.Count(); i++)
                     if (AGVs[i] != null) {
                         AGVs[i].updateAGV();
-                        AGVs[i].Busy(false);//initialize the status of AGVs, as 'available'
+                        AGVs[i].Status.Busy = false;//initialize the status of AGVs, as 'available'
                     }
 
             loadPos_index = 0;
@@ -493,7 +493,7 @@ namespace kagv {
             }
 
             for (int i = 0; i < StartPos.Count; i++) {
-                if (AGVs[i].isBusy() == false) {
+                if (AGVs[i].Status.Busy == false) {
                     if (loadPos.Count() == 0)
                         mapHasLoads = false;
 
@@ -526,7 +526,7 @@ namespace kagv {
 
                             jumpParam.Reset(StartPos[pos_index], loadPos[0]);
                             JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
-                            AGVs[i].Busy(true);
+                            AGVs[i].Status.Busy = true;
 
                             //is_trapped[i,0] -> part of route agv -> load
                             //is_trapped[i,1] -> part of route load -> end
@@ -906,10 +906,9 @@ namespace kagv {
 
 
         private void initialization() {
-            for (int i = 0; i < AGVs.Count(); i++) {
+            for (int i = 0; i < AGVs.Count(); i++) 
                 AGVs[i] = new Vehicle(this);
-                AGVs[i].Busy(false);
-            }
+            
 
             this.DoubleBuffered = true;
             this.Width = ((width + 1) * 20) - 3; //3 because 2=boarder and the 1 comes from "width+1"

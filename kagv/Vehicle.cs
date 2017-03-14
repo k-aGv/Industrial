@@ -6,12 +6,35 @@ using System.Collections.Generic;
 namespace kagv {
 
      class Vehicle {
+
+         //AGV Status
+         internal class AGVStatus {
+             public bool Busy { get; set; }
+             public bool Loaded { get; set; }
+         }
+
+         private AGVStatus status=new AGVStatus();
+         public AGVStatus Status {
+             get { return this.status; }
+         }
+
+         /*
+         //AGV steps
+         internal class AGVSteps {
+             public double X { get; set; }
+             public double Y { get; set; }
+         }
+         private AGVSteps[,] steps;
+         public AGVSteps Steps {
+             get { return this.steps; }
+         }
+         */
+
         private Panel AgvPortrait;
         private PictureBox AgvIcon;
         private Point AgvLocation;
         private Form mirroredForm;
-        private bool isBusyVar = false;
-        private bool isLoadedVar = false;
+
 
         private List<GridPos> jmp_pnts = new List<GridPos>();
         private double[,] steps = new double[2, 2000];// to do:internal class steps.x steps.y
@@ -35,7 +58,7 @@ namespace kagv {
             }
         }
 
-
+       
         public double[,] Steps {
             get {
                 return this.steps;
@@ -54,16 +77,17 @@ namespace kagv {
         public int SizeX;
         public int SizeY;
 
-        public Vehicle(Form handle) {
+        public Vehicle(Form handle) { //constructor
             mirroredForm = handle;
-            isBusyVar = false;
+            this.status.Busy = false;
+            this.status.Loaded = false;
         }
 
         public void Init() {
 
             //init vars
-            isLoadedVar = false;
-            isBusyVar = false;
+            this.status.Busy = false;
+            this.status.Loaded = false;
 
             AgvPortrait = new Panel();
             AgvPortrait.Name = "AGVPORTRAIT";
@@ -115,30 +139,16 @@ namespace kagv {
                 this.AgvPortrait.Dispose();
             } catch { }
         }
-        public bool isLoaded() 
-        {
-            if (isLoadedVar)
-                return true;
-            else
-                return false;
-        }
-
-        public void Busy(bool x) {
-            isBusyVar = x;
-        }
-
-        public bool isBusy() {
-            return isBusyVar;
-        }
+ 
 
         public void setLoaded() {
             this.AgvIcon.Image = _getEmbedResource("loaded.png");
-            this.isLoadedVar = true;
+            this.status.Loaded = true;
         }
 
         public void setEmpty() {
             this.AgvIcon.Image = _getEmbedResource("empty.png");
-            this.isLoadedVar = false;
+            this.status.Loaded = false;
         }
 
         public void updateAGV() {
