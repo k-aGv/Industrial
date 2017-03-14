@@ -16,8 +16,8 @@ namespace kagv {
     public partial class main_form {
         private void animator(int steps_counter, int agv_index) {
 
-            int stepx = Convert.ToInt32(AGVs[agv_index].Steps[0, steps_counter]);
-            int stepy = Convert.ToInt32(AGVs[agv_index].Steps[1, steps_counter]);
+            int stepx = Convert.ToInt32(AGVs[agv_index].Steps[steps_counter].X);
+            int stepy = Convert.ToInt32(AGVs[agv_index].Steps[steps_counter].Y);
 
             
 
@@ -256,8 +256,8 @@ namespace kagv {
                 }
 
                 if (calibrated) {
-                    AGVs[agv_index].Steps[0, AGVs[agv_index].StepsCounter] = currentLinePoints[i].X;
-                    AGVs[agv_index].Steps[1, AGVs[agv_index].StepsCounter] = currentLinePoints[i].Y;
+                    AGVs[agv_index].Steps[AGVs[agv_index].StepsCounter].X = currentLinePoints[i].X;
+                    AGVs[agv_index].Steps[AGVs[agv_index].StepsCounter].Y = currentLinePoints[i].Y;
                     AGVs[agv_index].StepsCounter++;
                 }
                 //init next steps
@@ -306,8 +306,11 @@ namespace kagv {
 
             AGVspath = new GridLine[2000, 5];
             for (int i = 0; i<AGVs.Length; i++) {
-                AGVs[i].Steps = new double[2, 2000];
-                AGVs[i].StepsCounter = new int();
+                for (int j = 0; j < 2000; j++) {
+                    AGVs[i].Steps[j].X = new double();
+                    AGVs[i].Steps[j].Y = new double();
+                    AGVs[i].StepsCounter = new int();
+                }
             }
             fromstart = new bool[5];
             isLoad = new int[width, height];
@@ -642,13 +645,13 @@ namespace kagv {
 
             int step = -1;
 
-            for (int i = 0; i < AGVs[whichAGV].Steps.GetLength(1); i++) {
+            for (int i = 0; i < AGVs[whichAGV].Steps.GetLength(0); i++) {
                 if (
-                    AGVs[whichAGV].Steps[0, i] - 9 == ix &&
-                    AGVs[whichAGV].Steps[1, i] - 9 == iy
+                    AGVs[whichAGV].Steps[i].X - 9 == ix &&
+                    AGVs[whichAGV].Steps[i].Y - 9 == iy
                     ) {
                     step = i;
-                    i = AGVs[whichAGV].Steps.GetLength(1);
+                    i = AGVs[whichAGV].Steps.GetLength(0);
                 }
             }
             if (step >= 0) return step;
@@ -666,8 +669,11 @@ namespace kagv {
             AGVspath = new GridLine[c, 5];
 
             for (int i = 0; i < AGVs.Length; i++) {
-                AGVs[i].Steps = new double[2, 2000];
-                AGVs[i].StepsCounter = new int();
+                for (int j = 0; j < 2000; j++) {
+                    AGVs[i].Steps[j].X = 0;
+                    AGVs[i].Steps[j].Y = 0;
+                    AGVs[i].StepsCounter = new int();
+                }
             }
 
         }
@@ -682,9 +688,10 @@ namespace kagv {
             for (int i = 0; i < c; i++)
                 AGVspath[i, whichAGV] = null;
 
-            for (int i = 0; i < 2; i++)
-                for (int j = 0; j < 2000; j++)
-                    AGVs[whichAGV].Steps[i, j] = 0;
+                for (int j = 0; j < 2000; j++) {
+                    AGVs[whichAGV].Steps[j].X = 0;
+                    AGVs[whichAGV].Steps[j].Y = 0;
+                }
 
             AGVs[whichAGV].StepsCounter = 0;
         }
@@ -714,8 +721,8 @@ namespace kagv {
             timer_counter[index]--;
             if (!(_c - 1 < 0)) //in case the intersection is in the 1st step of the route, then the index of that step will be 0. 
             {                  //this means that trying to get to the "_c -1" step, will have the index decreased to -1 causing the "index out of bound" crash
-                int stepx = Convert.ToInt32(AGVs[index].Steps[0, _c - 1]);
-                int stepy = Convert.ToInt32(AGVs[index].Steps[1, _c - 1]);
+                int stepx = Convert.ToInt32(AGVs[index].Steps[_c - 1].X);
+                int stepy = Convert.ToInt32(AGVs[index].Steps[_c - 1].Y);
                 AGVs[index].SetLocation(stepx - 9, stepy - 9);
             }
         }

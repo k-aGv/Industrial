@@ -175,8 +175,8 @@ namespace kagv {
                                                         Convert.ToInt32(newsteps[j, 1, i])
                                                         )*/
                                                    new Point(
-                                                       Convert.ToInt32(AGVs[j].Steps[0,i]),
-                                                       Convert.ToInt32(AGVs[j].Steps[1,i])
+                                                       Convert.ToInt32(AGVs[j].Steps[i].X),
+                                                       Convert.ToInt32(AGVs[j].Steps[i].Y)
                                                        )
                                             )) {
                                             isPathBlock = true;

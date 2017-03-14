@@ -13,7 +13,7 @@ namespace kagv {
         private void timer1_Tick(object sender, EventArgs e) {
             int mysteps = 0;
             for (int i = 0; i < 2000; i++) {
-                if (AGVs[0].Steps[0, i] == 0 || AGVs[0].Steps[1, i] == 0)
+                if (AGVs[0].Steps[i].X == 0 || AGVs[0].Steps[i].Y == 0)
                     i = 2000;
                 else
                     mysteps++;
@@ -30,7 +30,7 @@ namespace kagv {
 
             int mysteps = 0;
             for (int i = 0; i < 2000; i++) {
-                if (AGVs[1].Steps[0, i] == 0 || AGVs[1].Steps[1, i] == 0)
+                if (AGVs[1].Steps[i].X == 0 || AGVs[1].Steps[i].Y == 0)
                     i = 2000;
                 else
                     mysteps++;
@@ -45,7 +45,7 @@ namespace kagv {
         private void timer3_Tick(object sender, EventArgs e) {
             int mysteps = 0;
             for (int i = 0; i < 2000; i++) {
-                if (AGVs[2].Steps[0, i] == 0 || AGVs[2].Steps[1, i] == 0)
+                if (AGVs[2].Steps[i].X == 0 || AGVs[2].Steps[i].Y == 0)
                     i = 2000;
                 else
                     mysteps++;
@@ -60,7 +60,7 @@ namespace kagv {
         private void timer4_Tick(object sender, EventArgs e) {
             int mysteps = 0;
             for (int i = 0; i < 2000; i++) {
-                if (AGVs[3].Steps[0, i] == 0 || AGVs[3].Steps[1, i] == 0)
+                if (AGVs[3].Steps[i].X == 0 || AGVs[3].Steps[i].Y == 0)
                     i = 2000;
                 else
                     mysteps++;
@@ -75,7 +75,7 @@ namespace kagv {
         private void timer5_Tick(object sender, EventArgs e) {
             int mysteps = 0;
             for (int i = 0; i < 2000; i++) {
-                if (AGVs[4].Steps[0, i] == 0 || AGVs[4].Steps[1, i] == 0)
+                if (AGVs[4].Steps[i].X == 00 || AGVs[4].Steps[i].Y == 0)
                     i = 2000;
                 else
                     mysteps++;

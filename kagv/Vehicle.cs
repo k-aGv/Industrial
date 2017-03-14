@@ -17,18 +17,19 @@ namespace kagv {
          public AGVStatus Status {
              get { return this.status; }
          }
-
-         /*
+         //=========================================
+         
          //AGV steps
          internal class AGVSteps {
              public double X { get; set; }
              public double Y { get; set; }
          }
-         private AGVSteps[,] steps;
-         public AGVSteps Steps {
+
+         private AGVSteps[] steps ;
+         public AGVSteps [] Steps {
              get { return this.steps; }
          }
-         */
+         //=========================================
 
         private Panel AgvPortrait;
         private PictureBox AgvIcon;
@@ -37,7 +38,7 @@ namespace kagv {
 
 
         private List<GridPos> jmp_pnts = new List<GridPos>();
-        private double[,] steps = new double[2, 2000];// to do:internal class steps.x steps.y
+        //private double[,] steps = new double[2, 2000];// to do:internal class steps.x steps.y
         private int steps_counter;
 
         public List<GridPos> JumpPoints {
@@ -58,15 +59,6 @@ namespace kagv {
             }
         }
 
-       
-        public double[,] Steps {
-            get {
-                return this.steps;
-            }
-            set {
-                this.steps = value;
-            }
-        }
 
         public Point Location;
         public Point StartPoint;
@@ -81,6 +73,12 @@ namespace kagv {
             mirroredForm = handle;
             this.status.Busy = false;
             this.status.Loaded = false;
+            this.steps = new AGVSteps[2000];
+            for (int i = 0; i < steps.Length; i++) {
+                steps[i] = new AGVSteps();
+                steps[i].X = -1;
+                steps[i].Y = -1;
+            }
         }
 
         public void Init() {
