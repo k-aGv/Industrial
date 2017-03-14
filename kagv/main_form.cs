@@ -49,7 +49,7 @@ namespace kagv {
                     if (!NoJumpPointsFound) {
                         for (int resultTrav = 0; resultTrav < c; resultTrav++) {
                             try {
-                                if (showLine)
+                                if (linesToolStripMenuItem.Checked)
                                     AGVs[i].Paths[resultTrav].drawLine(paper);
                                 if (!isMouseDown)
                                     DrawPoints(AGVs[i].Paths[resultTrav], i);
@@ -518,13 +518,7 @@ namespace kagv {
         private void stepsToolStripMenuItem_Click(object sender, EventArgs e) {
             (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
 
-            if (sender as ToolStripMenuItem == dotsToolStripMenuItem)
-                showDots = dotsToolStripMenuItem.Checked;
-            else if (sender as ToolStripMenuItem == linesToolStripMenuItem)
-                showLine = linesToolStripMenuItem.Checked;
-            else if (sender as ToolStripMenuItem == stepsToolStripMenuItem)
-                showSteps = stepsToolStripMenuItem.Checked;
-            else if (sender as ToolStripMenuItem == bordersToolStripMenuItem)
+             if (sender as ToolStripMenuItem == bordersToolStripMenuItem)
                 updateBorderVisibility(!bordersToolStripMenuItem.Checked);
             else if (sender as ToolStripMenuItem == highlightOverCurrentBoxToolStripMenuItem)
                 allowHighlight = highlightOverCurrentBoxToolStripMenuItem.Checked;

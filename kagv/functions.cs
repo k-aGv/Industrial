@@ -249,7 +249,7 @@ namespace kagv {
                             currentLinePoints[i].X = sideX;
                             currentLinePoints[i].Y = sideY;
 
-                            if (showDots) {
+                            if (dotsToolStripMenuItem.Checked) {
                                 using (SolidBrush br = new SolidBrush(Color.BlueViolet))
                                     paper.FillEllipse(br, currentLinePoints[i].X - 3,
                                         currentLinePoints[i].Y - 3,
@@ -259,7 +259,7 @@ namespace kagv {
                             using (Font stepFont = new Font("Tahoma", 8, FontStyle.Bold))//Font used for numbering the steps/current block)
                             {
                                 using (SolidBrush fontBR = new SolidBrush(Color.FromArgb(53, 153, 153)))
-                                    if (showSteps)
+                                    if (stepsToolStripMenuItem.Checked)
                                         paper.DrawString(AGVs[agv_index].StepsCounter + ""
                                         , stepFont
                                         , fontBR
