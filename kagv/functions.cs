@@ -508,24 +508,8 @@ namespace kagv {
                     switch (mapHasLoads) {
                         case true:
 
-                            int list_index = 0;
-                            bool removed;
-
-                            do {
-                                removed = false;
-                                jumpParam.Reset(StartPos[0], loadPos[list_index]);
-                                if (JumpPointFinder.FindPath(jumpParam, paper).Count == 0) //if there's at LEAST 1 agv that cannot reach a Load, then that Load is  
-                                {                                        //removed from the loadPos and not considered as available - marked 4 
-                                    isLoad[loadPos[list_index].x, loadPos[list_index].y] = 4;
-                                    loadPos.Remove(loadPos[list_index]);
-                                    removed = true;
-                                } else
-                                    isLoad[loadPos[list_index].x, loadPos[list_index].y] = 1;
-
-                                if (!removed)
-                                    list_index++;
-                            } while (list_index < loadPos.Count);
-
+                            if(rb_wall.Checked || rb_load.Checked)
+                                checkForTrappedLoads(loadPos);
 
                             if (loadPos.Count() == 0)
                                 loadPos.Add(endPos); //if EVERY load is trapped, use the endPos as LoadPos so as the agvs can complete their basic route (start -> end)
@@ -639,6 +623,27 @@ namespace kagv {
             }
 
             this.Invalidate();
+        }
+
+        private void checkForTrappedLoads(List<GridPos> pos) {
+            int list_index = 0;
+            bool removed;
+
+            do {
+                removed = false;
+                jumpParam.Reset(StartPos[0], pos[list_index]);
+                if (JumpPointFinder.FindPath(jumpParam, paper).Count == 0) { //if there's at LEAST 1 agv that cannot reach a Load, then that Load is  
+                                                                      //removed from the loadPos and not considered as available - marked 4 
+                    isLoad[pos[list_index].x, pos[list_index].y] = 4;
+                    pos.Remove(pos[list_index]);
+                    removed = true;
+                } else
+                    isLoad[pos[list_index].x, pos[list_index].y] = 1;
+
+                if (!removed)
+                    list_index++;
+            } while (list_index < pos.Count);
+
         }
 
         private int getStepsToLoad(int whichAGV) {
