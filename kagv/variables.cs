@@ -47,21 +47,16 @@ namespace kagv
         GridBox m_lastBoxSelect;
         BoxType m_lastBoxType;
         ToolTip tp;
-        Point[] markedbyagv; //contains the relative coords of the marked loads (example: markedbyagv[0] has the coords that the 1st agv has marked)
+        //Point[] markedbyagv; //contains the relative coords of the marked loads (example: markedbyagv[0] has the coords that the 1st agv has marked)
 
         GridLine[,] AGVspath = new GridLine[2000, 5];
 
         int pos_index = 0;//index of GridPos[] pos array
-        //List<List<GridPos>> AllJumpPointsList = new List<List<GridPos>>();//Contains all the JumpPoints that are needed for the paths to be calculated & drawn
 
         List<GridPos> JumpPointsList = new List<GridPos>();
         bool NoJumpPointsFound;//confirms whether the list_of_lists is empty or not
 
-        /*
-         * AGVs[i].JumpPoints.Add(new GridPos());   otan kanei add list
 
-           AGVs[i].JumpPoints.Add(JumpPointsList[j]); 
-         */
         Vehicle[] AGVs = new Vehicle[5];
         Point endPointCoords = new Point(-1,-1);
 

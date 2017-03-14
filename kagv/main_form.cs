@@ -618,7 +618,10 @@ namespace kagv {
 
             beforeStart = false;
             allowHighlight = false;
-            markedbyagv = new Point[StartPos.Count];
+
+            for (int i = 0; i < StartPos.Count; i++)
+                AGVs[i].MarkedLoad = new Point();
+
             Redraw();
 
             for (int i = 0; i < StartPos.Count; i++) {

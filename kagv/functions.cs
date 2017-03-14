@@ -19,8 +19,6 @@ namespace kagv {
             int stepx = Convert.ToInt32(AGVs[agv_index].Steps[steps_counter].X);
             int stepy = Convert.ToInt32(AGVs[agv_index].Steps[steps_counter].Y);
 
-            
-
             if (stepx == 0 || stepx == 0)
                 return;
 
@@ -44,18 +42,18 @@ namespace kagv {
                 }
 
             }
-            
 
-            if (markedbyagv[agv_index].X * 20 == AGVs[agv_index].GetLocation().X &&
-                (markedbyagv[agv_index].Y * 20) + topBarOffset == AGVs[agv_index].GetLocation().Y &&
+
+            if (AGVs[agv_index].MarkedLoad.X * 20 == AGVs[agv_index].GetLocation().X &&
+                (AGVs[agv_index].MarkedLoad.Y * 20) + topBarOffset == AGVs[agv_index].GetLocation().Y &&
                 !AGVs[agv_index].Status.Busy) {
 
-                m_rectangles[markedbyagv[agv_index].X][markedbyagv[agv_index].Y].SwitchLoad();
+                    m_rectangles[AGVs[agv_index].MarkedLoad.X][AGVs[agv_index].MarkedLoad.Y].SwitchLoad();
                 AGVs[agv_index].Status.Busy=true;
                 AGVs[agv_index].setLoaded();
                 if (fromstart[agv_index]) {
                     loads--;
-                    isLoad[markedbyagv[agv_index].X, markedbyagv[agv_index].Y] = 2;
+                    isLoad[AGVs[agv_index].MarkedLoad.X, AGVs[agv_index].MarkedLoad.Y] = 2;
 
                     fromstart[agv_index] = false;
                 }
@@ -79,7 +77,7 @@ namespace kagv {
 
                         Reset(agv_index);
                         AGVs[agv_index].Status.Busy=true;
-                        markedbyagv[agv_index] = new Point();
+                        AGVs[agv_index].MarkedLoad = new Point();
                         getNextLoad(agv_index);
 
 
@@ -120,7 +118,7 @@ namespace kagv {
 
                 }
             } else {
-                if (isLoad[markedbyagv[agv_index].X, markedbyagv[agv_index].Y] == 2)
+                if (isLoad[AGVs[agv_index].MarkedLoad.X, AGVs[agv_index].MarkedLoad.Y] == 2)
                     if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - topBarOffset) / 20].x &&
                         AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - topBarOffset) / 20].y)
                         switch (agv_index) {
@@ -288,11 +286,13 @@ namespace kagv {
                 }
             }
 
-            if (markedbyagv != null)
-                Array.Clear(markedbyagv, 0, markedbyagv.GetLength(0));
+
+            
 
             for (int i = 0; i < AGVs.GetLength(0); i++) {
                 AGVs[i].killIcon();
+                if (AGVs[i].MarkedLoad != null)
+                    AGVs[i].MarkedLoad = new Point();
             }
 
             if (importmap != null) {
@@ -575,7 +575,7 @@ namespace kagv {
                                         for (int heightrav = 0; heightrav < height; heightrav++)
                                             if (isLoad[widthtrav, heightrav] == 1) {
                                                 isLoad[widthtrav, heightrav] = 3;
-                                                markedbyagv[i] = new Point(widthtrav, heightrav);
+                                                AGVs[i].MarkedLoad = new Point(widthtrav, heightrav);
 
                                                 widthtrav = width;
                                                 heightrav = height;
@@ -640,8 +640,8 @@ namespace kagv {
         }
 
         private int getStepsToLoad(int whichAGV) {
-            int ix = markedbyagv[whichAGV].X * 20;
-            int iy = (markedbyagv[whichAGV].Y * 20) + topBarOffset;
+            int ix = AGVs[whichAGV].MarkedLoad.X * 20;
+            int iy = (AGVs[whichAGV].MarkedLoad.Y * 20) + topBarOffset;
 
             int step = -1;
 
@@ -781,7 +781,7 @@ namespace kagv {
                     //this causes the 'bug' that agvs are scanning from left to right for loads
                     if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Load && isLoad[widthTrav, heightTrav] == 1) {
                         isLoad[widthTrav, heightTrav] = 3;
-                        markedbyagv[whichAGV] = new Point(widthTrav, heightTrav);
+                        AGVs[whichAGV].MarkedLoad = new Point(widthTrav, heightTrav);
 
                         loads--;
                         endPos.x = widthTrav;

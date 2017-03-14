@@ -62,6 +62,7 @@ namespace kagv {
 
         public Point Location;
         public Point StartPoint;
+        public Point MarkedLoad;
 
         //get-set is not a mandatory here
         public int StartX;
