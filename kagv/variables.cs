@@ -16,7 +16,6 @@ namespace kagv
     
     public partial class main_form
     {
-       
         List<GridPos> StartPos = new List<GridPos>(); //Contains the coords of the Start boxes
 
         //is_trapped[i,0] -> unavailable path for Start to Load
@@ -24,13 +23,9 @@ namespace kagv
         bool[,] is_trapped;
 
         int[] timer_counter;// = 0;
-        public static int width = 64;//blocks of grid
-        public static int height = 32; //32
         
         int a; //temporary X.Used to calculate the remained length of current line
         int b; //temporary Y.Used to calculate the remained length of current line
-        int topBarOffset = 75 + 24 + 2;//distance from top to the grid=offset+menubar+2pixel of gray border
-        int bottomBarOffset = 50 + 10;//distance between grid and the bottom of the form
         
         BaseGrid searchGrid;
         JumpPointParam jumpParam;//custom jump method with its features exposed
@@ -53,20 +48,20 @@ namespace kagv
         bool NoJumpPointsFound;//confirms whether the list_of_lists is empty or not
 
 
-        Vehicle[] AGVs = new Vehicle[5];
+        Vehicle[] AGVs = new Vehicle[Constants.__MaximumAGVs];
         Point endPointCoords = new Point(-1,-1);
 
         //import stuff
         BoxType[,] importmap;
         bool imported;
-        bool[] fromstart = new bool[5];
+        bool[] fromstart = new bool[Constants.__MaximumAGVs];
         bool beforeStart = true;
         bool calibrated = false;//flag checking if current point is correctly callibrated in the middle of the rectangle
         bool isMouseDown = false;
 
         //loads
         bool mapHasLoads = false;
-        int[,] isLoad = new int[width, height];
+        int[,] isLoad = new int[Constants.__WidthBlocks, Constants.__HeightBlocks];
         int loads = 0;
 
         bool showLine = true;

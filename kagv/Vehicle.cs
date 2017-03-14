@@ -32,9 +32,8 @@ namespace kagv {
             get { return this.steps; }
         }
         //=========================================
-
         //AGV Path
-        public GridLine[] Paths = new GridLine[2000];
+        public GridLine[] Paths = new GridLine[Constants.__MaximumSteps];
         public Point Location;
         public Point MarkedLoad;
 
@@ -82,7 +81,7 @@ namespace kagv {
             mirroredForm = handle;
             this.status.Busy = false;
             this.status.Loaded = false;
-            this.steps = new AGVSteps[2000];
+            this.steps = new AGVSteps[Constants.__MaximumSteps];
             for (int i = 0; i < steps.Length; i++) {
                 steps[i] = new AGVSteps();
                 steps[i].X = -1;

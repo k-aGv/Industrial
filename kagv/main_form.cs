@@ -25,8 +25,8 @@ namespace kagv {
             paper.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             try {
                 //draws the grid
-                for (int widthTrav = 0; widthTrav < width; widthTrav++) {
-                    for (int heightTrav = 0; heightTrav < height; heightTrav++) {
+                for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++) {
+                    for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++) {
                         m_rectangles[widthTrav][heightTrav].DrawBox(paper, BoxType.Normal);
                         m_rectangles[widthTrav][heightTrav].DrawBox(paper, BoxType.Start);
                         m_rectangles[widthTrav][heightTrav].DrawBox(paper, BoxType.End);
@@ -70,19 +70,19 @@ namespace kagv {
             //ptr flag has to be (bin) 0011 so its IntPtr 0x0003
 
             agv1steps_LB.Text =
-            agv2steps_LB.Text = 
+            agv2steps_LB.Text =
             agv3steps_LB.Text =
-            agv4steps_LB.Text = 
+            agv4steps_LB.Text =
             agv5steps_LB.Text = "";
 
 
             refresh_label.Text = "Delay :" + timer1.Interval + " ms";
 
             nUD_AGVs.Value = 0;
-            stepsToolStripMenuItem.Checked = 
-            linesToolStripMenuItem.Checked = 
-            dotsToolStripMenuItem.Checked = 
-            bordersToolStripMenuItem.Checked = 
+            stepsToolStripMenuItem.Checked =
+            linesToolStripMenuItem.Checked =
+            dotsToolStripMenuItem.Checked =
+            bordersToolStripMenuItem.Checked =
             highlightOverCurrentBoxToolStripMenuItem.Checked = true;
 
             triggerStartMenu(false);
@@ -119,8 +119,8 @@ namespace kagv {
 
             isMouseDown = true;
             if ((e.Button == MouseButtons.Left) && (rb_wall.Checked)) {
-                for (int widthTrav = 0; widthTrav < width; widthTrav++) {
-                    for (int heightTrav = 0; heightTrav < height; heightTrav++) {
+                for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++) {
+                    for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++) {
                         if (m_rectangles[widthTrav][heightTrav].boxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1)))) {
                             m_lastBoxType = m_rectangles[widthTrav][heightTrav].boxType;
                             m_lastBoxSelect = m_rectangles[widthTrav][heightTrav];
@@ -149,8 +149,8 @@ namespace kagv {
                 string currentBoxType = "Block type: Border\r\n";
                 string isPath = "Is part of path: N/A\r\n";
                 bool isPathBlock = false;
-                for (int widthTrav = 0; widthTrav < width; widthTrav++) {
-                    for (int heightTrav = 0; heightTrav < height; heightTrav++) {
+                for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++) {
+                    for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++) {
                         if (m_rectangles[widthTrav][heightTrav].boxRec.Contains(mycoords)) {
                             currentBoxType =
                                 "Block type: " +
@@ -166,7 +166,7 @@ namespace kagv {
 
                             if (StartPos != null) {
                                 for (int j = 0; j < StartPos.Count; j++)
-                                    for (int i = 0; i < 2000; i++) {
+                                    for (int i = 0; i < Constants.__MaximumSteps; i++) {
                                         if (m_rectangles[widthTrav][heightTrav].boxRec.Contains
                                             (
                                                    new Point(
@@ -187,7 +187,7 @@ namespace kagv {
                                 tp.Show(currentBoxType + currentBoxCoords + currentBoxIndex + isPath
                                     , this
                                     , clickedBox.boxRec.X
-                                    , clickedBox.boxRec.Y - topBarOffset + 17);
+                                    , clickedBox.boxRec.Y - Constants.__TopBarOffset + 17);
                                 isBorder = false;
                             } else {
                                 isPath = "Is part of path:No\r\n";
@@ -195,7 +195,7 @@ namespace kagv {
                                 tp.Show(currentBoxType + currentBoxCoords + currentBoxIndex + isPath
                                     , this
                                     , clickedBox.boxRec.X - 10
-                                    , clickedBox.boxRec.Y - topBarOffset + 12);
+                                    , clickedBox.boxRec.Y - Constants.__TopBarOffset + 12);
                                 isBorder = false;
                             }
                         }
@@ -207,7 +207,7 @@ namespace kagv {
                     tp.Show(currentBoxType + currentBoxCoords + currentBoxIndex + isPath
                                , this
                                , e.X - 8
-                               , e.Y - topBarOffset + 14);
+                               , e.Y - Constants.__TopBarOffset + 14);
                 }
 
             }
@@ -230,8 +230,8 @@ namespace kagv {
                         return;
 
                     if (m_lastBoxSelect == null) {
-                        for (int widthTrav = 0; widthTrav < width; widthTrav++) {
-                            for (int heightTrav = 0; heightTrav < height; heightTrav++) {
+                        for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++) {
+                            for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++) {
                                 if (m_rectangles[widthTrav][heightTrav].boxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1)))) {
                                     m_lastBoxType = m_rectangles[widthTrav][heightTrav].boxType;
                                     m_lastBoxSelect = m_rectangles[widthTrav][heightTrav];
@@ -252,8 +252,8 @@ namespace kagv {
 
                         return;
                     } else {
-                        for (int widthTrav = 0; widthTrav < width; widthTrav++) {
-                            for (int heightTrav = 0; heightTrav < height; heightTrav++) {
+                        for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++) {
+                            for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++) {
                                 if (m_rectangles[widthTrav][heightTrav].boxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1)))) {
                                     if (m_rectangles[widthTrav][heightTrav] == m_lastBoxSelect) {
                                         return;
@@ -303,8 +303,8 @@ namespace kagv {
 
 
             if (allowHighlight) {
-                for (int widthTrav = 0; widthTrav < width; widthTrav++) {
-                    for (int heightTrav = 0; heightTrav < height; heightTrav++) {
+                for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++) {
+                    for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++) {
                         if (m_rectangles[widthTrav][heightTrav].boxRec.Contains(new Point(e.X, e.Y))
                             && m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal) {
                             if (rb_load.Checked)
@@ -324,7 +324,7 @@ namespace kagv {
 
                     }
                 }
-            } 
+            }
         }
 
         private void main_form_MouseUp(object sender, MouseEventArgs e) {
@@ -348,8 +348,8 @@ namespace kagv {
             int starts_counter = 0;
             int[,] starts_position = new int[2, Convert.ToInt32(nUD_AGVs.Value) + 1]; //keeps the size of the array +1 in relation with the nUD
 
-            for (int widthTrav = 0; widthTrav < width; widthTrav++)
-                for (int heightTrav = 0; heightTrav < height; heightTrav++) {
+            for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++)
+                for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++) {
                     if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Start) {
                         starts_position[0, starts_counter] = widthTrav;
                         starts_position[1, starts_counter] = heightTrav;
@@ -373,8 +373,8 @@ namespace kagv {
                 return;
 
             if (rb_load.Checked) {
-                for (int widthTrav = 0; widthTrav < width; widthTrav++) {
-                    for (int heightTrav = 0; heightTrav < height; heightTrav++) {
+                for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++) {
+                    for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++) {
                         if (m_rectangles[widthTrav][heightTrav].boxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1)))) {
                             m_lastBoxType = m_rectangles[widthTrav][heightTrav].boxType;
                             m_lastBoxSelect = m_rectangles[widthTrav][heightTrav];
@@ -406,8 +406,8 @@ namespace kagv {
 
                 if (nUD_AGVs.Value == 1)//Saves only the last Double Click position to place the Start (1 start exists)
                 {
-                    for (int widthTrav = 0; widthTrav < width; widthTrav++)
-                        for (int heightTrav = 0; heightTrav < height; heightTrav++)
+                    for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++)
+                        for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++)
                             if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Start)
                                 m_rectangles[widthTrav][heightTrav].SwitchEnd_StartToNormal();
                 } else if (nUD_AGVs.Value > 1)//Deletes the start with the smallest iX - iY coords and keeps the rest
@@ -416,8 +416,8 @@ namespace kagv {
                     int[,] starts_position = new int[2, Convert.ToInt32(nUD_AGVs.Value)];
 
 
-                    for (int widthTrav = 0; widthTrav < width; widthTrav++)
-                        for (int heightTrav = 0; heightTrav < height; heightTrav++) {
+                    for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++)
+                        for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++) {
                             if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Start) {
                                 starts_position[0, starts_counter] = widthTrav;
                                 starts_position[1, starts_counter] = heightTrav;
@@ -432,34 +432,34 @@ namespace kagv {
 
 
                 //Converts the clicked box to Start point
-                for (int widthTrav = 0; widthTrav < width; widthTrav++)
-                    for (int heightTrav = 0; heightTrav < height; heightTrav++)
+                for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++)
+                    for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++)
                         if (m_rectangles[widthTrav][heightTrav].boxRec.Contains(click_coords)
                             &&
                             m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal) {
-                            m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + topBarOffset, BoxType.Start);
+                            m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + Constants.__TopBarOffset, BoxType.Start);
                         }
 
 
             }
             //same for Stop
             if (rb_stop.Checked) {
-                for (int widthTrav = 0; widthTrav < width; widthTrav++)
-                    for (int heightTrav = 0; heightTrav < height; heightTrav++)
+                for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++)
+                    for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++)
                         if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.End)
                             m_rectangles[widthTrav][heightTrav].SwitchEnd_StartToNormal();//allow only one end point
 
 
-                for (int widthTrav = 0; widthTrav < width; widthTrav++)
-                    for (int heightTrav = 0; heightTrav < height; heightTrav++)
+                for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++)
+                    for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++)
                         if (m_rectangles[widthTrav][heightTrav].boxRec.Contains(click_coords)
                              &&
                             m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal) {
-                            m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + topBarOffset, BoxType.End);
+                            m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + Constants.__TopBarOffset, BoxType.End);
                         }
             }
 
-            
+
 
             this.Invalidate();
         }
@@ -549,8 +549,8 @@ namespace kagv {
                 }
             }
 
-            for (int widthTrav = 0; widthTrav < width; widthTrav++) {
-                for (int heightTrav = 0; heightTrav < height; heightTrav++) {
+            for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++) {
+                for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++) {
                     switch (m_rectangles[widthTrav][heightTrav].boxType) {
                         case BoxType.Normal:
                         case BoxType.Start:
@@ -586,8 +586,8 @@ namespace kagv {
 
             if (ofd_importpic.ShowDialog() == DialogResult.OK) {
                 this.BackgroundImage = Image.FromFile(ofd_importpic.FileName);
-                for (int i = 0; i < width; i++)
-                    for (int j = 0; j < height; j++) {
+                for (int i = 0; i < Constants.__WidthBlocks; i++)
+                    for (int j = 0; j < Constants.__HeightBlocks; j++) {
                         m_rectangles[i][j].BeTransparent();
                         boxDefaultColor = Color.Transparent;
 
@@ -627,7 +627,7 @@ namespace kagv {
                 AGVs[i].Init();
             }
 
-            
+
             timer_counter = new int[StartPos.Count];
             timers(StartPos.Count);
             settings_menu.Enabled = false;
@@ -666,25 +666,6 @@ namespace kagv {
             borderColorToolStripMenuItem.Checked = false;
         }
 
-        protected override bool ProcessCmdKey(ref Message _msg, Keys _keyData) {
-            switch (_keyData) {
-                case Keys.F5:
-                    allToolStripMenuItem_Click(new object(), new EventArgs());
-                    return true;
-                case Keys.Up:
-                    increaseSpeedToolStripMenuItem_Click(new object(), new EventArgs());
-                    return true;
-                case Keys.Down:
-                    decreaseSpeedToolStripMenuItem_Click(new object(), new EventArgs());
-                    return true;
-                case Keys.Space:
-                    startToolStripMenuItem_Click(new object(), new EventArgs());
-                    return true;
-                default:
-                    return false;
-            }
-
-        }
 
     }
 

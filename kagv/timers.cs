@@ -12,9 +12,9 @@ namespace kagv {
     public partial class main_form : Form {
         private void timer1_Tick(object sender, EventArgs e) {
             int mysteps = 0;
-            for (int i = 0; i < 2000; i++) {
+            for (int i = 0; i < Constants.__MaximumSteps; i++) {
                 if (AGVs[0].Steps[i].X == 0 || AGVs[0].Steps[i].Y == 0)
-                    i = 2000;
+                    i = Constants.__MaximumSteps;
                 else
                     mysteps++;
             }
@@ -29,9 +29,9 @@ namespace kagv {
 
 
             int mysteps = 0;
-            for (int i = 0; i < 2000; i++) {
+            for (int i = 0; i < Constants.__MaximumSteps; i++) {
                 if (AGVs[1].Steps[i].X == 0 || AGVs[1].Steps[i].Y == 0)
-                    i = 2000;
+                    i = Constants.__MaximumSteps;
                 else
                     mysteps++;
             }
@@ -44,9 +44,9 @@ namespace kagv {
 
         private void timer3_Tick(object sender, EventArgs e) {
             int mysteps = 0;
-            for (int i = 0; i < 2000; i++) {
+            for (int i = 0; i < Constants.__MaximumSteps; i++) {
                 if (AGVs[2].Steps[i].X == 0 || AGVs[2].Steps[i].Y == 0)
-                    i = 2000;
+                    i = Constants.__MaximumSteps;
                 else
                     mysteps++;
             }
@@ -59,9 +59,9 @@ namespace kagv {
 
         private void timer4_Tick(object sender, EventArgs e) {
             int mysteps = 0;
-            for (int i = 0; i < 2000; i++) {
+            for (int i = 0; i < Constants.__MaximumSteps; i++) {
                 if (AGVs[3].Steps[i].X == 0 || AGVs[3].Steps[i].Y == 0)
-                    i = 2000;
+                    i = Constants.__MaximumSteps;
                 else
                     mysteps++;
             }
@@ -74,9 +74,9 @@ namespace kagv {
 
         private void timer5_Tick(object sender, EventArgs e) {
             int mysteps = 0;
-            for (int i = 0; i < 2000; i++) {
+            for (int i = 0; i < Constants.__MaximumSteps; i++) {
                 if (AGVs[4].Steps[i].X == 00 || AGVs[4].Steps[i].Y == 0)
-                    i = 2000;
+                    i = Constants.__MaximumSteps;
                 else
                     mysteps++;
             }
