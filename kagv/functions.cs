@@ -277,23 +277,15 @@ namespace kagv {
             if (timer_counter != null)
                 Array.Clear(timer_counter, 0, timer_counter.GetLength(0));
 
-
-
             //jagged array has to be resetted like this
             for (int i = 0; i < width; i++) {
                 for (int j = 0; j < height; j++) {
                     m_rectangles[i][j] = new GridBox(i * 20, j * 20 + topBarOffset, BoxType.Normal);
                 }
             }
-
-
-            
-
-            for (int i = 0; i < AGVs.GetLength(0); i++) {
+            for (int i = 0; i < AGVs.GetLength(0); i++)
                 AGVs[i].killIcon();
-                if (AGVs[i].MarkedLoad != null)
-                    AGVs[i].MarkedLoad = new Point();
-            }
+            
 
             if (importmap != null) {
                 Array.Clear(importmap, 0, importmap.GetLength(0));
@@ -302,17 +294,7 @@ namespace kagv {
 
             if (this.BackgroundImage != null)
                 this.BackgroundImage = null;
-
-
-
-            for (int i = 0; i<AGVs.Length; i++) {
-                for (int j = 0; j < 2000; j++) {
-                    AGVs[i].Steps[j].X = new double();
-                    AGVs[i].Steps[j].Y = new double();
-                    AGVs[i].StepsCounter = new int();
-                    AGVs[i].Paths = new GridLine[2000];
-                }
-            }
+           
             fromstart = new bool[5];
             isLoad = new int[width, height];
             
@@ -540,12 +522,9 @@ namespace kagv {
                                 is_trapped[i, 0] = false;
 
                             if (!is_trapped[i, 0])
-                                for (int j = 0; j < JumpPointsList.Count; j++) {
-                                   // AGVs[i].JumpPoints.Add(new GridPos()); // ithink its not needed!!!
+                                for (int j = 0; j < JumpPointsList.Count; j++) 
                                     AGVs[i].JumpPoints.Add(JumpPointsList[j]);
-                                    //AllJumpPointsList.Add(new List<GridPos>());
-                                   // AllJumpPointsList[i].Add(JumpPointsList[j]); //adds the list containing all the JumpPoints, for every direction, to a parent List 
-                                } else //leak catch
+                            else //leak catch
                                 AGVs[i].JumpPoints.Add(new GridPos());  //increases the size of the List so the resultList can fit without causing overflow
 
 
@@ -562,8 +541,6 @@ namespace kagv {
 
                             if (!is_trapped[i, 1])
                                 for (int j = 0; j < JumpPointsList.Count; j++) {
-                                    //AGVs[i].JumpPoints.Add(new GridPos());
-
                                     AGVs[i].JumpPoints.Add(JumpPointsList[j]); //adds the list containing all the JumpPoints, for every direction, to a parent List 
                                     NoJumpPointsFound = false;
                                 }
@@ -602,7 +579,6 @@ namespace kagv {
 
                             if (!is_trapped[i, 0])
                                 for (int j = 0; j < JumpPointsList.Count; j++) {
-                                    //AGVs[i].JumpPoints.Add(new GridPos());
                                     AGVs[i].JumpPoints.Add(JumpPointsList[j]);  //adds the list containing all the JumpPoints, for every direction, to a parent List 
 
                                     NoJumpPointsFound = false;
@@ -811,29 +787,6 @@ namespace kagv {
             for (int i = 0; i < StartPos.Count; i++)
                 c += AGVs[i].JumpPoints.Count;
 
-            GridLine[,] pathForResize = new GridLine[2000, c];
-            /*
-             * 
-            for (int i = 0; i < StartPos.Count; i++)
-                for (int j = 0; j < AGVs[i].JumpPoints.Count - 1; j++) {
-                    //side:adds line to linearray.since it adds a new line,that means 
-                    //that the new line IS the correct path
-                    GridLine line = new GridLine(m_rectangles[AGVs[i].JumpPoints[j].x][AGVs[i].JumpPoints[j].y],
-                                                m_rectangles[AGVs[i].JumpPoints[j + 1].x][AGVs[i].JumpPoints[j + 1].y]
-                                               );
-
-
-
-                    AGVs[i].Paths[j]= line;
-
-                }
-
-            for (int i = 0; i < StartPos.Count; i++) {
-                if ((c - 1) > 0) {
-                    Array.Resize(ref AGVs[i].Paths, c - 1);
-                }
-            }
-               */
 
             for (int j = 0; j < AGVs[whichAGV].JumpPoints.Count - 1; j++) {
                 //side:adds line to linearray.since it adds a new line,that means 
@@ -862,8 +815,6 @@ namespace kagv {
             for (int i = 0; i < StartPos.Count; i++)
                 c += AGVs[i].JumpPoints.Count;
 
-            pathForResize = new GridLine[2000, c];
-
             for (int i = 0; i < StartPos.Count; i++) {
                 for (int j = 0; j < AGVs[i].JumpPoints.Count - 1; j++) {
                     //side:adds line to linearray.since it adds a new line,that means 
@@ -884,8 +835,6 @@ namespace kagv {
             }
 
             this.Invalidate();
-
-
         }
 
         private void timers(int agvs_number) {

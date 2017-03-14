@@ -69,20 +69,20 @@ namespace kagv {
             _proc.ProcessorAffinity = new IntPtr(0x0003);//use cores 1,2 
             //ptr flag has to be (bin) 0011 so its IntPtr 0x0003
 
-            agv1steps_LB.Text = "";
-            agv2steps_LB.Text = "";
-            agv3steps_LB.Text = "";
-            agv4steps_LB.Text = "";
+            agv1steps_LB.Text =
+            agv2steps_LB.Text = 
+            agv3steps_LB.Text =
+            agv4steps_LB.Text = 
             agv5steps_LB.Text = "";
 
 
             refresh_label.Text = "Delay :" + timer1.Interval + " ms";
 
             nUD_AGVs.Value = 0;
-            stepsToolStripMenuItem.Checked = true;
-            linesToolStripMenuItem.Checked = true;
-            dotsToolStripMenuItem.Checked = true;
-            bordersToolStripMenuItem.Checked = true;
+            stepsToolStripMenuItem.Checked = 
+            linesToolStripMenuItem.Checked = 
+            dotsToolStripMenuItem.Checked = 
+            bordersToolStripMenuItem.Checked = 
             highlightOverCurrentBoxToolStripMenuItem.Checked = true;
 
             triggerStartMenu(false);
@@ -99,7 +99,6 @@ namespace kagv {
 
 
             menuPanel.Location = new Point(0, 24 + 1);//24=menu bar Y
-            // menuPanel.Height = topBarOffset -;
             menuPanel.Width = this.Width;
 
             tp = new ToolTip();
@@ -169,11 +168,7 @@ namespace kagv {
                                 for (int j = 0; j < StartPos.Count; j++)
                                     for (int i = 0; i < 2000; i++) {
                                         if (m_rectangles[widthTrav][heightTrav].boxRec.Contains
-                                            (/*
-                                                   new Point(
-                                                        Convert.ToInt32(newsteps[j, 0, i]),
-                                                        Convert.ToInt32(newsteps[j, 1, i])
-                                                        )*/
+                                            (
                                                    new Point(
                                                        Convert.ToInt32(AGVs[j].Steps[i].X),
                                                        Convert.ToInt32(AGVs[j].Steps[i].Y)
@@ -662,7 +657,6 @@ namespace kagv {
         private void implementGoogleMapsToolStripMenuItem_Click(object sender, EventArgs e) {
 
             gmaps maps = new gmaps();
-            // maps.setFormSize(this.Width, this.Height);
             maps.ShowDialog();
 
         }
@@ -691,10 +685,6 @@ namespace kagv {
             }
 
         }
-
-
-
-
 
     }
 

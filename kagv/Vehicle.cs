@@ -5,39 +5,44 @@ using System.Collections.Generic;
 
 namespace kagv {
 
-     class Vehicle {
+    class Vehicle {
 
-         //****************************************
-         //AGV Status
-         internal class AGVStatus {
-             public bool Busy { get; set; }
-             public bool Loaded { get; set; }
-         }
+        //****************************************
+        //AGV Status
+        internal class AGVStatus {
+            public bool Busy { get; set; }
+            public bool Loaded { get; set; }
+        }
 
-         private AGVStatus status=new AGVStatus();
-         public AGVStatus Status {
-             get { return this.status; }
-         }
-         //=========================================
+        private AGVStatus status = new AGVStatus();
+        public AGVStatus Status {
+            get { return this.status; }
+        }
+        //=========================================
 
-         //*****************************************
-         //AGV Steps
-         internal class AGVSteps {
-             public double X { get; set; }
-             public double Y { get; set; }
-         }
+        //*****************************************
+        //AGV Steps
+        internal class AGVSteps {
+            public double X { get; set; }
+            public double Y { get; set; }
+        }
 
-         private AGVSteps[] steps ;
-         public AGVSteps [] Steps {
-             get { return this.steps; }
-         }
-         //=========================================
+        private AGVSteps[] steps;
+        public AGVSteps[] Steps {
+            get { return this.steps; }
+        }
+        //=========================================
 
+        //AGV Path
+        public GridLine[] Paths = new GridLine[2000];
+        public Point Location;
+        public Point MarkedLoad;
 
-         //*****************************************
-         //AGV Path
-         public GridLine[] Paths = new GridLine[2000];
-         //=========================================
+        //get-set is not a mandatory here
+        public int StartX;
+        public int StartY;
+        public int SizeX;
+        public int SizeY;
 
         private Panel AgvPortrait;
         private PictureBox AgvIcon;
@@ -45,9 +50,9 @@ namespace kagv {
         private Form mirroredForm;
 
 
+        //*****************************************
+        //AGV JumpPoints
         private List<GridPos> jmp_pnts = new List<GridPos>();
-        private int steps_counter;
-
         public List<GridPos> JumpPoints {
             get {
                 return this.jmp_pnts;
@@ -56,7 +61,11 @@ namespace kagv {
                 this.jmp_pnts = value;
             }
         }
+        //=========================================
 
+        //*****************************************
+        //AGV StepsCounter
+        private int steps_counter;
         public int StepsCounter {
             get {
                 return this.steps_counter;
@@ -65,17 +74,9 @@ namespace kagv {
                 this.steps_counter = value;
             }
         }
+        //=========================================
 
 
-        public Point Location;
-        public Point StartPoint;
-        public Point MarkedLoad;
-
-        //get-set is not a mandatory here
-        public int StartX;
-        public int StartY;
-        public int SizeX;
-        public int SizeY;
 
         public Vehicle(Form handle) { //constructor
             mirroredForm = handle;
@@ -123,10 +124,10 @@ namespace kagv {
 
             //public exports
             Location = AgvPortrait.Location;
-            StartPoint = new Point(StartX, StartY);
+
         }
 
-        
+
 
         private Image _getEmbedResource(string a) {
             System.Reflection.Assembly _assembly;
@@ -145,7 +146,7 @@ namespace kagv {
                 this.AgvPortrait.Dispose();
             } catch { }
         }
- 
+
 
         public void setLoaded() {
             this.AgvIcon.Image = _getEmbedResource("loaded.png");
@@ -170,7 +171,7 @@ namespace kagv {
                 return;
         }
 
-        
+
         public void SetLocation(int X, int Y) {
             AgvLocation = new Point(X, Y);
             AgvPortrait.Location = AgvLocation;

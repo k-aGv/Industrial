@@ -17,7 +17,6 @@ namespace kagv
     public partial class main_form
     {
        
-
         List<GridPos> StartPos = new List<GridPos>(); //Contains the coords of the Start boxes
 
         //is_trapped[i,0] -> unavailable path for Start to Load
