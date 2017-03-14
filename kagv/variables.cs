@@ -19,7 +19,11 @@ namespace kagv
        
 
         List<GridPos> StartPos = new List<GridPos>(); //Contains the coords of the Start boxes
+
+        //is_trapped[i,0] -> unavailable path for Start to Load
+        //is_trapped[i,1] -> unavailable path for Load to End
         bool[,] is_trapped;
+
         int[] timer_counter;// = 0;
         public static int width = 64;//blocks of grid
         public static int height = 32; //32
@@ -48,10 +52,16 @@ namespace kagv
         GridLine[,] AGVspath = new GridLine[2000, 5];
 
         int pos_index = 0;//index of GridPos[] pos array
-        List<List<GridPos>> AllJumpPointsList = new List<List<GridPos>>();//Contains all the JumpPoints that are needed for the paths to be calculated & drawn
+        //List<List<GridPos>> AllJumpPointsList = new List<List<GridPos>>();//Contains all the JumpPoints that are needed for the paths to be calculated & drawn
+
         List<GridPos> JumpPointsList = new List<GridPos>();
         bool NoJumpPointsFound;//confirms whether the list_of_lists is empty or not
 
+        /*
+         * AGVs[i].JumpPoints.Add(new GridPos());   otan kanei add list
+
+           AGVs[i].JumpPoints.Add(JumpPointsList[j]); 
+         */
         Vehicle[] AGVs = new Vehicle[5];
         Point endPointCoords = new Point(-1,-1);
 

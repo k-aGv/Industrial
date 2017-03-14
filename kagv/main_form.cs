@@ -40,11 +40,14 @@ namespace kagv {
                 }
 
 
+                int c = 0;
+                for (int i = 0; i < StartPos.Count; i++)
+                    c += AGVs[i].JumpPoints.Count;
 
                 for (int i = 0; i < nUD_AGVs.Value; i++) {
                     AGVs[i].StepsCounter = 0;
                     if (!NoJumpPointsFound) {
-                        for (int resultTrav = 0; resultTrav < AllJumpPointsList.Count; resultTrav++) {
+                        for (int resultTrav = 0; resultTrav < c; resultTrav++) {
                             try {
                                 if (showLine)
                                     AGVspath[resultTrav, i].drawLine(paper);
@@ -218,7 +221,11 @@ namespace kagv {
 
         private void main_form_MouseMove(object sender, MouseEventArgs e) {
 
-            if (AllJumpPointsList.Count > 0)
+            int c = 0;
+            for (int i = 0; i < StartPos.Count; i++)
+                c += AGVs[i].JumpPoints.Count;
+
+            if (c > 0)
                 triggerStartMenu(true);
 
             if (isMouseDown && rb_wall.Checked) {
@@ -543,7 +550,7 @@ namespace kagv {
         private void wallsToolStripMenuItem_Click(object sender, EventArgs e) {
             if (nUD_AGVs.Value != 0) {
                 for (int agv = 0; agv < nUD_AGVs.Value; agv++) {
-                    AllJumpPointsList[agv].Clear();
+                    AGVs[agv].JumpPoints.Clear();
                 }
             }
 
@@ -614,16 +621,15 @@ namespace kagv {
             markedbyagv = new Point[StartPos.Count];
             Redraw();
 
-            AGVs = new Vehicle[StartPos.Count];
-
             for (int i = 0; i < StartPos.Count; i++) {
-                //initialization of each AGV location
-                AGVs[i] = new Vehicle(this,
-                                      m_rectangles[StartPos[i].x][StartPos[i].y].boxRec.X, //real form X-coordinates
-                                      m_rectangles[StartPos[i].x][StartPos[i].y].boxRec.Y, //real form Y-coordinates
-                                      19, 19);
+                AGVs[i].StartX = m_rectangles[StartPos[i].x][StartPos[i].y].boxRec.X;
+                AGVs[i].StartY = m_rectangles[StartPos[i].x][StartPos[i].y].boxRec.Y;
+                AGVs[i].SizeX = 19;
+                AGVs[i].SizeY = 19;
+                AGVs[i].Init();
             }
 
+            
             timer_counter = new int[StartPos.Count];
             timers(StartPos.Count);
             settings_menu.Enabled = false;

@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using System.Collections.Generic;
 
 namespace kagv {
 
@@ -12,9 +13,18 @@ namespace kagv {
         private bool isBusyVar = false;
         private bool isLoadedVar = false;
 
-        
-        private double[,] steps = new double[2, 2000];
+        private List<GridPos> jmp_pnts = new List<GridPos>();
+        private double[,] steps = new double[2, 2000];// to do:internal class steps.x steps.y
         private int steps_counter;
+
+        public List<GridPos> JumpPoints {
+            get {
+                return this.jmp_pnts;
+            }
+            set {
+                this.jmp_pnts = value;
+            }
+        }
 
         public int StepsCounter {
             get {
@@ -38,9 +48,16 @@ namespace kagv {
         public Point Location;
         public Point StartPoint;
 
-        public Vehicle(Form handle, int StartX, int StartY, int SizeX, int SizeY) {
-            //private exports
-            mirroredForm = handle;
+        //get-set is not a mandatory here
+        public int StartX;
+        public int StartY;
+        public int SizeX;
+        public int SizeY;
+
+        public void Init() {
+
+            //init vars
+            isLoadedVar = false;
             isBusyVar = false;
 
             AgvPortrait = new Panel();
@@ -57,9 +74,9 @@ namespace kagv {
             AgvPortrait.BringToFront();
             AgvPortrait.BackColor = Color.Transparent;
 
-            handle.Controls.Add(AgvPortrait);
+            mirroredForm.Controls.Add(AgvPortrait);
 
-            AgvIcon.BackColor = handle.BackColor;
+            AgvIcon.BackColor = mirroredForm.BackColor;
             AgvIcon.BorderStyle = BorderStyle.None;
             AgvIcon.SizeMode = PictureBoxSizeMode.StretchImage;
             AgvIcon.Size = new Size(18, 18);
@@ -72,13 +89,18 @@ namespace kagv {
             //public exports
             Location = AgvPortrait.Location;
             StartPoint = new Point(StartX, StartY);
+        }
 
-
+        public Vehicle(Form handle, int StartX, int StartY, int SizeX, int SizeY) {
+            //private exports
+            mirroredForm = handle;
+            isBusyVar = false;
         }
 
         public Vehicle(Form handle) //overloaded constructor
         {
             mirroredForm = handle;
+            isBusyVar = false;
         }
 
         private Image _getEmbedResource(string a) {
