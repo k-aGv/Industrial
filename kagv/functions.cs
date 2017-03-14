@@ -304,12 +304,13 @@ namespace kagv {
                 this.BackgroundImage = null;
 
 
-            AGVspath = new GridLine[2000, 5];
+
             for (int i = 0; i<AGVs.Length; i++) {
                 for (int j = 0; j < 2000; j++) {
                     AGVs[i].Steps[j].X = new double();
                     AGVs[i].Steps[j].Y = new double();
                     AGVs[i].StepsCounter = new int();
+                    AGVs[i].Paths = new GridLine[2000];
                 }
             }
             fromstart = new bool[5];
@@ -619,8 +620,6 @@ namespace kagv {
             for (int i = 0; i < StartPos.Count; i++)
                 c += AGVs[i].JumpPoints.Count;
 
-            GridLine[,] pathForResize = new GridLine[2000, c];
-
 
             for (int i = 0; i < StartPos.Count; i++)
                 for (int j = 0; j < AGVs[i].JumpPoints.Count - 1; j++) {
@@ -630,12 +629,18 @@ namespace kagv {
                                                 m_rectangles[AGVs[i].JumpPoints[j + 1].x][AGVs[i].JumpPoints[j + 1].y]
                                                );
 
-                    pathForResize[j, i] = line;
+
+
+                    AGVs[i].Paths[j]= line;
+
                 }
 
-            if ((c - 1) > 0)
-                AGVspath = ResizeArray(pathForResize, c - 1, 5);
-
+            for (int i = 0; i < StartPos.Count; i++) {
+                if ((c - 1) > 0) {
+                    Array.Resize(ref AGVs[i].Paths, c - 1);
+                }
+            }
+               
             this.Invalidate();
         }
 
@@ -666,27 +671,26 @@ namespace kagv {
             for (int i = 0; i < StartPos.Count; i++)
                 c += AGVs[i].JumpPoints.Count;
 
-            AGVspath = new GridLine[c, 5];
-
             for (int i = 0; i < AGVs.Length; i++) {
                 for (int j = 0; j < 2000; j++) {
                     AGVs[i].Steps[j].X = 0;
                     AGVs[i].Steps[j].Y = 0;
                     AGVs[i].StepsCounter = new int();
+                    AGVs[i].Paths = new GridLine[2000];
                 }
             }
 
         }
         private void Reset(int whichAGV) //overloaded Reset
         {
-            int c = AGVspath.GetLength(0);
+            int c = AGVs[0].Paths.Length;
 
             AGVs[whichAGV].JumpPoints = new List<GridPos>(); //empties the correct cell of the 2D-List containing each AGVs routes
             
             StartPos[whichAGV] = new GridPos(); //empties the correct start Pos for each AGV
 
             for (int i = 0; i < c; i++)
-                AGVspath[i, whichAGV] = null;
+                AGVs[whichAGV].Paths[i] = null;
 
                 for (int j = 0; j < 2000; j++) {
                     AGVs[whichAGV].Steps[j].X = 0;
@@ -793,9 +797,6 @@ namespace kagv {
                 }
             }
 
-
-
-
             //*******************************************************************
             jumpParam.Reset(StartPos[whichAGV], endPos); //THIS was the problem why the 2nd agv had no route. StartPos[] was redeclared with 1 cell. The incoming whichAGV
             //had its value set to 1 (for the 2nd agv), causing the StartPos[] to overflow, catching the exception and skipping
@@ -811,7 +812,28 @@ namespace kagv {
                 c += AGVs[i].JumpPoints.Count;
 
             GridLine[,] pathForResize = new GridLine[2000, c];
+            /*
+             * 
+            for (int i = 0; i < StartPos.Count; i++)
+                for (int j = 0; j < AGVs[i].JumpPoints.Count - 1; j++) {
+                    //side:adds line to linearray.since it adds a new line,that means 
+                    //that the new line IS the correct path
+                    GridLine line = new GridLine(m_rectangles[AGVs[i].JumpPoints[j].x][AGVs[i].JumpPoints[j].y],
+                                                m_rectangles[AGVs[i].JumpPoints[j + 1].x][AGVs[i].JumpPoints[j + 1].y]
+                                               );
 
+
+
+                    AGVs[i].Paths[j]= line;
+
+                }
+
+            for (int i = 0; i < StartPos.Count; i++) {
+                if ((c - 1) > 0) {
+                    Array.Resize(ref AGVs[i].Paths, c - 1);
+                }
+            }
+               */
 
             for (int j = 0; j < AGVs[whichAGV].JumpPoints.Count - 1; j++) {
                 //side:adds line to linearray.since it adds a new line,that means 
@@ -820,12 +842,15 @@ namespace kagv {
                                         m_rectangles[AGVs[whichAGV].JumpPoints[j + 1].x][AGVs[whichAGV].JumpPoints[j + 1].y]
                                            );
 
-                pathForResize[j, whichAGV] = line;
+                AGVs[whichAGV].Paths[j] = line;
             }
 
 
-            if ((c - 1) > 0)
-                AGVspath = ResizeArray(pathForResize, c - 1, 5);
+            for (int i = 0; i < StartPos.Count; i++) {
+                if ((c - 1) > 0) {
+                    Array.Resize(ref AGVs[i].Paths, c - 1);
+                }
+            }
 
             //return to exit
             jumpParam.Reset(endPos, StartPos[whichAGV]);
@@ -847,13 +872,16 @@ namespace kagv {
                                         m_rectangles[AGVs[i].JumpPoints[j + 1].x][AGVs[i].JumpPoints[j + 1].y]
                                            );
 
-                    pathForResize[j, i] = line;
+                    AGVs[i].Paths[j] = line;
                 }
 
             }
 
-            if ((c - 1) > 0)
-                AGVspath = ResizeArray(pathForResize, c - 1, 5);
+            for (int i = 0; i < StartPos.Count; i++) {
+                if ((c - 1) > 0) {
+                    Array.Resize(ref AGVs[i].Paths, c - 1);
+                }
+            }
 
             this.Invalidate();
 

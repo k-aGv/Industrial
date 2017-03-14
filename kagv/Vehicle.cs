@@ -7,6 +7,7 @@ namespace kagv {
 
      class Vehicle {
 
+         //****************************************
          //AGV Status
          internal class AGVStatus {
              public bool Busy { get; set; }
@@ -18,8 +19,9 @@ namespace kagv {
              get { return this.status; }
          }
          //=========================================
-         
-         //AGV steps
+
+         //*****************************************
+         //AGV Steps
          internal class AGVSteps {
              public double X { get; set; }
              public double Y { get; set; }
@@ -31,6 +33,12 @@ namespace kagv {
          }
          //=========================================
 
+
+         //*****************************************
+         //AGV Path
+         public GridLine[] Paths = new GridLine[2000];
+         //=========================================
+
         private Panel AgvPortrait;
         private PictureBox AgvIcon;
         private Point AgvLocation;
@@ -38,7 +46,6 @@ namespace kagv {
 
 
         private List<GridPos> jmp_pnts = new List<GridPos>();
-        //private double[,] steps = new double[2, 2000];// to do:internal class steps.x steps.y
         private int steps_counter;
 
         public List<GridPos> JumpPoints {

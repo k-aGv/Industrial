@@ -50,9 +50,9 @@ namespace kagv {
                         for (int resultTrav = 0; resultTrav < c; resultTrav++) {
                             try {
                                 if (showLine)
-                                    AGVspath[resultTrav, i].drawLine(paper);
+                                    AGVs[i].Paths[resultTrav].drawLine(paper);
                                 if (!isMouseDown)
-                                    DrawPoints(AGVspath[resultTrav, i], i);
+                                    DrawPoints(AGVs[i].Paths[resultTrav], i);
                             } catch { }
                         }
                     }

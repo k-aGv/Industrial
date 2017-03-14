@@ -47,9 +47,6 @@ namespace kagv
         GridBox m_lastBoxSelect;
         BoxType m_lastBoxType;
         ToolTip tp;
-        //Point[] markedbyagv; //contains the relative coords of the marked loads (example: markedbyagv[0] has the coords that the 1st agv has marked)
-
-        GridLine[,] AGVspath = new GridLine[2000, 5];
 
         int pos_index = 0;//index of GridPos[] pos array
 
