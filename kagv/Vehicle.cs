@@ -54,6 +54,11 @@ namespace kagv {
         public int SizeX;
         public int SizeY;
 
+        public Vehicle(Form handle) {
+            mirroredForm = handle;
+            isBusyVar = false;
+        }
+
         public void Init() {
 
             //init vars
@@ -91,17 +96,7 @@ namespace kagv {
             StartPoint = new Point(StartX, StartY);
         }
 
-        public Vehicle(Form handle, int StartX, int StartY, int SizeX, int SizeY) {
-            //private exports
-            mirroredForm = handle;
-            isBusyVar = false;
-        }
-
-        public Vehicle(Form handle) //overloaded constructor
-        {
-            mirroredForm = handle;
-            isBusyVar = false;
-        }
+        
 
         private Image _getEmbedResource(string a) {
             System.Reflection.Assembly _assembly;
