@@ -814,6 +814,12 @@ namespace kagv {
             for (int i = 0; i < StartPos.Count; i++)
                 c += AGVs[i].JumpPoints.Count;
 
+            for (int i = 0; i < StartPos.Count; i++) {
+                if ((c - 1) > 0) {
+                    Array.Resize(ref AGVs[i].Paths, c - 1);
+                }
+            }
+
 
             for (int j = 0; j < AGVs[whichAGV].JumpPoints.Count - 1; j++) {
                 //side:adds line to linearray.since it adds a new line,that means 
@@ -826,11 +832,6 @@ namespace kagv {
             }
 
             
-            for (int i = 0; i < StartPos.Count; i++) {
-                if ((c - 1) > 0) {
-                    Array.Resize(ref AGVs[i].Paths, c - 1);
-                }
-            }
             
             
             
