@@ -404,7 +404,7 @@ namespace kagv {
             }
             if (rb_start.Checked) {
 
-                if (nUD_AGVs.Value == 1)//Saves only the last Double Click position to place the Start (1 start exists)
+                if (nUD_AGVs.Value == 1)//Saves only the last Click position to place the Start (1 start exists)
                 {
                     for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++)
                         for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++)

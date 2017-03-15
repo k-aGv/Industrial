@@ -530,7 +530,7 @@ namespace kagv {
                                 for (int j = 0; j < JumpPointsList.Count; j++)
                                     AGVs[i].JumpPoints.Add(JumpPointsList[j]);
                             else //leak catch
-                                AGVs[i].JumpPoints.Add(new GridPos());  //increases the size of the List so the resultList can fit without causing overflow
+                                AGVs[i].JumpPoints.Add(new GridPos());  //increases the size of the AGV's embedded List so the JumpPoints can fit without causing overflow
 
 
 
@@ -546,7 +546,7 @@ namespace kagv {
 
                             if (!is_trapped[i, 1])
                                 for (int j = 0; j < JumpPointsList.Count; j++) {
-                                    AGVs[i].JumpPoints.Add(JumpPointsList[j]); //adds the list containing all the JumpPoints, for every direction, to a parent List 
+                                    AGVs[i].JumpPoints.Add(JumpPointsList[j]);  //adds the list containing the AGV's path, to the AGV's embedded JumpPoint List
                                     NoJumpPointsFound = false;
                                 }
 
@@ -584,11 +584,11 @@ namespace kagv {
 
                             if (!is_trapped[i, 0])
                                 for (int j = 0; j < JumpPointsList.Count; j++) {
-                                    AGVs[i].JumpPoints.Add(JumpPointsList[j]);  //adds the list containing all the JumpPoints, for every direction, to a parent List 
+                                    AGVs[i].JumpPoints.Add(JumpPointsList[j]);  //adds the list containing the AGV's path, to the AGV's embedded JumpPoint List 
 
                                     NoJumpPointsFound = false;
                                 } else //leak catch
-                                AGVs[i].JumpPoints.Add(new GridPos()); //increases the size of the List so the resultList can fit without causing overflow
+                                AGVs[i].JumpPoints.Add(new GridPos()); //increases the size of the AGV's embedded List so the JumpPoints can fit without causing overflow
 
                             break;
 
@@ -604,8 +604,6 @@ namespace kagv {
 
             for (int i = 0; i < StartPos.Count; i++)
                 for (int j = 0; j < AGVs[i].JumpPoints.Count - 1; j++) {
-                    //side:adds line to linearray.since it adds a new line,that means 
-                    //that the new line IS the correct path
                     GridLine line = new GridLine(m_rectangles[AGVs[i].JumpPoints[j].x][AGVs[i].JumpPoints[j].y],
                                                 m_rectangles[AGVs[i].JumpPoints[j + 1].x][AGVs[i].JumpPoints[j + 1].y]
                                                );
@@ -633,7 +631,7 @@ namespace kagv {
                 removed = false;
                 jumpParam.Reset(StartPos[0], pos[list_index]);
                 if (JumpPointFinder.FindPath(jumpParam, paper).Count == 0) { //if there's at LEAST 1 agv that cannot reach a Load, then that Load is  
-                                                                      //removed from the loadPos and not considered as available - marked 4 
+                                                                             //removed from the loadPos and not considered as available - marked 4 
                     isLoad[pos[list_index].x, pos[list_index].y] = 4;
                     pos.Remove(pos[list_index]);
                     removed = true;
@@ -687,7 +685,7 @@ namespace kagv {
         {
             int c = AGVs[0].Paths.Length;
 
-            AGVs[whichAGV].JumpPoints = new List<GridPos>(); //empties the correct cell of the 2D-List containing each AGVs routes
+            AGVs[whichAGV].JumpPoints = new List<GridPos>(); //empties the AGV's JumpPoints List for the new JumpPoints to be added
 
             StartPos[whichAGV] = new GridPos(); //empties the correct start Pos for each AGV
 
@@ -801,14 +799,12 @@ namespace kagv {
             }
 
             //*******************************************************************
-            jumpParam.Reset(StartPos[whichAGV], endPos); //THIS was the problem why the 2nd agv had no route. StartPos[] was redeclared with 1 cell. The incoming whichAGV
-            //had its value set to 1 (for the 2nd agv), causing the StartPos[] to overflow, catching the exception and skipping
-            //the calculation of the route
+            jumpParam.Reset(StartPos[whichAGV], endPos); 
             JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
 
 
             for (int j = 0; j < JumpPointsList.Count; j++)
-                AGVs[whichAGV].JumpPoints.Add(JumpPointsList[j]); //adds the list containing all the JumpPoints, for every direction, to a parent List 
+                AGVs[whichAGV].JumpPoints.Add(JumpPointsList[j]); //adds the list containing the AGV's path, to the AGV's embedded JumpPoint List 
 
             int c = 0;
             for (int i = 0; i < StartPos.Count; i++)
@@ -822,8 +818,6 @@ namespace kagv {
 
 
             for (int j = 0; j < AGVs[whichAGV].JumpPoints.Count - 1; j++) {
-                //side:adds line to linearray.since it adds a new line,that means 
-                //that the new line IS the correct path
                 GridLine line = new GridLine(m_rectangles[AGVs[whichAGV].JumpPoints[j].x][AGVs[whichAGV].JumpPoints[j].y],
                                         m_rectangles[AGVs[whichAGV].JumpPoints[j + 1].x][AGVs[whichAGV].JumpPoints[j + 1].y]
                                            );
@@ -838,7 +832,7 @@ namespace kagv {
             jumpParam.Reset(endPos, StartPos[whichAGV]);
             JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
             for (int j = 0; j < JumpPointsList.Count; j++)
-                AGVs[whichAGV].JumpPoints.Add(JumpPointsList[j]); //adds the list containing all the JumpPoints, for every direction, to a parent List 
+                AGVs[whichAGV].JumpPoints.Add(JumpPointsList[j]); //adds the list containing the AGV's path, to the AGV's embedded JumpPoint List
 
             c = 0;
             for (int i = 0; i < StartPos.Count; i++)
@@ -853,8 +847,6 @@ namespace kagv {
             
             for (int i = 0; i < StartPos.Count; i++) {
                 for (int j = 0; j < AGVs[i].JumpPoints.Count - 1; j++) {
-                    //side:adds line to linearray.since it adds a new line,that means 
-                    //that the new line IS the correct path
                     GridLine line = new GridLine(m_rectangles[AGVs[i].JumpPoints[j].x][AGVs[i].JumpPoints[j].y],
                                         m_rectangles[AGVs[i].JumpPoints[j + 1].x][AGVs[i].JumpPoints[j + 1].y]
                                            );
