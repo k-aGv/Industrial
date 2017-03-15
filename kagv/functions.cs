@@ -832,9 +832,6 @@ namespace kagv {
             }
 
             
-            
-            
-            
             //return to exit
             int old_c = c-1;
 
@@ -866,13 +863,6 @@ namespace kagv {
                 }
 
             }
-            
-            for (int i = 0; i < StartPos.Count; i++) {
-                if ((c - 1) > 0) {
-                    Array.Resize(ref AGVs[i].Paths, c - 1);
-                }
-            }
-            
             this.Invalidate();
         }
 
