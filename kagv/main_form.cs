@@ -346,6 +346,7 @@ namespace kagv {
 
         private void nUD_AGVs_ValueChanged(object sender, EventArgs e) {
             int starts_counter = 0;
+            bool removed = false;
             int[,] starts_position = new int[2, Convert.ToInt32(nUD_AGVs.Value) + 1]; //keeps the size of the array +1 in relation with the nUD
 
             for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++)
@@ -357,10 +358,13 @@ namespace kagv {
                     }
                     if (starts_counter > nUD_AGVs.Value) {
                         m_rectangles[starts_position[0, starts_counter - 1]][starts_position[1, starts_counter - 1]].SwitchEnd_StartToNormal(); //removes the very last
-
+                        
+                        removed = true;
                         this.Invalidate();
                     }
                 }
+            if (removed)
+                Redraw();
 
         }
 
