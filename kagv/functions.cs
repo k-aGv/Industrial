@@ -760,6 +760,7 @@ namespace kagv {
             if (!isAnyLoadLeft)
                 return;
 
+
             //convert the end point to start point
             GridPos endPos = new GridPos();
             for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++) {
@@ -824,14 +825,18 @@ namespace kagv {
                 AGVs[whichAGV].Paths[j] = line;
             }
 
-
+            
             for (int i = 0; i < StartPos.Count; i++) {
                 if ((c - 1) > 0) {
                     Array.Resize(ref AGVs[i].Paths, c - 1);
                 }
             }
-
+            
+            
+            
             //return to exit
+            int old_c = c-1;
+
             jumpParam.Reset(endPos, StartPos[whichAGV]);
             JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
             for (int j = 0; j < JumpPointsList.Count; j++)
@@ -841,6 +846,13 @@ namespace kagv {
             for (int i = 0; i < StartPos.Count; i++)
                 c += AGVs[i].JumpPoints.Count;
 
+            for (int i = 0; i < StartPos.Count; i++) {
+                if ((c - 1) > 0) {
+                    Array.Resize(ref AGVs[i].Paths, old_c+(c - 1));
+                }
+            }
+
+            
             for (int i = 0; i < StartPos.Count; i++) {
                 for (int j = 0; j < AGVs[i].JumpPoints.Count - 1; j++) {
                     //side:adds line to linearray.since it adds a new line,that means 
@@ -853,13 +865,13 @@ namespace kagv {
                 }
 
             }
-
+            
             for (int i = 0; i < StartPos.Count; i++) {
                 if ((c - 1) > 0) {
                     Array.Resize(ref AGVs[i].Paths, c - 1);
                 }
             }
-
+            
             this.Invalidate();
         }
 
