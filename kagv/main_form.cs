@@ -164,6 +164,8 @@ namespace kagv {
                                 "Index: " +
                                 "iX: " + widthTrav + " " + "iY: " + heightTrav + "\r\n";
 
+                            int agv_index = 0;
+
                             if (StartPos != null) {
                                 for (int j = 0; j < StartPos.Count; j++)
                                     for (int i = 0; i < Constants.__MaximumSteps; i++) {
@@ -175,6 +177,9 @@ namespace kagv {
                                                        )
                                             )) {
                                             isPathBlock = true;
+                                            agv_index = j;
+                                            i = Constants.__MaximumSteps;
+                                            j = StartPos.Count;
                                         }
 
                                     }
@@ -183,7 +188,7 @@ namespace kagv {
                             }
                             tp.ToolTipIcon = ToolTipIcon.Info;
                             if (isPathBlock && StartPos != null) {
-                                isPath = "Is part of path:Yes\r\n";
+                                isPath = "Is part of AGV"+(agv_index+1)+" path:Yes\r\n";
                                 tp.Show(currentBoxType + currentBoxCoords + currentBoxIndex + isPath
                                     , this
                                     , clickedBox.boxRec.X
