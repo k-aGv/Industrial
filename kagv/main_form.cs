@@ -200,7 +200,7 @@ namespace kagv {
                             }
                             tp.ToolTipIcon = ToolTipIcon.Info;
                             if (isPathBlock && StartPos != null) {
-                                isPath = "Is part of AGV"+(agv_index+1)+" path:Yes\r\n";
+                                isPath = "Is part of AGV"+(agv_index)+" path";
                                 tp.Show(currentBoxType + currentBoxCoords + currentBoxIndex + isPath
                                     , this
                                     , clickedBox.boxRec.X
