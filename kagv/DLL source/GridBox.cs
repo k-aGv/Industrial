@@ -13,7 +13,6 @@ namespace kagv {
         public SolidBrush brush;
         public Rectangle boxRec;
         public BoxType boxType;
-        public int startID;
 
         private Color myBrown = Color.FromArgb(138, 109, 86);
         private Graphics graphs;
