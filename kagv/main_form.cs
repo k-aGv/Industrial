@@ -1,5 +1,4 @@
-﻿#define SHOW_EMISSIONS
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -73,9 +72,10 @@ namespace kagv {
 
         private void main_form_Load(object sender, EventArgs e) {
 
-#if !SHOW_EMISSIONS
+#if !emissionsSymbol
             gb_type.Visible=false;
 #endif
+
             var _proc = System.Diagnostics.Process.GetCurrentProcess();
             _proc.ProcessorAffinity = new IntPtr(0x0003);//use cores 1,2 
             //ptr flag has to be (bin) 0011 so its IntPtr 0x0003
@@ -649,9 +649,10 @@ namespace kagv {
             settings_menu.Enabled = false;
             gb_settings.Enabled = false;
 
-#if SHOW_EMISSIONS
+#if emissionsSymbol
             show_emissions();
 #endif
+
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -684,13 +685,13 @@ namespace kagv {
             this.BackColor = Color.DarkGray;
             borderColorToolStripMenuItem.Checked = false;
         }
-
+#if emissionsSymbol
         private void main_form_LocationChanged(object sender, EventArgs e) {
-#if SHOW_EMISSIONS
-            emissions.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
-#endif
-        }
 
+            emissions.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
+
+        }
+#endif
 
     }
 

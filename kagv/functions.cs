@@ -37,7 +37,7 @@ namespace kagv {
             }
 
         }
-
+#if emissionsSymbol
         private void show_emissions() {
             Point emissions_loc = new Point(this.Location.X + this.Size.Width - emissions.Size.Width, this.Location.Y);
             emissions.Show();
@@ -126,6 +126,7 @@ namespace kagv {
             }
 
         }
+#endif
         private void animator(int steps_counter, int agv_index) {
 
             int stepx = Convert.ToInt32(AGVs[agv_index].Steps[steps_counter].X);
@@ -137,7 +138,9 @@ namespace kagv {
             bool isfreeload = false;
             bool halted = false;
             displayStepsToLoad(steps_counter, agv_index);
+#if emissionsSymbol
             update_emissions(agv_index);
+#endif
             //RULES OF WHICH AGV WILL STOP WILL BE ADDED
             for (int i = 0; i < nUD_AGVs.Value; i++) {
 
@@ -439,12 +442,13 @@ namespace kagv {
             = new int();
 
             AGVs = new Vehicle[Constants.__MaximumAGVs];
-
+#if emissionsSymbol
             if (emissions != null) {
                 emissions.Dispose();
+                CO2 = CO = NOx = THC = GlobalWarming = 0;
                 emissions = new emissions();
             }
-
+#endif
             initialization();
             main_form_Load(new object(), new EventArgs());
             for (int i = 0; i < AGVs.GetLength(0); i++)
