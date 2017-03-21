@@ -80,6 +80,7 @@
             this.dotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bordersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.highlightOverCurrentBoxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aGVIndexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.borderColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wallsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -443,21 +444,21 @@
             // manhattanToolStripMenuItem
             // 
             this.manhattanToolStripMenuItem.Name = "manhattanToolStripMenuItem";
-            this.manhattanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.manhattanToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.manhattanToolStripMenuItem.Text = "Manhattan";
             this.manhattanToolStripMenuItem.Click += new System.EventHandler(this.manhattanToolStripMenuItem_Click);
             // 
             // euclideanToolStripMenuItem
             // 
             this.euclideanToolStripMenuItem.Name = "euclideanToolStripMenuItem";
-            this.euclideanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.euclideanToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.euclideanToolStripMenuItem.Text = "Euclidean";
             this.euclideanToolStripMenuItem.Click += new System.EventHandler(this.euclideanToolStripMenuItem_Click);
             // 
             // chebyshevToolStripMenuItem
             // 
             this.chebyshevToolStripMenuItem.Name = "chebyshevToolStripMenuItem";
-            this.chebyshevToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.chebyshevToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.chebyshevToolStripMenuItem.Text = "Chebyshev";
             this.chebyshevToolStripMenuItem.Click += new System.EventHandler(this.chebyshevToolStripMenuItem_Click);
             // 
@@ -480,7 +481,8 @@
             this.linesToolStripMenuItem,
             this.dotsToolStripMenuItem,
             this.bordersToolStripMenuItem,
-            this.highlightOverCurrentBoxToolStripMenuItem});
+            this.highlightOverCurrentBoxToolStripMenuItem,
+            this.aGVIndexToolStripMenuItem});
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
             this.showToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.showToolStripMenuItem.Text = "Show...";
@@ -520,6 +522,13 @@
             this.highlightOverCurrentBoxToolStripMenuItem.Text = "...Highlight over current box";
             this.highlightOverCurrentBoxToolStripMenuItem.Click += new System.EventHandler(this.stepsToolStripMenuItem_Click);
             // 
+            // aGVIndexToolStripMenuItem
+            // 
+            this.aGVIndexToolStripMenuItem.Name = "aGVIndexToolStripMenuItem";
+            this.aGVIndexToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.aGVIndexToolStripMenuItem.Text = "...AGV index";
+            this.aGVIndexToolStripMenuItem.Click += new System.EventHandler(this.stepsToolStripMenuItem_Click);
+            // 
             // borderColorToolStripMenuItem
             // 
             this.borderColorToolStripMenuItem.Name = "borderColorToolStripMenuItem";
@@ -540,7 +549,7 @@
             // wallsToolStripMenuItem
             // 
             this.wallsToolStripMenuItem.Name = "wallsToolStripMenuItem";
-            this.wallsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.wallsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.wallsToolStripMenuItem.Text = "Walls";
             this.wallsToolStripMenuItem.Click += new System.EventHandler(this.wallsToolStripMenuItem_Click);
             // 
@@ -548,14 +557,14 @@
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
             this.allToolStripMenuItem.ShortcutKeyDisplayString = "(F5)";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.allToolStripMenuItem.Text = "All";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.allToolStripMenuItem_Click);
             // 
             // borderColorToolStripMenuItem1
             // 
             this.borderColorToolStripMenuItem1.Name = "borderColorToolStripMenuItem1";
-            this.borderColorToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.borderColorToolStripMenuItem1.Size = new System.Drawing.Size(141, 22);
             this.borderColorToolStripMenuItem1.Text = "Border Color";
             this.borderColorToolStripMenuItem1.Click += new System.EventHandler(this.borderColorToolStripMenuItem1_Click);
             // 
@@ -674,6 +683,7 @@
         private System.Windows.Forms.ToolStripMenuItem highlightOverCurrentBoxToolStripMenuItem;
         private System.Windows.Forms.GroupBox gb_type;
         private System.Windows.Forms.ComboBox cb_type;
+        private System.Windows.Forms.ToolStripMenuItem aGVIndexToolStripMenuItem;
 
     }
 }

@@ -39,6 +39,7 @@ namespace kagv {
             Point emissions_loc = new Point(this.Location.X + this.Size.Width - emissions.Size.Width, this.Location.Y);
             emissions.Show();
             emissions.Location = emissions_loc;
+            emissions.BringToFront();
         }
 
         private void update_emissions(int whichAGV) {
@@ -407,7 +408,7 @@ namespace kagv {
             fromstart = new bool[Constants.__MaximumAGVs];
             isLoad = new int[Constants.__WidthBlocks, Constants.__HeightBlocks];
 
-
+            StartPos = new List<GridPos>();
             endPointCoords = new Point(-1, -1);
             selectedColor = Color.DarkGray;
 
@@ -436,26 +437,17 @@ namespace kagv {
 
             AGVs = new Vehicle[Constants.__MaximumAGVs];
 
-            initialization();
+            if (emissions != null) {
+                emissions.Dispose();
+                emissions = new emissions();
+            }
 
+            initialization();
             main_form_Load(new object(), new EventArgs());
             for (int i = 0; i < AGVs.GetLength(0); i++)
                 AGVs[i].Status.Busy = false;
 
-#if SHOW_EMISSIONS
-            CO2 = 
-            CO = 
-            NOx = 
-            THC = 
-            GlobalWarming = new double();
-            emissions.Refresh();
-            emissions.CO_label.Text = "";
-            emissions.CO2_label.Text = "";
-            emissions.Global_label.Text = "";
-            emissions.NOx_label.Text = "";
-            emissions.THC_label.Text = "";
-            emissions.BringToFront();
-#endif
+
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 100;
             refresh_label.Text = "Delay:" + timer0.Interval + " ms";
 
@@ -1012,9 +1004,10 @@ namespace kagv {
 
 
         private void initialization() {
-            for (int i = 0; i < AGVs.Count(); i++)
+            for (int i = 0; i < AGVs.Count(); i++) {
                 AGVs[i] = new Vehicle(this);
-
+                AGVs[i].ID = i;
+            }
 
             this.DoubleBuffered = true;
             this.Width = ((Constants.__WidthBlocks + 1) * 20) - 3; //3 because 2=boarder and the 1 comes from "width+1"

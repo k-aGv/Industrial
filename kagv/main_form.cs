@@ -40,7 +40,6 @@ namespace kagv {
                     }
                 }
 
-
                 int c = 0;
                 for (int i = 0; i < StartPos.Count; i++)
                     c += AGVs[i].JumpPoints.Count;
@@ -52,10 +51,19 @@ namespace kagv {
                             try {
                                 if (linesToolStripMenuItem.Checked)
                                     AGVs[i].Paths[resultTrav].drawLine(paper);
-                                if (!isMouseDown)
+                                if (!isMouseDown) 
                                     DrawPoints(AGVs[i].Paths[resultTrav], i);
                             } catch { }
                         }
+                    }
+                }
+
+                if (aGVIndexToolStripMenuItem.Checked) {
+                    for (int i = 0; i < StartPos.Count; i++) {
+                        paper.DrawString("AGV:" + AGVs[i].ID,
+                                         new Font("Tahoma", 8, FontStyle.Bold),
+                                         new SolidBrush(Color.Red),
+                                         new Point((StartPos[i].x * 20) - 10, ((StartPos[i].y * 20) + Constants.__TopBarOffset) - 20));
                     }
                 }
 
@@ -86,6 +94,7 @@ namespace kagv {
             linesToolStripMenuItem.Checked =
             dotsToolStripMenuItem.Checked =
             bordersToolStripMenuItem.Checked =
+            aGVIndexToolStripMenuItem.Checked =
             highlightOverCurrentBoxToolStripMenuItem.Checked = true;
 
             triggerStartMenu(false);
@@ -449,6 +458,8 @@ namespace kagv {
                             &&
                             m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal) {
                             m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + Constants.__TopBarOffset, BoxType.Start);
+
+                           
                         }
 
 
@@ -470,7 +481,7 @@ namespace kagv {
                         }
             }
 
-
+           
 
             this.Invalidate();
         }
@@ -638,7 +649,6 @@ namespace kagv {
             gb_settings.Enabled = false;
 
 #if SHOW_EMISSIONS
-            emissions.BringToFront();
             show_emissions();
 #endif
         }
