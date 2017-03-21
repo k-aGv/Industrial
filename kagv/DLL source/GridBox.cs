@@ -128,14 +128,6 @@ namespace kagv {
             this.boxType = BoxType.Normal;
         }
 
-        public void SetStartBox(int _id) {
-            if (this.brush != null)
-                this.brush.Dispose();
-            this.brush = new SolidBrush(Color.Green);
-            this.boxType = BoxType.Start;
-            startID = _id;
-        }
-
         public void SetEndBox() {
             if (this.brush != null)
                 this.brush.Dispose();

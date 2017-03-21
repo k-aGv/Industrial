@@ -279,8 +279,7 @@ namespace kagv {
                                             case BoxType.Start:
                                                 m_lastBoxSelect.SetNormalBox();
                                                 m_lastBoxSelect = m_rectangles[widthTrav][heightTrav];
-                                                m_lastBoxSelect.SetStartBox(1);
-                                                m_lastBoxSelect.SetStartBox(2);
+
                                                 this.Invalidate();
                                                 break;
                                             case BoxType.End:
