@@ -10,10 +10,10 @@ namespace kagv {
 
     class GridBox : IDisposable {
         public int x, y, width, height;
-        public SolidBrush brush;
         public Rectangle boxRec;
         public BoxType boxType;
 
+        private SolidBrush brush;
         private Color myBrown = Color.FromArgb(138, 109, 86);
         private Graphics graphs;
         public GridBox(int iX, int iY, BoxType iType) {

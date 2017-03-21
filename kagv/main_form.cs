@@ -474,7 +474,6 @@ namespace kagv {
 
             this.Invalidate();
         }
-
         //parametres
         private void useRecursiveToolStripMenuItem_Click(object sender, EventArgs e) {
             (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
