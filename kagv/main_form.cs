@@ -617,6 +617,7 @@ namespace kagv {
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e) {
 
+            
 
             nUD_AGVs.Value = getNumberOfAGVs();
 

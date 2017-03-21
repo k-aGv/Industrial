@@ -27,7 +27,10 @@ namespace kagv {
                     decreaseSpeedToolStripMenuItem_Click(new object(), new EventArgs());
                     return true;
                 case Keys.Space:
-                    startToolStripMenuItem_Click(new object(), new EventArgs());
+                    if (startToolStripMenuItem.Enabled)
+                        startToolStripMenuItem_Click(new object(), new EventArgs());
+                    else
+                        MessageBox.Show(this,"Create a path please","",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
                     return true;
                 default:
                     return false;
@@ -307,7 +310,7 @@ namespace kagv {
                 distanceBlocks = Convert.ToInt32(distance / m_rectangles[0][0].width);
                 //we do not need hypotenuse here
             } else
-                MessageBox.Show("Unexpected error");
+                MessageBox.Show(this, "Unexpected error", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 
             currentLinePoints = new Point[distanceBlocks];
@@ -865,7 +868,7 @@ namespace kagv {
                             a = StartPos[whichAGV].x;
                             b = StartPos[whichAGV].y;
 
-                        } catch (Exception e) { MessageBox.Show(e + "\r\n getNextLoad()"); }
+                        } catch {  }
 
                     }
                 }
@@ -1152,7 +1155,7 @@ namespace kagv {
                     initialization();
                     Redraw();
                 } else
-                    MessageBox.Show("You have chosen a not compatible file import.\r\nPlease try again.");
+                    MessageBox.Show(this, "You have chosen a not compatible file import.\r\nPlease try again.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private bool isvalid(Point _temp) {
