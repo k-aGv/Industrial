@@ -35,6 +35,93 @@ namespace kagv {
 
         }
 
+        private void show_emissions() {
+            Point emissions_loc = new Point(this.Location.X + this.Size.Width - emissions.Size.Width, this.Location.Y);
+            emissions.Show();
+            emissions.Location = emissions_loc;
+        }
+
+        private void update_emissions(int whichAGV) {
+
+            if (cb_type.SelectedItem.ToString() == "LPG") {
+                if (AGVs[whichAGV].Status.Busy) {
+                    CO2 += 2959.57;
+                    emissions.CO2_label.Text = "CO2: " + Math.Round(CO2, 2) + " gr";
+                    CO += 27.04;
+                    emissions.CO_label.Text = "CO: " + Math.Round(CO, 2) + " gr";
+                    NOx += 19.63;
+                    emissions.NOx_label.Text = "NOx: " + Math.Round(NOx, 2) + " gr";
+                    THC += 3.06;
+                    emissions.THC_label.Text = "THC: " + Math.Round(THC, 2) + " gr";
+                    GlobalWarming += 3.58;
+                    emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
+                } else {
+                    CO2 += 1935.16;
+                    emissions.CO2_label.Text = "CO2: " + Math.Round(CO2, 2) + " gr";
+                    CO += 13.36;
+                    emissions.CO_label.Text = "CO: " + Math.Round(CO, 2) + " gr";
+                    NOx += 13.90;
+                    emissions.NOx_label.Text = "NOx: " + Math.Round(NOx, 2) + " gr";
+                    THC += 1.51;
+                    emissions.THC_label.Text = "THC: " + Math.Round(THC, 2) + " gr";
+                    GlobalWarming += 2.33;
+                    emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
+                }
+            }
+
+            if (cb_type.SelectedItem.ToString() == "DSL") {
+                if (AGVs[whichAGV].Status.Busy) {
+                    CO2 += 2130.11;
+                    emissions.CO2_label.Text = "CO2: " + Math.Round(CO2, 2) + " gr";
+                    CO += 7.28;
+                    emissions.CO_label.Text = "CO: " + Math.Round(CO, 2) + " gr";
+                    NOx += 20.16;
+                    emissions.NOx_label.Text = "NOx: " + Math.Round(NOx, 2) + " gr";
+                    THC += 1.77;
+                    emissions.THC_label.Text = "THC: " + Math.Round(THC, 2) + " gr";
+                    GlobalWarming += 2.49;
+                    emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
+                } else {
+                    CO2 += 1510.83;
+                    emissions.CO2_label.Text = "CO2: " + Math.Round(CO2, 2) + " gr";
+                    CO += 3.84;
+                    emissions.CO_label.Text = "CO: " + Math.Round(CO, 2) + " gr";
+                    NOx += 14.33;
+                    emissions.NOx_label.Text = "NOx: " + Math.Round(NOx, 2) + " gr";
+                    THC += 1.08;
+                    emissions.THC_label.Text = "THC: " + Math.Round(THC, 2) + " gr";
+                    GlobalWarming += 1.2;
+                    emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
+                }
+            }
+
+            if (cb_type.SelectedItem.ToString() == "ELE") {
+                if (AGVs[whichAGV].Status.Busy) {
+                    CO2 = 0;
+                    emissions.CO2_label.Text = "CO2: " + Math.Round(CO2, 2) + " gr";
+                    CO = 0;
+                    emissions.CO_label.Text = "CO: " + Math.Round(CO, 2) + " gr";
+                    NOx = 0;
+                    emissions.NOx_label.Text = "NOx: " + Math.Round(NOx, 2) + " gr";
+                    THC = 0;
+                    emissions.THC_label.Text = "THC: " + Math.Round(THC, 2) + " gr";
+                    GlobalWarming += 0.67;
+                    emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
+                } else {
+                    CO2 = 0;
+                    emissions.CO2_label.Text = "CO2: " + Math.Round(CO2, 2) + " gr";
+                    CO = 0;
+                    emissions.CO_label.Text = "CO: " + Math.Round(CO, 2) + " gr";
+                    NOx = 0;
+                    emissions.NOx_label.Text = "NOx: " + Math.Round(NOx, 2) + " gr";
+                    THC = 0;
+                    emissions.THC_label.Text = "THC: " + Math.Round(THC, 2) + " gr";
+                    GlobalWarming += 0.64;
+                    emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
+                }
+            }
+
+        }
         private void animator(int steps_counter, int agv_index) {
 
             int stepx = Convert.ToInt32(AGVs[agv_index].Steps[steps_counter].X);
@@ -46,6 +133,7 @@ namespace kagv {
             bool isfreeload = false;
             bool halted = false;
             displayStepsToLoad(steps_counter, agv_index);
+            update_emissions(agv_index);
             //RULES OF WHICH AGV WILL STOP WILL BE ADDED
             for (int i = 0; i < nUD_AGVs.Value; i++) {
 
@@ -111,23 +199,23 @@ namespace kagv {
 
                         switch (agv_index) {
                             case 0:
-                                timer1.Stop();
+                                timer0.Stop();
                                 agv1steps_LB.Text = "AGV 1: Finished";
                                 break;
                             case 1:
-                                timer2.Stop();
+                                timer1.Stop();
                                 agv2steps_LB.Text = "AGV 2: Finished";
                                 break;
                             case 2:
-                                timer3.Stop();
+                                timer2.Stop();
                                 agv3steps_LB.Text = "AGV 3: Finished";
                                 break;
                             case 3:
-                                timer4.Stop();
+                                timer3.Stop();
                                 agv4steps_LB.Text = "AGV 4: Finished";
                                 break;
                             case 4:
-                                timer5.Stop();
+                                timer4.Stop();
                                 agv5steps_LB.Text = "AGV 5: Finished";
                                 break;
                         }
@@ -144,23 +232,23 @@ namespace kagv {
                         AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - Constants.__TopBarOffset) / 20].y)
                         switch (agv_index) {
                             case 0:
-                                timer1.Stop();
+                                timer0.Stop();
                                 agv1steps_LB.Text = "AGV 1: Finished";
                                 break;
                             case 1:
-                                timer2.Stop();
+                                timer1.Stop();
                                 agv2steps_LB.Text = "AGV 2: Finished";
                                 break;
                             case 2:
-                                timer3.Stop();
+                                timer2.Stop();
                                 agv3steps_LB.Text = "AGV 3: Finished";
                                 break;
                             case 3:
-                                timer4.Stop();
+                                timer3.Stop();
                                 agv4steps_LB.Text = "AGV 4: Finished";
                                 break;
                             case 4:
-                                timer5.Stop();
+                                timer4.Stop();
                                 agv5steps_LB.Text = "AGV 5: Finished";
                                 break;
                         }
@@ -168,14 +256,14 @@ namespace kagv {
             //end of handling
 
 
-            if (!(timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled || timer5.Enabled)) //if at least 1 timer is active, do not let the user access the Checkboxes etc. etc
+            if (!(timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled)) //if at least 1 timer is active, do not let the user access the Checkboxes etc. etc
             {
                 gb_settings.Enabled = true;
                 settings_menu.Enabled = true;
 
             }
 
-            if (!timer1.Enabled && !timer2.Enabled && !timer3.Enabled && !timer4.Enabled && !timer5.Enabled)//when all agvs has finished their tasks
+            if (!timer0.Enabled && !timer1.Enabled && !timer2.Enabled && !timer3.Enabled && !timer4.Enabled)//when all agvs has finished their tasks
             {
                 //clear all the paths
                 for (int i = 0; i < StartPos.Count(); i++) {
@@ -354,9 +442,22 @@ namespace kagv {
             for (int i = 0; i < AGVs.GetLength(0); i++)
                 AGVs[i].Status.Busy = false;
 
-
-            timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval = 100;
-            refresh_label.Text = "Delay:" + timer1.Interval + " ms";
+#if SHOW_EMISSIONS
+            CO2 = 
+            CO = 
+            NOx = 
+            THC = 
+            GlobalWarming = new double();
+            emissions.Refresh();
+            emissions.CO_label.Text = "";
+            emissions.CO2_label.Text = "";
+            emissions.Global_label.Text = "";
+            emissions.NOx_label.Text = "";
+            emissions.THC_label.Text = "";
+            emissions.BringToFront();
+#endif
+            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 100;
+            refresh_label.Text = "Delay:" + timer0.Interval + " ms";
 
         }
 
@@ -863,46 +964,46 @@ namespace kagv {
             //every timer is responsible for every agv for up to 5 AGVs
 
             if (agvs_number == 1 && !is_trapped[0, 0] && !is_trapped[0, 1]) {
-                timer1.Start();
+                timer0.Start();
             }
 
             if (agvs_number == 2) {
                 if (!is_trapped[0, 0] && !is_trapped[0, 1]) {
-                    timer1.Start();
+                    timer0.Start();
                 }
                 if (!is_trapped[1, 0] && !is_trapped[1, 1]) {
-                    timer2.Start();
+                    timer1.Start();
                 }
             }
             if (agvs_number == 3) {
                 if (!is_trapped[0, 0] && !is_trapped[0, 1])
-                    timer1.Start();
+                    timer0.Start();
                 if (!is_trapped[1, 0] && !is_trapped[1, 1])
-                    timer2.Start();
+                    timer1.Start();
                 if (!is_trapped[2, 0] && !is_trapped[2, 1])
-                    timer3.Start();
+                    timer2.Start();
             }
             if (agvs_number == 4) {
                 if (!is_trapped[0, 0] && !is_trapped[0, 1])
-                    timer1.Start();
+                    timer0.Start();
                 if (!is_trapped[1, 0] && !is_trapped[1, 1])
-                    timer2.Start();
+                    timer1.Start();
                 if (!is_trapped[2, 0] && !is_trapped[2, 1])
-                    timer3.Start();
+                    timer2.Start();
                 if (!is_trapped[3, 0] && !is_trapped[3, 1])
-                    timer4.Start();
+                    timer3.Start();
             }
             if (agvs_number == 5) {
                 if (!is_trapped[0, 0] && !is_trapped[0, 1])
-                    timer1.Start();
+                    timer0.Start();
                 if (!is_trapped[1, 0] && !is_trapped[1, 1])
-                    timer2.Start();
+                    timer1.Start();
                 if (!is_trapped[2, 0] && !is_trapped[2, 1])
-                    timer3.Start();
+                    timer2.Start();
                 if (!is_trapped[3, 0] && !is_trapped[3, 1])
-                    timer4.Start();
+                    timer3.Start();
                 if (!is_trapped[4, 0] && !is_trapped[4, 1])
-                    timer5.Start();
+                    timer4.Start();
             }
 
 

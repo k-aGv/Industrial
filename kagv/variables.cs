@@ -16,7 +16,10 @@ namespace kagv
     
     public partial class main_form
     {
-        
+
+        //emissions
+        emissions emissions = new emissions();
+        double CO2 = 0, CO = 0, NOx = 0, THC = 0, GlobalWarming = 0;
 
         //is_trapped[i,0] -> unavailable path for Start to Load
         //is_trapped[i,1] -> unavailable path for Load to End

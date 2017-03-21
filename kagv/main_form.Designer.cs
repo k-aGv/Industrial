@@ -29,8 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer0 = new System.Windows.Forms.Timer(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.gb_type = new System.Windows.Forms.GroupBox();
+            this.cb_type = new System.Windows.Forms.ComboBox();
             this.gb_monitor = new System.Windows.Forms.GroupBox();
             this.agv3steps_LB = new System.Windows.Forms.Label();
             this.refresh_label = new System.Windows.Forms.Label();
@@ -48,10 +50,10 @@
             this.tp_info = new System.Windows.Forms.ToolTip(this.components);
             this.sfd_exportmap = new System.Windows.Forms.SaveFileDialog();
             this.ofd_importmap = new System.Windows.Forms.OpenFileDialog();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.timer4 = new System.Windows.Forms.Timer(this.components);
-            this.timer5 = new System.Windows.Forms.Timer(this.components);
             this.ofd_importpic = new System.Windows.Forms.OpenFileDialog();
             this.settings_menu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,6 +79,7 @@
             this.linesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bordersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.highlightOverCurrentBoxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.borderColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wallsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,8 +89,8 @@
             this.implementGoogleMapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
-            this.highlightOverCurrentBoxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuPanel.SuspendLayout();
+            this.gb_type.SuspendLayout();
             this.gb_monitor.SuspendLayout();
             this.gb_settings.SuspendLayout();
             this.gb_agvs.SuspendLayout();
@@ -95,19 +98,43 @@
             this.settings_menu.SuspendLayout();
             this.SuspendLayout();
             // 
-            // timer1
+            // timer0
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timer0.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.menuPanel.Controls.Add(this.gb_type);
             this.menuPanel.Controls.Add(this.gb_monitor);
             this.menuPanel.Controls.Add(this.gb_settings);
             this.menuPanel.Location = new System.Drawing.Point(0, 27);
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(656, 75);
             this.menuPanel.TabIndex = 7;
+            // 
+            // gb_type
+            // 
+            this.gb_type.Controls.Add(this.cb_type);
+            this.gb_type.Location = new System.Drawing.Point(226, 5);
+            this.gb_type.Name = "gb_type";
+            this.gb_type.Size = new System.Drawing.Size(68, 65);
+            this.gb_type.TabIndex = 27;
+            this.gb_type.TabStop = false;
+            this.gb_type.Text = "Type";
+            // 
+            // cb_type
+            // 
+            this.cb_type.FormattingEnabled = true;
+            this.cb_type.Items.AddRange(new object[] {
+            "LPG",
+            "DSL",
+            "ELE"});
+            this.cb_type.Location = new System.Drawing.Point(7, 20);
+            this.cb_type.Name = "cb_type";
+            this.cb_type.Size = new System.Drawing.Size(55, 21);
+            this.cb_type.TabIndex = 0;
+            this.cb_type.Text = "LPG";
             // 
             // gb_monitor
             // 
@@ -117,9 +144,9 @@
             this.gb_monitor.Controls.Add(this.agv1steps_LB);
             this.gb_monitor.Controls.Add(this.agv5steps_LB);
             this.gb_monitor.Controls.Add(this.agv2steps_LB);
-            this.gb_monitor.Location = new System.Drawing.Point(278, 5);
+            this.gb_monitor.Location = new System.Drawing.Point(300, 5);
             this.gb_monitor.Name = "gb_monitor";
-            this.gb_monitor.Size = new System.Drawing.Size(360, 65);
+            this.gb_monitor.Size = new System.Drawing.Size(338, 65);
             this.gb_monitor.TabIndex = 26;
             this.gb_monitor.TabStop = false;
             this.gb_monitor.Text = "Monitor";
@@ -127,7 +154,7 @@
             // agv3steps_LB
             // 
             this.agv3steps_LB.AutoSize = true;
-            this.agv3steps_LB.Location = new System.Drawing.Point(289, 16);
+            this.agv3steps_LB.Location = new System.Drawing.Point(297, 13);
             this.agv3steps_LB.Name = "agv3steps_LB";
             this.agv3steps_LB.Size = new System.Drawing.Size(35, 13);
             this.agv3steps_LB.TabIndex = 22;
@@ -145,7 +172,7 @@
             // agv4steps_LB
             // 
             this.agv4steps_LB.AutoSize = true;
-            this.agv4steps_LB.Location = new System.Drawing.Point(289, 33);
+            this.agv4steps_LB.Location = new System.Drawing.Point(297, 30);
             this.agv4steps_LB.Name = "agv4steps_LB";
             this.agv4steps_LB.Size = new System.Drawing.Size(35, 13);
             this.agv4steps_LB.TabIndex = 23;
@@ -163,7 +190,7 @@
             // agv5steps_LB
             // 
             this.agv5steps_LB.AutoSize = true;
-            this.agv5steps_LB.Location = new System.Drawing.Point(289, 49);
+            this.agv5steps_LB.Location = new System.Drawing.Point(297, 46);
             this.agv5steps_LB.Name = "agv5steps_LB";
             this.agv5steps_LB.Size = new System.Drawing.Size(35, 13);
             this.agv5steps_LB.TabIndex = 24;
@@ -263,21 +290,21 @@
             // 
             this.ofd_importmap.FileName = "openFileDialog1";
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
             // timer2
             // 
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            this.timer2.Tick += new System.EventHandler(this.timer3_Tick);
             // 
             // timer3
             // 
-            this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
+            this.timer3.Tick += new System.EventHandler(this.timer4_Tick);
             // 
             // timer4
             // 
-            this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
-            // 
-            // timer5
-            // 
-            this.timer5.Tick += new System.EventHandler(this.timer5_Tick);
+            this.timer4.Tick += new System.EventHandler(this.timer5_Tick);
             // 
             // ofd_importpic
             // 
@@ -416,21 +443,21 @@
             // manhattanToolStripMenuItem
             // 
             this.manhattanToolStripMenuItem.Name = "manhattanToolStripMenuItem";
-            this.manhattanToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.manhattanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.manhattanToolStripMenuItem.Text = "Manhattan";
             this.manhattanToolStripMenuItem.Click += new System.EventHandler(this.manhattanToolStripMenuItem_Click);
             // 
             // euclideanToolStripMenuItem
             // 
             this.euclideanToolStripMenuItem.Name = "euclideanToolStripMenuItem";
-            this.euclideanToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.euclideanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.euclideanToolStripMenuItem.Text = "Euclidean";
             this.euclideanToolStripMenuItem.Click += new System.EventHandler(this.euclideanToolStripMenuItem_Click);
             // 
             // chebyshevToolStripMenuItem
             // 
             this.chebyshevToolStripMenuItem.Name = "chebyshevToolStripMenuItem";
-            this.chebyshevToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.chebyshevToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.chebyshevToolStripMenuItem.Text = "Chebyshev";
             this.chebyshevToolStripMenuItem.Click += new System.EventHandler(this.chebyshevToolStripMenuItem_Click);
             // 
@@ -485,6 +512,13 @@
             this.bordersToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.bordersToolStripMenuItem.Text = "...Borders";
             this.bordersToolStripMenuItem.Click += new System.EventHandler(this.stepsToolStripMenuItem_Click);
+            // 
+            // highlightOverCurrentBoxToolStripMenuItem
+            // 
+            this.highlightOverCurrentBoxToolStripMenuItem.Name = "highlightOverCurrentBoxToolStripMenuItem";
+            this.highlightOverCurrentBoxToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.highlightOverCurrentBoxToolStripMenuItem.Text = "...Highlight over current box";
+            this.highlightOverCurrentBoxToolStripMenuItem.Click += new System.EventHandler(this.stepsToolStripMenuItem_Click);
             // 
             // borderColorToolStripMenuItem
             // 
@@ -544,13 +578,6 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // highlightOverCurrentBoxToolStripMenuItem
-            // 
-            this.highlightOverCurrentBoxToolStripMenuItem.Name = "highlightOverCurrentBoxToolStripMenuItem";
-            this.highlightOverCurrentBoxToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.highlightOverCurrentBoxToolStripMenuItem.Text = "...Highlight over current box";
-            this.highlightOverCurrentBoxToolStripMenuItem.Click += new System.EventHandler(this.stepsToolStripMenuItem_Click);
-            // 
             // main_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -564,12 +591,14 @@
             this.Name = "main_form";
             this.Text = "kagv Simulation-Agro";
             this.Load += new System.EventHandler(this.main_form_Load);
+            this.LocationChanged += new System.EventHandler(this.main_form_LocationChanged);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.main_form_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseClick);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseUp);
             this.menuPanel.ResumeLayout(false);
+            this.gb_type.ResumeLayout(false);
             this.gb_monitor.ResumeLayout(false);
             this.gb_monitor.PerformLayout();
             this.gb_settings.ResumeLayout(false);
@@ -585,7 +614,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timer0;
         private System.Windows.Forms.Panel menuPanel;
         private System.Windows.Forms.RadioButton rb_stop;
         private System.Windows.Forms.RadioButton rb_start;
@@ -594,10 +623,10 @@
         private System.Windows.Forms.SaveFileDialog sfd_exportmap;
         private System.Windows.Forms.OpenFileDialog ofd_importmap;
         private System.Windows.Forms.NumericUpDown nUD_AGVs;
+        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.Timer timer4;
-        private System.Windows.Forms.Timer timer5;
         private System.Windows.Forms.RadioButton rb_load;
         private System.Windows.Forms.OpenFileDialog ofd_importpic;
         private System.Windows.Forms.MenuStrip settings_menu;
@@ -643,6 +672,8 @@
         private System.Windows.Forms.ToolStripMenuItem bordersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem borderColorToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem highlightOverCurrentBoxToolStripMenuItem;
+        private System.Windows.Forms.GroupBox gb_type;
+        private System.Windows.Forms.ComboBox cb_type;
 
     }
 }

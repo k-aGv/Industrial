@@ -1,4 +1,5 @@
-﻿using System;
+﻿#define SHOW_EMISSIONS
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -64,7 +65,9 @@ namespace kagv {
 
         private void main_form_Load(object sender, EventArgs e) {
 
-
+#if !SHOW_EMISSIONS
+            gb_type.Visible=false;
+#endif
             var _proc = System.Diagnostics.Process.GetCurrentProcess();
             _proc.ProcessorAffinity = new IntPtr(0x0003);//use cores 1,2 
             //ptr flag has to be (bin) 0011 so its IntPtr 0x0003
@@ -76,7 +79,7 @@ namespace kagv {
             agv5steps_LB.Text = "";
 
 
-            refresh_label.Text = "Delay :" + timer1.Interval + " ms";
+            refresh_label.Text = "Delay :" + timer0.Interval + " ms";
 
             nUD_AGVs.Value = 0;
             stepsToolStripMenuItem.Checked =
@@ -114,7 +117,7 @@ namespace kagv {
         }
 
         private void main_form_MouseDown(object sender, MouseEventArgs e) {
-            if (timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled || timer5.Enabled)
+            if (timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled)
                 return;
 
             isMouseDown = true;
@@ -298,11 +301,11 @@ namespace kagv {
             }
 
             if (
+                 timer0.Enabled ||
                  timer1.Enabled ||
                  timer2.Enabled ||
                  timer3.Enabled ||
-                 timer4.Enabled ||
-                 timer5.Enabled
+                 timer4.Enabled
                )
                 return;
 
@@ -333,7 +336,7 @@ namespace kagv {
         }
 
         private void main_form_MouseUp(object sender, MouseEventArgs e) {
-            if (timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled || timer5.Enabled) return;
+            if (timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled) return;
 
             isMouseDown = false;
 
@@ -375,7 +378,7 @@ namespace kagv {
 
         private void main_form_MouseClick(object sender, MouseEventArgs e) {
 
-            if (timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled || timer5.Enabled) return;
+            if (timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled) return;
 
             Point click_coords = new Point(e.X, e.Y);
             if (!isvalid(click_coords) || e.Button != MouseButtons.Left || nUD_AGVs.Value == 0)
@@ -636,6 +639,10 @@ namespace kagv {
             settings_menu.Enabled = false;
             gb_settings.Enabled = false;
 
+#if SHOW_EMISSIONS
+            emissions.BringToFront();
+            show_emissions();
+#endif
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -644,16 +651,16 @@ namespace kagv {
         }
 
         private void increaseSpeedToolStripMenuItem_Click(object sender, EventArgs e) {
-            timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval = timer1.Interval + 100;
-            refresh_label.Text = "Delay:" + timer1.Interval + " ms";
+            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer0.Interval + 100;
+            refresh_label.Text = "Delay:" + timer0.Interval + " ms";
         }
 
         private void decreaseSpeedToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (timer1.Interval == 100)
+            if (timer0.Interval == 100)
                 return;
 
-            timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer5.Interval = timer1.Interval - 100;
-            refresh_label.Text = "Delay:" + timer1.Interval + " ms";
+            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer0.Interval - 100;
+            refresh_label.Text = "Delay:" + timer0.Interval + " ms";
 
         }
 
@@ -667,6 +674,12 @@ namespace kagv {
         private void borderColorToolStripMenuItem1_Click(object sender, EventArgs e) {
             this.BackColor = Color.DarkGray;
             borderColorToolStripMenuItem.Checked = false;
+        }
+
+        private void main_form_LocationChanged(object sender, EventArgs e) {
+#if SHOW_EMISSIONS
+            emissions.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
+#endif
         }
 
 
