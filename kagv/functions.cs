@@ -858,7 +858,7 @@ namespace kagv {
             if (!isAnyLoadLeft)
                 return;
 
-
+            aGVIndexToolStripMenuItem.Checked = false;
             //convert the end point to start point
             GridPos endPos = new GridPos();
             for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++) {
@@ -1072,7 +1072,7 @@ namespace kagv {
 
             if (sfd_exportmap.ShowDialog() == DialogResult.OK) {
                 StreamWriter writer = new StreamWriter(sfd_exportmap.FileName);
-                writer.WriteLine("Map info:\r\nWidth blocks: " + Constants.__WidthBlocks + "  Height blocks: " + Constants.__WidthBlocks + "\r\n");
+                writer.WriteLine("Map info:\r\nWidth blocks: " + Constants.__WidthBlocks + "  Height blocks: " + Constants.__HeightBlocks + "\r\n");
                 for (int i = 0; i < Constants.__WidthBlocks; i++) {
                     for (int j = 0; j < Constants.__HeightBlocks; j++) {
                         writer.Write(m_rectangles[i][j].boxType + " ");
@@ -1120,7 +1120,7 @@ namespace kagv {
                     }
 
                     reader.ReadLine();
-
+                   
                     importmap = new BoxType[width_blocks, height_blocks];
 
                     words = reader.ReadLine().Split(delim);
@@ -1148,7 +1148,7 @@ namespace kagv {
                             words = reader.ReadLine().Split(delim);
                     }
                     reader.Close();
-
+                    
                     for (int z = 0; z < importmap.GetLength(0); z++) {
                         for (int i = 0; i < importmap.GetLength(1); i++) {
                             m_rectangles[z][i].boxType = importmap[z, i];

@@ -43,7 +43,7 @@ namespace kagv
         Graphics paper;//main graphics for grid
         HeuristicMode mode = HeuristicMode.MANHATTAN;
         GridBox m_lastBoxSelect;
-        BoxType m_lastBoxType;
+        BoxType m_lastBoxType = new BoxType();
         ToolTip tp;
         Point endPointCoords = new Point(-1,-1);
 
