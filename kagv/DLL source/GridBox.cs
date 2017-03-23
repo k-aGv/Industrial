@@ -112,7 +112,11 @@ namespace kagv {
                 case BoxType.Load:
                     if (this.brush != null)
                         this.brush.Dispose();
+#if emissionsSymbol
                     this.brush = new SolidBrush(Color.WhiteSmoke);
+#else
+                    this.brush = new SolidBrush(Color.Transparent);
+#endif
                     this.boxType = BoxType.Normal;
                     break;
 
