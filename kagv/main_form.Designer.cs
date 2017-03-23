@@ -248,10 +248,10 @@
             this.rb_wall.AutoSize = true;
             this.rb_wall.Location = new System.Drawing.Point(9, 19);
             this.rb_wall.Name = "rb_wall";
-            this.rb_wall.Size = new System.Drawing.Size(76, 17);
+            this.rb_wall.Size = new System.Drawing.Size(46, 17);
             this.rb_wall.TabIndex = 4;
             this.rb_wall.TabStop = true;
-            this.rb_wall.Text = "Draw walls";
+            this.rb_wall.Text = "Wall";
             this.rb_wall.UseVisualStyleBackColor = true;
             // 
             // rb_start
