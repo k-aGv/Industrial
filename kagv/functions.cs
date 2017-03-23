@@ -1089,7 +1089,7 @@ namespace kagv {
             ofd_importmap.FileName = "";
 
             if (ofd_importmap.ShowDialog() == DialogResult.OK) {
-
+                FullyRestore();
                 StreamReader reader = new StreamReader(ofd_importmap.FileName);
                 if (reader.ReadLine().Count() == 9) {
                     imported = true;

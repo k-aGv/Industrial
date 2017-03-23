@@ -591,7 +591,7 @@ namespace kagv {
         }
 
         private void importMapToolStripMenuItem_Click(object sender, EventArgs e) {
-            FullyRestore();
+
             import();
         }
 
