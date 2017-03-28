@@ -62,7 +62,7 @@ namespace kagv {
                         paper.DrawString("AGV:" + AGVs[i].ID,
                                          new Font("Tahoma", 8, FontStyle.Bold),
                                          new SolidBrush(Color.Red),
-                                         new Point((StartPos[i].x * 20) - 10, ((StartPos[i].y * 20) + Constants.__TopBarOffset) - 20));
+                                         new Point((StartPos[i].x * Constants.__BlockSide) - 10, ((StartPos[i].y * Constants.__BlockSide) + Constants.__TopBarOffset) - Constants.__BlockSide));
                     }
                 }
 
@@ -457,7 +457,7 @@ namespace kagv {
                         if (m_rectangles[widthTrav][heightTrav].boxRec.Contains(click_coords)
                             &&
                             m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal) {
-                            m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + Constants.__TopBarOffset, BoxType.Start);
+                                m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * Constants.__BlockSide, heightTrav * Constants.__BlockSide + Constants.__TopBarOffset, BoxType.Start);
 
                            
                         }
@@ -477,7 +477,7 @@ namespace kagv {
                         if (m_rectangles[widthTrav][heightTrav].boxRec.Contains(click_coords)
                              &&
                             m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal) {
-                            m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + Constants.__TopBarOffset, BoxType.End);
+                                m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * Constants.__BlockSide, heightTrav * Constants.__BlockSide + Constants.__TopBarOffset, BoxType.End);
                         }
             }
 

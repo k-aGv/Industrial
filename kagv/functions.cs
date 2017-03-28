@@ -160,8 +160,8 @@ namespace kagv {
             }
 
 
-            if (AGVs[agv_index].MarkedLoad.X * 20 == AGVs[agv_index].GetLocation().X &&
-                (AGVs[agv_index].MarkedLoad.Y * 20) + Constants.__TopBarOffset == AGVs[agv_index].GetLocation().Y &&
+            if (AGVs[agv_index].MarkedLoad.X * Constants.__BlockSide == AGVs[agv_index].GetLocation().X &&
+                (AGVs[agv_index].MarkedLoad.Y * Constants.__BlockSide) + Constants.__TopBarOffset == AGVs[agv_index].GetLocation().Y &&
                 !AGVs[agv_index].Status.Busy) {
 
                 m_rectangles[AGVs[agv_index].MarkedLoad.X][AGVs[agv_index].MarkedLoad.Y].SwitchLoad();
@@ -176,8 +176,8 @@ namespace kagv {
             }
 
             if (!fromstart[agv_index]) {
-                if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - Constants.__TopBarOffset) / 20].x &&
-                    AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - Constants.__TopBarOffset) / 20].y) {
+                if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].x &&
+                    AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].y) {
 
 
                     AGVs[agv_index].Status.Busy = false;
@@ -235,8 +235,8 @@ namespace kagv {
                 }
             } else {
                 if (isLoad[AGVs[agv_index].MarkedLoad.X, AGVs[agv_index].MarkedLoad.Y] == 2)
-                    if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - Constants.__TopBarOffset) / 20].x &&
-                        AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / 20][(endPointCoords.Y - Constants.__TopBarOffset) / 20].y)
+                    if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].x &&
+                        AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].y)
                         switch (agv_index) {
                             case 0:
                                 timer0.Stop();
@@ -396,7 +396,7 @@ namespace kagv {
             //jagged array has to be resetted like this
             for (int i = 0; i < Constants.__WidthBlocks; i++) {
                 for (int j = 0; j < Constants.__HeightBlocks; j++) {
-                    m_rectangles[i][j] = new GridBox(i * 20, j * 20 + Constants.__TopBarOffset, BoxType.Normal);
+                    m_rectangles[i][j] = new GridBox(i * Constants.__BlockSide, j * Constants.__BlockSide + Constants.__TopBarOffset, BoxType.Normal);
                 }
             }
             for (int i = 0; i < AGVs.GetLength(0); i++)
@@ -565,7 +565,7 @@ namespace kagv {
                         end_found = true;
                         endPos.x = i;
                         endPos.y = j;
-                        endPointCoords = new Point(i * 20, j * 20 + Constants.__TopBarOffset);
+                        endPointCoords = new Point(i * Constants.__BlockSide, j * Constants.__BlockSide + Constants.__TopBarOffset);
                     }
 
                     if (mapHasLoads) {
@@ -745,8 +745,8 @@ namespace kagv {
         }
 
         private int getStepsToLoad(int whichAGV) {
-            int ix = AGVs[whichAGV].MarkedLoad.X * 20;
-            int iy = (AGVs[whichAGV].MarkedLoad.Y * 20) + Constants.__TopBarOffset;
+            int ix = AGVs[whichAGV].MarkedLoad.X * Constants.__BlockSide;
+            int iy = (AGVs[whichAGV].MarkedLoad.Y * Constants.__BlockSide) + Constants.__TopBarOffset;
 
             int step = -1;
 
@@ -1017,8 +1017,8 @@ namespace kagv {
             }
 
             this.DoubleBuffered = true;
-            this.Width = ((Constants.__WidthBlocks + 1) * 20) - 3; //3 because 2=boarder and the 1 comes from "width+1"
-            this.Height = (Constants.__HeightBlocks + 1) * 20 + Constants.__BottomBarOffset;
+            this.Width = ((Constants.__WidthBlocks + 1) * Constants.__BlockSide) - 3; //3 because 2=boarder and the 1 comes from "width+1"
+            this.Height = (Constants.__HeightBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
             this.Size = new Size(this.Width, this.Height + Constants.__BottomBarOffset);
             this.MaximizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -1037,13 +1037,13 @@ namespace kagv {
                     //the gridbox values) until 
                     //size=height or size = width.
                     if (imported) {
-                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + Constants.__TopBarOffset, importmap[widthTrav, heightTrav]);
+                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * Constants.__BlockSide, heightTrav * Constants.__BlockSide + Constants.__TopBarOffset, importmap[widthTrav, heightTrav]);
                         if (importmap[widthTrav, heightTrav] == BoxType.Load) {
                             isLoad[widthTrav, heightTrav] = 1;
                             loads++;
                         }
                     } else {
-                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + Constants.__TopBarOffset, BoxType.Normal);
+                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * Constants.__BlockSide, heightTrav * Constants.__BlockSide + Constants.__TopBarOffset, BoxType.Normal);
                         isLoad[widthTrav, heightTrav] = 2;
                     }
                 }
@@ -1168,7 +1168,7 @@ namespace kagv {
             || _temp.Y > m_rectangles[Constants.__WidthBlocks - 1][Constants.__HeightBlocks - 1].boxRec.Y + 19) // 18 because its 20-boarder size
                 return false;
 
-            if (!m_rectangles[(_temp.X) / 20][(_temp.Y - Constants.__TopBarOffset) / 20].boxRec.Contains(_temp))
+            if (!m_rectangles[(_temp.X) / Constants.__BlockSide][(_temp.Y - Constants.__TopBarOffset) / Constants.__BlockSide].boxRec.Contains(_temp))
                 return false;
 
             return true;
