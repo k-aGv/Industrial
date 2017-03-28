@@ -1164,8 +1164,8 @@ namespace kagv {
         }
         private bool isvalid(Point _temp) {
 
-            if (_temp.X > m_rectangles[Constants.__WidthBlocks - 1][Constants.__HeightBlocks - 1].boxRec.X + 19
-            || _temp.Y > m_rectangles[Constants.__WidthBlocks - 1][Constants.__HeightBlocks - 1].boxRec.Y + 19) // 18 because its 20-boarder size
+            if (_temp.X > m_rectangles[Constants.__WidthBlocks - 1][Constants.__HeightBlocks - 1].boxRec.X + (Constants.__BlockSide - 1)
+            || _temp.Y > m_rectangles[Constants.__WidthBlocks - 1][Constants.__HeightBlocks - 1].boxRec.Y + (Constants.__BlockSide - 1)) // 18 because its 20-boarder size
                 return false;
 
             if (!m_rectangles[(_temp.X) / Constants.__BlockSide][(_temp.Y - Constants.__TopBarOffset) / Constants.__BlockSide].boxRec.Contains(_temp))

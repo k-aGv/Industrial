@@ -38,8 +38,8 @@ namespace kagv {
                     break;
 
             }
-            width = 19;
-            height = 19;
+            width = Constants.__BlockSide - 1;
+            height = Constants.__BlockSide - 1;
             boxRec = new Rectangle(x, y, width, height);
         }
 

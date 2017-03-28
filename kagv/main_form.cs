@@ -639,8 +639,8 @@ namespace kagv {
             for (int i = 0; i < StartPos.Count; i++) {
                 AGVs[i].StartX = m_rectangles[StartPos[i].x][StartPos[i].y].boxRec.X;
                 AGVs[i].StartY = m_rectangles[StartPos[i].x][StartPos[i].y].boxRec.Y;
-                AGVs[i].SizeX = 19;
-                AGVs[i].SizeY = 19;
+                AGVs[i].SizeX = Constants.__BlockSide - 1;
+                AGVs[i].SizeY = Constants.__BlockSide - 1;
                 AGVs[i].Init();
             }
 
