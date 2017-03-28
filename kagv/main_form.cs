@@ -74,6 +74,9 @@ namespace kagv {
 
 #if !emissionsSymbol
             gb_type.Visible=false;
+
+            Point point = new Point(gb_settings.Location.X+gb_settings.Size.Width+ 5,gb_settings.Location.Y);
+            gb_monitor.Location = point;
 #endif
 
             var _proc = System.Diagnostics.Process.GetCurrentProcess();
