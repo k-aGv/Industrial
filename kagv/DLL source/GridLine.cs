@@ -14,10 +14,10 @@ namespace kagv {
         public Pen pen;
 
         public GridLine(GridBox iFrom, GridBox iTo) {
-            this.fromX = iFrom.boxRec.X + 9;
-            this.fromY = iFrom.boxRec.Y + 9;
-            this.toX = iTo.boxRec.X + 9;
-            this.toY = iTo.boxRec.Y + 9;
+            this.fromX = iFrom.boxRec.X + ((Constants.__BlockSide / 2) - 1);
+            this.fromY = iFrom.boxRec.Y + ((Constants.__BlockSide / 2) - 1);
+            this.toX = iTo.boxRec.X + ((Constants.__BlockSide / 2) - 1);
+            this.toY = iTo.boxRec.Y + ((Constants.__BlockSide / 2) - 1);
             pen = new Pen(Color.BlueViolet);
             pen.Width = 1;
 

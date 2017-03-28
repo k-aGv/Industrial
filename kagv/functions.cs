@@ -154,7 +154,7 @@ namespace kagv {
                     halted = true;
                 } else {
                     if (!halted)
-                        AGVs[agv_index].SetLocation(stepx - 9, stepy - 9);
+                        AGVs[agv_index].SetLocation(stepx - ((Constants.__BlockSide / 2) - 1), stepy - ((Constants.__BlockSide / 2) - 1));
                 }
 
             }
@@ -339,8 +339,8 @@ namespace kagv {
 
                         if (m_rectangles[k][l].boxRec.Contains(_p)) {
                             //+9 is the width/2 - handling boxes from their centre
-                            int sideX = m_rectangles[k][l].boxRec.X + 9;
-                            int sideY = m_rectangles[k][l].boxRec.Y + 9;
+                            int sideX = m_rectangles[k][l].boxRec.X + ((Constants.__BlockSide / 2) - 1);
+                            int sideY = m_rectangles[k][l].boxRec.Y + ((Constants.__BlockSide / 2) - 1);
                             currentLinePoints[i].X = sideX;
                             currentLinePoints[i].Y = sideY;
 
@@ -752,8 +752,8 @@ namespace kagv {
 
             for (int i = 0; i < AGVs[whichAGV].Steps.GetLength(0); i++) {
                 if (
-                    AGVs[whichAGV].Steps[i].X - 9 == ix &&
-                    AGVs[whichAGV].Steps[i].Y - 9 == iy
+                    AGVs[whichAGV].Steps[i].X - ((Constants.__BlockSide / 2) - 1) == ix &&
+                    AGVs[whichAGV].Steps[i].Y - ((Constants.__BlockSide / 2) - 1) == iy
                     ) {
                     step = i;
                     i = AGVs[whichAGV].Steps.GetLength(0);
@@ -827,7 +827,7 @@ namespace kagv {
             {                  //this means that trying to get to the "_c -1" step, will have the index decreased to -1 causing the "index out of bound" crash
                 int stepx = Convert.ToInt32(AGVs[index].Steps[_c - 1].X);
                 int stepy = Convert.ToInt32(AGVs[index].Steps[_c - 1].Y);
-                AGVs[index].SetLocation(stepx - 9, stepy - 9);
+                AGVs[index].SetLocation(stepx - ((Constants.__BlockSide / 2) - 1), stepy - ((Constants.__BlockSide / 2) - 1));
             }
         }
 
@@ -1091,7 +1091,7 @@ namespace kagv {
             if (ofd_importmap.ShowDialog() == DialogResult.OK) {
                 FullyRestore();
                 StreamReader reader = new StreamReader(ofd_importmap.FileName);
-                if (reader.ReadLine().Count() == 9) {
+                if (reader.ReadLine().Count() == ((Constants.__BlockSide / 2) - 1)) {
                     imported = true;
 
                     string map_details = reader.ReadLine();
