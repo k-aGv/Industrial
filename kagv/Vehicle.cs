@@ -102,7 +102,7 @@ namespace kagv {
 
             AgvPortrait.Controls.Add(AgvIcon);
 
-            Size _size = new Size(18, 18);
+            Size _size = new Size(Constants.__BlockSide - 2, Constants.__BlockSide - 2);
             Point _location = new Point(StartX, StartY);
             AgvPortrait.Size = _size;
             AgvPortrait.Location = _location;
@@ -115,7 +115,7 @@ namespace kagv {
             AgvIcon.BackColor = mirroredForm.BackColor;
             AgvIcon.BorderStyle = BorderStyle.None;
             AgvIcon.SizeMode = PictureBoxSizeMode.StretchImage;
-            AgvIcon.Size = new Size(18, 18);
+            AgvIcon.Size = _size;
             AgvIcon.Visible = true;
 
             AgvIcon.Image = _getEmbedResource("empty.png");
