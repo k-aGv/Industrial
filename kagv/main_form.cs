@@ -90,7 +90,7 @@ namespace kagv {
             refresh_label.Text = "Delay :" + timer0.Interval + " ms";
 
             nUD_AGVs.Value = 0;
-            stepsToolStripMenuItem.Checked =
+            stepsToolStripMenuItem.Checked = false;
             linesToolStripMenuItem.Checked =
             dotsToolStripMenuItem.Checked =
             bordersToolStripMenuItem.Checked =
