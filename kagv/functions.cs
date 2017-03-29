@@ -1164,6 +1164,9 @@ namespace kagv {
         }
         private bool isvalid(Point _temp) {
 
+            if (_temp.Y < menuPanel.Location.Y)
+                return false;
+
             if (_temp.X > m_rectangles[Constants.__WidthBlocks - 1][Constants.__HeightBlocks - 1].boxRec.X + (Constants.__BlockSide - 1)
             || _temp.Y > m_rectangles[Constants.__WidthBlocks - 1][Constants.__HeightBlocks - 1].boxRec.Y + (Constants.__BlockSide - 1)) // 18 because its 20-boarder size
                 return false;
