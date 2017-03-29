@@ -59,7 +59,9 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+#if !emissionsSymbol
             this.importPictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+#endif
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.increaseSpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -330,7 +332,9 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportMapToolStripMenuItem,
             this.importMapToolStripMenuItem,
+#if !emissionsSymbol
             this.importPictureToolStripMenuItem,
+#endif
             this.toolStripMenuItem1,
             this.startToolStripMenuItem,
             this.increaseSpeedToolStripMenuItem,
@@ -352,13 +356,16 @@
             this.importMapToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.importMapToolStripMenuItem.Text = "Import map";
             this.importMapToolStripMenuItem.Click += new System.EventHandler(this.importMapToolStripMenuItem_Click);
+#if !emissionsSymbol
             // 
             // importPictureToolStripMenuItem
             // 
             this.importPictureToolStripMenuItem.Name = "importPictureToolStripMenuItem";
             this.importPictureToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.importPictureToolStripMenuItem.Text = "Import picture";
+
             this.importPictureToolStripMenuItem.Click += new System.EventHandler(this.importPictureToolStripMenuItem_Click);
+#endif
             // 
             // toolStripMenuItem1
             // 
@@ -669,7 +676,9 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportMapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importMapToolStripMenuItem;
+#if !emissionsSymbol
         private System.Windows.Forms.ToolStripMenuItem importPictureToolStripMenuItem;
+#endif
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;

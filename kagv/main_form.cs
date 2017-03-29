@@ -600,6 +600,7 @@ namespace kagv {
             import();
         }
 
+#if !emissionsSymbol
         private void importPictureToolStripMenuItem_Click(object sender, EventArgs e) {
 
             ofd_importpic.Filter = "png picture (*.png)|*.png";
@@ -618,7 +619,7 @@ namespace kagv {
             } else
                 return;
         }
-
+#endif
 
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e) {
