@@ -72,11 +72,13 @@ namespace kagv {
 
         private void main_form_Load(object sender, EventArgs e) {
 
+            this.Text = "K-aGv2 Simulator (Industrial branch)";
 #if !emissionsSymbol
             gb_type.Visible=false;
 
             Point point = new Point(gb_settings.Location.X+gb_settings.Size.Width+ 5,gb_settings.Location.Y);
             gb_monitor.Location = point;
+            this.Text = "K-aGv2 Simulator (Agriculture branch)";
 #endif
 
             var _proc = System.Diagnostics.Process.GetCurrentProcess();
