@@ -73,7 +73,7 @@ namespace kagv {
         private void main_form_Load(object sender, EventArgs e) {
 
             this.Text = "K-aGv2 Simulator (Industrial branch)";
-#if !emissionsSymbol
+#if !industrial
             gb_type.Visible=false;
 
             Point point = new Point(gb_settings.Location.X+gb_settings.Size.Width+ 5,gb_settings.Location.Y);
@@ -600,7 +600,7 @@ namespace kagv {
             import();
         }
 
-#if !emissionsSymbol
+#if !industrial
         private void importPictureToolStripMenuItem_Click(object sender, EventArgs e) {
 
             ofd_importpic.Filter = "png picture (*.png)|*.png";
@@ -656,7 +656,7 @@ namespace kagv {
             settings_menu.Enabled = false;
             gb_settings.Enabled = false;
 
-#if emissionsSymbol
+#if industrial
             show_emissions();
 #endif
 
@@ -697,7 +697,7 @@ namespace kagv {
             resolution res = new resolution();
             res.ShowDialog();
         }
-#if emissionsSymbol
+#if industrial
         private void main_form_LocationChanged(object sender, EventArgs e) {
 
             emissions.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);

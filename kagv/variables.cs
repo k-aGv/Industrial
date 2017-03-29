@@ -16,7 +16,7 @@ namespace kagv
     
     public partial class main_form
     {
-#if emissionsSymbol
+#if industrial
         emissions emissions = new emissions();
         double CO2 = 0, CO = 0, NOx = 0, THC = 0, GlobalWarming = 0;
 #endif

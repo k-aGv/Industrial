@@ -59,7 +59,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-#if !emissionsSymbol
+#if !industrial
             this.importPictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 #endif
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
@@ -332,7 +332,7 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportMapToolStripMenuItem,
             this.importMapToolStripMenuItem,
-#if !emissionsSymbol
+#if !industrial
             this.importPictureToolStripMenuItem,
 #endif
             this.toolStripMenuItem1,
@@ -356,7 +356,7 @@
             this.importMapToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.importMapToolStripMenuItem.Text = "Import map";
             this.importMapToolStripMenuItem.Click += new System.EventHandler(this.importMapToolStripMenuItem_Click);
-#if !emissionsSymbol
+#if !industrial
             // 
             // importPictureToolStripMenuItem
             // 
@@ -676,7 +676,7 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportMapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importMapToolStripMenuItem;
-#if !emissionsSymbol
+#if !industrial
         private System.Windows.Forms.ToolStripMenuItem importPictureToolStripMenuItem;
 #endif
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;

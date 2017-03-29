@@ -37,7 +37,7 @@ namespace kagv {
             }
 
         }
-#if emissionsSymbol
+#if industrial
         private void show_emissions() {
             Point emissions_loc = new Point(this.Location.X + this.Size.Width - emissions.Size.Width, this.Location.Y);
             emissions.Show();
@@ -138,7 +138,7 @@ namespace kagv {
             bool isfreeload = false;
             bool halted = false;
             displayStepsToLoad(steps_counter, agv_index);
-#if emissionsSymbol
+#if industrial
             update_emissions(agv_index);
 #endif
             //RULES OF WHICH AGV WILL STOP WILL BE ADDED
@@ -442,7 +442,7 @@ namespace kagv {
             = new int();
 
             AGVs = new Vehicle[Constants.__MaximumAGVs];
-#if emissionsSymbol
+#if industrial
             if (emissions != null) {
                 emissions.Dispose();
                 CO2 = CO = NOx = THC = GlobalWarming = 0;
