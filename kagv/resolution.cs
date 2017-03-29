@@ -18,8 +18,7 @@ namespace kagv {
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e) {
-            double z = -1;
+        private void tb_res_Scroll(object sender, EventArgs e) {
             string s = "";
             if (tb_res.Value == 1) s = "0.5";
             else if (tb_res.Value == 2) s = "1 (Default)";

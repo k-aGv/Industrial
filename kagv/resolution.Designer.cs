@@ -43,7 +43,7 @@
             this.tb_res.Size = new System.Drawing.Size(273, 45);
             this.tb_res.TabIndex = 0;
             this.tb_res.Value = 2;
-            this.tb_res.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            this.tb_res.Scroll += new System.EventHandler(this.tb_res_Scroll);
             // 
             // gb_res
             // 
