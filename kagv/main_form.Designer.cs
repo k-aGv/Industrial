@@ -1,7 +1,6 @@
 ﻿namespace kagv
 {
-    partial class main_form
-    {
+    partial class main_form {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -11,10 +10,8 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,8 +23,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.timer0 = new System.Windows.Forms.Timer(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
@@ -90,7 +86,9 @@
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.borderColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+#if !industrial
             this.implementGoogleMapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+#endif
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
             this.menuPanel.SuspendLayout();
@@ -363,7 +361,6 @@
             this.importPictureToolStripMenuItem.Name = "importPictureToolStripMenuItem";
             this.importPictureToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.importPictureToolStripMenuItem.Text = "Import picture";
-
             this.importPictureToolStripMenuItem.Click += new System.EventHandler(this.importPictureToolStripMenuItem_Click);
 #endif
             // 
@@ -476,9 +473,11 @@
             this.showToolStripMenuItem,
             this.borderColorToolStripMenuItem,
             this.resolutionToolStripMenuItem,
-            this.clearToolStripMenuItem,
+            #if !industrial
+            this.implementGoogleMapsToolStripMenuItem,
+#endif
             this.toolStripMenuItem2,
-            this.implementGoogleMapsToolStripMenuItem});
+            this.clearToolStripMenuItem});
             this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
             this.gridToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.gridToolStripMenuItem.Text = "Grid";
@@ -565,7 +564,7 @@
             // wallsToolStripMenuItem
             // 
             this.wallsToolStripMenuItem.Name = "wallsToolStripMenuItem";
-            this.wallsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.wallsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.wallsToolStripMenuItem.Text = "Walls";
             this.wallsToolStripMenuItem.Click += new System.EventHandler(this.wallsToolStripMenuItem_Click);
             // 
@@ -573,14 +572,14 @@
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
             this.allToolStripMenuItem.ShortcutKeyDisplayString = "(F5)";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.allToolStripMenuItem.Text = "All";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.allToolStripMenuItem_Click);
             // 
             // borderColorToolStripMenuItem1
             // 
             this.borderColorToolStripMenuItem1.Name = "borderColorToolStripMenuItem1";
-            this.borderColorToolStripMenuItem1.Size = new System.Drawing.Size(141, 22);
+            this.borderColorToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.borderColorToolStripMenuItem1.Text = "Border Color";
             this.borderColorToolStripMenuItem1.Click += new System.EventHandler(this.borderColorToolStripMenuItem1_Click);
             // 
@@ -588,6 +587,7 @@
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(202, 6);
+#if !industrial
             // 
             // implementGoogleMapsToolStripMenuItem
             // 
@@ -595,6 +595,7 @@
             this.implementGoogleMapsToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.implementGoogleMapsToolStripMenuItem.Text = "Implement Google Maps";
             this.implementGoogleMapsToolStripMenuItem.Click += new System.EventHandler(this.implementGoogleMapsToolStripMenuItem_Click);
+#endif
             // 
             // aboutToolStripMenuItem
             // 
@@ -686,7 +687,9 @@
         private System.Windows.Forms.ToolStripMenuItem increaseSpeedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decreaseSpeedToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+#if !industrial
         private System.Windows.Forms.ToolStripMenuItem implementGoogleMapsToolStripMenuItem;
+#endif
         private System.Windows.Forms.Label agv5steps_LB;
         private System.Windows.Forms.Label agv4steps_LB;
         private System.Windows.Forms.Label agv3steps_LB;
