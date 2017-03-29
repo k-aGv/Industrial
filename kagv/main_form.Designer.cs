@@ -90,6 +90,7 @@
             this.implementGoogleMapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
+            this.resolutionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuPanel.SuspendLayout();
             this.gb_type.SuspendLayout();
             this.gb_monitor.SuspendLayout();
@@ -467,6 +468,7 @@
             this.gridToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showToolStripMenuItem,
             this.borderColorToolStripMenuItem,
+            this.resolutionToolStripMenuItem,
             this.clearToolStripMenuItem,
             this.toolStripMenuItem2,
             this.implementGoogleMapsToolStripMenuItem});
@@ -587,6 +589,13 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
+            // resolutionToolStripMenuItem
+            // 
+            this.resolutionToolStripMenuItem.Name = "resolutionToolStripMenuItem";
+            this.resolutionToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.resolutionToolStripMenuItem.Text = "Resolution";
+            this.resolutionToolStripMenuItem.Click += new System.EventHandler(this.resolutionToolStripMenuItem_Click);
+            // 
             // main_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -600,9 +609,6 @@
             this.Name = "main_form";
             this.Text = "kagv Simulation-Agro";
             this.Load += new System.EventHandler(this.main_form_Load);
-#if emissionsSymbol
-            this.LocationChanged += new System.EventHandler(this.main_form_LocationChanged);
-#endif
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.main_form_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseClick);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseDown);
@@ -686,6 +692,7 @@
         private System.Windows.Forms.GroupBox gb_type;
         private System.Windows.Forms.ComboBox cb_type;
         private System.Windows.Forms.ToolStripMenuItem aGVIndexToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resolutionToolStripMenuItem;
 
     }
 }

@@ -689,6 +689,11 @@ namespace kagv {
             this.BackColor = Color.DarkGray;
             borderColorToolStripMenuItem.Checked = false;
         }
+
+        private void resolutionToolStripMenuItem_Click(object sender, EventArgs e) {
+            resolution res = new resolution();
+            res.ShowDialog();
+        }
 #if emissionsSymbol
         private void main_form_LocationChanged(object sender, EventArgs e) {
 
