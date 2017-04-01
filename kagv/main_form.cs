@@ -95,6 +95,12 @@ namespace kagv {
 
         private void main_form_Load(object sender, EventArgs e) {
 
+            if (!reflected) {
+                reflectedWidth = Constants.__WidthBlocks;
+                reflectedHeight = Constants.__HeightBlocks;
+                reflectedBlock = Constants.__BlockSide;
+                reflected = true;
+            }
             this.Text = "K-aGv2 Simulator (Industrial branch)";
 #if !industrial
             gb_type.Visible=false;

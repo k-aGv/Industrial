@@ -469,13 +469,13 @@ namespace kagv {
 #endif
 
             if (Constants.__ResolutionMultiplier == 2) {
-                Constants.__BlockSide = 20 / Convert.ToInt32(Constants.__ResolutionMultiplier);
-                Constants.__HeightBlocks = 32 * Convert.ToInt32(Constants.__ResolutionMultiplier);
-                Constants.__WidthBlocks = 64 * Convert.ToInt32(Constants.__ResolutionMultiplier);
+                Constants.__BlockSide = reflectedBlock / Convert.ToInt32(Constants.__ResolutionMultiplier);
+                Constants.__HeightBlocks = reflectedHeight * Convert.ToInt32(Constants.__ResolutionMultiplier);
+                Constants.__WidthBlocks = reflectedWidth * Convert.ToInt32(Constants.__ResolutionMultiplier);
             } else {
-                Constants.__BlockSide = 20 ;
-                Constants.__HeightBlocks = 32;
-                Constants.__WidthBlocks = 64;
+                Constants.__BlockSide = reflectedBlock;
+                Constants.__HeightBlocks = reflectedHeight;
+                Constants.__WidthBlocks = reflectedWidth;
             }
             
 

@@ -34,7 +34,6 @@ namespace kagv {
         public const int __BottomBarOffset = 50 + 10;//distance between grid and the bottom of the form
         public static int __MaximumAGVs = 5;
 
-
         //Grid's stats
         public static int __WidthBlocks = 64; //grid blocks
         public static int __HeightBlocks = 32; //grid blocks
@@ -42,12 +41,5 @@ namespace kagv {
 
         public static int __ResolutionMultiplier = 1;
 
-        /* Can also support double resolution of Grid (Blocks)
-         * 
-         * public static int __WidthBlocks = 64 * 2 ; //grid blocks
-         * public static int __HeightBlocks = 32 * 2; //grid blocks
-         * public static int __BlockSide = 20 / 2;
-         * 
-         */
     }
 }

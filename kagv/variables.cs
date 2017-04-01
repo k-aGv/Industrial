@@ -84,5 +84,10 @@ namespace kagv
 
         Color selectedColor=Color.DarkGray;
         Color boxDefaultColor = Color.WhiteSmoke;
+
+        int reflectedBlock;
+        int reflectedWidth;
+        int reflectedHeight;
+        bool reflected = false;
     }
 }

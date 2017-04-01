@@ -46,7 +46,6 @@ namespace kagv {
         }
 
         private void tb_res_Scroll(object sender, EventArgs e) {
-
             if (tb_res.Value == 1) lb_multiplier.Text = "Multiplier: " + tb_res.Value +" (Default)";
             else lb_multiplier.Text = "Multiplier: " + tb_res.Value;
         }
