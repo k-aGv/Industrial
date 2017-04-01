@@ -1,14 +1,11 @@
 
 NOTE! This copyright does *not* cover user programs that use GMaps
-services by normal system calls - this is merely considered normal use
+services by normal calls - this is merely considered normal use
 of the k-aGv2, and does *not* fall under the heading of "derived work".
-Also note that the GPL below is copyrighted by the Free Software
-Foundation, but the instance of code that it refers to (the k-aGv2
-Project) is copyrighted by Dimitris Katikaridis and Giannis Menekses
-
-Also note that the only valid version of the GPL as far as the project
-is concerned is _this_ particular version of the license (ie v2, not
-v2.2 or v3.x or whatever), unless explicitly otherwise stated.
+The current project is copyrighted by Dimitris Katikaridis and Giannis Menekses
+and it is legal to use parts of it giving the proper credits.
+Trademarking descripted below.Class files are registered at MIT license
+due to original developer.The whole project is licensed under Apache License v2
 
 Dimitris Katikaridis <dkatikaridis@gmail.com>
 Giannis Menekses <johnmenex@hotmail.com>
