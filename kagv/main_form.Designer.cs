@@ -1,5 +1,4 @@
-﻿namespace kagv
-{
+﻿namespace kagv {
     partial class main_form {
         /// <summary>
         /// Required designer variable.
@@ -56,7 +55,9 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+#if !industrial
             this.importPictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+#endif
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.increaseSpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,7 +81,9 @@
             this.aGVIndexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.borderColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resolutionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+#if !industrial
             this.implementGoogleMapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+#endif
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wallsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -327,7 +330,9 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportMapToolStripMenuItem,
             this.importMapToolStripMenuItem,
+#if !industrial
             this.importPictureToolStripMenuItem,
+#endif
             this.toolStripMenuItem1,
             this.startToolStripMenuItem,
             this.increaseSpeedToolStripMenuItem,
@@ -349,6 +354,7 @@
             this.importMapToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.importMapToolStripMenuItem.Text = "Import map";
             this.importMapToolStripMenuItem.Click += new System.EventHandler(this.importMapToolStripMenuItem_Click);
+#if !industrial
             // 
             // importPictureToolStripMenuItem
             // 
@@ -356,6 +362,7 @@
             this.importPictureToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.importPictureToolStripMenuItem.Text = "Import picture";
             this.importPictureToolStripMenuItem.Click += new System.EventHandler(this.importPictureToolStripMenuItem_Click);
+#endif
             // 
             // toolStripMenuItem1
             // 
@@ -466,7 +473,9 @@
             this.showToolStripMenuItem,
             this.borderColorToolStripMenuItem,
             this.resolutionToolStripMenuItem,
+            #if !industrial
             this.implementGoogleMapsToolStripMenuItem,
+#endif
             this.toolStripMenuItem2,
             this.clearToolStripMenuItem});
             this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
@@ -541,6 +550,7 @@
             this.resolutionToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.resolutionToolStripMenuItem.Text = "Resolution";
             this.resolutionToolStripMenuItem.Click += new System.EventHandler(this.resolutionToolStripMenuItem_Click);
+#if !industrial
             // 
             // implementGoogleMapsToolStripMenuItem
             // 
@@ -548,6 +558,7 @@
             this.implementGoogleMapsToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.implementGoogleMapsToolStripMenuItem.Text = "Implement Google Maps";
             this.implementGoogleMapsToolStripMenuItem.Click += new System.EventHandler(this.implementGoogleMapsToolStripMenuItem_Click);
+#endif
             // 
             // toolStripMenuItem2
             // 

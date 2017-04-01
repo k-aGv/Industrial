@@ -95,6 +95,7 @@ namespace kagv {
 
         private void main_form_Load(object sender, EventArgs e) {
 
+
             if (!reflected) {
                 reflectedWidth = Constants.__WidthBlocks;
                 reflectedHeight = Constants.__HeightBlocks;
@@ -105,34 +106,33 @@ namespace kagv {
                 linesToolStripMenuItem.Checked =
                 dotsToolStripMenuItem.Checked =
                 bordersToolStripMenuItem.Checked =
-                aGVIndexToolStripMenuItem.Checked = 
+                aGVIndexToolStripMenuItem.Checked =
                 highlightOverCurrentBoxToolStripMenuItem.Checked = true;
             }
+
             this.Text = "K-aGv2 Simulator (Industrial branch)";
 #if !industrial
-            gb_type.Visible=false;
+            gb_type.Visible = false;
 
-            Point point = new Point(gb_settings.Location.X+gb_settings.Size.Width+ 5,gb_settings.Location.Y);
+            Point point = new Point(gb_settings.Location.X + gb_settings.Size.Width + 5, gb_settings.Location.Y);
             gb_monitor.Location = point;
             this.Text = "K-aGv2 Simulator (Agriculture branch)";
+
 #endif
 
             var _proc = System.Diagnostics.Process.GetCurrentProcess();
             _proc.ProcessorAffinity = new IntPtr(0x0003);//use cores 1,2 
             //ptr flag has to be (bin) 0011 so its IntPtr 0x0003
 
+            refresh_label.Text = "Delay :" + timer0.Interval + " ms";
+
+            nUD_AGVs.Value = 0;
+
             agv1steps_LB.Text =
             agv2steps_LB.Text =
             agv3steps_LB.Text =
             agv4steps_LB.Text =
             agv5steps_LB.Text = "";
-
-
-            refresh_label.Text = "Delay :" + timer0.Interval + " ms";
-
-            nUD_AGVs.Value = 0;
-            
-            
 
             triggerStartMenu(false);
 
@@ -398,6 +398,7 @@ namespace kagv {
 
 
         private void nUD_AGVs_ValueChanged(object sender, EventArgs e) {
+
             int starts_counter = 0;
             bool removed = false;
             int[,] starts_position = new int[2, Convert.ToInt32(nUD_AGVs.Value) + 1]; //keeps the size of the array +1 in relation with the nUD
@@ -423,7 +424,15 @@ namespace kagv {
 
         private void main_form_MouseClick(object sender, MouseEventArgs e) {
 
+#if !industrial
+            if (!importedImage){
+               DialogResult d = MessageBox.Show(this,"An image of a map is missing.\r\nAdd it now?","Agriculture Branch",MessageBoxButtons.YesNo);
+               if (d == DialogResult.Yes) importPictureToolStripMenuItem_Click(new object(), new EventArgs());
+               else return;
+            }
+#endif
             if (timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled) return;
+
 
             Point click_coords = new Point(e.X, e.Y);
             if (!isvalid(click_coords) || e.Button != MouseButtons.Left || nUD_AGVs.Value == 0)
@@ -648,6 +657,7 @@ namespace kagv {
                     }
                 this.Invalidate();
                 bordersToolStripMenuItem.Checked = false;
+                importedImage = true;
             } else
                 return;
         }
@@ -730,6 +740,10 @@ namespace kagv {
             if (res.ShowDialog() == DialogResult.OK) {
                 FullyRestore();
             }
+        }
+
+        private void nUD_AGVs_MouseClick(object sender, MouseEventArgs e) {
+
         }
 #if industrial
         private void main_form_LocationChanged(object sender, EventArgs e) {

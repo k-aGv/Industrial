@@ -71,6 +71,7 @@ namespace kagv
         Point endPointCoords = new Point(-1,-1);
 
         bool imported;
+        bool importedImage = false;
         bool beforeStart = true;
         bool calibrated = false;//flag checking if current point is correctly callibrated in the middle of the rectangle
         bool isMouseDown = false;
@@ -83,7 +84,12 @@ namespace kagv
         int loads = 0;
 
         Color selectedColor=Color.DarkGray;
+#if industrial
         Color boxDefaultColor = Color.WhiteSmoke;
+#else
+        Color boxDefaultColor = Color.Transparent;
+#endif
+
 
         int reflectedBlock;
         int reflectedWidth;

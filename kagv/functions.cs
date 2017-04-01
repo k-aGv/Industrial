@@ -448,6 +448,7 @@ namespace kagv {
             NoJumpPointsFound = true;
 
             imported =
+            importedImage =
             calibrated =
             isMouseDown =
             mapHasLoads = false;
@@ -533,7 +534,11 @@ namespace kagv {
                     for (int j = 0; j < Constants.__HeightBlocks; j++) {
                         if (m_rectangles[i][j].boxType == BoxType.Normal) {
                             m_rectangles[i][j].BeVisible();
-                            boxDefaultColor = Color.WhiteSmoke;
+#if industrial
+                        boxDefaultColor = Color.WhiteSmoke;
+#else
+                        boxDefaultColor = Color.Transparent;
+#endif
                         }
                     }
 
