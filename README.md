@@ -18,3 +18,7 @@ Adding GMapControl tool to your Toolbox:
 2-Right click on the space and select 'Choose items'
 3-On the '.NET Framework Components' find 'GMapControl' and press 'OK'
 4-Done
+
+
+PathFinding Original code:
+<http://github.com/juhgiyo/eppathfinding.cs>
