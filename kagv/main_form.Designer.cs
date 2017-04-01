@@ -25,6 +25,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main_form));
             this.timer0 = new System.Windows.Forms.Timer(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
             this.gb_type = new System.Windows.Forms.GroupBox();
@@ -601,6 +602,7 @@
             this.ClientSize = new System.Drawing.Size(650, 335);
             this.Controls.Add(this.menuPanel);
             this.Controls.Add(this.settings_menu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.settings_menu;
             this.MaximizeBox = false;
             this.Name = "main_form";

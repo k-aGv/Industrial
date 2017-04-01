@@ -150,6 +150,7 @@ namespace kagv {
 
         }
 #endif
+      
         private void animator(int steps_counter, int agv_index) {
 
             int stepx = Convert.ToInt32(AGVs[agv_index].Steps[steps_counter].X);

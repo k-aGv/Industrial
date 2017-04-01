@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(resolution));
             this.tb_res = new System.Windows.Forms.TrackBar();
             this.gb_res = new System.Windows.Forms.GroupBox();
             this.lb_multiplier = new System.Windows.Forms.Label();
@@ -94,6 +95,7 @@
             this.Controls.Add(this.btn_ok);
             this.Controls.Add(this.btn_cancel);
             this.Controls.Add(this.gb_res);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "resolution";
             this.Text = "resolution";

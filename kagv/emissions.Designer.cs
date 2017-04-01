@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(emissions));
             this.CO2_label = new System.Windows.Forms.Label();
             this.CO_label = new System.Windows.Forms.Label();
             this.NOx_label = new System.Windows.Forms.Label();
@@ -85,6 +86,7 @@
             this.Controls.Add(this.NOx_label);
             this.Controls.Add(this.CO_label);
             this.Controls.Add(this.CO2_label);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "emissions";
             this.Text = "emissions";
             this.ResumeLayout(false);

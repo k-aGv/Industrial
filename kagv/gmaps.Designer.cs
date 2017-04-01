@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(gmaps));
             this.refreshURL = new System.Windows.Forms.Timer(this.components);
             this.mymap = new GMap.NET.WindowsForms.GMapControl();
             this.gb_settings = new System.Windows.Forms.GroupBox();
@@ -270,6 +271,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.gb_settings);
             this.Controls.Add(this.mymap);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "gmaps";
             this.Text = "gmaps";

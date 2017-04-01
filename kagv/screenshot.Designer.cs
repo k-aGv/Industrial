@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Screenshot));
             this.btn_save = new System.Windows.Forms.Button();
             this.pb_save = new System.Windows.Forms.ProgressBar();
             this.btn_cancel = new System.Windows.Forms.Button();
@@ -135,6 +136,7 @@
             this.Controls.Add(this.pb_save);
             this.Controls.Add(this.btn_save);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(20, 164);
             this.Name = "Screenshot";
