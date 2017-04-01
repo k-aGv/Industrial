@@ -472,10 +472,16 @@ namespace kagv {
                 Constants.__BlockSide = reflectedBlock / Convert.ToInt32(Constants.__ResolutionMultiplier);
                 Constants.__HeightBlocks = reflectedHeight * Convert.ToInt32(Constants.__ResolutionMultiplier);
                 Constants.__WidthBlocks = reflectedWidth * Convert.ToInt32(Constants.__ResolutionMultiplier);
+                allowHighlight = false;
+                highlightOverCurrentBoxToolStripMenuItem.Enabled = false;
+                highlightOverCurrentBoxToolStripMenuItem.Checked = false;
             } else {
                 Constants.__BlockSide = reflectedBlock;
                 Constants.__HeightBlocks = reflectedHeight;
                 Constants.__WidthBlocks = reflectedWidth;
+                allowHighlight = true;
+                highlightOverCurrentBoxToolStripMenuItem.Enabled = true;
+                highlightOverCurrentBoxToolStripMenuItem.Checked = true;
             }
             
 

@@ -100,6 +100,13 @@ namespace kagv {
                 reflectedHeight = Constants.__HeightBlocks;
                 reflectedBlock = Constants.__BlockSide;
                 reflected = true;
+
+                stepsToolStripMenuItem.Checked = false;
+                linesToolStripMenuItem.Checked =
+                dotsToolStripMenuItem.Checked =
+                bordersToolStripMenuItem.Checked =
+                aGVIndexToolStripMenuItem.Checked = 
+                highlightOverCurrentBoxToolStripMenuItem.Checked = true;
             }
             this.Text = "K-aGv2 Simulator (Industrial branch)";
 #if !industrial
@@ -124,12 +131,8 @@ namespace kagv {
             refresh_label.Text = "Delay :" + timer0.Interval + " ms";
 
             nUD_AGVs.Value = 0;
-            stepsToolStripMenuItem.Checked = false;
-            linesToolStripMenuItem.Checked =
-            dotsToolStripMenuItem.Checked =
-            bordersToolStripMenuItem.Checked =
-            aGVIndexToolStripMenuItem.Checked =
-            highlightOverCurrentBoxToolStripMenuItem.Checked = true;
+            
+            
 
             triggerStartMenu(false);
 
