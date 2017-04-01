@@ -602,6 +602,7 @@
             this.Controls.Add(this.menuPanel);
             this.Controls.Add(this.settings_menu);
             this.MainMenuStrip = this.settings_menu;
+            this.MaximizeBox = false;
             this.Name = "main_form";
             this.Text = "kagv Simulation-Agri";
             this.Load += new System.EventHandler(this.main_form_Load);

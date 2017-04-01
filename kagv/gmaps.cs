@@ -49,7 +49,7 @@ namespace kagv {
 
             this.MaximizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.StartPosition = FormStartPosition.CenterScreen;
+            this.CenterToScreen();
 
             nud_opacity.Maximum = 255;
             nud_opacity.Minimum = 0;

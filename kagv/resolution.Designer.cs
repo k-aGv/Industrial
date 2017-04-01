@@ -94,6 +94,7 @@
             this.Controls.Add(this.btn_ok);
             this.Controls.Add(this.btn_cancel);
             this.Controls.Add(this.gb_res);
+            this.MaximizeBox = false;
             this.Name = "resolution";
             this.Text = "resolution";
             this.Load += new System.EventHandler(this.resolution_Load);

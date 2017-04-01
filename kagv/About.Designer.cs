@@ -36,8 +36,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pb = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
             this.SuspendLayout();
             // 
             // label12
@@ -123,14 +123,14 @@
             this.linkLabel1.Text = "Α.Τ.Ε.Ι. Θεσσαλονίκης";
             this.linkLabel1.UseCompatibleTextRendering = true;
             // 
-            // pictureBox1
+            // pb
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(12, 1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(385, 65);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 37;
-            this.pictureBox1.TabStop = false;
+            this.pb.Location = new System.Drawing.Point(12, 1);
+            this.pb.Name = "pb";
+            this.pb.Size = new System.Drawing.Size(385, 65);
+            this.pb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb.TabIndex = 37;
+            this.pb.TabStop = false;
             // 
             // About
             // 
@@ -145,13 +145,13 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.linkLabel3);
             this.Controls.Add(this.linkLabel1);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pb);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "About";
             this.Text = "About";
             this.Load += new System.EventHandler(this.About_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -167,6 +167,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pb;
     }
 }

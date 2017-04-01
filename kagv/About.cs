@@ -28,7 +28,8 @@ namespace kagv {
         }
 
         private void About_Load(object sender, EventArgs e) {
-            pictureBox1.Image = _getEmbedResource("logo.png");
+            this.CenterToScreen();
+            pb.Image = _getEmbedResource("logo.png");
         }
 
         private void linkLabel3_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e) {

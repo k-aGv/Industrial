@@ -136,7 +136,7 @@ namespace kagv {
             rb_start.Checked = true;
             this.BackColor = Color.DarkGray;
 
-            this.StartPosition = FormStartPosition.CenterScreen;
+            this.CenterToScreen();
 
             useRecursiveToolStripMenuItem.Checked = useRecursive;
             crossCornerToolStripMenuItem.Checked = crossCorners;

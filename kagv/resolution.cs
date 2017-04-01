@@ -38,7 +38,9 @@ namespace kagv {
         }
 
         private void resolution_Load(object sender, EventArgs e) {
-            this.StartPosition = FormStartPosition.CenterScreen;
+            this.FormBorderStyle = FormBorderStyle.Fixed3D;
+
+            this.CenterToScreen();
             tb_res.Value = Constants.__ResolutionMultiplier;
 
             if (tb_res.Value == 1) lb_multiplier.Text = "Multiplier: " + tb_res.Value + " (Default)";

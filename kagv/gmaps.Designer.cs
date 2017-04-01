@@ -32,6 +32,12 @@
             this.refreshURL = new System.Windows.Forms.Timer(this.components);
             this.mymap = new GMap.NET.WindowsForms.GMapControl();
             this.gb_settings = new System.Windows.Forms.GroupBox();
+            this.gb_preferences = new System.Windows.Forms.GroupBox();
+            this.nud_opacity = new System.Windows.Forms.NumericUpDown();
+            this.lb_opacity = new System.Windows.Forms.Label();
+            this.btn_color = new System.Windows.Forms.Button();
+            this.cb_wheel = new System.Windows.Forms.CheckBox();
+            this.cb_cross = new System.Windows.Forms.CheckBox();
             this.gb_coords = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -41,20 +47,14 @@
             this.gb_provider = new System.Windows.Forms.GroupBox();
             this.cb_provider = new System.Windows.Forms.ComboBox();
             this.btn_rec = new System.Windows.Forms.Button();
-            this.cb_cross = new System.Windows.Forms.CheckBox();
             this.sfd = new System.Windows.Forms.SaveFileDialog();
             this.label1 = new System.Windows.Forms.Label();
-            this.gb_preferences = new System.Windows.Forms.GroupBox();
-            this.cb_wheel = new System.Windows.Forms.CheckBox();
-            this.btn_color = new System.Windows.Forms.Button();
             this.cd = new System.Windows.Forms.ColorDialog();
-            this.lb_opacity = new System.Windows.Forms.Label();
-            this.nud_opacity = new System.Windows.Forms.NumericUpDown();
             this.gb_settings.SuspendLayout();
-            this.gb_coords.SuspendLayout();
-            this.gb_provider.SuspendLayout();
             this.gb_preferences.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_opacity)).BeginInit();
+            this.gb_coords.SuspendLayout();
+            this.gb_provider.SuspendLayout();
             this.SuspendLayout();
             // 
             // mymap
@@ -97,6 +97,73 @@
             this.gb_settings.TabIndex = 4;
             this.gb_settings.TabStop = false;
             this.gb_settings.Text = "Settings";
+            // 
+            // gb_preferences
+            // 
+            this.gb_preferences.Controls.Add(this.nud_opacity);
+            this.gb_preferences.Controls.Add(this.lb_opacity);
+            this.gb_preferences.Controls.Add(this.btn_color);
+            this.gb_preferences.Controls.Add(this.cb_wheel);
+            this.gb_preferences.Controls.Add(this.cb_cross);
+            this.gb_preferences.Location = new System.Drawing.Point(7, 411);
+            this.gb_preferences.Name = "gb_preferences";
+            this.gb_preferences.Size = new System.Drawing.Size(148, 125);
+            this.gb_preferences.TabIndex = 7;
+            this.gb_preferences.TabStop = false;
+            this.gb_preferences.Text = "Preferences";
+            // 
+            // nud_opacity
+            // 
+            this.nud_opacity.Location = new System.Drawing.Point(65, 98);
+            this.nud_opacity.Name = "nud_opacity";
+            this.nud_opacity.Size = new System.Drawing.Size(77, 20);
+            this.nud_opacity.TabIndex = 6;
+            this.nud_opacity.ValueChanged += new System.EventHandler(this.nud_opacity_ValueChanged);
+            // 
+            // lb_opacity
+            // 
+            this.lb_opacity.AutoSize = true;
+            this.lb_opacity.Location = new System.Drawing.Point(6, 100);
+            this.lb_opacity.Name = "lb_opacity";
+            this.lb_opacity.Size = new System.Drawing.Size(43, 13);
+            this.lb_opacity.TabIndex = 5;
+            this.lb_opacity.Text = "Opacity";
+            // 
+            // btn_color
+            // 
+            this.btn_color.Location = new System.Drawing.Point(7, 67);
+            this.btn_color.Name = "btn_color";
+            this.btn_color.Size = new System.Drawing.Size(135, 23);
+            this.btn_color.TabIndex = 4;
+            this.btn_color.Text = "Rectangle Color";
+            this.btn_color.UseVisualStyleBackColor = true;
+            this.btn_color.Click += new System.EventHandler(this.btn_color_Click);
+            // 
+            // cb_wheel
+            // 
+            this.cb_wheel.AutoSize = true;
+            this.cb_wheel.Checked = true;
+            this.cb_wheel.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_wheel.Location = new System.Drawing.Point(9, 43);
+            this.cb_wheel.Name = "cb_wheel";
+            this.cb_wheel.Size = new System.Drawing.Size(106, 17);
+            this.cb_wheel.TabIndex = 3;
+            this.cb_wheel.Text = "Reversed Wheel";
+            this.cb_wheel.UseVisualStyleBackColor = true;
+            this.cb_wheel.CheckedChanged += new System.EventHandler(this.cb_wheel_CheckedChanged);
+            // 
+            // cb_cross
+            // 
+            this.cb_cross.AutoSize = true;
+            this.cb_cross.Checked = true;
+            this.cb_cross.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_cross.Location = new System.Drawing.Point(9, 19);
+            this.cb_cross.Name = "cb_cross";
+            this.cb_cross.Size = new System.Drawing.Size(82, 17);
+            this.cb_cross.TabIndex = 2;
+            this.cb_cross.Text = "Show Cross";
+            this.cb_cross.UseVisualStyleBackColor = true;
+            this.cb_cross.CheckedChanged += new System.EventHandler(this.cb_cross_CheckedChanged);
             // 
             // gb_coords
             // 
@@ -186,19 +253,6 @@
             this.btn_rec.UseVisualStyleBackColor = true;
             this.btn_rec.Click += new System.EventHandler(this.btn_marker_Click);
             // 
-            // cb_cross
-            // 
-            this.cb_cross.AutoSize = true;
-            this.cb_cross.Checked = true;
-            this.cb_cross.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_cross.Location = new System.Drawing.Point(9, 19);
-            this.cb_cross.Name = "cb_cross";
-            this.cb_cross.Size = new System.Drawing.Size(82, 17);
-            this.cb_cross.TabIndex = 2;
-            this.cb_cross.Text = "Show Cross";
-            this.cb_cross.UseVisualStyleBackColor = true;
-            this.cb_cross.CheckedChanged += new System.EventHandler(this.cb_cross_CheckedChanged);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -208,60 +262,6 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "label1";
             // 
-            // gb_preferences
-            // 
-            this.gb_preferences.Controls.Add(this.nud_opacity);
-            this.gb_preferences.Controls.Add(this.lb_opacity);
-            this.gb_preferences.Controls.Add(this.btn_color);
-            this.gb_preferences.Controls.Add(this.cb_wheel);
-            this.gb_preferences.Controls.Add(this.cb_cross);
-            this.gb_preferences.Location = new System.Drawing.Point(7, 411);
-            this.gb_preferences.Name = "gb_preferences";
-            this.gb_preferences.Size = new System.Drawing.Size(148, 125);
-            this.gb_preferences.TabIndex = 7;
-            this.gb_preferences.TabStop = false;
-            this.gb_preferences.Text = "Preferences";
-            // 
-            // cb_wheel
-            // 
-            this.cb_wheel.AutoSize = true;
-            this.cb_wheel.Checked = true;
-            this.cb_wheel.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_wheel.Location = new System.Drawing.Point(9, 43);
-            this.cb_wheel.Name = "cb_wheel";
-            this.cb_wheel.Size = new System.Drawing.Size(106, 17);
-            this.cb_wheel.TabIndex = 3;
-            this.cb_wheel.Text = "Reversed Wheel";
-            this.cb_wheel.UseVisualStyleBackColor = true;
-            this.cb_wheel.CheckedChanged += new System.EventHandler(this.cb_wheel_CheckedChanged);
-            // 
-            // btn_color
-            // 
-            this.btn_color.Location = new System.Drawing.Point(7, 67);
-            this.btn_color.Name = "btn_color";
-            this.btn_color.Size = new System.Drawing.Size(135, 23);
-            this.btn_color.TabIndex = 4;
-            this.btn_color.Text = "Rectangle Color";
-            this.btn_color.UseVisualStyleBackColor = true;
-            this.btn_color.Click += new System.EventHandler(this.btn_color_Click);
-            // 
-            // lb_opacity
-            // 
-            this.lb_opacity.AutoSize = true;
-            this.lb_opacity.Location = new System.Drawing.Point(6, 100);
-            this.lb_opacity.Name = "lb_opacity";
-            this.lb_opacity.Size = new System.Drawing.Size(43, 13);
-            this.lb_opacity.TabIndex = 5;
-            this.lb_opacity.Text = "Opacity";
-            // 
-            // nud_opacity
-            // 
-            this.nud_opacity.Location = new System.Drawing.Point(65, 98);
-            this.nud_opacity.Name = "nud_opacity";
-            this.nud_opacity.Size = new System.Drawing.Size(77, 20);
-            this.nud_opacity.TabIndex = 6;
-            this.nud_opacity.ValueChanged += new System.EventHandler(this.nud_opacity_ValueChanged);
-            // 
             // gmaps
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -270,16 +270,17 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.gb_settings);
             this.Controls.Add(this.mymap);
+            this.MaximizeBox = false;
             this.Name = "gmaps";
             this.Text = "gmaps";
             this.Load += new System.EventHandler(this.gmaps_Load);
             this.gb_settings.ResumeLayout(false);
-            this.gb_coords.ResumeLayout(false);
-            this.gb_coords.PerformLayout();
-            this.gb_provider.ResumeLayout(false);
             this.gb_preferences.ResumeLayout(false);
             this.gb_preferences.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_opacity)).EndInit();
+            this.gb_coords.ResumeLayout(false);
+            this.gb_coords.PerformLayout();
+            this.gb_provider.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
