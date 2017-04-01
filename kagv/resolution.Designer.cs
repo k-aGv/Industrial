@@ -37,12 +37,12 @@
             this.tb_res.BackColor = System.Drawing.SystemColors.Control;
             this.tb_res.Cursor = System.Windows.Forms.Cursors.Hand;
             this.tb_res.Location = new System.Drawing.Point(6, 34);
-            this.tb_res.Maximum = 3;
+            this.tb_res.Maximum = 2;
             this.tb_res.Minimum = 1;
             this.tb_res.Name = "tb_res";
             this.tb_res.Size = new System.Drawing.Size(273, 45);
             this.tb_res.TabIndex = 0;
-            this.tb_res.Value = 2;
+            this.tb_res.Value = 1;
             this.tb_res.Scroll += new System.EventHandler(this.tb_res_Scroll);
             // 
             // gb_res
@@ -61,9 +61,9 @@
             this.lb_multiplier.AutoSize = true;
             this.lb_multiplier.Location = new System.Drawing.Point(6, 82);
             this.lb_multiplier.Name = "lb_multiplier";
-            this.lb_multiplier.Size = new System.Drawing.Size(103, 13);
+            this.lb_multiplier.Size = new System.Drawing.Size(51, 13);
             this.lb_multiplier.TabIndex = 1;
-            this.lb_multiplier.Text = "Multiplier: 1 (Default)";
+            this.lb_multiplier.Text = "Multiplier:";
             // 
             // btn_cancel
             // 
@@ -84,6 +84,7 @@
             this.btn_ok.TabIndex = 2;
             this.btn_ok.Text = "OK";
             this.btn_ok.UseVisualStyleBackColor = true;
+            this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
             // 
             // resolution
             // 

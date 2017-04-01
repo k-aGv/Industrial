@@ -39,15 +39,20 @@ namespace kagv {
 
         private void resolution_Load(object sender, EventArgs e) {
             this.StartPosition = FormStartPosition.CenterScreen;
+            tb_res.Value = Constants.__ResolutionMultiplier;
+
+            if (tb_res.Value == 1) lb_multiplier.Text = "Multiplier: " + tb_res.Value + " (Default)";
+            else lb_multiplier.Text = "Multiplier: " + tb_res.Value;
         }
 
         private void tb_res_Scroll(object sender, EventArgs e) {
-            string s = "";
-            if (tb_res.Value == 1) s = "0.5";
-            else if (tb_res.Value == 2) s = "1 (Default)";
-            else if (tb_res.Value == 3) s = "2";
 
-            lb_multiplier.Text = "Multiplier: " + s;
+            if (tb_res.Value == 1) lb_multiplier.Text = "Multiplier: " + tb_res.Value +" (Default)";
+            else lb_multiplier.Text = "Multiplier: " + tb_res.Value;
+        }
+
+        private void btn_ok_Click(object sender, EventArgs e) {
+            Constants.__ResolutionMultiplier = tb_res.Value;
         }
     }
 }

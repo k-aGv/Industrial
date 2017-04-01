@@ -718,7 +718,9 @@ namespace kagv {
 
         private void resolutionToolStripMenuItem_Click(object sender, EventArgs e) {
             resolution res = new resolution();
-            res.ShowDialog();
+            if (res.ShowDialog() == DialogResult.OK) {
+                FullyRestore();
+            }
         }
 #if industrial
         private void main_form_LocationChanged(object sender, EventArgs e) {

@@ -416,12 +416,7 @@ namespace kagv {
             if (timer_counter != null)
                 Array.Clear(timer_counter, 0, timer_counter.GetLength(0));
 
-            //jagged array has to be resetted like this
-            for (int i = 0; i < Constants.__WidthBlocks; i++) {
-                for (int j = 0; j < Constants.__HeightBlocks; j++) {
-                    m_rectangles[i][j] = new GridBox(i * Constants.__BlockSide, j * Constants.__BlockSide + Constants.__TopBarOffset, BoxType.Normal);
-                }
-            }
+
             for (int i = 0; i < AGVs.GetLength(0); i++)
                 AGVs[i].killIcon();
 
@@ -435,7 +430,7 @@ namespace kagv {
                 this.BackgroundImage = null;
 
             fromstart = new bool[Constants.__MaximumAGVs];
-            isLoad = new int[Constants.__WidthBlocks, Constants.__HeightBlocks];
+
 
             StartPos = new List<GridPos>();
             endPointCoords = new Point(-1, -1);
@@ -472,6 +467,30 @@ namespace kagv {
                 emissions = new emissions();
             }
 #endif
+
+            if (Constants.__ResolutionMultiplier == 2) {
+                Constants.__BlockSide = 20 / Convert.ToInt32(Constants.__ResolutionMultiplier);
+                Constants.__HeightBlocks = 32 * Convert.ToInt32(Constants.__ResolutionMultiplier);
+                Constants.__WidthBlocks = 64 * Convert.ToInt32(Constants.__ResolutionMultiplier);
+            } else {
+                Constants.__BlockSide = 20 ;
+                Constants.__HeightBlocks = 32;
+                Constants.__WidthBlocks = 64;
+            }
+            
+
+            isLoad = new int[Constants.__WidthBlocks, Constants.__HeightBlocks];
+            m_rectangles = new GridBox[Constants.__WidthBlocks][];
+            for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++)
+                m_rectangles[widthTrav] = new GridBox[Constants.__HeightBlocks];
+
+            //jagged array has to be resetted like this
+            for (int i = 0; i < Constants.__WidthBlocks; i++) {
+                for (int j = 0; j < Constants.__HeightBlocks; j++) {
+                    m_rectangles[i][j] = new GridBox(i * Constants.__BlockSide, j * Constants.__BlockSide + Constants.__TopBarOffset, BoxType.Normal);
+                }
+            }
+
             initialization();
             main_form_Load(new object(), new EventArgs());
             for (int i = 0; i < AGVs.GetLength(0); i++)
@@ -480,6 +499,8 @@ namespace kagv {
 
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 100;
             refresh_label.Text = "Delay:" + timer0.Interval + " ms";
+
+
 
         }
 
