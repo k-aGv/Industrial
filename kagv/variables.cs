@@ -43,8 +43,11 @@ namespace kagv
         emissions emissions = new emissions();
         double CO2 = 0, CO = 0, NOx = 0, THC = 0, GlobalWarming = 0;
 #endif
-        //is_trapped[i,0] -> unavailable path for Start to Load
-        //is_trapped[i,1] -> unavailable path for Load to End
+
+        //Handle our custom functions
+        kagvFunctions.kFunctions __f = new kagvFunctions.kFunctions();
+
+        
         bool[,] is_trapped;
         int[,] isLoad = new int[Constants.__WidthBlocks, Constants.__HeightBlocks];
         BoxType[,] importmap;

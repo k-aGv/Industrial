@@ -38,6 +38,7 @@ namespace kagv {
 
     public partial class main_form {
 
+        
         protected override bool ProcessCmdKey(ref Message _msg, Keys _keyData) {
             switch (_keyData) {
                 case Keys.F5:
@@ -317,9 +318,9 @@ namespace kagv {
             int y1 = x.fromY;
             int x2 = x.toX;
             int y2 = x.toY;
-            double distance = GetLength(x1, y1, x2, y2);
+            double distance = __f.GetLength(x1, y1, x2, y2);
 
-            double side = getSide(m_rectangles[0][0].height
+            double side = __f.getSide(m_rectangles[0][0].height
                             , m_rectangles[0][0].height);
 
             int distanceBlocks = -1; //the quantity of blocks,matching the current line's length
@@ -401,7 +402,7 @@ namespace kagv {
                 //init next steps
                 x1 = currentLinePoints[i].X;
                 y1 = currentLinePoints[i].Y;
-                distance = GetLength(x1, y1, x2, y2);
+                distance = __f.GetLength(x1, y1, x2, y2);
 
             }
 
@@ -1196,12 +1197,6 @@ namespace kagv {
 
         }
 
-        private double GetLength(double x1, double y1, double x2, double y2) {
-            return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
-        }
-        private double getSide(int w, int h) {
-            return (System.Math.Sqrt((w * w) + (h * h)));
-        }
         private void export() {
             sfd_exportmap.FileName = "";
             sfd_exportmap.Filter = "kagv Map (*.kmap)|*.kmap";
