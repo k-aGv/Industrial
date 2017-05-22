@@ -55,9 +55,6 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-#if !industrial
-            this.importPictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-#endif
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.increaseSpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,9 +78,6 @@
             this.aGVIndexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.borderColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resolutionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-#if !industrial
-            this.implementGoogleMapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-#endif
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wallsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -338,8 +332,8 @@
             this.increaseSpeedToolStripMenuItem,
             this.decreaseSpeedToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
-            this.fileToolStripMenuItem.Text = "Emulation";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.fileToolStripMenuItem.Text = "Simulation";
             // 
             // exportMapToolStripMenuItem
             // 
@@ -492,7 +486,7 @@
             this.highlightOverCurrentBoxToolStripMenuItem,
             this.aGVIndexToolStripMenuItem});
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.showToolStripMenuItem.Text = "Show...";
             // 
             // stepsToolStripMenuItem
@@ -540,14 +534,14 @@
             // borderColorToolStripMenuItem
             // 
             this.borderColorToolStripMenuItem.Name = "borderColorToolStripMenuItem";
-            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.borderColorToolStripMenuItem.Text = "Border Color";
             this.borderColorToolStripMenuItem.Click += new System.EventHandler(this.borderColorToolStripMenuItem_Click);
             // 
             // resolutionToolStripMenuItem
             // 
             this.resolutionToolStripMenuItem.Name = "resolutionToolStripMenuItem";
-            this.resolutionToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.resolutionToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.resolutionToolStripMenuItem.Text = "Resolution";
             this.resolutionToolStripMenuItem.Click += new System.EventHandler(this.resolutionToolStripMenuItem_Click);
 #if !industrial
@@ -563,7 +557,7 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(202, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(138, 6);
             // 
             // clearToolStripMenuItem
             // 
@@ -572,7 +566,7 @@
             this.allToolStripMenuItem,
             this.borderColorToolStripMenuItem1});
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             // 
             // wallsToolStripMenuItem
