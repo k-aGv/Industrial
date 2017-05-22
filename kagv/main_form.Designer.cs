@@ -56,6 +56,9 @@
             this.exportMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+#if !industrial
+            this.importPictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+#endif
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.increaseSpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decreaseSpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
