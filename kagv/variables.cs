@@ -39,10 +39,10 @@ namespace kagv
     
     public partial class main_form
     {
-#if industrial
+
         emissions emissions = new emissions();
         double CO2 = 0, CO = 0, NOx = 0, THC = 0, GlobalWarming = 0;
-#endif
+
 
         //Handle our custom functions
         kagvFunctions.kFunctions __f = new kagvFunctions.kFunctions();
@@ -87,11 +87,8 @@ namespace kagv
         int loads = 0;
 
         Color selectedColor=Color.DarkGray;
-#if industrial
         Color boxDefaultColor = Color.WhiteSmoke;
-#else
-        Color boxDefaultColor = Color.Transparent;
-#endif
+
 
 
         int reflectedBlock;

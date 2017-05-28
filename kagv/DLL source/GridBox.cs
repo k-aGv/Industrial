@@ -46,11 +46,9 @@ namespace kagv {
             this.boxType = iType;
             switch (iType) {
                 case BoxType.Normal:
-#if industrial 
+
                     brush = new SolidBrush(Color.WhiteSmoke);
-#else
-                    brush = new SolidBrush(Color.Transparent);
-#endif
+
                     break;
                 case BoxType.End:
                     brush = new SolidBrush(Color.Red);
@@ -94,11 +92,9 @@ namespace kagv {
         public void BeVisible() {
             switch (this.boxType) {
                 case BoxType.Normal:
-#if industrial
+
                     this.brush = new SolidBrush(Color.WhiteSmoke);
-#else
-                    this.brush = new SolidBrush(Color.Transparent);
-#endif
+
                     break;
             }
         }
@@ -114,11 +110,9 @@ namespace kagv {
                 case BoxType.Wall:
                     if (this.brush != null)
                         this.brush.Dispose();
-#if industrial
+
                     this.brush = new SolidBrush(Color.WhiteSmoke);
-#else
-                    this.brush = new SolidBrush(Color.Transparent);
-#endif
+
 
                     this.boxType = BoxType.Normal;
                     break;
@@ -149,11 +143,9 @@ namespace kagv {
                 case BoxType.Load:
                     if (this.brush != null)
                         this.brush.Dispose();
-#if industrial
+
                     this.brush = new SolidBrush(Color.WhiteSmoke);
-#else
-                    this.brush = new SolidBrush(Color.Transparent);
-#endif
+
                     this.boxType = BoxType.Normal;
                     break;
 
@@ -165,11 +157,9 @@ namespace kagv {
             if (this.brush != null)
                 this.brush.Dispose();
 
-#if industrial
+
             this.brush = new SolidBrush(Color.WhiteSmoke);
-#else
-            this.brush = new SolidBrush(Color.Transparent);
-#endif
+
             this.boxType = BoxType.Normal;
         }
 
