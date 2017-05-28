@@ -38,7 +38,11 @@
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.pb = new System.Windows.Forms.PictureBox();
+            this.lb_source = new System.Windows.Forms.Label();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.pb_divider = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_divider)).BeginInit();
             this.SuspendLayout();
             // 
             // label12
@@ -133,11 +137,43 @@
             this.pb.TabIndex = 37;
             this.pb.TabStop = false;
             // 
+            // lb_source
+            // 
+            this.lb_source.AutoSize = true;
+            this.lb_source.Location = new System.Drawing.Point(9, 209);
+            this.lb_source.Name = "lb_source";
+            this.lb_source.Size = new System.Drawing.Size(120, 13);
+            this.lb_source.TabIndex = 46;
+            this.lb_source.Text = "Source Code at GitHub:";
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(135, 209);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(120, 13);
+            this.linkLabel2.TabIndex = 47;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "www.github.com/k-aGv";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+            // 
+            // pb_divider
+            // 
+            this.pb_divider.Location = new System.Drawing.Point(13, 182);
+            this.pb_divider.Name = "pb_divider";
+            this.pb_divider.Size = new System.Drawing.Size(376, 24);
+            this.pb_divider.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb_divider.TabIndex = 48;
+            this.pb_divider.TabStop = false;
+            // 
             // About
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(401, 196);
+            this.ClientSize = new System.Drawing.Size(401, 231);
+            this.Controls.Add(this.pb_divider);
+            this.Controls.Add(this.linkLabel2);
+            this.Controls.Add(this.lb_source);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label7);
@@ -154,6 +190,7 @@
             this.Text = "About";
             this.Load += new System.EventHandler(this.About_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_divider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -170,5 +207,8 @@
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.PictureBox pb;
+        private System.Windows.Forms.Label lb_source;
+        private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.PictureBox pb_divider;
     }
 }
