@@ -20,24 +20,6 @@
 >4-Done
 
 
-
-**Building the branches**
-
-`Building the 'industrial' branch:`
-Add 'industrial' tag as conditional compilation symbol by
->1-Click on Project/kagv properties.
-
->2-Go to 'Build' tab 
-
->3-Type 'industrial' inside the *conditional compilation symbol* field
-
-`Building the 'Agriculture' branch:`
->1-Click on Project/kagv properties.
-
->2-Go to 'Build' tab
-
->3-Remove,if exists,the tag 'industrial' from the *conditional compilation symbol* field
-
 **PathFinding Original code:**
 <http://github.com/juhgiyo/eppathfinding.cs>
 
