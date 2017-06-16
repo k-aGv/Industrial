@@ -687,12 +687,7 @@ namespace kagv {
 
         }
 
-        private void implementGoogleMapsToolStripMenuItem_Click(object sender, EventArgs e) {
-
-            gmaps maps = new gmaps();
-            maps.ShowDialog();
-
-        }
+       
 
         private void borderColorToolStripMenuItem1_Click(object sender, EventArgs e) {
             this.BackColor = Color.DarkGray;
