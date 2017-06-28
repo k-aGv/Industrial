@@ -165,7 +165,7 @@ namespace kagv {
             displayStepsToLoad(steps_counter, agv_index);
 
             update_emissions(agv_index);
-
+            /*
             //RULES OF WHICH AGV WILL STOP WILL BE ADDED
             for (int i = 0; i < nUD_AGVs.Value; i++) {
 
@@ -182,7 +182,8 @@ namespace kagv {
                         AGVs[agv_index].SetLocation(stepx - ((Constants.__BlockSide / 2) - 1), stepy - ((Constants.__BlockSide / 2) - 1));
                 }
 
-            }
+            }*/
+            AGVs[agv_index].SetLocation(stepx - ((Constants.__BlockSide / 2) - 1), stepy - ((Constants.__BlockSide / 2) - 1));
 
 
             if (AGVs[agv_index].MarkedLoad.X * Constants.__BlockSide == AGVs[agv_index].GetLocation().X &&
@@ -590,6 +591,9 @@ namespace kagv {
                             searchGrid.SetWalkableAt(new GridPos(i, j), true);
                     }
 
+                    if (m_rectangles[i][j].boxType == BoxType.Load)
+                        searchGrid.SetWalkableAt(new GridPos(i, j), false);
+
                     if (m_rectangles[i][j].boxType == BoxType.Normal)
                         m_rectangles[i][j].onHover(boxDefaultColor);
 
@@ -658,10 +662,8 @@ namespace kagv {
                     //create the path from start to load,if load exists===========
                     switch (mapHasLoads) {
                         case true:
-
-                            if(rb_wall.Checked || rb_load.Checked)
-                                checkForTrappedLoads(loadPos);
-
+                            
+                            checkForTrappedLoads(loadPos);
                             if (loadPos.Count() == 0)
                                 loadPos.Add(endPos); //if EVERY load is trapped, use the endPos as LoadPos so as the agvs can complete their basic route (start -> end)
 
@@ -687,6 +689,21 @@ namespace kagv {
                             JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
                             AGVs[i].Status.Busy = true;
 
+                            for (int k = 0; k < Constants.__WidthBlocks; k++)
+                            {
+                                for (int l = 0; l < Constants.__HeightBlocks; l++)
+                                {
+                                    if (m_rectangles[k][l].x != (loadPos[0].x * Constants.__BlockSide)
+                                        && m_rectangles[k][l].y != (loadPos[0].y * Constants.__BlockSide)
+                                        && m_rectangles[k][l].boxType == BoxType.Load)
+                                    {
+                                        searchGrid.SetWalkableAt(new GridPos(k, l), false);
+
+                                    }
+
+                                }
+                            }
+
                             //is_trapped[i,0] -> part of route agv -> load
                             //is_trapped[i,1] -> part of route load -> end
                             if (JumpPointsList.Count == 0)
@@ -708,11 +725,8 @@ namespace kagv {
                             //Do not allow walk over any other load except the targeted one
                             for (int k = 0; k < Constants.__WidthBlocks; k++) {
                                 for (int l = 0; l < Constants.__HeightBlocks; l++) {
-                                    if (m_rectangles[k][l].x != (loadPos[0].x * Constants.__BlockSide)
-                                        && m_rectangles[k][l].y != (loadPos[0].y * Constants.__BlockSide)
-                                        && m_rectangles[k][l].boxType == BoxType.Load) {
+                                    if (m_rectangles[k][l].boxType == BoxType.Load) {
                                         searchGrid.SetWalkableAt(new GridPos(k, l), false);
-                                       
                                     }
 
                                 }
@@ -721,15 +735,7 @@ namespace kagv {
                             jumpParam.Reset(loadPos[0], endPos);
                             JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
 
-                            //Set all loads walkable since we 'locked' the targeted one to the agvs path
-                            for (int k = 0; k < Constants.__WidthBlocks; k++) {
-                                for (int l = 0; l < Constants.__HeightBlocks; l++) {
-                                    if ( m_rectangles[k][l].boxType == BoxType.Load) {
-                                        searchGrid.SetWalkableAt(new GridPos(k, l), true);
-                                    }
-
-                                }
-                            }
+                          
                             if (JumpPointsList.Count == 0)//recheck if load-to-end is a trapped path
                                 is_trapped[i, 1] = true;
                             else
@@ -827,13 +833,19 @@ namespace kagv {
             do
             {
                 removed = false;
+                searchGrid.SetWalkableAt(new GridPos(pos[list_index].x, pos[list_index].y), true);
                 jumpParam.Reset(StartPos[0], pos[list_index]);
-                if (JumpPointFinder.FindPath(jumpParam, paper).Count == 0) { 
+                if (JumpPointFinder.FindPath(jumpParam, paper).Count == 0)
+                {
+                    searchGrid.SetWalkableAt(new GridPos(pos[list_index].x, pos[list_index].y), false);
                     isLoad[pos[list_index].x, pos[list_index].y] = 4;
                     pos.Remove(pos[list_index]);
                     removed = true;
-                } else
+                }
+                else
+                {
                     isLoad[pos[list_index].x, pos[list_index].y] = 1;
+                }
 
                 if (!removed)
                     list_index++;
@@ -979,20 +991,27 @@ namespace kagv {
             //*******************************************************************
             //*******************************************************************
 
-            /*
-            for (int k = 0; k < Constants.__WidthBlocks; k++) {
-                for (int l = 0; l < Constants.__HeightBlocks; l++) {
-                    if (m_rectangles[k][l].x != (loadPos[0].x * Constants.__BlockSide)
-                        && m_rectangles[k][l].y != (loadPos[0].y * Constants.__BlockSide)
-                        && m_rectangles[k][l].boxType == BoxType.Load) {
-                        searchGrid.SetWalkableAt(new GridPos(k, l), false);
+            
 
+            List<GridPos> loadPos = new List<GridPos>();
+            int loadPos_index = 0;
+
+            for (int i = 0; i < Constants.__WidthBlocks; i++)
+                for (int j = 0; j < Constants.__HeightBlocks; j++)
+                {
+                    if (m_rectangles[i][j].boxType == BoxType.Load)
+                        searchGrid.SetWalkableAt(new GridPos(i, j), false);
+
+                    if (isLoad[i, j] == 1 || isLoad[i, j] == 4)
+                    {
+                        loadPos.Add(new GridPos());
+                        loadPos[loadPos_index].x = i;
+                        loadPos[loadPos_index].y = j;
+                        loadPos_index++;
                     }
-
                 }
-             
-            }
-            */
+            checkForTrappedLoads(loadPos);
+
             for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++) {
                 for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++) {
                     //this causes the 'bug' that agvs are scanning from left to right for loads
@@ -1025,13 +1044,14 @@ namespace kagv {
             jumpParam.Reset(StartPos[whichAGV], endPos); 
             JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
 
-            //make all loads walkable
-            for (int k = 0; k < Constants.__WidthBlocks; k++) {
-                for (int l = 0; l < Constants.__HeightBlocks; l++) {
-                    if (m_rectangles[k][l].boxType == BoxType.Load )
-                        searchGrid.SetWalkableAt(new GridPos(k, l), true);
-                }
-            }
+            //Mark all loads as unwalkable
+            for (int k = 0; k < Constants.__WidthBlocks; k++)
+                for (int l = 0; l < Constants.__HeightBlocks; l++)
+                    if (m_rectangles[k][l].boxType == BoxType.Load)
+                        searchGrid.SetWalkableAt(new GridPos(k, l), false);
+
+
+
             for (int j = 0; j < JumpPointsList.Count; j++)
                 AGVs[whichAGV].JumpPoints.Add(JumpPointsList[j]); //adds the list containing the AGV's path, to the AGV's embedded JumpPoint List 
 
@@ -1058,15 +1078,7 @@ namespace kagv {
             //return to exit
             int old_c = c-1;
 
-
-            //Mark all loads as unwalkable
-            for (int k = 0; k < Constants.__WidthBlocks; k++) {
-                for (int l = 0; l < Constants.__HeightBlocks; l++) {
-                    if (m_rectangles[k][l].boxType == BoxType.Load )
-                        searchGrid.SetWalkableAt(new GridPos(k, l), false);
-                }
-            }
-
+            
             jumpParam.Reset(endPos, StartPos[whichAGV]);
             JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
             for (int j = 0; j < JumpPointsList.Count; j++)
@@ -1093,7 +1105,7 @@ namespace kagv {
                 }
 
             }
-
+            
             //Mark all loads as walkable again
             for (int k = 0; k < Constants.__WidthBlocks; k++) {
                 for (int l = 0; l < Constants.__HeightBlocks; l++) {
@@ -1101,7 +1113,7 @@ namespace kagv {
                         searchGrid.SetWalkableAt(new GridPos(k, l), true);
                 }
             }
-
+            
             this.Invalidate();
         }
 
