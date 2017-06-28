@@ -158,6 +158,10 @@ namespace kagv {
             if (timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled)
                 return;
 
+            Point _validationPoint = new Point(e.X, e.Y);
+            if (!isvalid(_validationPoint))
+                return;
+
             isMouseDown = true;
             if ((e.Button == MouseButtons.Left) && (rb_wall.Checked)) {
                 for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++) {
