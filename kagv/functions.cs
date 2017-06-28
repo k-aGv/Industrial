@@ -348,14 +348,16 @@ namespace kagv {
                 calibrated = false;
 
                 if (distance != 0)
+                {
                     t = ((side) / distance);
+                }
                 else
+                {
                     return;
-
+                }
 
                 a = Convert.ToInt32(((1 - t) * x1) + (t * x2));
                 b = Convert.ToInt32(((1 - t) * y1) + (t * y2));
-
                 Point _p = new Point(a, b);
 
                 for (int k = 0; k < Constants.__WidthBlocks; k++) {
@@ -363,6 +365,8 @@ namespace kagv {
                     for (int l = 0; l < Constants.__HeightBlocks; l++) {
 
                         if (m_rectangles[k][l].boxRec.Contains(_p)) {
+
+
                             //+9 is the width/2 - handling boxes from their centre
                             int sideX = m_rectangles[k][l].boxRec.X + ((Constants.__BlockSide / 2) - 1);
                             int sideY = m_rectangles[k][l].boxRec.Y + ((Constants.__BlockSide / 2) - 1);
@@ -661,6 +665,23 @@ namespace kagv {
                             if (loadPos.Count() == 0)
                                 loadPos.Add(endPos); //if EVERY load is trapped, use the endPos as LoadPos so as the agvs can complete their basic route (start -> end)
 
+                            /*
+                            //Do not allow walk over any other load except the targeted one
+                            for (int k = 0; k < Constants.__WidthBlocks; k++)
+                            {
+                                for (int l = 0; l < Constants.__HeightBlocks; l++)
+                                {
+                                    if (m_rectangles[k][l].x != (loadPos[0].x * Constants.__BlockSide)
+                                        && m_rectangles[k][l].y != (loadPos[0].y * Constants.__BlockSide)
+                                        && m_rectangles[k][l].boxType == BoxType.Load)
+                                    {
+                                        searchGrid.SetWalkableAt(new GridPos(k, l), false);
+
+                                    }
+
+                                }
+                            }
+                            */
 
                             jumpParam.Reset(StartPos[pos_index], loadPos[0]);
                             JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
@@ -801,11 +822,13 @@ namespace kagv {
             int list_index = 0;
             bool removed;
 
-            do {
+            //if there's at LEAST 1 agv that cannot reach a Load, then that Load is  
+            //removed from the loadPos and not considered as available - marked as "4" 
+            do
+            {
                 removed = false;
                 jumpParam.Reset(StartPos[0], pos[list_index]);
-                if (JumpPointFinder.FindPath(jumpParam, paper).Count == 0) { //if there's at LEAST 1 agv that cannot reach a Load, then that Load is  
-                                                                             //removed from the loadPos and not considered as available - marked 4 
+                if (JumpPointFinder.FindPath(jumpParam, paper).Count == 0) { 
                     isLoad[pos[list_index].x, pos[list_index].y] = 4;
                     pos.Remove(pos[list_index]);
                     removed = true;

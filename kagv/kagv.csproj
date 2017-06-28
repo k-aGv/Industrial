@@ -93,12 +93,6 @@
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GMap.NET.Core">
-      <HintPath>Resources\GMap.NET.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="GMap.NET.WindowsForms">
-      <HintPath>Resources\GMap.NET.WindowsForms.dll</HintPath>
-    </Reference>
     <Reference Include="KagvFunctions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Resources\KagvFunctions.dll</HintPath>
