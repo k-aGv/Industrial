@@ -665,7 +665,7 @@ namespace kagv {
                             if (loadPos.Count() == 0)
                                 loadPos.Add(endPos); //if EVERY load is trapped, use the endPos as LoadPos so as the agvs can complete their basic route (start -> end)
 
-                            /*
+                            
                             //Do not allow walk over any other load except the targeted one
                             for (int k = 0; k < Constants.__WidthBlocks; k++)
                             {
@@ -681,7 +681,7 @@ namespace kagv {
 
                                 }
                             }
-                            */
+                            
 
                             jumpParam.Reset(StartPos[pos_index], loadPos[0]);
                             JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
