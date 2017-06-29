@@ -13,18 +13,10 @@ namespace kagv {
         public emissions() {
             InitializeComponent();
         }
-        
-        protected override CreateParams CreateParams {
-            get {
-                CreateParams param = base.CreateParams;
-                param.ClassStyle = param.ClassStyle | 0x200;
-                return param;
-            }
-        }
-
         private void emissions_Load(object sender, EventArgs e) {
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
+            this.ControlBox = false;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+          
         }
 
       
