@@ -74,81 +74,47 @@ namespace kagv {
             if (cb_type.SelectedItem.ToString() == "LPG") {
                 if (AGVs[whichAGV].Status.Busy) {
                     CO2 += 2959.57;
-                    emissions.CO2_label.Text = "CO2: " + Math.Round(CO2, 2) + " gr";
                     CO += 27.04;
-                    emissions.CO_label.Text = "CO: " + Math.Round(CO, 2) + " gr";
                     NOx += 19.63;
-                    emissions.NOx_label.Text = "NOx: " + Math.Round(NOx, 2) + " gr";
                     THC += 3.06;
-                    emissions.THC_label.Text = "THC: " + Math.Round(THC, 2) + " gr";
                     GlobalWarming += 3.58;
-                    emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
                 } else {
                     CO2 += 1935.16;
-                    emissions.CO2_label.Text = "CO2: " + Math.Round(CO2, 2) + " gr";
                     CO += 13.36;
-                    emissions.CO_label.Text = "CO: " + Math.Round(CO, 2) + " gr";
                     NOx += 13.90;
-                    emissions.NOx_label.Text = "NOx: " + Math.Round(NOx, 2) + " gr";
                     THC += 1.51;
-                    emissions.THC_label.Text = "THC: " + Math.Round(THC, 2) + " gr";
                     GlobalWarming += 2.33;
-                    emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
                 }
-            }
-
-            if (cb_type.SelectedItem.ToString() == "DSL") {
+            } else if (cb_type.SelectedItem.ToString() == "DSL") {
                 if (AGVs[whichAGV].Status.Busy) {
                     CO2 += 2130.11;
-                    emissions.CO2_label.Text = "CO2: " + Math.Round(CO2, 2) + " gr";
                     CO += 7.28;
-                    emissions.CO_label.Text = "CO: " + Math.Round(CO, 2) + " gr";
                     NOx += 20.16;
-                    emissions.NOx_label.Text = "NOx: " + Math.Round(NOx, 2) + " gr";
                     THC += 1.77;
-                    emissions.THC_label.Text = "THC: " + Math.Round(THC, 2) + " gr";
                     GlobalWarming += 2.49;
-                    emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
                 } else {
                     CO2 += 1510.83;
-                    emissions.CO2_label.Text = "CO2: " + Math.Round(CO2, 2) + " gr";
                     CO += 3.84;
-                    emissions.CO_label.Text = "CO: " + Math.Round(CO, 2) + " gr";
                     NOx += 14.33;
-                    emissions.NOx_label.Text = "NOx: " + Math.Round(NOx, 2) + " gr";
                     THC += 1.08;
-                    emissions.THC_label.Text = "THC: " + Math.Round(THC, 2) + " gr";
                     GlobalWarming += 1.2;
-                    emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
                 }
-            }
-
-            if (cb_type.SelectedItem.ToString() == "ELE") {
-                if (AGVs[whichAGV].Status.Busy) {
-                    CO2 = 0;
-                    emissions.CO2_label.Text = "CO2: " + Math.Round(CO2, 2) + " gr";
-                    CO = 0;
-                    emissions.CO_label.Text = "CO: " + Math.Round(CO, 2) + " gr";
-                    NOx = 0;
-                    emissions.NOx_label.Text = "NOx: " + Math.Round(NOx, 2) + " gr";
-                    THC = 0;
-                    emissions.THC_label.Text = "THC: " + Math.Round(THC, 2) + " gr";
+            } else { // ELE
+                CO2 = 0;
+                CO = 0;
+                NOx = 0;
+                THC = 0;
+                if (AGVs[whichAGV].Status.Busy)
                     GlobalWarming += 0.67;
-                    emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
-                } else {
-                    CO2 = 0;
-                    emissions.CO2_label.Text = "CO2: " + Math.Round(CO2, 2) + " gr";
-                    CO = 0;
-                    emissions.CO_label.Text = "CO: " + Math.Round(CO, 2) + " gr";
-                    NOx = 0;
-                    emissions.NOx_label.Text = "NOx: " + Math.Round(NOx, 2) + " gr";
-                    THC = 0;
-                    emissions.THC_label.Text = "THC: " + Math.Round(THC, 2) + " gr";
+                else
                     GlobalWarming += 0.64;
-                    emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
-                }
             }
 
+            emissions.CO2_label.Text = "CO2: " + Math.Round(CO2, 2) + " gr";
+            emissions.CO_label.Text = "CO: " + Math.Round(CO, 2) + " gr";
+            emissions.NOx_label.Text = "NOx: " + Math.Round(NOx, 2) + " gr";
+            emissions.THC_label.Text = "THC: " + Math.Round(THC, 2) + " gr";
+            emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
         }
 
       
