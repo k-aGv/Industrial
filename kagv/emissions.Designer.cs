@@ -88,7 +88,7 @@
             this.Controls.Add(this.CO2_label);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "emissions";
-            this.Text = "emissions";
+            this.Text = "Emissions Table";
             this.Load += new System.EventHandler(this.emissions_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
