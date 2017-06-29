@@ -266,12 +266,7 @@ namespace kagv {
 
         private void main_form_MouseMove(object sender, MouseEventArgs e) {
 
-            int c = 0;
-            for (int i = 0; i < StartPos.Count; i++)
-                c += AGVs[i].JumpPoints.Count;
-
-            if (c > 0)
-                triggerStartMenu(true);
+          
 
             if (isMouseDown && rb_wall.Checked) {
                 if (e.Button == MouseButtons.Left) {
@@ -377,8 +372,8 @@ namespace kagv {
         }
 
         private void main_form_MouseUp(object sender, MouseEventArgs e) {
-            if (timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled) return;
 
+            if (timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled) return;
 
             Point click_coords = new Point(e.X, e.Y);
             if (!isvalid(click_coords) || e.Button != MouseButtons.Left || nUD_AGVs.Value == 0)
@@ -708,6 +703,18 @@ namespace kagv {
 
             emissions.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
 
+        }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e) {
+
+            int c = 0;
+            for (int i = 0; i < StartPos.Count; i++)
+                c += AGVs[i].JumpPoints.Count;
+
+            if (c > 0)
+                triggerStartMenu(true);
+            else
+                triggerStartMenu(false);
         }
 
 

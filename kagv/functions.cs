@@ -51,6 +51,13 @@ namespace kagv {
                     decreaseSpeedToolStripMenuItem_Click(new object(), new EventArgs());
                     return true;
                 case Keys.Space:
+                    int c = 0;
+                    for (int i = 0; i < StartPos.Count; i++)
+                    c += AGVs[i].JumpPoints.Count;
+
+                    if (c > 0)
+                        triggerStartMenu(true);
+
                     if (startToolStripMenuItem.Enabled)
                         startToolStripMenuItem_Click(new object(), new EventArgs());
                     else

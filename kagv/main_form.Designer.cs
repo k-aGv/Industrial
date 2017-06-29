@@ -331,6 +331,7 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
             this.fileToolStripMenuItem.Text = "Simulation";
+            this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
             // 
             // exportMapToolStripMenuItem
             // 
