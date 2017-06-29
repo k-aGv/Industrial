@@ -449,6 +449,7 @@ namespace kagv {
             JumpPointsList = new List<GridPos>();
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
 
+            aGVIndexToolStripMenuItem.Checked =
             beforeStart =
             allowHighlight =
             NoJumpPointsFound = true;
