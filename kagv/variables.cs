@@ -66,7 +66,7 @@ namespace kagv
         int pos_index = 0;
         BaseGrid searchGrid;
         JumpPointParam jumpParam;//custom jump method with its features exposed
-        Graphics paper;//main graphics for grid
+        static Graphics paper;//main graphics for grid
         HeuristicMode mode = HeuristicMode.MANHATTAN;
         GridBox m_lastBoxSelect;
         BoxType m_lastBoxType = new BoxType();

@@ -678,7 +678,9 @@ namespace kagv {
         }
 
         private void increaseSpeedToolStripMenuItem_Click(object sender, EventArgs e) {
-            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer0.Interval + 100;
+            int d = timer0.Interval;
+            d += 100;
+            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval =d;
             refresh_label.Text = "Delay:" + timer0.Interval + " ms";
         }
 
@@ -686,7 +688,9 @@ namespace kagv {
             if (timer0.Interval == 100)
                 return;
 
-            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = timer0.Interval - 100;
+            int d = timer0.Interval;
+            d -= 100;
+            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = d;
             refresh_label.Text = "Delay:" + timer0.Interval + " ms";
 
         }

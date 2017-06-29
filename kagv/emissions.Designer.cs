@@ -80,7 +80,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(237, 171);
+            this.ClientSize = new System.Drawing.Size(237, 173);
             this.Controls.Add(this.Global_label);
             this.Controls.Add(this.THC_label);
             this.Controls.Add(this.NOx_label);

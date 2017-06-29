@@ -98,7 +98,7 @@ namespace kagv {
         private void timer5_Tick(object sender, EventArgs e) {
             int mysteps = 0;
             for (int i = 0; i < Constants.__MaximumSteps; i++) {
-                if (AGVs[4].Steps[i].X == 00 || AGVs[4].Steps[i].Y == 0)
+                if (AGVs[4].Steps[i].X == 0 || AGVs[4].Steps[i].Y == 0)
                     i = Constants.__MaximumSteps;
                 else
                     mysteps++;
