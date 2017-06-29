@@ -196,6 +196,7 @@ namespace kagv {
                 m_rectangles[AGVs[agv_index].MarkedLoad.X][AGVs[agv_index].MarkedLoad.Y].SwitchLoad();
                 AGVs[agv_index].Status.Busy = true;
                 AGVs[agv_index].setLoaded();
+                this.Refresh();
                 if (fromstart[agv_index]) {
                     loads--;
                     isLoad[AGVs[agv_index].MarkedLoad.X, AGVs[agv_index].MarkedLoad.Y] = 2;
