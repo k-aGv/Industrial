@@ -40,7 +40,8 @@ namespace kagv {
 
         
         protected override bool ProcessCmdKey(ref Message _msg, Keys _keyData) {
-            switch (_keyData) {
+            switch (_keyData)
+            {
                 case Keys.F5:
                     allToolStripMenuItem_Click(new object(), new EventArgs());
                     return true;
@@ -51,10 +52,17 @@ namespace kagv {
                     decreaseSpeedToolStripMenuItem_Click(new object(), new EventArgs());
                     return true;
                 case Keys.Space:
+                    int c = 0;
+                    for (int i = 0; i < StartPos.Count; i++)
+                        c += AGVs[i].JumpPoints.Count;
+
+                    if (c > 0)
+                        triggerStartMenu(true);
+
                     if (startToolStripMenuItem.Enabled)
                         startToolStripMenuItem_Click(new object(), new EventArgs());
                     else
-                        MessageBox.Show(this,"Create a path please","",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                        MessageBox.Show(this, "Create a path please", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return true;
                 default:
                     return false;
@@ -143,7 +151,7 @@ namespace kagv {
             displayStepsToLoad(steps_counter, agv_index);
 
             update_emissions(agv_index);
-            
+
             //RULES OF WHICH AGV WILL STOP WILL BE ADDED
             
             for (int i = 0; i < nUD_AGVs.Value; i++) {
@@ -161,7 +169,6 @@ namespace kagv {
                 }
 
             }
-
             if (AGVs[agv_index].MarkedLoad.X * Constants.__BlockSide == AGVs[agv_index].GetLocation().X &&
                 (AGVs[agv_index].MarkedLoad.Y * Constants.__BlockSide) + Constants.__TopBarOffset == AGVs[agv_index].GetLocation().Y &&
                 !AGVs[agv_index].Status.Busy) {
@@ -994,7 +1001,18 @@ namespace kagv {
                         loads--;
                         endPos.x = widthTrav;
                         endPos.y = heightTrav;
-                        
+
+                        //Mark all loads as unwalkable,except the one that is targetted
+
+                        for (int k = 0; k < Constants.__WidthBlocks; k++)
+                        {
+                            for (int l = 0; l < Constants.__HeightBlocks; l++)
+                            {
+                                if (m_rectangles[k][l].boxType == BoxType.Load && isLoad[k, l] != 3)
+                                    searchGrid.SetWalkableAt(new GridPos(k, l), false);
+                            }
+                        }
+
                         widthTrav = Constants.__WidthBlocks;
                         heightTrav = Constants.__HeightBlocks;
 
