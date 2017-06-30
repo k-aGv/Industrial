@@ -124,6 +124,7 @@ namespace kagv {
             emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
         }
 
+      
         private void animator(int steps_counter, int agv_index) {
 
           
@@ -523,7 +524,16 @@ namespace kagv {
             jumpParam.CrossCorner = crossCorners;
             jumpParam.UseRecursive = useRecursive;
         }
-       
+        private int getNumberOfAGVs() {
+            int agvs = 0;
+            for (int i = 0; i < Constants.__WidthBlocks; i++)
+                for (int j = 0; j < Constants.__HeightBlocks; j++)
+                    if (m_rectangles[i][j].boxType == BoxType.Start)
+                        agvs++;
+
+            return agvs;
+        }
+    
         private void Redraw() {
             
            
@@ -823,6 +833,26 @@ namespace kagv {
 
         }
 
+        private int getStepsToLoad(int whichAGV) {
+            int ix = AGVs[whichAGV].MarkedLoad.X * Constants.__BlockSide;
+            int iy = (AGVs[whichAGV].MarkedLoad.Y * Constants.__BlockSide) + Constants.__TopBarOffset;
+
+            int step = -1;
+
+            for (int i = 0; i < AGVs[whichAGV].Steps.GetLength(0); i++) {
+                if (
+                    AGVs[whichAGV].Steps[i].X - ((Constants.__BlockSide / 2) - 1) == ix &&
+                    AGVs[whichAGV].Steps[i].Y - ((Constants.__BlockSide / 2) - 1) == iy
+                    ) {
+                    step = i;
+                    i = AGVs[whichAGV].Steps.GetLength(0);
+                }
+            }
+            if (step >= 0) return step;
+            else return -1;
+
+        }
+
 
         private void Reset() {
 
@@ -891,9 +921,10 @@ namespace kagv {
         }
 
 
-        private void triggerStartMenu(bool trigger) {
-            startToolStripMenuItem.Enabled = trigger;
-            if (!trigger) {
+
+        private void triggerStartMenu(bool t) {
+            startToolStripMenuItem.Enabled = t;
+            if (!t) {
                 startToolStripMenuItem.Text = "Start            Clear and redraw the components please.";
                 if (endPointCoords.X == -1 && endPointCoords.Y == -1)
                     startToolStripMenuItem.Text = "Start            Create a complete path please.";
@@ -1066,7 +1097,7 @@ namespace kagv {
             this.Invalidate();
         }
 
-        private void triggerTimers(int agvs_number) {
+        private void timers(int agvs_number) {
             //agvs_number = how many agvs I have placed
             //every timer is responsible for every agv for up to 5 AGVs
        
@@ -1117,6 +1148,8 @@ namespace kagv {
 
 
         }
+
+
    
         private void initialization() {
         
@@ -1265,48 +1298,20 @@ namespace kagv {
                     MessageBox.Show(this, "You have chosen a not compatible file import.\r\nPlease try again.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private bool isvalid(Point _clickedCoords) {
+        private bool isvalid(Point _temp) {
 
-            if (_clickedCoords.Y < menuPanel.Location.Y)
+            if (_temp.Y < menuPanel.Location.Y)
                 return false;
 
-            if (_clickedCoords.X > m_rectangles[Constants.__WidthBlocks - 1][Constants.__HeightBlocks - 1].boxRec.X + (Constants.__BlockSide - 1)
-            || _clickedCoords.Y > m_rectangles[Constants.__WidthBlocks - 1][Constants.__HeightBlocks - 1].boxRec.Y + (Constants.__BlockSide - 1)) // 18 because its 20-boarder size
+            if (_temp.X > m_rectangles[Constants.__WidthBlocks - 1][Constants.__HeightBlocks - 1].boxRec.X + (Constants.__BlockSide - 1)
+            || _temp.Y > m_rectangles[Constants.__WidthBlocks - 1][Constants.__HeightBlocks - 1].boxRec.Y + (Constants.__BlockSide - 1)) // 18 because its 20-boarder size
                 return false;
 
-            if (!m_rectangles[(_clickedCoords.X) / Constants.__BlockSide][(_clickedCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].boxRec.Contains(_clickedCoords))
+            if (!m_rectangles[(_temp.X) / Constants.__BlockSide][(_temp.Y - Constants.__TopBarOffset) / Constants.__BlockSide].boxRec.Contains(_temp))
                 return false;
 
             return true;
         }
-        private int getStepsToLoad(int whichAGV) {
-            int ix = AGVs[whichAGV].MarkedLoad.X * Constants.__BlockSide;
-            int iy = (AGVs[whichAGV].MarkedLoad.Y * Constants.__BlockSide) + Constants.__TopBarOffset;
 
-            int step = -1;
-
-            for (int i = 0; i < AGVs[whichAGV].Steps.GetLength(0); i++) {
-                if (
-                    AGVs[whichAGV].Steps[i].X - ((Constants.__BlockSide / 2) - 1) == ix &&
-                    AGVs[whichAGV].Steps[i].Y - ((Constants.__BlockSide / 2) - 1) == iy
-                    ) {
-                    step = i;
-                    i = AGVs[whichAGV].Steps.GetLength(0);
-                }
-            }
-            if (step >= 0) return step;
-            else return -1;
-
-        }
-        private int getNumberOfAGVs() {
-            int agvs = 0;
-            for (int i = 0; i < Constants.__WidthBlocks; i++)
-                for (int j = 0; j < Constants.__HeightBlocks; j++)
-                    if (m_rectangles[i][j].boxType == BoxType.Start)
-                        agvs++;
-
-            return agvs;
-        }
-    
     }
 }
