@@ -71,7 +71,7 @@ namespace kagv {
         }
 
         private void show_emissions() {
-            Point emissions_loc = new Point(this.Location.X + this.Size.Width - emissions.Size.Width, this.Location.Y);
+            Point emissions_loc = new Point(this.Location.X + this.Size.Width - emissions.Size.Width, this.Location.Y+30);
             emissions.Show();
             emissions.Location = emissions_loc;
             emissions.BringToFront();
