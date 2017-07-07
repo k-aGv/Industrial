@@ -44,5 +44,6 @@ namespace kagv {
 
         public static bool __SemiTransparency = true;
         public static byte __Opacity = (byte) ( (BitConverter.GetBytes(Color.WhiteSmoke.ToArgb()).Reverse().ToArray())[0] - (100) );
+        public static Color __SemiTransparent;
     }
 }

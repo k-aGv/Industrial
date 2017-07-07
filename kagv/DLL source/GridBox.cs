@@ -50,7 +50,7 @@ namespace kagv {
                     if (!Constants.__SemiTransparency)
                         brush = new SolidBrush(Color.WhiteSmoke);
                     else
-                        brush = new SolidBrush(Color.FromArgb(128, 255, 0, 255));
+                        brush = new SolidBrush(Constants.__SemiTransparent);
 
                     break;
                 case BoxType.End:
@@ -99,7 +99,7 @@ namespace kagv {
                     if (!Constants.__SemiTransparency)
                         this.brush = new SolidBrush(Color.WhiteSmoke);
                     else
-                        this.brush = new SolidBrush(Color.FromArgb(128, 255, 0, 255));
+                        this.brush = new SolidBrush(Constants.__SemiTransparent);
 
                     break;
             }
@@ -120,7 +120,7 @@ namespace kagv {
                     if (!Constants.__SemiTransparency)
                         this.brush = new SolidBrush(Color.WhiteSmoke);
                     else
-                        this.brush = new SolidBrush(Color.FromArgb(128, 255, 0, 255));
+                        this.brush = new SolidBrush(Constants.__SemiTransparent);
                    
 
                     this.boxType = BoxType.Normal;
@@ -139,7 +139,7 @@ namespace kagv {
             if (!Constants.__SemiTransparency)
                 this.brush = new SolidBrush(Color.WhiteSmoke);
             else
-                this.brush = new SolidBrush(Color.FromArgb(128, 255, 0, 255));
+                this.brush = new SolidBrush(Constants.__SemiTransparent);
             this.boxType = BoxType.Normal;
 
         }
@@ -159,7 +159,7 @@ namespace kagv {
                     if (!Constants.__SemiTransparency)
                         this.brush = new SolidBrush(Color.WhiteSmoke);
                     else
-                        this.brush = new SolidBrush(Color.FromArgb(128, 255, 0, 255));
+                        this.brush = new SolidBrush(Constants.__SemiTransparent);
                    
 
                     this.boxType = BoxType.Normal;
@@ -177,7 +177,7 @@ namespace kagv {
             if (!Constants.__SemiTransparency)
                 this.brush = new SolidBrush(Color.WhiteSmoke);
             else
-                this.brush = new SolidBrush(Color.FromArgb(128, 255, 0, 255));
+                this.brush = new SolidBrush(Constants.__SemiTransparent);
                    
 
             this.boxType = BoxType.Normal;

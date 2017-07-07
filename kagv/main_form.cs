@@ -46,7 +46,17 @@ namespace kagv {
         private void main_form_Paint(object sender, PaintEventArgs e) {
             paper = e.Graphics;
             paper.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            
             try {
+
+                if (importedLayout != null) {
+                   
+                    Rectangle r = new Rectangle (new Point (m_rectangles[0][0].x,m_rectangles[0][0].y)
+                        , new Size((m_rectangles[Constants.__WidthBlocks-1][Constants.__HeightBlocks-1].x)+Constants.__BlockSide
+                            , (m_rectangles[Constants.__WidthBlocks - 1][Constants.__HeightBlocks - 1].y) - Constants.__TopBarOffset + Constants.__BlockSide));
+                    paper.DrawImage(importedLayout, r);
+                   
+                }
                 //draws the grid
                 for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++) {
                     for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++) {
@@ -89,13 +99,21 @@ namespace kagv {
                     }
                 }
 
+              
             } catch { }
            
 
         }
 
         private void main_form_Load(object sender, EventArgs e) {
-           
+
+            importImageLayoutToolStripMenuItem.Enabled = Constants.__SemiTransparency;
+
+            if (importImageLayoutToolStripMenuItem.Enabled) {
+                importImageLayoutToolStripMenuItem.Text = "Import image layout";
+            } else {
+                importImageLayoutToolStripMenuItem.Text = "Semi Transparency feature is disabled";
+            }
             if (!reflected) {
                 reflectedWidth = Constants.__WidthBlocks;
                 reflectedHeight = Constants.__HeightBlocks;
@@ -801,6 +819,16 @@ namespace kagv {
             animator(timer_counter[4], 4);
 
             timer_counter[4]++;
+        }
+
+        private void importImageLayoutToolStripMenuItem_Click(object sender, EventArgs e) {
+
+            ofd_importmap.Filter = "PNG (*.png)|*.png|JPEG (*.jpg)";
+            ofd_importmap.FileName = "";
+
+            if (ofd_importmap.ShowDialog() == DialogResult.OK) {
+                importedLayout = Image.FromFile(ofd_importmap.FileName);
+            }
         }
 
 

@@ -85,6 +85,8 @@
             this.borderColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.importImageLayoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuPanel.SuspendLayout();
             this.gb_type.SuspendLayout();
             this.gb_monitor.SuspendLayout();
@@ -325,6 +327,8 @@
             this.exportMapToolStripMenuItem,
             this.importMapToolStripMenuItem,
             this.toolStripMenuItem1,
+            this.importImageLayoutToolStripMenuItem,
+            this.toolStripSeparator1,
             this.startToolStripMenuItem,
             this.increaseSpeedToolStripMenuItem,
             this.decreaseSpeedToolStripMenuItem});
@@ -575,6 +579,21 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.toolStripSeparator1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(293, 6);
+            // 
+            // importImageLayoutToolStripMenuItem
+            // 
+            this.importImageLayoutToolStripMenuItem.Name = "importImageLayoutToolStripMenuItem";
+            this.importImageLayoutToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
+            this.importImageLayoutToolStripMenuItem.Text = "Import image layout";
+            this.importImageLayoutToolStripMenuItem.Click += new System.EventHandler(this.importImageLayoutToolStripMenuItem_Click);
+            // 
             // main_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -672,6 +691,8 @@
         private System.Windows.Forms.ComboBox cb_type;
         private System.Windows.Forms.ToolStripMenuItem aGVIndexToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resolutionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importImageLayoutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 
     }
 }
