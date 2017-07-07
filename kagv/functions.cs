@@ -137,7 +137,6 @@ namespace kagv {
             emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
         }
 
-
         private void animator(int steps_counter, int agv_index) {
 
             int stepx = Convert.ToInt32(AGVs[agv_index].Steps[steps_counter].X);
@@ -449,6 +448,7 @@ namespace kagv {
             isMouseDown =
             mapHasLoads = false;
 
+            importedLayout = null;
             jumpParam = null;
             paper = null;
             loads = pos_index = 0;
@@ -868,7 +868,6 @@ namespace kagv {
 
         }
 
-
         private void Reset() {
 
             int c = 0;
@@ -934,8 +933,6 @@ namespace kagv {
                 AGVs[index].SetLocation(stepx - ((Constants.__BlockSide / 2) - 1), stepy - ((Constants.__BlockSide / 2) - 1));
             }
         }
-
-
 
         private void triggerStartMenu(bool t) {
             startToolStripMenuItem.Enabled = t;
@@ -1153,8 +1150,6 @@ namespace kagv {
 
 
         }
-
-
 
         private void initialization() {
 
