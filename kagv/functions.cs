@@ -1157,13 +1157,10 @@ namespace kagv {
 
 
         private void initialization() {
-<<<<<<< HEAD
-        
+
             if ( Constants.__SemiTransparency)
                 semiTransparent = Color.FromArgb( Constants.__Opacity,Color.WhiteSmoke);
 
-=======
->>>>>>> origin/master
             for (int i = 0; i < AGVs.Count(); i++) {
                 AGVs[i] = new Vehicle(this);
                 AGVs[i].ID = i;
