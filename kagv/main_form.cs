@@ -90,12 +90,12 @@ namespace kagv {
                 }
 
             } catch { }
+           
 
         }
 
         private void main_form_Load(object sender, EventArgs e) {
-
-
+           
             if (!reflected) {
                 reflectedWidth = Constants.__WidthBlocks;
                 reflectedHeight = Constants.__HeightBlocks;
@@ -151,6 +151,7 @@ namespace kagv {
             tp.IsBalloon = true;
             tp.ToolTipIcon = ToolTipIcon.Info;
             tp.ToolTipTitle = "Grid Block Information";
+           
 
         }
 

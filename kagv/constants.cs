@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace kagv {
     public static class Constants {
@@ -41,5 +42,7 @@ namespace kagv {
 
         public static int __ResolutionMultiplier = 1;
 
+        public static bool __SemiTransparency = true;
+        public static byte __Opacity = (byte) ( (BitConverter.GetBytes(Color.WhiteSmoke.ToArgb()).Reverse().ToArray())[0] - (100) );
     }
 }

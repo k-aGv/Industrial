@@ -87,9 +87,10 @@ namespace kagv
         int loads = 0;
 
         Color selectedColor=Color.DarkGray;
-        Color boxDefaultColor = Color.WhiteSmoke;
 
-
+        Color semiTransparent ;//initializing it at initialization()
+        Color boxDefaultColor = (Constants.__SemiTransparency) ? Color.FromArgb( Constants.__Opacity,Color.WhiteSmoke) : Color.WhiteSmoke;
+    
 
         int reflectedBlock;
         int reflectedWidth;

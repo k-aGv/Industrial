@@ -509,7 +509,12 @@ namespace kagv {
                         if (m_rectangles[i][j].boxType == BoxType.Normal) {
                             m_rectangles[i][j].BeVisible();
 
-                        boxDefaultColor = Color.WhiteSmoke;
+                        if (!Constants.__SemiTransparency)
+                                boxDefaultColor = Color.WhiteSmoke;
+                       else
+                            boxDefaultColor = Color.FromArgb(128, 255, 0, 255);
+                   
+                      
 
                         }
                     }
@@ -1153,6 +1158,9 @@ namespace kagv {
    
         private void initialization() {
         
+            if ( Constants.__SemiTransparency)
+                semiTransparent = Color.FromArgb( Constants.__Opacity,Color.WhiteSmoke);
+
             for (int i = 0; i < AGVs.Count(); i++) {
                 AGVs[i] = new Vehicle(this);
                 AGVs[i].ID = i;
@@ -1167,6 +1175,7 @@ namespace kagv {
 
             //m_rectangels is an array of two 1d arrays
             //declares the length of the first 1d array
+            
             m_rectangles = new GridBox[Constants.__WidthBlocks][];
 
             for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++) {
@@ -1188,6 +1197,8 @@ namespace kagv {
                         m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * Constants.__BlockSide, heightTrav * Constants.__BlockSide + Constants.__TopBarOffset, BoxType.Normal);
                         isLoad[widthTrav, heightTrav] = 2;
                     }
+
+                  
                 }
             }
             if (imported)

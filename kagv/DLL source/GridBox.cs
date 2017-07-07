@@ -36,7 +36,7 @@ namespace kagv {
         public int x, y, width, height;
         public Rectangle boxRec;
         public BoxType boxType;
-
+      
         private SolidBrush brush;
         private Color myBrown = Color.FromArgb(138, 109, 86);
         private Graphics graphs;
@@ -47,7 +47,10 @@ namespace kagv {
             switch (iType) {
                 case BoxType.Normal:
 
-                    brush = new SolidBrush(Color.WhiteSmoke);
+                    if (!Constants.__SemiTransparency)
+                        brush = new SolidBrush(Color.WhiteSmoke);
+                    else
+                        brush = new SolidBrush(Color.FromArgb(128, 255, 0, 255));
 
                     break;
                 case BoxType.End:
@@ -88,12 +91,15 @@ namespace kagv {
                     break;
             }
         }
-
+      
         public void BeVisible() {
             switch (this.boxType) {
                 case BoxType.Normal:
 
-                    this.brush = new SolidBrush(Color.WhiteSmoke);
+                    if (!Constants.__SemiTransparency)
+                        this.brush = new SolidBrush(Color.WhiteSmoke);
+                    else
+                        this.brush = new SolidBrush(Color.FromArgb(128, 255, 0, 255));
 
                     break;
             }
@@ -111,8 +117,11 @@ namespace kagv {
                     if (this.brush != null)
                         this.brush.Dispose();
 
-                    this.brush = new SolidBrush(Color.WhiteSmoke);
-
+                    if (!Constants.__SemiTransparency)
+                        this.brush = new SolidBrush(Color.WhiteSmoke);
+                    else
+                        this.brush = new SolidBrush(Color.FromArgb(128, 255, 0, 255));
+                   
 
                     this.boxType = BoxType.Normal;
                     break;
@@ -127,7 +136,10 @@ namespace kagv {
         public void SwitchEnd_StartToNormal() {
             if (this.brush != null)
                 this.brush.Dispose();
-            this.brush = new SolidBrush(Color.WhiteSmoke);
+            if (!Constants.__SemiTransparency)
+                this.brush = new SolidBrush(Color.WhiteSmoke);
+            else
+                this.brush = new SolidBrush(Color.FromArgb(128, 255, 0, 255));
             this.boxType = BoxType.Normal;
 
         }
@@ -144,7 +156,11 @@ namespace kagv {
                     if (this.brush != null)
                         this.brush.Dispose();
 
-                    this.brush = new SolidBrush(Color.WhiteSmoke);
+                    if (!Constants.__SemiTransparency)
+                        this.brush = new SolidBrush(Color.WhiteSmoke);
+                    else
+                        this.brush = new SolidBrush(Color.FromArgb(128, 255, 0, 255));
+                   
 
                     this.boxType = BoxType.Normal;
                     break;
@@ -158,7 +174,11 @@ namespace kagv {
                 this.brush.Dispose();
 
 
-            this.brush = new SolidBrush(Color.WhiteSmoke);
+            if (!Constants.__SemiTransparency)
+                this.brush = new SolidBrush(Color.WhiteSmoke);
+            else
+                this.brush = new SolidBrush(Color.FromArgb(128, 255, 0, 255));
+                   
 
             this.boxType = BoxType.Normal;
         }
