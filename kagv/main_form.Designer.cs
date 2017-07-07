@@ -607,7 +607,7 @@
             this.MainMenuStrip = this.settings_menu;
             this.MaximizeBox = false;
             this.Name = "main_form";
-            this.Text = "kagv Simulation-Agri";
+            this.Text = "kagv Simulation-Industrial";
             this.Load += new System.EventHandler(this.main_form_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.main_form_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseClick);
