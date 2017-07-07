@@ -40,7 +40,8 @@ namespace kagv {
 
         
         protected override bool ProcessCmdKey(ref Message _msg, Keys _keyData) {
-            switch (_keyData) {
+            switch (_keyData)
+            {
                 case Keys.F5:
                     allToolStripMenuItem_Click(new object(), new EventArgs());
                     return true;
@@ -53,7 +54,7 @@ namespace kagv {
                 case Keys.Space:
                     int c = 0;
                     for (int i = 0; i < StartPos.Count; i++)
-                    c += AGVs[i].JumpPoints.Count;
+                        c += AGVs[i].JumpPoints.Count;
 
                     if (c > 0)
                         triggerStartMenu(true);
@@ -61,7 +62,7 @@ namespace kagv {
                     if (startToolStripMenuItem.Enabled)
                         startToolStripMenuItem_Click(new object(), new EventArgs());
                     else
-                        MessageBox.Show(this,"Create a path please","",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                        MessageBox.Show(this, "Create a path please", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return true;
                 default:
                     return false;
@@ -70,43 +71,55 @@ namespace kagv {
         }
 
         private void show_emissions() {
-            Point emissions_loc = new Point(this.Location.X + this.Size.Width - emissions.Size.Width, this.Location.Y + menuPanel.Location.Y);
+            Point emissions_loc = new Point(this.Location.X + this.Size.Width - emissions.Size.Width, this.Location.Y);
             emissions.Show();
             emissions.Location = emissions_loc;
             emissions.BringToFront();
         }
 
-        private void update_emissions(int whichAGV) {
+        private void update_emissions(int whichAGV)
+        {
 
-            if (cb_type.SelectedItem.ToString() == "LPG") {
-                if (AGVs[whichAGV].Status.Busy) {
+            if (cb_type.SelectedItem.ToString() == "LPG")
+            {
+                if (AGVs[whichAGV].Status.Busy)
+                {
                     CO2 += 2959.57;
                     CO += 27.04;
                     NOx += 19.63;
                     THC += 3.06;
                     GlobalWarming += 3.58;
-                } else {
+                }
+                else
+                {
                     CO2 += 1935.16;
                     CO += 13.36;
                     NOx += 13.90;
                     THC += 1.51;
                     GlobalWarming += 2.33;
                 }
-            } else if (cb_type.SelectedItem.ToString() == "DSL") {
-                if (AGVs[whichAGV].Status.Busy) {
+            }
+            else if (cb_type.SelectedItem.ToString() == "DSL")
+            {
+                if (AGVs[whichAGV].Status.Busy)
+                {
                     CO2 += 2130.11;
                     CO += 7.28;
                     NOx += 20.16;
                     THC += 1.77;
                     GlobalWarming += 2.49;
-                } else {
+                }
+                else
+                {
                     CO2 += 1510.83;
                     CO += 3.84;
                     NOx += 14.33;
                     THC += 1.08;
                     GlobalWarming += 1.2;
                 }
-            } else { // ELE
+            }
+            else
+            { // ELE
                 CO2 = 0;
                 CO = 0;
                 NOx = 0;
@@ -124,10 +137,9 @@ namespace kagv {
             emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
         }
 
-      
+
         private void animator(int steps_counter, int agv_index) {
 
-          
             int stepx = Convert.ToInt32(AGVs[agv_index].Steps[steps_counter].X);
             int stepy = Convert.ToInt32(AGVs[agv_index].Steps[steps_counter].Y);
 
@@ -139,37 +151,36 @@ namespace kagv {
             displayStepsToLoad(steps_counter, agv_index);
 
             update_emissions(agv_index);
-            
+
             //RULES OF WHICH AGV WILL STOP WILL BE ADDED
             
             for (int i = 0; i < nUD_AGVs.Value; i++) {
 
                 if (agv_index != i
-                    && AGVs[agv_index].GetLocation() != new Point(0, 0)//i dont like that much tho
+                    && AGVs[i].GetLocation() != new Point(0, 0)//i dont like that much tho
                     && AGVs[agv_index].GetLocation() == AGVs[i].GetLocation()
                     && AGVs[agv_index].GetLocation() != endPointCoords
                     ) {
-                        
                     halt(agv_index, steps_counter);
                     halted = true;
                 } else {
-                    
                     if (!halted)
                         AGVs[agv_index].SetLocation(stepx - ((Constants.__BlockSide / 2) - 1), stepy - ((Constants.__BlockSide / 2) - 1));
                 }
 
             }
-            
-           
-
             if (AGVs[agv_index].MarkedLoad.X * Constants.__BlockSide == AGVs[agv_index].GetLocation().X &&
                 (AGVs[agv_index].MarkedLoad.Y * Constants.__BlockSide) + Constants.__TopBarOffset == AGVs[agv_index].GetLocation().Y &&
                 !AGVs[agv_index].Status.Busy) {
 
+                //marks the pickedup load as walkable AGAIN (since it is now a normal gridbox)
                 m_rectangles[AGVs[agv_index].MarkedLoad.X][AGVs[agv_index].MarkedLoad.Y].SwitchLoad();
+                searchGrid.SetWalkableAt(AGVs[agv_index].MarkedLoad.X, AGVs[agv_index].MarkedLoad.Y, true);
+
                 AGVs[agv_index].Status.Busy = true;
                 AGVs[agv_index].setLoaded();
                 this.Refresh();
+
                 if (fromstart[agv_index]) {
                     loads--;
                     isLoad[AGVs[agv_index].MarkedLoad.X, AGVs[agv_index].MarkedLoad.Y] = 2;
@@ -187,16 +198,17 @@ namespace kagv {
 
                     for (int k = 0; k < Constants.__WidthBlocks; k++) {
                         for (int b = 0; b < Constants.__HeightBlocks; b++) {
-                            if (isLoad[k, b] == 1) {
+                            if (isLoad[k, b] == 1 || isLoad[k, b] == 4)
+                            {
                                 isfreeload = true;
                                 k = Constants.__WidthBlocks;
-                                break;
+                                b = Constants.__HeightBlocks;
                             }
                         }
                     }
 
                     if (loads > 0 && isfreeload) {
-                       
+
                         Reset(agv_index);
                         AGVs[agv_index].Status.Busy = true;
                         AGVs[agv_index].MarkedLoad = new Point();
@@ -268,13 +280,13 @@ namespace kagv {
             }
             //end of handling
 
-            
+
             if (!(timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled)) //if at least 1 timer is active, do not let the user access the Checkboxes etc. etc
             {
                 gb_settings.Enabled = true;
                 settings_menu.Enabled = true;
             }
-            
+
             if (!timer0.Enabled && !timer1.Enabled && !timer2.Enabled && !timer3.Enabled && !timer4.Enabled)//when all agvs has finished their tasks
             {
                 //clear all the paths
@@ -287,8 +299,7 @@ namespace kagv {
                 this.Refresh();
                 this.Invalidate();
             }
-           
-
+            
         }
         private void DrawPoints(GridLine x, int agv_index) {
             Point[] currentLinePoints;//1d array of points.used to track all the points of current line
@@ -538,10 +549,9 @@ namespace kagv {
 
             return agvs;
         }
-    
+
         private void Redraw() {
-            
-           
+
             if (loads > 0)
                 mapHasLoads = true;
             else
@@ -808,10 +818,10 @@ namespace kagv {
 
             this.Invalidate();
         }
-
+        
         private void checkForTrappedLoads(List<GridPos> pos) {
             int list_index = 0;
-            bool removed;
+            bool removed;    
 
             //if there's at LEAST 1 agv that cannot reach a Load, then that Load is  
             //removed from the loadPos and not considered as available - marked as "4" 
@@ -940,18 +950,7 @@ namespace kagv {
             }
         }
         private void getNextLoad(int whichAGV) {
-            bool isAnyLoadLeft = false;
-            for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++) {
-                for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++) {
-                    if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Load) {
-                        isAnyLoadLeft = true;
-                    }
-                }
-            }
-
-            if (!isAnyLoadLeft)
-                return;
-
+            
             aGVIndexToolStripMenuItem.Checked = false;
             //convert the end point to start point
             GridPos endPos = new GridPos();
@@ -1009,9 +1008,12 @@ namespace kagv {
                         endPos.y = heightTrav;
 
                         //Mark all loads as unwalkable,except the one that is targetted
-                        for (int k = 0; k < Constants.__WidthBlocks; k++) {
-                            for (int l = 0; l < Constants.__HeightBlocks; l++) {
-                                if (m_rectangles[k][l].boxType == BoxType.Load && isLoad[k, l] != 3 )
+
+                        for (int k = 0; k < Constants.__WidthBlocks; k++)
+                        {
+                            for (int l = 0; l < Constants.__HeightBlocks; l++)
+                            {
+                                if (m_rectangles[k][l].boxType == BoxType.Load && isLoad[k, l] != 3)
                                     searchGrid.SetWalkableAt(new GridPos(k, l), false);
                             }
                         }
@@ -1105,8 +1107,7 @@ namespace kagv {
         private void timers(int agvs_number) {
             //agvs_number = how many agvs I have placed
             //every timer is responsible for every agv for up to 5 AGVs
-       
-            
+
             if (agvs_number == 1 && !is_trapped[0, 0] && !is_trapped[0, 1]) {
                 timer0.Start();
             }
@@ -1149,18 +1150,20 @@ namespace kagv {
                 if (!is_trapped[4, 0] && !is_trapped[4, 1])
                     timer4.Start();
             }
-             
 
 
         }
 
 
-   
+
         private void initialization() {
+<<<<<<< HEAD
         
             if ( Constants.__SemiTransparency)
                 semiTransparent = Color.FromArgb( Constants.__Opacity,Color.WhiteSmoke);
 
+=======
+>>>>>>> origin/master
             for (int i = 0; i < AGVs.Count(); i++) {
                 AGVs[i] = new Vehicle(this);
                 AGVs[i].ID = i;
