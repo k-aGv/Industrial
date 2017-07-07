@@ -823,7 +823,7 @@ namespace kagv {
 
         private void importImageLayoutToolStripMenuItem_Click(object sender, EventArgs e) {
 
-            ofd_importmap.Filter = "PNG (*.png)|*.png|JPEG (*.jpg)";
+            ofd_importmap.Filter = "PNG (*.png)|*.png|JPEG (*.jpg)|(*.jpg)";
             ofd_importmap.FileName = "";
 
             if (ofd_importmap.ShowDialog() == DialogResult.OK) {
