@@ -156,16 +156,16 @@
             this.agv3steps_LB.Name = "agv3steps_LB";
             this.agv3steps_LB.Size = new System.Drawing.Size(35, 13);
             this.agv3steps_LB.TabIndex = 22;
-            this.agv3steps_LB.Text = "label3";
+            this.agv3steps_LB.Text = "AGV3";
             // 
             // refresh_label
             // 
             this.refresh_label.AutoSize = true;
             this.refresh_label.Location = new System.Drawing.Point(6, 49);
             this.refresh_label.Name = "refresh_label";
-            this.refresh_label.Size = new System.Drawing.Size(35, 13);
+            this.refresh_label.Size = new System.Drawing.Size(65, 13);
             this.refresh_label.TabIndex = 19;
-            this.refresh_label.Text = "label1";
+            this.refresh_label.Text = "Refresh rate";
             // 
             // agv4steps_LB
             // 
@@ -174,7 +174,7 @@
             this.agv4steps_LB.Name = "agv4steps_LB";
             this.agv4steps_LB.Size = new System.Drawing.Size(35, 13);
             this.agv4steps_LB.TabIndex = 23;
-            this.agv4steps_LB.Text = "label4";
+            this.agv4steps_LB.Text = "AGV4";
             // 
             // agv1steps_LB
             // 
@@ -183,7 +183,7 @@
             this.agv1steps_LB.Name = "agv1steps_LB";
             this.agv1steps_LB.Size = new System.Drawing.Size(35, 13);
             this.agv1steps_LB.TabIndex = 20;
-            this.agv1steps_LB.Text = "label1";
+            this.agv1steps_LB.Text = "AGV1";
             // 
             // agv5steps_LB
             // 
@@ -192,7 +192,7 @@
             this.agv5steps_LB.Name = "agv5steps_LB";
             this.agv5steps_LB.Size = new System.Drawing.Size(35, 13);
             this.agv5steps_LB.TabIndex = 24;
-            this.agv5steps_LB.Text = "label5";
+            this.agv5steps_LB.Text = "AGV5";
             // 
             // agv2steps_LB
             // 
@@ -201,7 +201,7 @@
             this.agv2steps_LB.Name = "agv2steps_LB";
             this.agv2steps_LB.Size = new System.Drawing.Size(35, 13);
             this.agv2steps_LB.TabIndex = 21;
-            this.agv2steps_LB.Text = "label2";
+            this.agv2steps_LB.Text = "AGV2";
             // 
             // gb_settings
             // 

@@ -42,7 +42,7 @@ namespace kagv {
 
         public static int __ResolutionMultiplier = 1;
 
-        public static bool __SemiTransparency = true;
+        public static bool __SemiTransparency = false;
         public static byte __Opacity = (byte) ( (BitConverter.GetBytes(Color.WhiteSmoke.ToArgb()).Reverse().ToArray())[0] - (100) );
         public static Color __SemiTransparent;
     }
