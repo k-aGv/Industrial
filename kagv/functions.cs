@@ -153,8 +153,7 @@ namespace kagv {
 
             //RULES OF WHICH AGV WILL STOP WILL BE ADDED
             
-            for (int i = 0; i < nUD_AGVs.Value; i++) {
-
+            for (int i = 0; i < StartPos.Count; i++) {
                 if (agv_index != i
                     && AGVs[i].GetLocation() != new Point(0, 0)//i dont like that much tho
                     && AGVs[agv_index].GetLocation() == AGVs[i].GetLocation()
@@ -166,8 +165,9 @@ namespace kagv {
                     if (!halted)
                         AGVs[agv_index].SetLocation(stepx - ((Constants.__BlockSide / 2) - 1), stepy - ((Constants.__BlockSide / 2) - 1));
                 }
-
             }
+
+
             if (AGVs[agv_index].MarkedLoad.X * Constants.__BlockSide == AGVs[agv_index].GetLocation().X &&
                 (AGVs[agv_index].MarkedLoad.Y * Constants.__BlockSide) + Constants.__TopBarOffset == AGVs[agv_index].GetLocation().Y &&
                 !AGVs[agv_index].Status.Busy) {
@@ -411,8 +411,11 @@ namespace kagv {
             if (timer_counter != null)
                 Array.Clear(timer_counter, 0, timer_counter.GetLength(0));
 
+            if(TrappedStatus!=null)
+            Array.Clear(TrappedStatus, 0, TrappedStatus.GetLength(0));
+            
 
-            for (int i = 0; i < AGVs.GetLength(0); i++)
+            for (int i = 0; i < AGVs.Count; i++)
                 AGVs[i].killIcon();
 
 
@@ -457,8 +460,8 @@ namespace kagv {
             = b
             = new int();
 
-            AGVs = new Vehicle[Constants.__MaximumAGVs];
-
+            
+            AGVs = new List<Vehicle>();
             if (emissions != null) {
                 emissions.Dispose();
                 CO2 = CO = NOx = THC = GlobalWarming = 0;
@@ -497,9 +500,9 @@ namespace kagv {
 
             initialization();
             main_form_Load(new object(), new EventArgs());
-            for (int i = 0; i < AGVs.GetLength(0); i++)
-                AGVs[i].Status.Busy = false;
 
+            for (int i = 0; i < AGVs.Count; i++)
+                AGVs[i].Status.Busy = false;
 
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 100;
             refresh_label.Text = "Delay:" + timer0.Interval + " ms";
@@ -550,6 +553,38 @@ namespace kagv {
             return agvs;
         }
 
+        private List<GridPos> NotTrappedVehicles(List<GridPos> Vehicles, GridPos End) {
+
+            int list_index = 0;
+            int trapped_index = 0;
+            bool removed;
+
+            do {
+                removed = false;
+                TrappedStatus[trapped_index] = false;
+                jumpParam.Reset(Vehicles[list_index], End);
+
+                if (JumpPointFinder.FindPath(jumpParam, paper).Count == 0) {
+                    TrappedStatus[trapped_index] = true;
+                    Vehicles.Remove(Vehicles[list_index]);
+                    AGVs.Remove(AGVs[list_index]);
+                    removed = true;
+                }
+
+                if (!removed) {
+                    AGVs[list_index].ID = list_index;
+                    list_index++;
+                }
+                trapped_index++;
+            }
+            while (list_index < Vehicles.Count);
+
+            return Vehicles; //list with NOT TRAPPED AGVs' starting points (trapped AGVs have been removed)
+            
+
+        }
+
+
         private void Redraw() {
 
             if (loads > 0)
@@ -566,7 +601,8 @@ namespace kagv {
             GridPos endPos = new GridPos();
 
             StartPos = new List<GridPos>();
-
+            AGVs = new List<Vehicle>();
+            
             pos_index = 0;
 
 
@@ -594,6 +630,9 @@ namespace kagv {
 
                     if (m_rectangles[i][j].boxType == BoxType.Start) {
                         start_found = true;
+                        
+                        AGVs.Add(new Vehicle(this));
+                        AGVs[pos_index].ID = pos_index;
 
                         StartPos.Add(new GridPos(0, 0));//create space to add the next agv
                         StartPos[pos_index].x = i;
@@ -614,10 +653,7 @@ namespace kagv {
                         endPos.y = j;
                         endPointCoords = new Point(i * Constants.__BlockSide, j * Constants.__BlockSide + Constants.__TopBarOffset);
                     }
-
-                   
-
-
+                    
                     if (mapHasLoads) {
                         if (isLoad[i, j] == 1 || isLoad[i, j] == 4) {
                             loadPos.Add(new GridPos());
@@ -631,25 +667,36 @@ namespace kagv {
             Reset();
             if (!start_found || !end_found)
                 return;
+            
 
             NoJumpPointsFound = true;
 
+            loadPos_index = 0;
+            pos_index = 0;
+            is_trapped = new bool[StartPos.Count, 2];
+
+            //Not sure if we need this block of commented code------to be seen
+            /*
             if (AGVs != null)
                 for (int i = 0; i < AGVs.Count(); i++)
                     if (AGVs[i] != null) {
                         AGVs[i].updateAGV();
                         AGVs[i].Status.Busy = false;//initialize the status of AGVs, as 'available'
                     }
-
-            loadPos_index = 0;
-            pos_index = 0;
-            is_trapped = new bool[StartPos.Count, 2];
-
+            
             for (int i = 0; i < StartPos.Count; i++) {
                 AGVs[i].JumpPoints = new List<GridPos>();
             }
+            */
+
+
+
+            //replaces current List with ALL AGVs with a list that
+            //contains only NOT trapped AGVs
+            StartPos = NotTrappedVehicles(StartPos, endPos); 
 
             for (int i = 0; i < StartPos.Count; i++) {
+
                 if (AGVs[i].Status.Busy == false) {
                     if (loadPos.Count() == 0)
                         mapHasLoads = false;
@@ -673,7 +720,6 @@ namespace kagv {
                                         && m_rectangles[k][l].boxType == BoxType.Load)
                                     {
                                         searchGrid.SetWalkableAt(new GridPos(k, l), false);
-
                                     }
 
                                 }
@@ -869,12 +915,13 @@ namespace kagv {
         }
 
         private void Reset() {
-
+            
             int c = 0;
             for (int i = 0; i < StartPos.Count; i++)
                 c += AGVs[i].JumpPoints.Count;
 
-            for (int i = 0; i < AGVs.Length; i++) {
+            
+            for (int i = 0; i < AGVs.Count; i++) {
                 for (int j = 0; j < Constants.__MaximumSteps; j++) {
                     AGVs[i].Steps[j].X = 0;
                     AGVs[i].Steps[j].Y = 0;
@@ -1156,7 +1203,7 @@ namespace kagv {
             if ( Constants.__SemiTransparency)
                Constants.__SemiTransparent = Color.FromArgb( Constants.__Opacity,Color.WhiteSmoke);
 
-            for (int i = 0; i < AGVs.Count(); i++) {
+            for (int i = 0; i < StartPos.Count; i++) {
                 AGVs[i] = new Vehicle(this);
                 AGVs[i].ID = i;
             }

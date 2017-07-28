@@ -76,7 +76,7 @@ namespace kagv {
                 for (int i = 0; i < StartPos.Count; i++)
                     c += AGVs[i].JumpPoints.Count;
 
-                for (int i = 0; i < nUD_AGVs.Value; i++) {
+                for (int i = 0; i < StartPos.Count; i++) {
                     AGVs[i].StepsCounter = 0;
                     if (!NoJumpPointsFound) {
                         for (int resultTrav = 0; resultTrav < c; resultTrav++) {
@@ -89,13 +89,17 @@ namespace kagv {
                         }
                     }
                 }
-
+                int AGVs_list_index = 0;
                 if (aGVIndexToolStripMenuItem.Checked) {
-                    for (int i = 0; i < StartPos.Count; i++) {
-                        paper.DrawString("AGV:" + AGVs[i].ID,
-                                         new Font("Tahoma", 8, FontStyle.Bold),
-                                         new SolidBrush(Color.Red),
-                                         new Point((StartPos[i].x * Constants.__BlockSide) - 10, ((StartPos[i].y * Constants.__BlockSide) + Constants.__TopBarOffset) - Constants.__BlockSide));
+                    for (int i = 0; i < nUD_AGVs.Value; i++) {
+                        if (!TrappedStatus[i]) {
+                            paper.DrawString("AGV:" + AGVs[AGVs_list_index].ID,
+                                             new Font("Tahoma", 8, FontStyle.Bold),
+                                             new SolidBrush(Color.Red),
+                                             new Point((StartPos[AGVs_list_index].x * Constants.__BlockSide) - 10, ((StartPos[AGVs_list_index].y * Constants.__BlockSide) + Constants.__TopBarOffset) - Constants.__BlockSide));
+                            AGVs_list_index++;
+                            
+                        }
                     }
                 }
 

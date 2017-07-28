@@ -56,10 +56,12 @@ namespace kagv
 
         int[] timer_counter;
         bool[] fromstart = new bool[Constants.__MaximumAGVs];
-        Vehicle[] AGVs = new Vehicle[Constants.__MaximumAGVs];
-
+        
+        List<Vehicle> AGVs = new List<Vehicle>();
         List<GridPos> JumpPointsList = new List<GridPos>();
         List<GridPos> StartPos = new List<GridPos>(); //Contains the coords of the Start boxes
+        bool[] TrappedStatus = new bool[5];
+
 
         int a; //temporary X.Used to calculate the remained length of current line
         int b; //temporary Y.Used to calculate the remained length of current line
