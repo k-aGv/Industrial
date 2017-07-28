@@ -197,7 +197,7 @@ namespace kagv {
 
                     for (int k = 0; k < Constants.__WidthBlocks; k++) {
                         for (int b = 0; b < Constants.__HeightBlocks; b++) {
-                            if (isLoad[k, b] == 1 || isLoad[k, b] == 4)
+                            if (isLoad[k, b] == 1)
                             {
                                 isfreeload = true;
                                 k = Constants.__WidthBlocks;
