@@ -559,17 +559,21 @@ namespace kagv {
             int trapped_index = 0;
             bool removed;
 
+            for (int i = 0; i < TrappedStatus.Length; i++)
+                TrappedStatus[i] = true;
+
             do {
                 removed = false;
-                TrappedStatus[trapped_index] = false;
                 jumpParam.Reset(Vehicles[list_index], End);
 
-                if (JumpPointFinder.FindPath(jumpParam, paper).Count == 0) {
-                    TrappedStatus[trapped_index] = true;
+                if (JumpPointFinder.FindPath(jumpParam, paper).Count == 0)
+                {
                     Vehicles.Remove(Vehicles[list_index]);
                     AGVs.Remove(AGVs[list_index]);
                     removed = true;
                 }
+                else
+                    TrappedStatus[trapped_index] = false;
 
                 if (!removed) {
                     AGVs[list_index].ID = list_index;
@@ -580,8 +584,6 @@ namespace kagv {
             while (list_index < Vehicles.Count);
 
             return Vehicles; //list with NOT TRAPPED AGVs' starting points (trapped AGVs have been removed)
-            
-
         }
 
 
@@ -688,9 +690,7 @@ namespace kagv {
                 AGVs[i].JumpPoints = new List<GridPos>();
             }
             */
-
-
-
+            
             //replaces current List with ALL AGVs with a list that
             //contains only NOT trapped AGVs
             StartPos = NotTrappedVehicles(StartPos, endPos); 
@@ -1148,54 +1148,42 @@ namespace kagv {
             this.Invalidate();
         }
 
-        private void timers(int agvs_number) {
-            //agvs_number = how many agvs I have placed
+        private void timers() {
             //every timer is responsible for every agv for up to 5 AGVs
+            
+            int _c = 0;
+            for (int i=0; i< TrappedStatus.Length;i++)
+                if (!TrappedStatus[i])
+                    _c++;
 
-            if (agvs_number == 1 && !is_trapped[0, 0] && !is_trapped[0, 1]) {
-                timer0.Start();
-            }
-
-            if (agvs_number == 2) {
-                if (!is_trapped[0, 0] && !is_trapped[0, 1]) {
+            switch(_c)
+            {
+                case 1:
                     timer0.Start();
-                }
-                if (!is_trapped[1, 0] && !is_trapped[1, 1]) {
-                    timer1.Start();
-                }
-            }
-            if (agvs_number == 3) {
-                if (!is_trapped[0, 0] && !is_trapped[0, 1])
+                    break;
+                case 2:
                     timer0.Start();
-                if (!is_trapped[1, 0] && !is_trapped[1, 1])
                     timer1.Start();
-                if (!is_trapped[2, 0] && !is_trapped[2, 1])
+                    break;
+                case 3:
+                    timer0.Start();
+                    timer1.Start();
                     timer2.Start();
-            }
-            if (agvs_number == 4) {
-                if (!is_trapped[0, 0] && !is_trapped[0, 1])
+                    break;
+                case 4:
                     timer0.Start();
-                if (!is_trapped[1, 0] && !is_trapped[1, 1])
                     timer1.Start();
-                if (!is_trapped[2, 0] && !is_trapped[2, 1])
                     timer2.Start();
-                if (!is_trapped[3, 0] && !is_trapped[3, 1])
                     timer3.Start();
-            }
-            if (agvs_number == 5) {
-                if (!is_trapped[0, 0] && !is_trapped[0, 1])
+                    break;
+                case 5:
                     timer0.Start();
-                if (!is_trapped[1, 0] && !is_trapped[1, 1])
                     timer1.Start();
-                if (!is_trapped[2, 0] && !is_trapped[2, 1])
                     timer2.Start();
-                if (!is_trapped[3, 0] && !is_trapped[3, 1])
                     timer3.Start();
-                if (!is_trapped[4, 0] && !is_trapped[4, 1])
                     timer4.Start();
+                    break;
             }
-
-
         }
 
         private void initialization() {

@@ -683,7 +683,7 @@ namespace kagv {
 
 
             timer_counter = new int[StartPos.Count];
-            timers(StartPos.Count);
+            timers();
             settings_menu.Enabled = false;
             gb_settings.Enabled = false;
 
