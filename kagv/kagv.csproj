@@ -214,7 +214,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\empty.png" />
     <EmbeddedResource Include="Resources\loaded.png" />
-    <EmbeddedResource Include="Resources\logo.png" />
     <EmbeddedResource Include="Resources\divider.png" />
   </ItemGroup>
   <ItemGroup>
@@ -236,6 +235,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <EmbeddedResource Include="Resources\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -31,11 +31,12 @@ namespace kagv {
             this.CenterToScreen();
             pb.Image = _getEmbedResource("logo.png");
             pb_divider.Image = _getEmbedResource("divider.png");
-            
+            pb_divider2.Image = _getEmbedResource("divider.png");
+
         }
 
         private void linkLabel3_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e) {
-            System.Diagnostics.Process.Start("www.autom.teithe.gr/gr/index.php");
+            System.Diagnostics.Process.Start("http://www.autom.teithe.gr");
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {

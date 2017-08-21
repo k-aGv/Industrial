@@ -41,14 +41,16 @@
             this.lb_source = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.pb_divider = new System.Windows.Forms.PictureBox();
+            this.pb_divider2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb_divider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_divider2)).BeginInit();
             this.SuspendLayout();
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(137, 150);
+            this.label12.Location = new System.Drawing.Point(129, 177);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(183, 13);
             this.label12.TabIndex = 45;
@@ -57,7 +59,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(137, 165);
+            this.label10.Location = new System.Drawing.Point(129, 192);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(183, 13);
             this.label10.TabIndex = 44;
@@ -67,7 +69,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label7.Location = new System.Drawing.Point(9, 148);
+            this.label7.Location = new System.Drawing.Point(1, 175);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(131, 15);
             this.label7.TabIndex = 43;
@@ -77,7 +79,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label9.Location = new System.Drawing.Point(10, 163);
+            this.label9.Location = new System.Drawing.Point(2, 190);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(100, 15);
             this.label9.TabIndex = 42;
@@ -87,7 +89,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label4.Location = new System.Drawing.Point(9, 133);
+            this.label4.Location = new System.Drawing.Point(1, 160);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 15);
             this.label4.TabIndex = 41;
@@ -97,7 +99,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label1.Location = new System.Drawing.Point(9, 109);
+            this.label1.Location = new System.Drawing.Point(1, 136);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(367, 15);
             this.label1.TabIndex = 40;
@@ -108,7 +110,7 @@
             this.linkLabel3.AutoSize = true;
             this.linkLabel3.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.linkLabel3.LinkArea = new System.Windows.Forms.LinkArea(0, 28);
-            this.linkLabel3.Location = new System.Drawing.Point(10, 88);
+            this.linkLabel3.Location = new System.Drawing.Point(2, 115);
             this.linkLabel3.Name = "linkLabel3";
             this.linkLabel3.Size = new System.Drawing.Size(187, 15);
             this.linkLabel3.TabIndex = 39;
@@ -121,7 +123,7 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.linkLabel1.LinkArea = new System.Windows.Forms.LinkArea(21, 0);
-            this.linkLabel1.Location = new System.Drawing.Point(12, 69);
+            this.linkLabel1.Location = new System.Drawing.Point(4, 96);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(151, 23);
             this.linkLabel1.TabIndex = 38;
@@ -130,7 +132,7 @@
             // 
             // pb
             // 
-            this.pb.Location = new System.Drawing.Point(12, 1);
+            this.pb.Location = new System.Drawing.Point(4, 3);
             this.pb.Name = "pb";
             this.pb.Size = new System.Drawing.Size(385, 65);
             this.pb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -140,7 +142,7 @@
             // lb_source
             // 
             this.lb_source.AutoSize = true;
-            this.lb_source.Location = new System.Drawing.Point(9, 209);
+            this.lb_source.Location = new System.Drawing.Point(1, 236);
             this.lb_source.Name = "lb_source";
             this.lb_source.Size = new System.Drawing.Size(120, 13);
             this.lb_source.TabIndex = 46;
@@ -149,7 +151,7 @@
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(135, 209);
+            this.linkLabel2.Location = new System.Drawing.Point(127, 236);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(120, 13);
             this.linkLabel2.TabIndex = 47;
@@ -159,18 +161,28 @@
             // 
             // pb_divider
             // 
-            this.pb_divider.Location = new System.Drawing.Point(13, 182);
+            this.pb_divider.Location = new System.Drawing.Point(5, 209);
             this.pb_divider.Name = "pb_divider";
             this.pb_divider.Size = new System.Drawing.Size(376, 24);
             this.pb_divider.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb_divider.TabIndex = 48;
             this.pb_divider.TabStop = false;
             // 
+            // pb_divider2
+            // 
+            this.pb_divider2.Location = new System.Drawing.Point(4, 69);
+            this.pb_divider2.Name = "pb_divider2";
+            this.pb_divider2.Size = new System.Drawing.Size(376, 24);
+            this.pb_divider2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb_divider2.TabIndex = 49;
+            this.pb_divider2.TabStop = false;
+            // 
             // About
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(401, 231);
+            this.ClientSize = new System.Drawing.Size(392, 253);
+            this.Controls.Add(this.pb_divider2);
             this.Controls.Add(this.pb_divider);
             this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.lb_source);
@@ -191,6 +203,7 @@
             this.Load += new System.EventHandler(this.About_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb_divider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_divider2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,5 +223,6 @@
         private System.Windows.Forms.Label lb_source;
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.PictureBox pb_divider;
+        private System.Windows.Forms.PictureBox pb_divider2;
     }
 }
