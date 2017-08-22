@@ -60,6 +60,7 @@ namespace kagv
         List<Vehicle> AGVs = new List<Vehicle>();
         List<GridPos> JumpPointsList = new List<GridPos>();
         List<GridPos> StartPos = new List<GridPos>(); //Contains the coords of the Start boxes
+        List<GridPos> loadPos;
         bool[] TrappedStatus = new bool[5];
 
 

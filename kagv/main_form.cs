@@ -455,7 +455,7 @@ namespace kagv {
                             m_lastBoxSelect = m_rectangles[widthTrav][heightTrav];
                             switch (m_lastBoxType) {
                                 case BoxType.Normal:
-                                    loads++;
+                                    //loads++;
                                     m_rectangles[widthTrav][heightTrav].SwitchLoad();
                                     isLoad[widthTrav, heightTrav] = 1;
                                     this.Invalidate();
