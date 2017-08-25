@@ -1253,10 +1253,28 @@ namespace kagv {
             ofd_importmap.Filter = "kagv Map (*.kmap)|*.kmap";
             ofd_importmap.FileName = "";
 
+            
             if (ofd_importmap.ShowDialog() == DialogResult.OK) {
                 FullyRestore();
-                StreamReader reader = new StreamReader(ofd_importmap.FileName);
-                if (reader.ReadLine().Count() == ((Constants.__BlockSide / 2) - 1)) {
+
+                bool proceed = false;
+                StreamReader _tmp = new StreamReader(ofd_importmap.FileName);
+                if (Constants.__ResolutionMultiplier == 2)
+                    if (_tmp.ReadToEnd().Contains("Width blocks: 128  Height blocks: 64"))
+                        proceed = true;
+                    else
+                        proceed = false;
+                else if (Constants.__ResolutionMultiplier == 1)
+                    if (_tmp.ReadToEnd().Contains("Width blocks: 64  Height blocks: 32"))
+                        proceed = true;
+                    else
+                        proceed = false;
+                _tmp.Close();
+
+                if (proceed) {
+                    StreamReader reader = new StreamReader(ofd_importmap.FileName);
+                    reader.ReadLine();
+
                     imported = true;
 
                     string map_details = reader.ReadLine();
@@ -1277,23 +1295,20 @@ namespace kagv {
                             if (whichNumber == 1) {
                                 width_blocks = Convert.ToInt32(_s);
                                 whichNumber++;
-                            } else if (whichNumber == 2) {
+                            } else if (whichNumber == 2)
                                 height_blocks = Convert.ToInt32(_s);
-                            }
-
                         }
                     }
 
                     reader.ReadLine();
                    
                     importmap = new BoxType[width_blocks, height_blocks];
-
                     words = reader.ReadLine().Split(delim);
 
                     int starts_counter = 0;
                     for (int z = 0; z < importmap.GetLength(0); z++) {
                         int i = 0;
-                        foreach (string _s in words) {
+                        foreach (string _s in words)
                             if (i < importmap.GetLength(1)) {
                                 if (_s == "Start") {
                                     importmap[z, i] = BoxType.Start;
@@ -1308,23 +1323,20 @@ namespace kagv {
                                     importmap[z, i] = BoxType.Load;
                                 i++;
                             }
-                        }
                         if (z == importmap.GetLength(0) - 1) { } else
                             words = reader.ReadLine().Split(delim);
                     }
                     reader.Close();
                     
-                    for (int z = 0; z < importmap.GetLength(0); z++) {
-                        for (int i = 0; i < importmap.GetLength(1); i++) {
+                    for (int z = 0; z < importmap.GetLength(0); z++)
+                        for (int i = 0; i < importmap.GetLength(1); i++)
                             m_rectangles[z][i].boxType = importmap[z, i];
-                        }
 
-                    }
                     nUD_AGVs.Value = starts_counter;
                     initialization();
                     Redraw();
                 } else
-                    MessageBox.Show(this, "You have chosen a not compatible file import.\r\nPlease try again.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, "You have chosen an incompatible file import.\r\nPlease try again.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private bool isvalid(Point _temp) {
