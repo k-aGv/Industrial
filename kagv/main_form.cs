@@ -612,7 +612,7 @@ namespace kagv {
         private void exportMapToolStripMenuItem_Click(object sender, EventArgs e) {
             export();
         }
-
+        bool overImage = false;
         private void importMapToolStripMenuItem_Click(object sender, EventArgs e) {
 
             import();
@@ -782,13 +782,7 @@ namespace kagv {
         }
 
         private void importImageLayoutToolStripMenuItem_Click(object sender, EventArgs e) {
-
-            ofd_importmap.Filter = "PNG (*.png)|*.png|JPEG (*.jpg)|(*.jpg)";
-            ofd_importmap.FileName = "";
-
-            if (ofd_importmap.ShowDialog() == DialogResult.OK)
-                importedLayout = Image.FromFile(ofd_importmap.FileName);
-            
+            importImage();
         }
 
 

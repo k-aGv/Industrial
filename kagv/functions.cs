@@ -1275,9 +1275,25 @@ namespace kagv {
                     nUD_AGVs.Value = starts_counter;
                     initialization();
                     Redraw();
+                    if (overImage) {
+                        importedLayout = p;
+                        overImage = false;
+                    }
                 } else
                     MessageBox.Show(this, "You have chosen an incompatible file import.\r\nPlease try again.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        Image p;
+        private void importImage() {
+            ofd_importmap.Filter = "PNG (*.png)|*.png|JPEG (*.jpg)|(*.jpg)";
+            ofd_importmap.FileName = "";
+
+            if (ofd_importmap.ShowDialog() == DialogResult.OK) {
+                importedLayout = Image.FromFile(ofd_importmap.FileName);
+                p = Image.FromFile(ofd_importmap.FileName);
+                overImage = true;
+            }
+            
         }
         private bool isvalid(Point _temp) {
 
