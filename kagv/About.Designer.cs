@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
-            this.label12 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -42,28 +40,12 @@
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.pb_divider = new System.Windows.Forms.PictureBox();
             this.pb_divider2 = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb_divider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb_divider2)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(129, 177);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(183, 13);
-            this.label12.TabIndex = 45;
-            this.label12.Text = "-   Τμήμα Μηχανικών Αυτοματισμού";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(129, 192);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(183, 13);
-            this.label10.TabIndex = 44;
-            this.label10.Text = "-   Τμήμα Μηχανικών Αυτοματισμού";
             // 
             // label7
             // 
@@ -134,7 +116,7 @@
             // 
             this.pb.Location = new System.Drawing.Point(4, 3);
             this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(385, 65);
+            this.pb.Size = new System.Drawing.Size(385, 60);
             this.pb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb.TabIndex = 37;
             this.pb.TabStop = false;
@@ -142,7 +124,7 @@
             // lb_source
             // 
             this.lb_source.AutoSize = true;
-            this.lb_source.Location = new System.Drawing.Point(1, 236);
+            this.lb_source.Location = new System.Drawing.Point(1, 271);
             this.lb_source.Name = "lb_source";
             this.lb_source.Size = new System.Drawing.Size(120, 13);
             this.lb_source.TabIndex = 46;
@@ -151,7 +133,7 @@
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(127, 236);
+            this.linkLabel2.Location = new System.Drawing.Point(127, 271);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(120, 13);
             this.linkLabel2.TabIndex = 47;
@@ -161,7 +143,7 @@
             // 
             // pb_divider
             // 
-            this.pb_divider.Location = new System.Drawing.Point(5, 209);
+            this.pb_divider.Location = new System.Drawing.Point(5, 244);
             this.pb_divider.Name = "pb_divider";
             this.pb_divider.Size = new System.Drawing.Size(376, 24);
             this.pb_divider.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -177,17 +159,37 @@
             this.pb_divider2.TabIndex = 49;
             this.pb_divider2.TabStop = false;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.label3.Location = new System.Drawing.Point(2, 226);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(120, 15);
+            this.label3.TabIndex = 51;
+            this.label3.Text = "Μπεχτσής Δημήτριος";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.label5.Location = new System.Drawing.Point(2, 211);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(132, 15);
+            this.label5.TabIndex = 50;
+            this.label5.Text = "Υπεύθυνος καθηγητής:";
+            // 
             // About
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 253);
+            this.ClientSize = new System.Drawing.Size(392, 291);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.pb_divider2);
             this.Controls.Add(this.pb_divider);
             this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.lb_source);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.label10);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label4);
@@ -210,9 +212,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label4;
@@ -224,5 +223,7 @@
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.PictureBox pb_divider;
         private System.Windows.Forms.PictureBox pb_divider2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label5;
     }
 }
