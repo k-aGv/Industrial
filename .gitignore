@@ -3,3 +3,4 @@
 /kagv/obj/*
 *.suo
 \#*#
+.vs/kagv/v15/sqlite3/storage.ide
