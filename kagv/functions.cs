@@ -399,10 +399,6 @@ namespace kagv {
         }
 
         private void FullyRestore() {
-            if (is_trapped != null) {
-                Array.Clear(is_trapped, 0, is_trapped.GetLength(0));
-                Array.Clear(is_trapped, 0, is_trapped.GetLength(1));
-            }
 
             if (timer_counter != null)
                 Array.Clear(timer_counter, 0, timer_counter.GetLength(0));
@@ -650,7 +646,6 @@ namespace kagv {
 
             
             pos_index = 0;
-            is_trapped = new bool[StartPos.Count, 2];
 
            
             if (AGVs != null)
@@ -701,21 +696,17 @@ namespace kagv {
                                         searchGrid.SetWalkableAt(new GridPos(k, l), false);
 
 
-                            //is_trapped[i,0] -> part of route agv -> load
-                            //is_trapped[i,1] -> part of route load -> end
-                            if (JumpPointsList.Count == 0)
-                                is_trapped[i, 0] = true;
-                            else
-                                is_trapped[i, 0] = false;
 
-                            if (!is_trapped[i, 0])
-                                for (int j = 0; j < JumpPointsList.Count; j++)
-                                    AGVs[i].JumpPoints.Add(JumpPointsList[j]);
-                            else //leak catch
-                                AGVs[i].JumpPoints.Add(new GridPos());  //increases the size of the AGV's embedded List so the JumpPoints can fit without causing overflow
+                            for (int j = 0; j < JumpPointsList.Count; j++)
+                                AGVs[i].JumpPoints.Add(JumpPointsList[j]);
 
 
-                            //from load to end==============
+                            //============================
+                            //============================
+                            //======FROM LOAD TO END======
+                            //============================
+                            //============================
+
                             //Do not allow walk over any other load except the targeted one
                             for (int k = 0; k < Constants.__WidthBlocks; k++)
                                 for (int l = 0; l < Constants.__HeightBlocks; l++)
@@ -725,55 +716,42 @@ namespace kagv {
                             jumpParam.Reset(loadPos[0], endPos);
                             JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
 
-
-                            if (JumpPointsList.Count == 0)//recheck if load-to-end is a trapped path
-                                is_trapped[i, 1] = true;
-                            else
-                                is_trapped[i, 1] = false;
-
+                            for (int j = 0; j < JumpPointsList.Count; j++) {
+                                AGVs[i].JumpPoints.Add(JumpPointsList[j]);  //adds the list containing the AGV's path, to the AGV's embedded JumpPoint List
+                                NoJumpPointsFound = false;
+                            }
 
 
-                            if (!is_trapped[i, 1])
-                                for (int j = 0; j < JumpPointsList.Count; j++) {
-                                    AGVs[i].JumpPoints.Add(JumpPointsList[j]);  //adds the list containing the AGV's path, to the AGV's embedded JumpPoint List
-                                    NoJumpPointsFound = false;
-                                }
+                            //marks the load that each AGV picks up on the 1st route, as 3, so each agv knows where to go after delivering the 1st load
+                            if (fromstart[i])
+                                for (int widthtrav = 0; widthtrav < Constants.__WidthBlocks; widthtrav++)
+                                    for (int heightrav = 0; heightrav < Constants.__HeightBlocks; heightrav++)
+                                        if (isLoad[widthtrav, heightrav] == 1) {
+                                            isLoad[widthtrav, heightrav] = 3;
+                                            AGVs[i].MarkedLoad = new Point(widthtrav, heightrav);
+
+                                            widthtrav = Constants.__WidthBlocks;
+                                            heightrav = Constants.__HeightBlocks;
+                                        }
+
+                            loadPos.Remove(loadPos[0]);
 
 
-                            if (!is_trapped[i, 0] && !is_trapped[i, 1]) {
-                                //marks the load that each AGV picks up on the 1st route, as 3, so each agv knows where to go after delivering the 1st load
-                                if (fromstart[i])
-                                    for (int widthtrav = 0; widthtrav < Constants.__WidthBlocks; widthtrav++)
-                                        for (int heightrav = 0; heightrav < Constants.__HeightBlocks; heightrav++)
-                                            if (isLoad[widthtrav, heightrav] == 1) {
-                                                isLoad[widthtrav, heightrav] = 3;
-                                                AGVs[i].MarkedLoad = new Point(widthtrav, heightrav);
-
-                                                widthtrav = Constants.__WidthBlocks;
-                                                heightrav = Constants.__HeightBlocks;
-                                            }
-
-                                loadPos.Remove(loadPos[0]);
-                            } else if (is_trapped[i, 1])
-                                loadPos.Remove(loadPos[0]);
+                            //============================
+                            //============================
+                            //======FROM LOAD TO END======
+                            //============================
+                            //============================
 
                             break;
                         case false:
                             jumpParam.Reset(StartPos[pos_index], endPos);
                             JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
 
-                            if (JumpPointsList.Count == 0)
-                                is_trapped[i, 0] = true;
-                            else
-                                is_trapped[i, 0] = false;
-
-                            if (!is_trapped[i, 0])
-                                for (int j = 0; j < JumpPointsList.Count; j++) {
-                                    AGVs[i].JumpPoints.Add(JumpPointsList[j]);
-                                    NoJumpPointsFound = false;
-                                } else //leak catch
-                                AGVs[i].JumpPoints.Add(new GridPos()); //increases the size of the AGV's embedded List so the JumpPoints can fit without causing overflow
-
+                            for (int j = 0; j < JumpPointsList.Count; j++) {
+                                AGVs[i].JumpPoints.Add(JumpPointsList[j]);
+                                NoJumpPointsFound = false;
+                            }
                             break;
                     }
                 }

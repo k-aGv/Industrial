@@ -48,7 +48,6 @@ namespace kagv
         kagvFunctions.kFunctions __f = new kagvFunctions.kFunctions();
 
         
-        bool[,] is_trapped;
         int[,] isLoad = new int[Constants.__WidthBlocks, Constants.__HeightBlocks];
         BoxType[,] importmap;
 
