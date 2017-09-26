@@ -638,16 +638,7 @@ namespace kagv {
                         searchGrid.SetWalkableAt(new GridPos(i, j), false);//Walls are marked as non-walkable
                     else
                         searchGrid.SetWalkableAt(new GridPos(i, j), true);//every other block is marked as walkable (for now)
-
-                    if (beforeStart) {
-                        if (m_rectangles[i][j].boxType == BoxType.Start)
-                            searchGrid.SetWalkableAt(new GridPos(i, j), false); //initial starting points of AGV are non walkable until 1st run is completed
-                    }
-                    else
-                        if (m_rectangles[i][j].boxType == BoxType.Start)
-                            searchGrid.SetWalkableAt(new GridPos(i, j), true);
                     
-
                     if (m_rectangles[i][j].boxType == BoxType.Load) 
                     {
                         mapHasLoads = true;
@@ -660,17 +651,21 @@ namespace kagv {
                         m_rectangles[i][j].onHover(boxDefaultColor);
 
                     if (m_rectangles[i][j].boxType == BoxType.Start) {
+
+                        if (beforeStart) {
+                            searchGrid.SetWalkableAt(new GridPos(i, j), false); //initial starting points of AGV are non walkable until 1st run is completed
+                        } else
+                            searchGrid.SetWalkableAt(new GridPos(i, j), true);
+
                         start_found = true;
-                        
+
                         AGVs.Add(new Vehicle(this));
                         AGVs[pos_index].ID = pos_index;
 
-                        StartPos.Add(new GridPos(0, 0));//create space to add the next agv
-                        StartPos[pos_index].x = i;
-                        StartPos[pos_index].y = j;
+                        StartPos.Add(new GridPos(i, j)); //adds the starting coordinates of an AGV to the StartPos list
 
                         //a & b are used by DrawPoints() as the starting x,y for calculation purposes
-                        a = StartPos[pos_index].x; 
+                        a = StartPos[pos_index].x;
                         b = StartPos[pos_index].y;
 
                         if (pos_index < StartPos.Count) {
@@ -690,13 +685,10 @@ namespace kagv {
             if (!start_found || !end_found)
                 return; //will return if there are no starting or end points in the Grid
             
-
             NoJumpPointsFound = true;
-
             
             pos_index = 0;
-
-           
+            
             if (AGVs != null)
                 for (int i = 0; i < AGVs.Count(); i++)
                     if (AGVs[i] != null) {
@@ -1009,7 +1001,6 @@ namespace kagv {
                         catch {  }
 
             List<GridPos> loadPos = new List<GridPos>();
-            int loadPos_index = 0;
 
             for (int i = 0; i < Constants.__WidthBlocks; i++)
                 for (int j = 0; j < Constants.__HeightBlocks; j++)
@@ -1019,12 +1010,7 @@ namespace kagv {
 
                     //places the available AND the temporarily trapped loads in a list
                     if (isLoad[i, j] == 1 || isLoad[i, j] == 4)
-                    {
-                        loadPos.Add(new GridPos());
-                        loadPos[loadPos_index].x = i;
-                        loadPos[loadPos_index].y = j;
-                        loadPos_index++;
-                    }
+                        loadPos.Add(new GridPos(i, j));
                 }
             checkForTrappedLoads(loadPos); //scans the loadPos list to check which loads are available
 
@@ -1169,12 +1155,12 @@ namespace kagv {
                 AGVs[i].ID = i;
             }
 
-            this.DoubleBuffered = true;
-            this.Width = ((Constants.__WidthBlocks + 1) * Constants.__BlockSide) - 3; //3 because 2=border and the 1 comes from "width+1"
-            this.Height = (Constants.__HeightBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
-            this.Size = new Size(this.Width, this.Height + Constants.__BottomBarOffset);
-            this.MaximizeBox = false;
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            DoubleBuffered = true;
+            Width = ((Constants.__WidthBlocks + 1) * Constants.__BlockSide) - 3; //3 because 2=border and the 1 comes from "width+1"
+            Height = (Constants.__HeightBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
+            Size = new Size(this.Width, this.Height + Constants.__BottomBarOffset);
+            MaximizeBox = false;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
 
             //m_rectangels is an array of two 1d arrays
             //declares the length of the first 1d array
