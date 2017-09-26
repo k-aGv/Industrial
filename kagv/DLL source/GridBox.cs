@@ -37,9 +37,9 @@ namespace kagv {
         private Color myBrown = Color.FromArgb(138, 109, 86);
         private Graphics graphs;
         public GridBox(int iX, int iY, BoxType iType) {
-            this.x = iX;
-            this.y = iY;
-            this.boxType = iType;
+            x = iX;
+            y = iY;
+            boxType = iType;
             switch (iType) {
                 case BoxType.Normal:
 
