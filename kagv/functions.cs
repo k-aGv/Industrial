@@ -462,7 +462,7 @@ namespace kagv {
             for (int i = 0; i < StartPos.Count(); i++)
                 AGVs[i].JumpPoints = new List<GridPos>();
             
-            JumpPointsList = new List<GridPos>();
+            //JumpPointsList = new List<GridPos>();
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
 
             aGVIndexToolStripMenuItem.Checked =
@@ -734,7 +734,7 @@ namespace kagv {
 
                             //use of the A* alorithms to find the path between AGV and its marked Load
                             jumpParam.Reset(StartPos[pos_index], loadPos[0]); 
-                            JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
+                            List <GridPos> JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
                             AGVs[i].Status.Busy = true;
 
                             for (int k = 0; k < Constants.__WidthBlocks; k++)
@@ -1049,7 +1049,7 @@ namespace kagv {
                     }
             //creates the path between the AGV (which at the moment is at the exit) and the Load
             jumpParam.Reset(StartPos[whichAGV], endPos); 
-            JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
+            List <GridPos> JumpPointsList = JumpPointFinder.FindPath(jumpParam, paper);
 
             //Mark all loads as unwalkable
             for (int k = 0; k < Constants.__WidthBlocks; k++)
