@@ -785,7 +785,13 @@ namespace kagv {
             importImage();
         }
 
-
+        private void priorityRulesbetaToolStripMenuItem_Click(object sender, EventArgs e) {
+            use_Halt = !use_Halt;
+            if (use_Halt)
+                priorityRulesbetaToolStripMenuItem.Checked = true;
+            else
+                priorityRulesbetaToolStripMenuItem.Checked = false;
+        }
     }
 
 }

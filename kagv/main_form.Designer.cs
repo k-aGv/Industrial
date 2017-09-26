@@ -56,6 +56,8 @@
             this.exportMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.importImageLayoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.increaseSpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decreaseSpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,8 +87,7 @@
             this.borderColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.importImageLayoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.priorityRulesbetaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuPanel.SuspendLayout();
             this.gb_type.SuspendLayout();
             this.gb_monitor.SuspendLayout();
@@ -359,6 +360,21 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(293, 6);
             // 
+            // importImageLayoutToolStripMenuItem
+            // 
+            this.importImageLayoutToolStripMenuItem.Name = "importImageLayoutToolStripMenuItem";
+            this.importImageLayoutToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
+            this.importImageLayoutToolStripMenuItem.Text = "Import image layout";
+            this.importImageLayoutToolStripMenuItem.Click += new System.EventHandler(this.importImageLayoutToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.toolStripSeparator1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(293, 6);
+            // 
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
@@ -397,7 +413,8 @@
             this.parametresToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.useRecursiveToolStripMenuItem,
             this.crossAdjacentPointToolStripMenuItem,
-            this.crossCornerToolStripMenuItem});
+            this.crossCornerToolStripMenuItem,
+            this.priorityRulesbetaToolStripMenuItem});
             this.parametresToolStripMenuItem.Name = "parametresToolStripMenuItem";
             this.parametresToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.parametresToolStripMenuItem.Text = "Parametres";
@@ -579,20 +596,12 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // toolStripSeparator1
+            // priorityRulesbetaToolStripMenuItem
             // 
-            this.toolStripSeparator1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripSeparator1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.toolStripSeparator1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(293, 6);
-            // 
-            // importImageLayoutToolStripMenuItem
-            // 
-            this.importImageLayoutToolStripMenuItem.Name = "importImageLayoutToolStripMenuItem";
-            this.importImageLayoutToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
-            this.importImageLayoutToolStripMenuItem.Text = "Import image layout";
-            this.importImageLayoutToolStripMenuItem.Click += new System.EventHandler(this.importImageLayoutToolStripMenuItem_Click);
+            this.priorityRulesbetaToolStripMenuItem.Name = "priorityRulesbetaToolStripMenuItem";
+            this.priorityRulesbetaToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.priorityRulesbetaToolStripMenuItem.Text = "Priority rules (beta)";
+            this.priorityRulesbetaToolStripMenuItem.Click += new System.EventHandler(this.priorityRulesbetaToolStripMenuItem_Click);
             // 
             // main_form
             // 
@@ -693,7 +702,7 @@
         private System.Windows.Forms.ToolStripMenuItem resolutionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importImageLayoutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-
+        private System.Windows.Forms.ToolStripMenuItem priorityRulesbetaToolStripMenuItem;
     }
 }
 

@@ -152,20 +152,21 @@ namespace kagv {
             update_emissions(agv_index);
 
             //RULES OF WHICH AGV WILL STOP WILL BE ADDED
-            
-            for (int i = 0; i < StartPos.Count; i++)
-                if (agv_index != i
-                    && AGVs[i].GetLocation() != new Point(0, 0)//i dont like that much tho
-                    && AGVs[agv_index].GetLocation() == AGVs[i].GetLocation()
-                    && AGVs[agv_index].GetLocation() != endPointCoords
-                    ) {
-                    halt(agv_index, steps_counter);
-                    halted = true;
-                } else 
-                    if (!halted)
+            if (use_Halt) {
+                for (int i = 0; i < StartPos.Count; i++)
+                    if (agv_index != i
+                        && AGVs[i].GetLocation() != new Point(0, 0)//i dont like that much tho
+                        && AGVs[agv_index].GetLocation() == AGVs[i].GetLocation()
+                        && AGVs[agv_index].GetLocation() != endPointCoords
+                        ) {
+                        halt(agv_index, steps_counter);
+                        halted = true;
+                    } else
+                        if (!halted)
                         AGVs[agv_index].SetLocation(stepx - ((Constants.__BlockSide / 2) - 1), stepy - ((Constants.__BlockSide / 2) - 1));
-                
-            
+            }
+            else
+                AGVs[agv_index].SetLocation(stepx - ((Constants.__BlockSide / 2) - 1), stepy - ((Constants.__BlockSide / 2) - 1));
 
 
             if (AGVs[agv_index].MarkedLoad.X * Constants.__BlockSide == AGVs[agv_index].GetLocation().X &&
@@ -442,6 +443,9 @@ namespace kagv {
             calibrated =
             isMouseDown =
             mapHasLoads = false;
+
+            use_Halt = false;
+            priorityRulesbetaToolStripMenuItem.Checked = false;
 
             importedLayout = null;
             jumpParam = null;
@@ -1093,6 +1097,7 @@ namespace kagv {
         }
 
         private void initialization() {
+            
 
             if ( Constants.__SemiTransparency)
                Constants.__SemiTransparent = Color.FromArgb( Constants.__Opacity,Color.WhiteSmoke);
