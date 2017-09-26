@@ -23,10 +23,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 
 namespace kagv {
@@ -82,24 +78,24 @@ namespace kagv {
         }
 
         public void onHover(Color c) {
-            this.brush = new SolidBrush(c);
+            brush = new SolidBrush(c);
         }
         public void BeTransparent() {
-            switch (this.boxType) {
+            switch (boxType) {
                 case BoxType.Normal:
-                    this.brush = new SolidBrush(Color.Transparent);
+                    brush = new SolidBrush(Color.Transparent);
                     break;
             }
         }
       
         public void BeVisible() {
-            switch (this.boxType) {
+            switch (boxType) {
                 case BoxType.Normal:
 
                     if (!Constants.__SemiTransparency)
-                        this.brush = new SolidBrush(Color.WhiteSmoke);
+                        brush = new SolidBrush(Color.WhiteSmoke);
                     else
-                        this.brush = new SolidBrush(Constants.__SemiTransparent);
+                        brush = new SolidBrush(Constants.__SemiTransparent);
 
                     break;
             }
@@ -108,22 +104,22 @@ namespace kagv {
         public void SwitchBox() {
             switch (this.boxType) {
                 case BoxType.Normal:
-                    if (this.brush != null)
-                        this.brush.Dispose();
-                    this.brush = new SolidBrush(Color.Gray);
-                    this.boxType = BoxType.Wall;
+                    if (brush != null)
+                        brush.Dispose();
+                    brush = new SolidBrush(Color.Gray);
+                    boxType = BoxType.Wall;
                     break;
                 case BoxType.Wall:
-                    if (this.brush != null)
-                        this.brush.Dispose();
+                    if (brush != null)
+                        brush.Dispose();
 
                     if (!Constants.__SemiTransparency)
-                        this.brush = new SolidBrush(Color.WhiteSmoke);
+                        brush = new SolidBrush(Color.WhiteSmoke);
                     else
-                        this.brush = new SolidBrush(Constants.__SemiTransparent);
+                        brush = new SolidBrush(Constants.__SemiTransparent);
                    
 
-                    this.boxType = BoxType.Normal;
+                    boxType = BoxType.Normal;
                     break;
 
             }
@@ -134,35 +130,35 @@ namespace kagv {
 
 
         public void SwitchEnd_StartToNormal() {
-            if (this.brush != null)
-                this.brush.Dispose();
+            if (brush != null)
+                brush.Dispose();
             if (!Constants.__SemiTransparency)
-                this.brush = new SolidBrush(Color.WhiteSmoke);
+                brush = new SolidBrush(Color.WhiteSmoke);
             else
-                this.brush = new SolidBrush(Constants.__SemiTransparent);
-            this.boxType = BoxType.Normal;
+                brush = new SolidBrush(Constants.__SemiTransparent);
+            boxType = BoxType.Normal;
 
         }
 
         public void SwitchLoad() {
-            switch (this.boxType) {
+            switch (boxType) {
                 case BoxType.Normal:
-                    if (this.brush != null)
-                        this.brush.Dispose();
-                    this.brush = new SolidBrush(myBrown);
-                    this.boxType = BoxType.Load;
+                    if (brush != null)
+                        brush.Dispose();
+                    brush = new SolidBrush(myBrown);
+                    boxType = BoxType.Load;
                     break;
                 case BoxType.Load:
-                    if (this.brush != null)
-                        this.brush.Dispose();
+                    if (brush != null)
+                        brush.Dispose();
 
                     if (!Constants.__SemiTransparency)
-                        this.brush = new SolidBrush(Color.WhiteSmoke);
+                        brush = new SolidBrush(Color.WhiteSmoke);
                     else
-                        this.brush = new SolidBrush(Constants.__SemiTransparent);
+                        brush = new SolidBrush(Constants.__SemiTransparent);
                    
 
-                    this.boxType = BoxType.Normal;
+                    boxType = BoxType.Normal;
                     break;
 
             }
@@ -170,30 +166,30 @@ namespace kagv {
 
 
         public void SetNormalBox() {
-            if (this.brush != null)
-                this.brush.Dispose();
+            if (brush != null)
+                brush.Dispose();
 
 
             if (!Constants.__SemiTransparency)
-                this.brush = new SolidBrush(Color.WhiteSmoke);
+                brush = new SolidBrush(Color.WhiteSmoke);
             else
-                this.brush = new SolidBrush(Constants.__SemiTransparent);
+                brush = new SolidBrush(Constants.__SemiTransparent);
                    
 
-            this.boxType = BoxType.Normal;
+            boxType = BoxType.Normal;
         }
 
         public void SetEndBox() {
-            if (this.brush != null)
-                this.brush.Dispose();
-            this.brush = new SolidBrush(Color.Red);
-            this.boxType = BoxType.End;
+            if (brush != null)
+                brush.Dispose();
+            brush = new SolidBrush(Color.Red);
+            boxType = BoxType.End;
         }
 
 
         public void Dispose() {
-            if (this.brush != null)
-                this.brush.Dispose();
+            if (brush != null)
+                brush.Dispose();
 
         }
     }

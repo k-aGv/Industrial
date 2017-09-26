@@ -22,11 +22,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
 
 namespace kagv {
     public class GridRect {
@@ -80,7 +75,7 @@ namespace kagv {
 
         public static bool operator ==(GridRect a, GridRect b) {
             // If both are null, or both are same instance, return true.
-            if (System.Object.ReferenceEquals(a, b)) {
+            if (ReferenceEquals(a, b)) {
                 return true;
             }
             if (ReferenceEquals(null, a)) {
@@ -98,10 +93,10 @@ namespace kagv {
         }
 
         public GridRect Set(int iMinX, int iMinY, int iMaxX, int iMaxY) {
-            this.minX = iMinX;
-            this.minY = iMinY;
-            this.maxX = iMaxX;
-            this.maxY = iMaxY;
+            minX = iMinX;
+            minY = iMinY;
+            maxX = iMaxX;
+            maxY = iMaxY;
             return this;
         }
     }

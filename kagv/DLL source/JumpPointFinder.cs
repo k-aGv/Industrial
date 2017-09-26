@@ -24,9 +24,6 @@ THE SOFTWARE.
 */
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
 
 namespace kagv {
 
@@ -214,6 +211,7 @@ namespace kagv {
     }
     public class JumpPointFinder {
 
+        //This function is trying to create the shortest route from a point to another
         public static List<GridPos> FindPath(JumpPointParam iParam, System.Drawing.Graphics iPaper) {
 
             List<Node> tOpenList = iParam.openList;
@@ -239,7 +237,7 @@ namespace kagv {
             while (tOpenList.Count > 0) {
                 // pop the position of node which has the minimum `f` value.
                 tOpenList.Sort();
-                tNode = (Node)tOpenList[tOpenList.Count - 1];
+                tNode = tOpenList[tOpenList.Count - 1];
                 tOpenList.RemoveAt(tOpenList.Count - 1);
                 tNode.isClosed = true;
 
@@ -376,7 +374,7 @@ namespace kagv {
                                     continue;
                                 }
                             }
-                                // horizontally/vertically
+                            // horizontally/vertically
                             else {
                                 if (currentSnapshot.tDx != 0) {
                                     // moving along x
@@ -398,12 +396,14 @@ namespace kagv {
                                 currentSnapshot.stage = 1;
                                 stack.Push(currentSnapshot);
 
-                                newSnapshot = new JumpSnapshot();
-                                newSnapshot.iX = currentSnapshot.iX + currentSnapshot.tDx;
-                                newSnapshot.iY = currentSnapshot.iY;
-                                newSnapshot.iPx = currentSnapshot.iX;
-                                newSnapshot.iPy = currentSnapshot.iY;
-                                newSnapshot.stage = 0;
+                                newSnapshot = new JumpSnapshot
+                                {
+                                    iX = currentSnapshot.iX + currentSnapshot.tDx,
+                                    iY = currentSnapshot.iY,
+                                    iPx = currentSnapshot.iX,
+                                    iPy = currentSnapshot.iY,
+                                    stage = 0
+                                };
                                 stack.Push(newSnapshot);
                                 continue;
                             }
@@ -413,22 +413,27 @@ namespace kagv {
 
                             // moving diagonally, must make sure one of the vertical/horizontal
                             // neighbors is open to allow the path
-                            if (iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + currentSnapshot.tDx, currentSnapshot.iY) || iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX, currentSnapshot.iY + currentSnapshot.tDy)) {
-                                newSnapshot = new JumpSnapshot();
-                                newSnapshot.iX = currentSnapshot.iX + currentSnapshot.tDx;
-                                newSnapshot.iY = currentSnapshot.iY + currentSnapshot.tDy;
-                                newSnapshot.iPx = currentSnapshot.iX;
-                                newSnapshot.iPy = currentSnapshot.iY;
-                                newSnapshot.stage = 0;
+                            if (iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + currentSnapshot.tDx, currentSnapshot.iY) || iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX, currentSnapshot.iY + currentSnapshot.tDy))
+                            {
+                                newSnapshot = new JumpSnapshot
+                                {
+                                    iX = currentSnapshot.iX + currentSnapshot.tDx,
+                                    iY = currentSnapshot.iY + currentSnapshot.tDy,
+                                    iPx = currentSnapshot.iX,
+                                    iPy = currentSnapshot.iY,
+                                    stage = 0
+                                };
                                 stack.Push(newSnapshot);
                                 continue;
                             } else if (iParam.CrossAdjacentPoint) {
-                                newSnapshot = new JumpSnapshot();
-                                newSnapshot.iX = currentSnapshot.iX + currentSnapshot.tDx;
-                                newSnapshot.iY = currentSnapshot.iY + currentSnapshot.tDy;
-                                newSnapshot.iPx = currentSnapshot.iX;
-                                newSnapshot.iPy = currentSnapshot.iY;
-                                newSnapshot.stage = 0;
+                                newSnapshot = new JumpSnapshot
+                                {
+                                    iX = currentSnapshot.iX + currentSnapshot.tDx,
+                                    iY = currentSnapshot.iY + currentSnapshot.tDy,
+                                    iPx = currentSnapshot.iX,
+                                    iPy = currentSnapshot.iY,
+                                    stage = 0
+                                };
                                 stack.Push(newSnapshot);
                                 continue;
                             }
@@ -443,7 +448,7 @@ namespace kagv {
                                     continue;
                                 }
                             }
-                                // horizontally/vertically
+                            // horizontally/vertically
                             else {
                                 if (currentSnapshot.tDx != 0) {
                                     // moving along x
@@ -467,12 +472,14 @@ namespace kagv {
                                 currentSnapshot.stage = 3;
                                 stack.Push(currentSnapshot);
 
-                                newSnapshot = new JumpSnapshot();
-                                newSnapshot.iX = currentSnapshot.iX + currentSnapshot.tDx;
-                                newSnapshot.iY = currentSnapshot.iY;
-                                newSnapshot.iPx = currentSnapshot.iX;
-                                newSnapshot.iPy = currentSnapshot.iY;
-                                newSnapshot.stage = 0;
+                                newSnapshot = new JumpSnapshot
+                                {
+                                    iX = currentSnapshot.iX + currentSnapshot.tDx,
+                                    iY = currentSnapshot.iY,
+                                    iPx = currentSnapshot.iX,
+                                    iPy = currentSnapshot.iY,
+                                    stage = 0
+                                };
                                 stack.Push(newSnapshot);
                                 continue;
                             }
@@ -480,12 +487,14 @@ namespace kagv {
                             // moving diagonally, must make sure both of the vertical/horizontal
                             // neighbors is open to allow the path
                             if (iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + currentSnapshot.tDx, currentSnapshot.iY) && iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX, currentSnapshot.iY + currentSnapshot.tDy)) {
-                                newSnapshot = new JumpSnapshot();
-                                newSnapshot.iX = currentSnapshot.iX + currentSnapshot.tDx;
-                                newSnapshot.iY = currentSnapshot.iY + currentSnapshot.tDy;
-                                newSnapshot.iPx = currentSnapshot.iX;
-                                newSnapshot.iPy = currentSnapshot.iY;
-                                newSnapshot.stage = 0;
+                                newSnapshot = new JumpSnapshot
+                                {
+                                    iX = currentSnapshot.iX + currentSnapshot.tDx,
+                                    iY = currentSnapshot.iY + currentSnapshot.tDy,
+                                    iPx = currentSnapshot.iX,
+                                    iPy = currentSnapshot.iY,
+                                    stage = 0
+                                };
                                 stack.Push(newSnapshot);
                                 continue;
                             }
@@ -498,12 +507,14 @@ namespace kagv {
                         currentSnapshot.stage = 2;
                         stack.Push(currentSnapshot);
 
-                        newSnapshot = new JumpSnapshot();
-                        newSnapshot.iX = currentSnapshot.iX;
-                        newSnapshot.iY = currentSnapshot.iY + currentSnapshot.tDy;
-                        newSnapshot.iPx = currentSnapshot.iX;
-                        newSnapshot.iPy = currentSnapshot.iY;
-                        newSnapshot.stage = 0;
+                        newSnapshot = new JumpSnapshot
+                        {
+                            iX = currentSnapshot.iX,
+                            iY = currentSnapshot.iY + currentSnapshot.tDy,
+                            iPx = currentSnapshot.iX,
+                            iPy = currentSnapshot.iY,
+                            stage = 0
+                        };
                         stack.Push(newSnapshot);
                         break;
                     case 2:
@@ -516,21 +527,25 @@ namespace kagv {
                         // moving diagonally, must make sure one of the vertical/horizontal
                         // neighbors is open to allow the path
                         if (iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + currentSnapshot.tDx, currentSnapshot.iY) || iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX, currentSnapshot.iY + currentSnapshot.tDy)) {
-                            newSnapshot = new JumpSnapshot();
-                            newSnapshot.iX = currentSnapshot.iX + currentSnapshot.tDx;
-                            newSnapshot.iY = currentSnapshot.iY + currentSnapshot.tDy;
-                            newSnapshot.iPx = currentSnapshot.iX;
-                            newSnapshot.iPy = currentSnapshot.iY;
-                            newSnapshot.stage = 0;
+                            newSnapshot = new JumpSnapshot
+                            {
+                                iX = currentSnapshot.iX + currentSnapshot.tDx,
+                                iY = currentSnapshot.iY + currentSnapshot.tDy,
+                                iPx = currentSnapshot.iX,
+                                iPy = currentSnapshot.iY,
+                                stage = 0
+                            };
                             stack.Push(newSnapshot);
                             continue;
                         } else if (iParam.CrossAdjacentPoint) {
-                            newSnapshot = new JumpSnapshot();
-                            newSnapshot.iX = currentSnapshot.iX + currentSnapshot.tDx;
-                            newSnapshot.iY = currentSnapshot.iY + currentSnapshot.tDy;
-                            newSnapshot.iPx = currentSnapshot.iX;
-                            newSnapshot.iPy = currentSnapshot.iY;
-                            newSnapshot.stage = 0;
+                            newSnapshot = new JumpSnapshot
+                            {
+                                iX = currentSnapshot.iX + currentSnapshot.tDx,
+                                iY = currentSnapshot.iY + currentSnapshot.tDy,
+                                iPx = currentSnapshot.iX,
+                                iPy = currentSnapshot.iY,
+                                stage = 0
+                            };
                             stack.Push(newSnapshot);
                             continue;
                         }
@@ -542,12 +557,14 @@ namespace kagv {
                         currentSnapshot.stage = 4;
                         stack.Push(currentSnapshot);
 
-                        newSnapshot = new JumpSnapshot();
-                        newSnapshot.iX = currentSnapshot.iX;
-                        newSnapshot.iY = currentSnapshot.iY + currentSnapshot.tDy;
-                        newSnapshot.iPx = currentSnapshot.iX;
-                        newSnapshot.iPy = currentSnapshot.iY;
-                        newSnapshot.stage = 0;
+                        newSnapshot = new JumpSnapshot
+                        {
+                            iX = currentSnapshot.iX,
+                            iY = currentSnapshot.iY + currentSnapshot.tDy,
+                            iPx = currentSnapshot.iX,
+                            iPy = currentSnapshot.iY,
+                            stage = 0
+                        };
                         stack.Push(newSnapshot);
                         break;
                     case 4:
@@ -560,12 +577,14 @@ namespace kagv {
                         // moving diagonally, must make sure both of the vertical/horizontal
                         // neighbors is open to allow the path
                         if (iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + currentSnapshot.tDx, currentSnapshot.iY) && iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX, currentSnapshot.iY + currentSnapshot.tDy)) {
-                            newSnapshot = new JumpSnapshot();
-                            newSnapshot.iX = currentSnapshot.iX + currentSnapshot.tDx;
-                            newSnapshot.iY = currentSnapshot.iY + currentSnapshot.tDy;
-                            newSnapshot.iPx = currentSnapshot.iX;
-                            newSnapshot.iPy = currentSnapshot.iY;
-                            newSnapshot.stage = 0;
+                            newSnapshot = new JumpSnapshot
+                            {
+                                iX = currentSnapshot.iX + currentSnapshot.tDx,
+                                iY = currentSnapshot.iY + currentSnapshot.tDy,
+                                iPx = currentSnapshot.iX,
+                                iPy = currentSnapshot.iY,
+                                stage = 0
+                            };
                             stack.Push(newSnapshot);
                             continue;
                         }

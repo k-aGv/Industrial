@@ -22,11 +22,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
+
 
 
 namespace kagv {
@@ -59,11 +56,13 @@ namespace kagv {
 
         public DynamicGridWPool(NodePool iNodePool)
             : base() {
-            m_gridRect = new GridRect();
-            m_gridRect.minX = 0;
-            m_gridRect.minY = 0;
-            m_gridRect.maxX = 0;
-            m_gridRect.maxY = 0;
+            m_gridRect = new GridRect
+            {
+                minX = 0,
+                minY = 0,
+                maxX = 0,
+                maxY = 0,
+            };
             m_notSet = true;
             m_nodePool = iNodePool;
         }

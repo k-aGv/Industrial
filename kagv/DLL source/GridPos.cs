@@ -23,9 +23,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace kagv {
     public class GridPos : IEquatable<GridPos> {
@@ -37,8 +34,8 @@ namespace kagv {
             y = 0;
         }
         public GridPos(int iX, int iY) {
-            this.x = iX;
-            this.y = iY;
+            x = iX;
+            y = iY;
         }
 
         public GridPos(GridPos b) {
@@ -74,7 +71,7 @@ namespace kagv {
 
         public static bool operator ==(GridPos a, GridPos b) {
             // If both are null, or both are same instance, return true.
-            if (System.Object.ReferenceEquals(a, b)) {
+            if (ReferenceEquals(a, b)) {
                 return true;
             }
             if (ReferenceEquals(null, a)) {
@@ -92,8 +89,8 @@ namespace kagv {
         }
 
         public GridPos Set(int iX, int iY) {
-            this.x = iX;
-            this.y = iY;
+            x = iX;
+            y = iY;
             return this;
         }
     }

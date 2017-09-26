@@ -23,9 +23,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace kagv {
     public enum HeuristicMode {
@@ -41,13 +38,13 @@ namespace kagv {
         }
 
         public static float Euclidean(int iDx, int iDy) {
-            float tFdx = (float)iDx;
-            float tFdy = (float)iDy;
-            return (float)Math.Sqrt((double)(tFdx * tFdx + tFdy * tFdy));
+            float tFdx = iDx;
+            float tFdy = iDy;
+            return (float)Math.Sqrt((tFdx * tFdx + tFdy * tFdy));
         }
 
         public static float Chebyshev(int iDx, int iDy) {
-            return (float)Math.Max(iDx, iDy);
+            return Math.Max(iDx, iDy);
         }
 
     }

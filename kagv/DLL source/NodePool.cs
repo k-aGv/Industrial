@@ -22,11 +22,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
 
 namespace kagv {
     public class NodePool {
@@ -45,8 +41,7 @@ namespace kagv {
         }
 
         public Node GetNode(GridPos iPos) {
-            Node retVal = null;
-            m_nodes.TryGetValue(iPos, out retVal);
+            m_nodes.TryGetValue(iPos, out Node retVal);
             return retVal;
         }
 
@@ -57,16 +52,16 @@ namespace kagv {
 
         public Node SetNode(GridPos iPos, bool? iWalkable = null) {
             if (iWalkable.HasValue) {
+
                 if (iWalkable.Value == true) {
-                    Node retVal = null;
-                    if (m_nodes.TryGetValue(iPos, out retVal)) {
+                    if (m_nodes.TryGetValue(iPos, out Node retVal)) {
                         return retVal;
                     }
                     Node newNode = new Node(iPos.x, iPos.y, iWalkable);
                     m_nodes.Add(iPos, newNode);
                     return newNode;
                 } else {
-                    removeNode(iPos);
+                    RemoveNode(iPos);
                 }
 
             } else {
@@ -76,11 +71,11 @@ namespace kagv {
             }
             return null;
         }
-        protected void removeNode(int iX, int iY) {
+        protected void RemoveNode(int iX, int iY) {
             GridPos pos = new GridPos(iX, iY);
-            removeNode(pos);
+            RemoveNode(pos);
         }
-        protected void removeNode(GridPos iPos) {
+        protected void RemoveNode(GridPos iPos) {
             if (m_nodes.ContainsKey(iPos))
                 m_nodes.Remove(iPos);
         }
