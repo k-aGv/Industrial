@@ -47,8 +47,13 @@ namespace kagv
         //Handle our custom functions
         kagvFunctions.kFunctions __f = new kagvFunctions.kFunctions();
 
-        
+        //cells that represent Load can have 4 vallues:
+        //available Load = 1
+        //not a Load = 2
+        //Marked by an AGV Load = 3
+        //Temporarily trapped Load = 4
         int[,] isLoad = new int[Constants.__WidthBlocks, Constants.__HeightBlocks];
+
         BoxType[,] importmap;
 
         GridBox[][] m_rectangles;//2d jagged array. Contains grid information (coords of each box, boxtype, etc etc)  
@@ -76,7 +81,7 @@ namespace kagv
         Point endPointCoords = new Point(-1,-1);
 
         bool use_Halt = false;
-
+        bool overImage = false;
         bool imported;
         bool importedImage = false;
         bool beforeStart = true;
@@ -88,7 +93,7 @@ namespace kagv
         bool useRecursive = false;
         bool crossAdjacent = false;
         bool crossCorners = true;
-        int loads = 0;
+        int loads = 0; //index for keeping count of how many Loads there are in the Grid
 
         Color selectedColor=Color.DarkGray;
 
