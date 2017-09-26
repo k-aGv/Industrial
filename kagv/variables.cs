@@ -45,7 +45,7 @@ namespace kagv
 
 
         //Handle our custom functions
-        kagvFunctions.kFunctions __f = new kagvFunctions.kFunctions();
+        k_aGv_functions.Functions __f = new k_aGv_functions.Functions();
 
         //cells that represent Load can have 4 vallues:
         //available Load = 1
