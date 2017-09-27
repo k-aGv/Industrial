@@ -1195,8 +1195,8 @@ namespace kagv {
 
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
             jumpParam = new AStarParam(searchGrid,Convert.ToSingle( Constants.__AStarWeight));//Default value until user edit it
+            jumpParam.SetHeuristic(HeuristicMode.MANHATTAN); //default value until user edit it
 
-          
 
         }
 

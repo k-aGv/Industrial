@@ -31,22 +31,7 @@ namespace kagv
     }
     public static class AStarFinder
     {
-        /*
-        private class NodeComparer : IComparer<Node>
-        {
-            public int Compare(Node x, Node y)
-            {
-                var result = (x.heuristicStartToEndLen - y.heuristicStartToEndLen);
-                if (result < 0) return -1;
-                else
-                if (result > 0) return 1;
-                else
-                {
-                    return 0;
-                }
-            }
-        }
-        */
+       
 
         public static List<GridPos> FindPath(AStarParam iParam, decimal iWeight)
         {

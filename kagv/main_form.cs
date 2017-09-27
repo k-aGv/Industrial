@@ -546,7 +546,7 @@ namespace kagv {
             atLeastOneMenu.Checked = false;
             noObstaclesMenu.Checked = false;
             jumpParam.DiagonalMovement = DiagonalMovement.Always;
-
+            
             //do not allow to have an unselected item
             if (neverCrossMenu.Checked == false &&
             atLeastOneMenu.Checked == false &&
@@ -567,7 +567,7 @@ namespace kagv {
             atLeastOneMenu.Checked = false;
             noObstaclesMenu.Checked = false;
             jumpParam.DiagonalMovement = DiagonalMovement.Never;
-
+            
             //do not allow to have an unselected item
             if (neverCrossMenu.Checked == false &&
             atLeastOneMenu.Checked == false &&
@@ -623,27 +623,32 @@ namespace kagv {
             if ((sender as ToolStripMenuItem).Checked)
                 return;
             (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
-            mode = HeuristicMode.MANHATTAN;
+         
+            jumpParam.SetHeuristic(HeuristicMode.MANHATTAN);
             euclideanToolStripMenuItem.Checked = false;
             chebyshevToolStripMenuItem.Checked = false;
+            Redraw();
+            
         }
 
         private void euclideanToolStripMenuItem_Click(object sender, EventArgs e) {
             if ((sender as ToolStripMenuItem).Checked)
                 return;
             (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
-            mode = HeuristicMode.EUCLIDEAN;
+            jumpParam.SetHeuristic( HeuristicMode.EUCLIDEAN);
             manhattanToolStripMenuItem.Checked = false;
             chebyshevToolStripMenuItem.Checked = false;
+            Redraw();
         }
 
         private void chebyshevToolStripMenuItem_Click(object sender, EventArgs e) {
             if ((sender as ToolStripMenuItem).Checked)
                 return;
             (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
-            mode = HeuristicMode.CHEBYSHEV;
+            jumpParam.SetHeuristic( HeuristicMode.CHEBYSHEV);
             manhattanToolStripMenuItem.Checked = false;
             euclideanToolStripMenuItem.Checked = false;
+            Redraw();
         }
 
         private void stepsToolStripMenuItem_Click(object sender, EventArgs e) {

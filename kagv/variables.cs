@@ -64,7 +64,7 @@ namespace kagv
         BaseGrid searchGrid;
         AStarParam jumpParam;//custom jump method with its features exposed
         static Graphics paper;//main graphics for grid
-        HeuristicMode mode = HeuristicMode.MANHATTAN;
+        
         GridBox m_lastBoxSelect;
         BoxType m_lastBoxType = new BoxType();
         ToolTip tp;
@@ -91,11 +91,8 @@ namespace kagv
         int loads = 0; //index for keeping count of how many Loads there are in the Grid
 
         Color selectedColor=Color.DarkGray;
-
-        
         Color boxDefaultColor = (Constants.__SemiTransparency) ? Color.FromArgb( Constants.__Opacity,Color.WhiteSmoke) : Color.WhiteSmoke;
     
-
         int reflectedBlock;
         int reflectedWidth;
         int reflectedHeight;
