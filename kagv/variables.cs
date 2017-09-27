@@ -62,7 +62,7 @@ namespace kagv
         int b; //temporary Y.Used to calculate the remained length of current line
         int pos_index = 0;
         BaseGrid searchGrid;
-        JumpPointParam jumpParam;//custom jump method with its features exposed
+        AStarParam jumpParam;//custom jump method with its features exposed
         static Graphics paper;//main graphics for grid
         HeuristicMode mode = HeuristicMode.MANHATTAN;
         GridBox m_lastBoxSelect;

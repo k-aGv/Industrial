@@ -80,7 +80,7 @@ namespace kagv {
                         for (int resultTrav = 0; resultTrav < c; resultTrav++)
                             try {
                                 if (linesToolStripMenuItem.Checked)
-                                    AGVs[i].Paths[resultTrav].DrawLine(paper);//draw the lines 
+                                    AGVs[i].Paths[resultTrav].drawLine(paper);//draw the lines 
                                 if (!isMouseDown)
                                     DrawPoints(AGVs[i].Paths[resultTrav], i);//show points
                             } catch { }

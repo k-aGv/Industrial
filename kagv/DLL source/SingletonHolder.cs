@@ -1,8 +1,16 @@
-/*!
+/*! 
+@file SingletonHolder.cs
+@author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
+		<http://github.com/juhgiyo/eppathfinding.cs>
+@date September 27, 2013
+@brief SingletonHolder Interface
+@version 2.0
+
+@section LICENSE
+
 The MIT License (MIT)
 
 Copyright (c) 2013 Woong Gyu La <juhgiyo@gmail.com>
-Copyright (c) 2017 Dimitris Katikaridis <dkatikaridis@gmail.com>,Giannis Menekses <johnmenex@hotmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +29,34 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-*/
 
-namespace kagv {
-    public class SingletonHolder<T> where T : new() {
+@section DESCRIPTION
+
+An Interface for the SingletonHolder Class.
+
+*/
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Collections;
+
+namespace kagv
+{
+    public class SingletonHolder<T> where T : new()
+    {
         private static T m_instance;
 
-        private SingletonHolder() {
+        private SingletonHolder()
+        {
         }
 
-        public static T Instance {
-            get {
-                if (m_instance == null) {
+        public static T Instance
+        {
+            get
+            {
+                if (m_instance == null)
+                {
                     m_instance = new T();
                 }
                 return m_instance;

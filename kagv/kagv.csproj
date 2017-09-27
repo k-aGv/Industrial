@@ -93,6 +93,9 @@
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="C5">
+      <HintPath>Resources\C5.dll</HintPath>
+    </Reference>
     <Reference Include="k-aGv-functions">
       <HintPath>Resources\k-aGv-functions.dll</HintPath>
     </Reference>
@@ -123,11 +126,19 @@
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
     <Compile Include="Constants.cs" />
+    <Compile Include="DLL source\AStarFinder.cs" />
     <Compile Include="DLL source\BaseGrid.cs" />
+    <Compile Include="DLL source\DiagonalMovement.cs" />
     <Compile Include="DLL source\DynamicGridWPool.cs" />
     <Compile Include="DLL source\GridBox.cs" />
     <Compile Include="DLL source\GridLine.cs" />
+    <Compile Include="DLL source\GridPos.cs" />
+    <Compile Include="DLL source\GridRect.cs" />
+    <Compile Include="DLL source\Heuristic.cs" />
+    <Compile Include="DLL source\NodePool.cs" />
+    <Compile Include="DLL source\ParamBase.cs" />
     <Compile Include="DLL source\SingletonHolder.cs" />
+    <Compile Include="DLL source\Util.cs" />
     <Compile Include="emissions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,11 +151,6 @@
     <Compile Include="main_form.Designer.cs">
       <DependentUpon>main_form.cs</DependentUpon>
     </Compile>
-    <Compile Include="DLL source\GridPos.cs" />
-    <Compile Include="DLL source\GridRect.cs" />
-    <Compile Include="DLL source\Heuristic.cs" />
-    <Compile Include="DLL source\JumpPointFinder.cs" />
-    <Compile Include="DLL source\NodePool.cs" />
     <Compile Include="functions.cs">
       <SubType>Form</SubType>
     </Compile>
