@@ -822,6 +822,10 @@ namespace kagv {
             else
                 priorityRulesbetaToolStripMenuItem.Checked = false;
         }
+
+        private void nud_weight_ValueChanged(object sender, EventArgs e) {
+            Redraw();
+        }
     }
 
 }

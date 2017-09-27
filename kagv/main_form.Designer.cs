@@ -27,6 +27,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main_form));
             this.timer0 = new System.Windows.Forms.Timer(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.nud_weight = new System.Windows.Forms.NumericUpDown();
             this.gb_type = new System.Windows.Forms.GroupBox();
             this.cb_type = new System.Windows.Forms.ComboBox();
             this.gb_monitor = new System.Windows.Forms.GroupBox();
@@ -88,15 +89,14 @@
             this.borderColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
-            this.nud_weight = new System.Windows.Forms.NumericUpDown();
             this.menuPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).BeginInit();
             this.gb_type.SuspendLayout();
             this.gb_monitor.SuspendLayout();
             this.gb_settings.SuspendLayout();
             this.gb_agvs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_AGVs)).BeginInit();
             this.settings_menu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).BeginInit();
             this.SuspendLayout();
             // 
             // timer0
@@ -114,6 +114,20 @@
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(656, 75);
             this.menuPanel.TabIndex = 7;
+            // 
+            // nud_weight
+            // 
+            this.nud_weight.DecimalPlaces = 2;
+            this.nud_weight.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nud_weight.Location = new System.Drawing.Point(301, 13);
+            this.nud_weight.Name = "nud_weight";
+            this.nud_weight.Size = new System.Drawing.Size(69, 20);
+            this.nud_weight.TabIndex = 28;
+            this.nud_weight.ValueChanged += new System.EventHandler(this.nud_weight_ValueChanged);
             // 
             // gb_type
             // 
@@ -606,19 +620,6 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // nud_weight
-            // 
-            this.nud_weight.DecimalPlaces = 2;
-            this.nud_weight.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nud_weight.Location = new System.Drawing.Point(301, 13);
-            this.nud_weight.Name = "nud_weight";
-            this.nud_weight.Size = new System.Drawing.Size(69, 20);
-            this.nud_weight.TabIndex = 28;
-            // 
             // main_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -640,6 +641,7 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseUp);
             this.menuPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).EndInit();
             this.gb_type.ResumeLayout(false);
             this.gb_monitor.ResumeLayout(false);
             this.gb_monitor.PerformLayout();
@@ -649,7 +651,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nUD_AGVs)).EndInit();
             this.settings_menu.ResumeLayout(false);
             this.settings_menu.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

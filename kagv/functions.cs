@@ -766,16 +766,15 @@ namespace kagv {
 
 
                             //marks the load that each AGV picks up on the 1st route, as 3, so each agv knows where to go after delivering the 1st load
-                            if (fromstart[i])
-                                for (int widthtrav = 0; widthtrav < Constants.__WidthBlocks; widthtrav++)
-                                    for (int heightrav = 0; heightrav < Constants.__HeightBlocks; heightrav++)
-                                        if (isLoad[widthtrav, heightrav] == 1) {
-                                            isLoad[widthtrav, heightrav] = 3;
-                                            AGVs[i].MarkedLoad = new Point(widthtrav, heightrav);
+                            for (int widthtrav = 0; widthtrav < Constants.__WidthBlocks; widthtrav++)
+                                for (int heightrav = 0; heightrav < Constants.__HeightBlocks; heightrav++)
+                                    if (isLoad[widthtrav, heightrav] == 1) {
+                                        isLoad[widthtrav, heightrav] = 3;
+                                        AGVs[i].MarkedLoad = new Point(widthtrav, heightrav);
 
-                                            widthtrav = Constants.__WidthBlocks;
-                                            heightrav = Constants.__HeightBlocks;
-                                        }
+                                        widthtrav = Constants.__WidthBlocks;
+                                        heightrav = Constants.__HeightBlocks;
+                                    }
 
                             loadPos.Remove(loadPos[0]);
                             //============================
