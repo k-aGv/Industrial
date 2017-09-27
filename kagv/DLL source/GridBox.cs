@@ -56,7 +56,10 @@ namespace kagv
             switch (iType)
             {
                 case BoxType.Normal:
-                    brush = new SolidBrush(Color.WhiteSmoke);
+                    if (!Constants.__SemiTransparency)
+                        brush = new SolidBrush(Color.WhiteSmoke);
+                    else
+                        brush = new SolidBrush(Constants.__SemiTransparent);
                     break;
                 case BoxType.End:
                     brush = new SolidBrush(Color.Red);
@@ -67,10 +70,13 @@ namespace kagv
                 case BoxType.Wall:
                     brush = new SolidBrush(Color.Gray);
                     break;
-            
+                case BoxType.Load:
+                    brush = new SolidBrush(myBrown);
+                    break;
+
             }
-            width = 18;
-            height = 18;
+            width = height = Constants.__BlockSide - 1;
+            
             boxRec = new Rectangle(x, y, width, height);
         }
 
@@ -123,12 +129,15 @@ namespace kagv
             switch (boxType)
             {
                 case BoxType.Normal:
-
                     if (!Constants.__SemiTransparency)
                         brush = new SolidBrush(Color.WhiteSmoke);
                     else
                         brush = new SolidBrush(Constants.__SemiTransparent);
-
+                    break;
+                case BoxType.Wall:
+                    if (brush != null)
+                        brush.Dispose();
+                    boxType = BoxType.Normal;
                     break;
             }
         }

@@ -442,8 +442,9 @@ namespace kagv {
 
             for (int i = 0; i < StartPos.Count(); i++)
                 AGVs[i].JumpPoints = new List<GridPos>();
-            
+
             //JumpPointsList = new List<GridPos>();
+            
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
 
             aGVIndexToolStripMenuItem.Checked =
@@ -702,11 +703,12 @@ namespace kagv {
 
 
                 if (AGVs[i].Status.Busy == false) {
-                    
-                        
+
+
                     //===========================================================
                     //====create the path FROM START TO LOAD, if load exists=====
                     //===========================================================
+                    List<GridPos> JumpPointsList;
                     switch (mapHasLoads) {
                         case true:
                             //Do not allow walk over any other load except the targeted one
@@ -722,7 +724,7 @@ namespace kagv {
                             // List <GridPos> JumpPointsList = JumpPointFinder.FindPath(jumpParam);
                            // AStarParam aStar = new AStarParam(searchGrid,StartPos[pos_index],loadPos[0], 10);
                             jumpParam.Reset(StartPos[pos_index], loadPos[0]);
-                            List <GridPos> JumpPointsList = AStarFinder.FindPath(jumpParam,nud_weight.Value);
+                            JumpPointsList = AStarFinder.FindPath(jumpParam,nud_weight.Value);
                             AGVs[i].Status.Busy = true;
 
                             for (int k = 0; k < Constants.__WidthBlocks; k++)
@@ -813,7 +815,7 @@ namespace kagv {
                 if ((c - 1) > 0)
                     Array.Resize(ref AGVs[i].Paths, c - 1); //resize of the AGVs steps Table
             
-            this.Invalidate();
+            Invalidate();
         }
 
         //function that determines which loads are valid to keep and which are not
