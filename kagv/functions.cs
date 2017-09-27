@@ -708,27 +708,20 @@ namespace kagv {
                     switch (mapHasLoads) {
                         case true:
                             //Do not allow walk over any other load except the targeted one
-                            for (int k = 0; k < Constants.__WidthBlocks; k++)
-                                for (int l = 0; l < Constants.__HeightBlocks; l++)
-                                    if (m_rectangles[k][l].x != (loadPos[0].x * Constants.__BlockSide)
-                                     && m_rectangles[k][l].y != (loadPos[0].y * Constants.__BlockSide)
-                                     && m_rectangles[k][l].boxType == BoxType.Load)
-                                        searchGrid.SetWalkableAt(new GridPos(k, l), false);
+                            for (int m = 0; m < loadPos.Count; m++)
+                                searchGrid.SetWalkableAt(loadPos[m], false);
+                            searchGrid.SetWalkableAt(loadPos[0], true);
 
                             //use of the A* alorithms to find the path between AGV and its marked Load
                             // jumpParam.Reset(StartPos[pos_index], loadPos[0]); 
                             // List <GridPos> JumpPointsList = JumpPointFinder.FindPath(jumpParam);
-                           // AStarParam aStar = new AStarParam(searchGrid,StartPos[pos_index],loadPos[0], 10);
+                            // AStarParam aStar = new AStarParam(searchGrid,StartPos[pos_index],loadPos[0], 10);
                             jumpParam.Reset(StartPos[pos_index], loadPos[0]);
                             JumpPointsList = AStarFinder.FindPath(jumpParam,nud_weight.Value);
                             AGVs[i].Status.Busy = true;
 
-                            for (int k = 0; k < Constants.__WidthBlocks; k++)
-                                for (int l = 0; l < Constants.__HeightBlocks; l++)
-                                    if (m_rectangles[k][l].x != (loadPos[0].x * Constants.__BlockSide)
-                                        && m_rectangles[k][l].y != (loadPos[0].y * Constants.__BlockSide)
-                                        && m_rectangles[k][l].boxType == BoxType.Load)
-                                        searchGrid.SetWalkableAt(new GridPos(k, l), false);
+                            for (int m = 0; m < loadPos.Count; m++)
+                                searchGrid.SetWalkableAt(loadPos[m], false);
 
                             for (int j = 0; j < JumpPointsList.Count; j++)
                                 AGVs[i].JumpPoints.Add(JumpPointsList[j]);
@@ -741,12 +734,7 @@ namespace kagv {
                             //======FROM LOAD TO END======
                             //============================
                             //============================
-
-                            //Do not allow walk over any other load except the targeted one
-                            for (int k = 0; k < Constants.__WidthBlocks; k++)
-                                for (int l = 0; l < Constants.__HeightBlocks; l++)
-                                    if (m_rectangles[k][l].boxType == BoxType.Load)
-                                        searchGrid.SetWalkableAt(new GridPos(k, l), false);
+                            
 
                             //aStar = new AStarParam(searchGrid, loadPos[0], endPos, 10);
                             jumpParam.Reset(loadPos[0], endPos);
@@ -1006,38 +994,28 @@ namespace kagv {
                     if (isLoad[i, j] == 1 || isLoad[i, j] == 4)
                         loadPos.Add(new GridPos(i, j));
                 }
-            checkForTrappedLoads(loadPos); //scans the loadPos list to check which loads are available
+            loadPos = checkForTrappedLoads(loadPos); //scans the loadPos list to check which loads are available
+            
+            isLoad[loadPos[0].x, loadPos[0].y] = 3;
+            AGVs[whichAGV].MarkedLoad = new Point(loadPos[0].x, loadPos[0].y);
+            loads--;
+            endPos = loadPos[0];
 
-            for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++)
-                for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++)
-                    if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Load && isLoad[widthTrav, heightTrav] == 1) {
-                        isLoad[widthTrav, heightTrav] = 3;
-                        AGVs[whichAGV].MarkedLoad = new Point(widthTrav, heightTrav);
+            //Mark all loads as unwalkable,except the targetted ones
+            for (int m = 0; m < loadPos.Count; m++)
+                searchGrid.SetWalkableAt(loadPos[m], false);
+            searchGrid.SetWalkableAt(loadPos[0], true);
+
                         
-                        endPos.x = widthTrav;
-                        endPos.y = heightTrav;
-                        loads--;
-
-                        //Mark all loads as unwalkable,except the targetted ones
-                        for (int k = 0; k < Constants.__WidthBlocks; k++)
-                            for (int l = 0; l < Constants.__HeightBlocks; l++)
-                                if (m_rectangles[k][l].boxType == BoxType.Load && isLoad[k, l] != 3)
-                                    searchGrid.SetWalkableAt(new GridPos(k, l), false);
-
-                        widthTrav = Constants.__WidthBlocks;
-                        heightTrav = Constants.__HeightBlocks;
-                    }
             //creates the path between the AGV (which at the moment is at the exit) and the Load
             jumpParam.Reset(StartPos[whichAGV], endPos); 
             List <GridPos> JumpPointsList = AStarFinder.FindPath(jumpParam, nud_weight.Value);
 
             //Mark all loads as unwalkable
-            for (int k = 0; k < Constants.__WidthBlocks; k++)
-                for (int l = 0; l < Constants.__HeightBlocks; l++)
-                    if (m_rectangles[k][l].boxType == BoxType.Load)
-                        searchGrid.SetWalkableAt(new GridPos(k, l), false);
+            for (int m = 0; m < loadPos.Count; m++)
+                searchGrid.SetWalkableAt(loadPos[m], false);
 
-            
+
             for (int j = 0; j < JumpPointsList.Count; j++)
                 AGVs[whichAGV].JumpPoints.Add(JumpPointsList[j]); //adds the result from A* to the AGV's
                                                                   //embedded List
