@@ -47,7 +47,13 @@ namespace kagv
             }
         }
         */
-        public static List<GridPos> FindPath(AStarParam iParam)
+
+        public static List<GridPos> FindPath(AStarParam iParam, decimal iWeight)
+        {
+            return FindPath(iParam, Convert.ToDouble(iWeight));
+        }
+
+        public static List<GridPos> FindPath(AStarParam iParam,double iWeight)
         {
             object lo = new object();
             //var openList = new IntervalHeap<Node>(new NodeComparer());
@@ -57,8 +63,8 @@ namespace kagv
             var heuristic = iParam.HeuristicFunc;
             var grid = iParam.SearchGrid;
             var diagonalMovement = iParam.DiagonalMovement;
-            var weight = iParam.Weight;
-
+            // var weight = iParam.Weight;
+            var weight = iWeight;
 
             startNode.startToCurNodeLen = 0;
             startNode.heuristicStartToEndLen = 0;
@@ -90,7 +96,8 @@ namespace kagv
                     if (!neighbor.isOpened || ng < neighbor.startToCurNodeLen)
                     {
                         neighbor.startToCurNodeLen = ng;
-                        if (neighbor.heuristicCurNodeToEndLen == null) neighbor.heuristicCurNodeToEndLen = weight * heuristic(Math.Abs(x - endNode.x), Math.Abs(y - endNode.y));
+                        if (neighbor.heuristicCurNodeToEndLen == null)
+                            neighbor.heuristicCurNodeToEndLen = Convert.ToSingle(weight) * heuristic(Math.Abs(x - endNode.x), Math.Abs(y - endNode.y));
                         neighbor.heuristicStartToEndLen = neighbor.startToCurNodeLen + neighbor.heuristicCurNodeToEndLen.Value;
                         neighbor.parent = node;
                         if (!neighbor.isOpened)

@@ -105,6 +105,8 @@ namespace kagv {
 
             //Load all values
 
+            nud_weight.Value = Convert.ToDecimal( Constants.__AStarWeight ) ;
+            
             //Transparent and SemiTransparent feature serves the agri/industrial branch recursively
             importImageLayoutToolStripMenuItem.Enabled = Constants.__SemiTransparency;
 
@@ -129,6 +131,7 @@ namespace kagv {
             }
 
             Text = "K-aGv2 Simulator (Industrial branch)";
+            gb_monitor.Size = new Size(gb_monitor.Size.Width + 300, gb_monitor.Size.Height);
 
             var _proc = System.Diagnostics.Process.GetCurrentProcess();
             _proc.ProcessorAffinity = new IntPtr(0x0003);//use cores 1,2 

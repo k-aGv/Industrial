@@ -66,6 +66,7 @@
             this.useRecursiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.crossAdjacentPointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.crossCornerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.priorityRulesbetaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.heuristicModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manhattanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.euclideanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,7 +88,7 @@
             this.borderColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
-            this.priorityRulesbetaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nud_weight = new System.Windows.Forms.NumericUpDown();
             this.menuPanel.SuspendLayout();
             this.gb_type.SuspendLayout();
             this.gb_monitor.SuspendLayout();
@@ -95,6 +96,7 @@
             this.gb_agvs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_AGVs)).BeginInit();
             this.settings_menu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).BeginInit();
             this.SuspendLayout();
             // 
             // timer0
@@ -104,6 +106,7 @@
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.menuPanel.Controls.Add(this.nud_weight);
             this.menuPanel.Controls.Add(this.gb_type);
             this.menuPanel.Controls.Add(this.gb_monitor);
             this.menuPanel.Controls.Add(this.gb_settings);
@@ -143,9 +146,9 @@
             this.gb_monitor.Controls.Add(this.agv1steps_LB);
             this.gb_monitor.Controls.Add(this.agv5steps_LB);
             this.gb_monitor.Controls.Add(this.agv2steps_LB);
-            this.gb_monitor.Location = new System.Drawing.Point(300, 5);
+            this.gb_monitor.Location = new System.Drawing.Point(376, 5);
             this.gb_monitor.Name = "gb_monitor";
-            this.gb_monitor.Size = new System.Drawing.Size(338, 65);
+            this.gb_monitor.Size = new System.Drawing.Size(262, 65);
             this.gb_monitor.TabIndex = 26;
             this.gb_monitor.TabStop = false;
             this.gb_monitor.Text = "Monitor";
@@ -153,7 +156,7 @@
             // agv3steps_LB
             // 
             this.agv3steps_LB.AutoSize = true;
-            this.agv3steps_LB.Location = new System.Drawing.Point(297, 13);
+            this.agv3steps_LB.Location = new System.Drawing.Point(272, 15);
             this.agv3steps_LB.Name = "agv3steps_LB";
             this.agv3steps_LB.Size = new System.Drawing.Size(35, 13);
             this.agv3steps_LB.TabIndex = 22;
@@ -171,7 +174,7 @@
             // agv4steps_LB
             // 
             this.agv4steps_LB.AutoSize = true;
-            this.agv4steps_LB.Location = new System.Drawing.Point(297, 30);
+            this.agv4steps_LB.Location = new System.Drawing.Point(272, 32);
             this.agv4steps_LB.Name = "agv4steps_LB";
             this.agv4steps_LB.Size = new System.Drawing.Size(35, 13);
             this.agv4steps_LB.TabIndex = 23;
@@ -189,7 +192,7 @@
             // agv5steps_LB
             // 
             this.agv5steps_LB.AutoSize = true;
-            this.agv5steps_LB.Location = new System.Drawing.Point(297, 46);
+            this.agv5steps_LB.Location = new System.Drawing.Point(272, 48);
             this.agv5steps_LB.Name = "agv5steps_LB";
             this.agv5steps_LB.Size = new System.Drawing.Size(35, 13);
             this.agv5steps_LB.TabIndex = 24;
@@ -440,6 +443,13 @@
             this.crossCornerToolStripMenuItem.Text = "Cross Corner";
             this.crossCornerToolStripMenuItem.Click += new System.EventHandler(this.crossCornerToolStripMenuItem_Click);
             // 
+            // priorityRulesbetaToolStripMenuItem
+            // 
+            this.priorityRulesbetaToolStripMenuItem.Name = "priorityRulesbetaToolStripMenuItem";
+            this.priorityRulesbetaToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.priorityRulesbetaToolStripMenuItem.Text = "Priority rules (beta)";
+            this.priorityRulesbetaToolStripMenuItem.Click += new System.EventHandler(this.priorityRulesbetaToolStripMenuItem_Click);
+            // 
             // heuristicModeToolStripMenuItem
             // 
             this.heuristicModeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -596,12 +606,18 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // priorityRulesbetaToolStripMenuItem
+            // nud_weight
             // 
-            this.priorityRulesbetaToolStripMenuItem.Name = "priorityRulesbetaToolStripMenuItem";
-            this.priorityRulesbetaToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.priorityRulesbetaToolStripMenuItem.Text = "Priority rules (beta)";
-            this.priorityRulesbetaToolStripMenuItem.Click += new System.EventHandler(this.priorityRulesbetaToolStripMenuItem_Click);
+            this.nud_weight.DecimalPlaces = 2;
+            this.nud_weight.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nud_weight.Location = new System.Drawing.Point(301, 13);
+            this.nud_weight.Name = "nud_weight";
+            this.nud_weight.Size = new System.Drawing.Size(69, 20);
+            this.nud_weight.TabIndex = 28;
             // 
             // main_form
             // 
@@ -633,6 +649,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nUD_AGVs)).EndInit();
             this.settings_menu.ResumeLayout(false);
             this.settings_menu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -703,6 +720,7 @@
         private System.Windows.Forms.ToolStripMenuItem importImageLayoutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem priorityRulesbetaToolStripMenuItem;
+        private System.Windows.Forms.NumericUpDown nud_weight;
     }
 }
 

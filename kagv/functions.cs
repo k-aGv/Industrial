@@ -588,7 +588,7 @@ namespace kagv {
                 removed = false;
                 jumpParam.Reset(Vehicles[list_index], End); //we use the A* setting function and pass the 
                                                             //initial start point of every AGV and the final destination (end block)
-                if (AStarFinder.FindPath(jumpParam).Count == 0) //if the number of JumpPoints that is calculated is 0 (zero)
+                if (AStarFinder.FindPath(jumpParam, nud_weight.Value).Count == 0) //if the number of JumpPoints that is calculated is 0 (zero)
                 {                                                          //it means that there was no path found
                     Vehicles.Remove(Vehicles[list_index]); //we removed, from the returning list, the AGV for which there was no path found
                     AGVs.Remove(AGVs[list_index]); //we remove the corresponding AGV from the public list that contains all the AGVs which will participate in the simulation
@@ -703,19 +703,17 @@ namespace kagv {
             //For-loop to repeat the path-finding process for ALL the AGVs that participate in the simulation
             for (int i = 0; i < StartPos.Count; i++) {
 
-                if(loadPos.Count!=0)
-                    loadPos = checkForTrappedLoads(loadPos); //checks which Loads are surrounded by other loads
+              
 
                 if (AGVs[i].Status.Busy == false) {
-
-                    MessageBox.Show("maphasloads: " + mapHasLoads);
-
+                    if (loadPos.Count() == 0)
+                        mapHasLoads = false;
                     //===========================================================
                     //====create the path FROM START TO LOAD, if load exists=====
                     //===========================================================
                     switch (mapHasLoads) {
                         case true:
-
+                            checkForTrappedLoads(loadPos);
                             //Do not allow walk over any other load except the targeted one
                             for (int k = 0; k < Constants.__WidthBlocks; k++)
                                 for (int l = 0; l < Constants.__HeightBlocks; l++)
@@ -729,7 +727,7 @@ namespace kagv {
                             // List <GridPos> JumpPointsList = JumpPointFinder.FindPath(jumpParam);
                            // AStarParam aStar = new AStarParam(searchGrid,StartPos[pos_index],loadPos[0], 10);
                             jumpParam.Reset(StartPos[pos_index], loadPos[0]);
-                            List <GridPos> JumpPointsList = AStarFinder.FindPath(jumpParam);
+                            List <GridPos> JumpPointsList = AStarFinder.FindPath(jumpParam,nud_weight.Value);
                             AGVs[i].Status.Busy = true;
 
                             for (int k = 0; k < Constants.__WidthBlocks; k++)
@@ -759,7 +757,7 @@ namespace kagv {
 
                             //aStar = new AStarParam(searchGrid, loadPos[0], endPos, 10);
                             jumpParam.Reset(loadPos[0], endPos);
-                            JumpPointsList = AStarFinder.FindPath(jumpParam);
+                            JumpPointsList = AStarFinder.FindPath(jumpParam,nud_weight.Value);
 
                             for (int j = 0; j < JumpPointsList.Count; j++) {
                                 AGVs[i].JumpPoints.Add(JumpPointsList[j]);  //adds the list containing the AGV's path, to the AGV's embedded JumpPoint List
@@ -789,7 +787,7 @@ namespace kagv {
                             break;
                         case false:
                             jumpParam.Reset(StartPos[pos_index], endPos);
-                            JumpPointsList = AStarFinder.FindPath(jumpParam);
+                            JumpPointsList = AStarFinder.FindPath(jumpParam, nud_weight.Value);
 
                             for (int j = 0; j < JumpPointsList.Count; j++) {
                                 AGVs[i].JumpPoints.Add(JumpPointsList[j]);
@@ -837,7 +835,7 @@ namespace kagv {
             {
                 removed = false;
                 jumpParam.Reset(loadPos[list_index], EndPoint); //tries to find path between each Load and the exit
-                if(AStarFinder.FindPath(jumpParam).Count==0) //if no path is found
+                if(AStarFinder.FindPath(jumpParam,nud_weight.Value).Count==0) //if no path is found
                 {
                     isLoad[loadPos[list_index].x, loadPos[list_index].y] = 2; //mark the corresponding load as NOT available
                     loads--; //decrease the counter of total loads in the grid
@@ -856,7 +854,7 @@ namespace kagv {
         }
 
         //funcion that scans and finds which loads are surrounded by other loads
-        private List<GridPos> checkForTrappedLoads(List<GridPos> loads) {
+        private void checkForTrappedLoads(List<GridPos> pos) {
             int list_index = 0;
             bool removed;    
 
@@ -865,27 +863,22 @@ namespace kagv {
             do
             {
                 removed = false;
-                searchGrid.SetWalkableAt(new GridPos(loads[list_index].x, loads[list_index].y), true);
-                jumpParam.Reset(StartPos[0], loads[list_index]);
-                if (AStarFinder.FindPath(jumpParam).Count == 0)
+                searchGrid.SetWalkableAt(new GridPos(pos[list_index].x, pos[list_index].y), true);
+                jumpParam.Reset(StartPos[0], pos[list_index]);
+                if (AStarFinder.FindPath(jumpParam, nud_weight.Value).Count == 0)
                 {
-                    searchGrid.SetWalkableAt(new GridPos(loads[list_index].x, loads[list_index].y), false);
-                    isLoad[loads[list_index].x, loads[list_index].y] = 4; //load is marked as trapped
-                    loads.Remove(loads[list_index]); //load is removed from the List with available Loads
+                    searchGrid.SetWalkableAt(new GridPos(pos[list_index].x, pos[list_index].y), false);
+                    isLoad[pos[list_index].x, pos[list_index].y] = 4; //load is marked as trapped
+                    pos.Remove(pos[list_index]); //load is removed from the List with available Loads
                     removed = true;
                 }
                 else
-                    isLoad[loads[list_index].x, loads[list_index].y] = 1; //otherwise, Load is marked as available
+                    isLoad[pos[list_index].x, pos[list_index].y] = 1; //otherwise, Load is marked as available
 
                 if (!removed)
                     list_index++;
-            } while (list_index < loads.Count);
-
-
-            if (loads.Count == 0)
-                mapHasLoads = false;
-
-            return loads;
+            } while (list_index < pos.Count);
+  
         }
 
         //returns the number of steps until AGV reaches the marked Load
@@ -1043,7 +1036,7 @@ namespace kagv {
                     }
             //creates the path between the AGV (which at the moment is at the exit) and the Load
             jumpParam.Reset(StartPos[whichAGV], endPos); 
-            List <GridPos> JumpPointsList = AStarFinder.FindPath(jumpParam);
+            List <GridPos> JumpPointsList = AStarFinder.FindPath(jumpParam, nud_weight.Value);
 
             //Mark all loads as unwalkable
             for (int k = 0; k < Constants.__WidthBlocks; k++)
@@ -1082,7 +1075,7 @@ namespace kagv {
             int old_c = c-1;
             
             jumpParam.Reset(endPos, StartPos[whichAGV]);
-            JumpPointsList = AStarFinder.FindPath(jumpParam);
+            JumpPointsList = AStarFinder.FindPath(jumpParam, nud_weight.Value);
             for (int j = 0; j < JumpPointsList.Count; j++)
                 AGVs[whichAGV].JumpPoints.Add(JumpPointsList[j]); 
 
@@ -1202,7 +1195,7 @@ namespace kagv {
 
 
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
-            jumpParam = new AStarParam(searchGrid, 100);
+            jumpParam = new AStarParam(searchGrid,Convert.ToSingle( Constants.__AStarWeight));//Default value until user edit it
 
           
 

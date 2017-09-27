@@ -36,12 +36,13 @@ namespace kagv
 
         internal abstract void _reset(GridPos iStartPos, GridPos iEndPos, BaseGrid iSearchGrid = null);
 
-        public void Reset(GridPos iStartPos, GridPos iEndPos, BaseGrid iSearchGrid = null)
+        public void Reset(GridPos iStartPos, GridPos iEndPos,BaseGrid iSearchGrid = null)
         {
+
             _reset(iStartPos, iEndPos, iSearchGrid);
             m_startNode = null;
             m_endNode = null;
-
+            
             if (iSearchGrid != null)
                 m_searchGrid = iSearchGrid;
             m_searchGrid.Reset();

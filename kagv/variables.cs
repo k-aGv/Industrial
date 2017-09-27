@@ -70,6 +70,8 @@ namespace kagv
         ToolTip tp;
         Point endPointCoords = new Point(-1,-1);
 
+
+      
         bool use_Halt = false;
         bool overImage = false;
         bool imported;
