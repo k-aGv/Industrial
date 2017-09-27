@@ -11,7 +11,8 @@
 The MIT License (MIT)
 
 Copyright (c) 2013 Woong Gyu La <juhgiyo@gmail.com>
-
+Copyright (c) 2017 Dimitris Katikaridis <dkatikaridis@gmail.com>,Giannis Menekses <johnmenex@hotmail.com>
+ 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -30,15 +31,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@section DESCRIPTION
-
-An Interface for the GridRect Struct.
 
 */
-using System;
-using System.Collections.Generic;
-using System.Collections;
-
 namespace kagv
 {
     public class GridRect
@@ -102,7 +96,7 @@ namespace kagv
         public static bool operator ==(GridRect a, GridRect b)
         {
             // If both are null, or both are same instance, return true.
-            if (System.Object.ReferenceEquals(a, b))
+            if (ReferenceEquals(a, b))
             {
                 return true;
             }
@@ -125,10 +119,10 @@ namespace kagv
 
         public GridRect Set(int iMinX, int iMinY, int iMaxX, int iMaxY)
         {
-            this.minX = iMinX;
-            this.minY = iMinY;
-            this.maxX = iMaxX;
-            this.maxY = iMaxY;
+            minX = iMinX;
+            minY = iMinY;
+            maxX = iMaxX;
+            maxY = iMaxY;
             return this;
         }
     }

@@ -11,7 +11,8 @@
 The MIT License (MIT)
 
 Copyright (c) 2013 Woong Gyu La <juhgiyo@gmail.com>
-
+Copyright (c) 2017 Dimitris Katikaridis <dkatikaridis@gmail.com>,Giannis Menekses <johnmenex@hotmail.com>
+ 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -30,16 +31,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@section DESCRIPTION
-
-An Interface for the GridBox Class.
-
 */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 
 namespace kagv
@@ -57,9 +50,9 @@ namespace kagv
         private SolidBrush brush;
         public GridBox(int iX, int iY,BoxType iType)
         {
-            this.x = iX;
-            this.y = iY;
-            this.boxType = iType;
+            x = iX;
+            y = iY;
+            boxType = iType;
             switch (iType)
             {
                 case BoxType.Normal:
@@ -93,7 +86,7 @@ namespace kagv
 
         public void onHover(Color c)
         {
-            this.brush = new SolidBrush(c);
+            brush = new SolidBrush(c);
         }
 
         public void SwitchEnd_StartToNormal()
@@ -170,19 +163,19 @@ namespace kagv
 
         public void SwitchBox()
         {
-            switch (this.boxType)
+            switch (boxType)
             {
                 case BoxType.Normal:
-                    if (this.brush != null)
-                        this.brush.Dispose();
-                    this.brush = new SolidBrush(Color.Gray);
-                    this.boxType = BoxType.Wall;
+                    if (brush != null)
+                        brush.Dispose();
+                    brush = new SolidBrush(Color.Gray);
+                    boxType = BoxType.Wall;
                     break;
                 case BoxType.Wall:
-                    if (this.brush != null)
-                        this.brush.Dispose();
-                    this.brush = new SolidBrush(Color.WhiteSmoke);
-                    this.boxType = BoxType.Normal;
+                    if (brush != null)
+                        brush.Dispose();
+                    brush = new SolidBrush(Color.WhiteSmoke);
+                    boxType = BoxType.Normal;
                     break;
 
             }
@@ -190,33 +183,33 @@ namespace kagv
 
         public void SetNormalBox()
         {
-            if (this.brush != null)
-                this.brush.Dispose();
-           this.brush = new SolidBrush(Color.WhiteSmoke);
-           this.boxType = BoxType.Normal;
+            if (brush != null)
+                brush.Dispose();
+           brush = new SolidBrush(Color.WhiteSmoke);
+           boxType = BoxType.Normal;
         }
 
         public void SetStartBox()
         {
-            if (this.brush != null)
-                this.brush.Dispose();
-            this.brush = new SolidBrush(Color.Green);
-            this.boxType = BoxType.Start;
+            if (brush != null)
+                brush.Dispose();
+            brush = new SolidBrush(Color.Green);
+            boxType = BoxType.Start;
         }
 
         public void SetEndBox()
         {
-            if (this.brush != null)
-                this.brush.Dispose();
-            this.brush = new SolidBrush(Color.Red);
-            this.boxType = BoxType.End;
+            if (brush != null)
+                brush.Dispose();
+            brush = new SolidBrush(Color.Red);
+            boxType = BoxType.End;
         }
 
 
         public void Dispose()
         {
-            if(this.brush!=null)
-                this.brush.Dispose();
+            if(brush!=null)
+                brush.Dispose();
 
         }
     }

@@ -11,7 +11,8 @@
 The MIT License (MIT)
 
 Copyright (c) 2013 Woong Gyu La <juhgiyo@gmail.com>
-
+Copyright (c) 2017 Dimitris Katikaridis <dkatikaridis@gmail.com>,Giannis Menekses <johnmenex@hotmail.com>
+ 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -30,15 +31,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@section DESCRIPTION
-
-An Interface for the Heuristic Function Class.
-
 */
 using System;
-using System.Collections.Generic;
-using System.Collections;
-
 namespace kagv
 {
     public enum HeuristicMode
@@ -58,14 +52,14 @@ namespace kagv
 
         public static float Euclidean(int iDx, int iDy)
         {
-            float tFdx = (float)iDx;
-            float tFdy = (float)iDy;
-            return (float)Math.Sqrt((double)(tFdx * tFdx + tFdy * tFdy));
+            float tFdx = iDx;
+            float tFdy = iDy;
+            return (float)Math.Sqrt((tFdx * tFdx + tFdy * tFdy));
         }
 
         public static float Chebyshev(int iDx, int iDy)
         {
-            return (float)Math.Max(iDx, iDy);
+            return Math.Max(iDx, iDy);
         }
     }
 }

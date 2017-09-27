@@ -11,7 +11,8 @@
 The MIT License (MIT)
 
 Copyright (c) 2013 Woong Gyu La <juhgiyo@gmail.com>
-
+Copyright (c) 2017 Dimitris Katikaridis <dkatikaridis@gmail.com>,Giannis Menekses <johnmenex@hotmail.com>
+ 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -30,14 +31,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@section DESCRIPTION
-
-An Interface for the BaseGrid Class.
-
 */
 using System;
 using System.Collections.Generic;
-using System.Collections;
 
 namespace kagv
 {
@@ -55,45 +51,45 @@ namespace kagv
 
         public Node(int iX, int iY, bool? iWalkable = null)
         {
-            this.x = iX;
-            this.y = iY;
-            this.walkable = (iWalkable.HasValue ? iWalkable.Value : false);
-            this.heuristicStartToEndLen = 0;
-            this.startToCurNodeLen = 0;
+            x = iX;
+            y = iY;
+            walkable = (iWalkable.HasValue ? iWalkable.Value : false);
+            heuristicStartToEndLen = 0;
+            startToCurNodeLen = 0;
             // this must be initialized as null to verify that its value never initialized
             // 0 is not good candidate!!
-            this.heuristicCurNodeToEndLen = null;
-            this.isOpened = false;
-            this.isClosed = false;
-            this.parent = null;
+            heuristicCurNodeToEndLen = null;
+            isOpened = false;
+            isClosed = false;
+            parent = null;
 
         }
 
         public Node(Node b)
         {
-            this.x = b.x;
-            this.y = b.y;
-            this.walkable = b.walkable;
-            this.heuristicStartToEndLen = b.heuristicStartToEndLen;
-            this.startToCurNodeLen = b.startToCurNodeLen;
-            this.heuristicCurNodeToEndLen = b.heuristicCurNodeToEndLen;
-            this.isOpened = b.isOpened;
-            this.isClosed = b.isClosed;
-            this.parent = b.parent;
+            x = b.x;
+            y = b.y;
+            walkable = b.walkable;
+            heuristicStartToEndLen = b.heuristicStartToEndLen;
+            startToCurNodeLen = b.startToCurNodeLen;
+            heuristicCurNodeToEndLen = b.heuristicCurNodeToEndLen;
+            isOpened = b.isOpened;
+            isClosed = b.isClosed;
+            parent = b.parent;
         }
 
         public void Reset(bool? iWalkable = null)
         {
             if (iWalkable.HasValue)
                 walkable = iWalkable.Value;
-            this.heuristicStartToEndLen = 0;
-            this.startToCurNodeLen = 0;
+            heuristicStartToEndLen = 0;
+            startToCurNodeLen = 0;
             // this must be initialized as null to verify that its value never initialized
             // 0 is not good candidate!!
-            this.heuristicCurNodeToEndLen = null ;
-            this.isOpened = false;
-            this.isClosed = false;
-            this.parent = null;
+            heuristicCurNodeToEndLen = null ;
+            isOpened = false;
+            isClosed = false;
+            parent = null;
         }
 
         public int CompareTo(Node iObj)
@@ -230,22 +226,22 @@ namespace kagv
                 tS3 = false, tD3 = false;
 
             GridPos pos = new GridPos();
-            if (this.IsWalkableAt(pos.Set(tX, tY - 1)))
+            if (IsWalkableAt(pos.Set(tX, tY - 1)))
             {
                 neighbors.Add(GetNodeAt(pos));
                 tS0 = true;
             }
-            if (this.IsWalkableAt(pos.Set(tX + 1, tY)))
+            if (IsWalkableAt(pos.Set(tX + 1, tY)))
             {
                 neighbors.Add(GetNodeAt(pos));
                 tS1 = true;
             }
-            if (this.IsWalkableAt(pos.Set(tX, tY + 1)))
+            if (IsWalkableAt(pos.Set(tX, tY + 1)))
             {
                 neighbors.Add(GetNodeAt(pos));
                 tS2 = true;
             }
-            if (this.IsWalkableAt(pos.Set(tX - 1, tY)))
+            if (IsWalkableAt(pos.Set(tX - 1, tY)))
             {
                 neighbors.Add(GetNodeAt(pos));
                 tS3 = true;
@@ -277,19 +273,19 @@ namespace kagv
                     break;
             }
 
-            if (tD0 && this.IsWalkableAt(pos.Set(tX - 1, tY - 1)))
+            if (tD0 && IsWalkableAt(pos.Set(tX - 1, tY - 1)))
             {
                 neighbors.Add(GetNodeAt(pos));
             }
-            if (tD1 && this.IsWalkableAt(pos.Set(tX + 1, tY - 1)))
+            if (tD1 && IsWalkableAt(pos.Set(tX + 1, tY - 1)))
             {
                 neighbors.Add(GetNodeAt(pos));
             }
-            if (tD2 && this.IsWalkableAt(pos.Set(tX + 1, tY + 1)))
+            if (tD2 && IsWalkableAt(pos.Set(tX + 1, tY + 1)))
             {
                 neighbors.Add(GetNodeAt(pos));
             }
-            if (tD3 && this.IsWalkableAt(pos.Set(tX - 1, tY + 1)))
+            if (tD3 && IsWalkableAt(pos.Set(tX - 1, tY + 1)))
             {
                 neighbors.Add(GetNodeAt(pos));
             }
