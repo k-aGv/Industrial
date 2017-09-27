@@ -1118,8 +1118,8 @@ namespace kagv {
             }
 
             DoubleBuffered = true;
-            Width = ((Constants.__WidthBlocks + 1) * Constants.__BlockSide) - 3; //3 because 2=border and the 1 comes from "width+1"
-            Height = (Constants.__HeightBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
+            Width = ((Constants.__WidthBlocks + 1) * Constants.__BlockSide) ; 
+            Height = (Constants.__HeightBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset + 7; //+7 for borders
             Size = new Size(this.Width, this.Height + Constants.__BottomBarOffset);
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;
