@@ -217,6 +217,7 @@ namespace kagv {
                         }
                     }
 
+
                     if (loads > 0 && isfreeload) { //means that the are still Loads left in the Grid, that can be picked up
 
                         Reset(agv_index);
@@ -231,8 +232,7 @@ namespace kagv {
                     } else { //if no other AVAILABLE Loads are found in the grid
                         AGVs[agv_index].setEmpty();
                         isfreeload = false;
-
-                        switch (agv_index) { //terminates the Timer which handles an AGV, and by which the Animator was called
+                        switch (agv_index) {
                             case 0:
                                 timer0.Stop();
                                 agv1steps_LB.Text = "AGV 1: Finished";
@@ -254,37 +254,62 @@ namespace kagv {
                                 agv5steps_LB.Text = "AGV 5: Finished";
                                 break;
                         }
-
                     }
-
+                    
                     timer_counter[agv_index] = -1;
                     steps_counter = 0;
 
                 }
             } else {
+                if (!AGVs[agv_index].HasLoadToPick) {
+                    if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].x &&
+                        AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].y)
+                        switch (agv_index) {
+                            case 0:
+                                timer0.Stop();
+                                agv1steps_LB.Text = "AGV 1: Finished";
+                                break;
+                            case 1:
+                                timer1.Stop();
+                                agv2steps_LB.Text = "AGV 2: Finished";
+                                break;
+                            case 2:
+                                timer2.Stop();
+                                agv3steps_LB.Text = "AGV 3: Finished";
+                                break;
+                            case 3:
+                                timer3.Stop();
+                                agv4steps_LB.Text = "AGV 4: Finished";
+                                break;
+                            case 4:
+                                timer4.Stop();
+                                agv5steps_LB.Text = "AGV 5: Finished";
+                                break;
+                        }
+                }
                 if (isLoad[AGVs[agv_index].MarkedLoad.X, AGVs[agv_index].MarkedLoad.Y] == 2) //if the AGV has picked up the Load it has marked...
                     if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].x &&
                         AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].y)
                         switch (agv_index) {
                             case 0:
                                 timer0.Stop();
-                                agv1steps_LB.Text = "AGV 0: Finished";
+                                agv1steps_LB.Text = "AGV 1: Finished";
                                 break;
                             case 1:
                                 timer1.Stop();
-                                agv2steps_LB.Text = "AGV 1: Finished";
+                                agv2steps_LB.Text = "AGV 2: Finished";
                                 break;
                             case 2:
                                 timer2.Stop();
-                                agv3steps_LB.Text = "AGV 2: Finished";
+                                agv3steps_LB.Text = "AGV 3: Finished";
                                 break;
                             case 3:
                                 timer3.Stop();
-                                agv4steps_LB.Text = "AGV 3: Finished";
+                                agv4steps_LB.Text = "AGV 4: Finished";
                                 break;
                             case 4:
                                 timer4.Stop();
-                                agv5steps_LB.Text = "AGV 4: Finished";
+                                agv5steps_LB.Text = "AGV 5: Finished";
                                 break;
                         }
             }
@@ -702,18 +727,26 @@ namespace kagv {
             
             //For-loop to repeat the path-finding process for ALL the AGVs that participate in the simulation
             for (int i = 0; i < StartPos.Count; i++) {
+                if (loadPos.Count != 0)
+                    loadPos = checkForTrappedLoads(loadPos);
 
-              
+                if (loadPos.Count ==0) {
+                    mapHasLoads = false;
+                    AGVs[i].HasLoadToPick = false;
+                } else {
+                    mapHasLoads = true;
+                    AGVs[i].HasLoadToPick = true;
+                }
+
 
                 if (AGVs[i].Status.Busy == false) {
-                    if (loadPos.Count() == 0)
-                        mapHasLoads = false;
+                    
+                        
                     //===========================================================
                     //====create the path FROM START TO LOAD, if load exists=====
                     //===========================================================
                     switch (mapHasLoads) {
                         case true:
-                            checkForTrappedLoads(loadPos);
                             //Do not allow walk over any other load except the targeted one
                             for (int k = 0; k < Constants.__WidthBlocks; k++)
                                 for (int l = 0; l < Constants.__HeightBlocks; l++)
@@ -853,7 +886,7 @@ namespace kagv {
         }
 
         //funcion that scans and finds which loads are surrounded by other loads
-        private void checkForTrappedLoads(List<GridPos> pos) {
+        private List<GridPos> checkForTrappedLoads(List<GridPos> pos) {
             int list_index = 0;
             bool removed;    
 
@@ -877,7 +910,8 @@ namespace kagv {
                 if (!removed)
                     list_index++;
             } while (list_index < pos.Count);
-  
+
+            return pos;
         }
 
         //returns the number of steps until AGV reaches the marked Load
@@ -1161,7 +1195,6 @@ namespace kagv {
             Size = new Size(this.Width, this.Height + Constants.__BottomBarOffset);
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;
-
             //m_rectangels is an array of two 1d arrays
             //declares the length of the first 1d array
             m_rectangles = new GridBox[Constants.__WidthBlocks][];
@@ -1194,7 +1227,7 @@ namespace kagv {
 
 
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
-            jumpParam = new AStarParam(searchGrid,Convert.ToSingle( Constants.__AStarWeight));//Default value until user edit it
+            jumpParam = new AStarParam(searchGrid, Convert.ToSingle(Constants.__AStarWeight));//Default value until user edit it
             jumpParam.SetHeuristic(HeuristicMode.MANHATTAN); //default value until user edit it
 
 

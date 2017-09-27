@@ -72,6 +72,7 @@ namespace kagv {
         private Point AgvLocation;
         private Form mirroredForm;
 
+        public bool HasLoadToPick;
 
         //*****************************************
         //AGV JumpPoints
