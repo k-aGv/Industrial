@@ -718,13 +718,12 @@ namespace kagv {
                             // AStarParam aStar = new AStarParam(searchGrid,StartPos[pos_index],loadPos[0], 10);
                             jumpParam.Reset(StartPos[pos_index], loadPos[0]);
                             JumpPointsList = AStarFinder.FindPath(jumpParam,nud_weight.Value);
+                            AGVs[i].JumpPoints = JumpPointsList;
                             AGVs[i].Status.Busy = true;
-
                             for (int m = 0; m < loadPos.Count; m++)
                                 searchGrid.SetWalkableAt(loadPos[m], false);
 
-                            for (int j = 0; j < JumpPointsList.Count; j++)
-                                AGVs[i].JumpPoints.Add(JumpPointsList[j]);
+                            
                             //===========================================================
                             //====create the path FROM START TO LOAD, if load exists=====
                             //===========================================================
@@ -739,11 +738,8 @@ namespace kagv {
                             //aStar = new AStarParam(searchGrid, loadPos[0], endPos, 10);
                             jumpParam.Reset(loadPos[0], endPos);
                             JumpPointsList = AStarFinder.FindPath(jumpParam,nud_weight.Value);
-
-                            for (int j = 0; j < JumpPointsList.Count; j++) {
-                                AGVs[i].JumpPoints.Add(JumpPointsList[j]);  //adds the list containing the AGV's path, to the AGV's embedded JumpPoint List
-                                NoJumpPointsFound = false;
-                            }
+                            AGVs[i].JumpPoints.AddRange(JumpPointsList);
+                            NoJumpPointsFound = false;
 
 
                             //marks the load that each AGV picks up on the 1st route, as 3, so each agv knows where to go after delivering the 1st load
@@ -769,10 +765,8 @@ namespace kagv {
                             jumpParam.Reset(StartPos[pos_index], endPos);
                             JumpPointsList = AStarFinder.FindPath(jumpParam, nud_weight.Value);
 
-                            for (int j = 0; j < JumpPointsList.Count; j++) {
-                                AGVs[i].JumpPoints.Add(JumpPointsList[j]);
-                                NoJumpPointsFound = false;
-                            }
+                            AGVs[i].JumpPoints = JumpPointsList;
+                            NoJumpPointsFound = false;
                             break;
                     }
                 }
@@ -1005,20 +999,17 @@ namespace kagv {
             for (int m = 0; m < loadPos.Count; m++)
                 searchGrid.SetWalkableAt(loadPos[m], false);
             searchGrid.SetWalkableAt(loadPos[0], true);
-
-                        
+            
             //creates the path between the AGV (which at the moment is at the exit) and the Load
             jumpParam.Reset(StartPos[whichAGV], endPos); 
             List <GridPos> JumpPointsList = AStarFinder.FindPath(jumpParam, nud_weight.Value);
-
+            AGVs[whichAGV].JumpPoints = JumpPointsList;//adds the result from A* to the AGV's
+                                                       //embedded List
+                                                       
             //Mark all loads as unwalkable
             for (int m = 0; m < loadPos.Count; m++)
                 searchGrid.SetWalkableAt(loadPos[m], false);
-
-
-            for (int j = 0; j < JumpPointsList.Count; j++)
-                AGVs[whichAGV].JumpPoints.Add(JumpPointsList[j]); //adds the result from A* to the AGV's
-                                                                  //embedded List
+            
             int c = 0;
             for (int i = 0; i < StartPos.Count; i++)
                 c += AGVs[i].JumpPoints.Count;
@@ -1047,8 +1038,7 @@ namespace kagv {
             
             jumpParam.Reset(endPos, StartPos[whichAGV]);
             JumpPointsList = AStarFinder.FindPath(jumpParam, nud_weight.Value);
-            for (int j = 0; j < JumpPointsList.Count; j++)
-                AGVs[whichAGV].JumpPoints.Add(JumpPointsList[j]); 
+            AGVs[whichAGV].JumpPoints.AddRange(JumpPointsList);
 
             c = 0;
             for (int i = 0; i < StartPos.Count; i++)
