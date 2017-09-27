@@ -91,6 +91,7 @@
             this.cd_grid = new System.Windows.Forms.ColorDialog();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.noObstaclesMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.menuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).BeginInit();
             this.gb_type.SuspendLayout();
@@ -99,6 +100,7 @@
             this.gb_agvs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_AGVs)).BeginInit();
             this.settings_menu.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer0
@@ -108,10 +110,10 @@
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.menuPanel.Controls.Add(this.nud_weight);
             this.menuPanel.Controls.Add(this.gb_type);
             this.menuPanel.Controls.Add(this.gb_monitor);
             this.menuPanel.Controls.Add(this.gb_settings);
+            this.menuPanel.Controls.Add(this.groupBox1);
             this.menuPanel.Location = new System.Drawing.Point(0, 27);
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(656, 75);
@@ -125,9 +127,9 @@
             0,
             0,
             131072});
-            this.nud_weight.Location = new System.Drawing.Point(301, 13);
+            this.nud_weight.Location = new System.Drawing.Point(5, 36);
             this.nud_weight.Name = "nud_weight";
-            this.nud_weight.Size = new System.Drawing.Size(69, 20);
+            this.nud_weight.Size = new System.Drawing.Size(64, 20);
             this.nud_weight.TabIndex = 28;
             this.nud_weight.ValueChanged += new System.EventHandler(this.nud_weight_ValueChanged);
             // 
@@ -481,21 +483,21 @@
             // manhattanToolStripMenuItem
             // 
             this.manhattanToolStripMenuItem.Name = "manhattanToolStripMenuItem";
-            this.manhattanToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.manhattanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.manhattanToolStripMenuItem.Text = "Manhattan";
             this.manhattanToolStripMenuItem.Click += new System.EventHandler(this.manhattanToolStripMenuItem_Click);
             // 
             // euclideanToolStripMenuItem
             // 
             this.euclideanToolStripMenuItem.Name = "euclideanToolStripMenuItem";
-            this.euclideanToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.euclideanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.euclideanToolStripMenuItem.Text = "Euclidean";
             this.euclideanToolStripMenuItem.Click += new System.EventHandler(this.euclideanToolStripMenuItem_Click);
             // 
             // chebyshevToolStripMenuItem
             // 
             this.chebyshevToolStripMenuItem.Name = "chebyshevToolStripMenuItem";
-            this.chebyshevToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.chebyshevToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.chebyshevToolStripMenuItem.Text = "Chebyshev";
             this.chebyshevToolStripMenuItem.Click += new System.EventHandler(this.chebyshevToolStripMenuItem_Click);
             // 
@@ -639,6 +641,16 @@
             this.noObstaclesMenu.Text = "Cross corner only when no obstacles";
             this.noObstaclesMenu.Click += new System.EventHandler(this.crossCornerOnlyWhenNoObstaclesToolStripMenuItem_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.nud_weight);
+            this.groupBox1.Location = new System.Drawing.Point(301, 5);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(69, 65);
+            this.groupBox1.TabIndex = 29;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "AStar Weight";
+            // 
             // main_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -670,6 +682,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nUD_AGVs)).EndInit();
             this.settings_menu.ResumeLayout(false);
             this.settings_menu.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -743,6 +756,7 @@
         private System.Windows.Forms.NumericUpDown nud_weight;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem noObstaclesMenu;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

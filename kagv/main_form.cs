@@ -131,13 +131,14 @@ namespace kagv {
             }
 
             Text = "K-aGv2 Simulator (Industrial branch)";
-            gb_monitor.Size = new Size(gb_monitor.Size.Width + 300, gb_monitor.Size.Height);
+            gb_monitor.Size = new Size(gb_monitor.Size.Width + 200, gb_monitor.Size.Height);
 
             var _proc = System.Diagnostics.Process.GetCurrentProcess();
             _proc.ProcessorAffinity = new IntPtr(0x0003);//use cores 1,2 
             //ptr flag has to be (bin) 0011 so its IntPtr 0x0003
             //More infos here:https://msdn.microsoft.com/en-us/library/system.diagnostics.processthread.processoraffinity(v=vs.110).aspx
 
+            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 50;
             refresh_label.Text = "Delay :" + timer0.Interval + " ms";
 
             nUD_AGVs.Value = 0;
@@ -739,6 +740,8 @@ namespace kagv {
             timers();
             settings_menu.Enabled = false;
             gb_settings.Enabled = false;
+            nud_weight.Enabled = false;
+            cb_type.Enabled = false;
 
             show_emissions();
         }
@@ -750,17 +753,17 @@ namespace kagv {
 
         private void increaseSpeedToolStripMenuItem_Click(object sender, EventArgs e) {
             int d = timer0.Interval;
-            d += 100;
+            d += 50;
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval =d;
             refresh_label.Text = "Delay:" + timer0.Interval + " ms";
         }
 
         private void decreaseSpeedToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (timer0.Interval == 100)
+            if (timer0.Interval == 50)
                 return;
 
             int d = timer0.Interval;
-            d -= 100;
+            d -= 50;
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = d;
             refresh_label.Text = "Delay:" + timer0.Interval + " ms";
 

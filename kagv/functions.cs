@@ -286,6 +286,8 @@ namespace kagv {
             {
                 gb_settings.Enabled = true;
                 settings_menu.Enabled = true;
+                nud_weight.Enabled = true;
+                cb_type.Enabled = true;
             }
 
             //when all agvs have finished their tasks
@@ -443,8 +445,6 @@ namespace kagv {
             for (int i = 0; i < StartPos.Count(); i++)
                 AGVs[i].JumpPoints = new List<GridPos>();
 
-            //JumpPointsList = new List<GridPos>();
-            
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
 
             aGVIndexToolStripMenuItem.Checked =
@@ -540,14 +540,6 @@ namespace kagv {
             }
 
             //no need of invalidation since its done after the call of this function
-        }
-
-        //enables/disables the corresponding parameters
-        private void updateParameters() { 
-            //jumpParam.CrossAdjacentPoint = crossAdjacent;
-            //jumpParam.CrossCorner = crossCorners;
-           // jumpParam.DiagonalMovement = DiagonalMovement.Always;
-           // jumpParam.UseRecursive = useRecursive;
         }
 
         //returns the number of AGVs
