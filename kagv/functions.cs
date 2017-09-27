@@ -608,7 +608,7 @@ namespace kagv {
             StartPos = new List<GridPos>(); //list that will be filled with the starting points of every AGV
             AGVs = new List<Vehicle>();  //list that will be filled with objects of the class Vehicle
             loadPos = new List<GridPos>(); //list that will be filled with the points of every Load
-            
+            loads = 0;
             //Double FOR-loops to scan the whole Grid and perform the needed actions
             for (int i = 0; i < Constants.__WidthBlocks; i++)
                 for (int j = 0; j < Constants.__HeightBlocks; j++) {
