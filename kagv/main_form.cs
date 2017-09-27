@@ -156,9 +156,11 @@ namespace kagv {
 
             CenterToScreen();
 
-            useRecursiveToolStripMenuItem.Checked = useRecursive;
-            crossCornerToolStripMenuItem.Checked = crossCorners;
-            crossAdjacentPointToolStripMenuItem.Checked = crossAdjacent;
+            alwaysCrossMenu.Checked = alwaysCross;
+            atLeastOneMenu.Checked = atLeastOneObstacle;
+            neverCrossMenu.Checked = never;
+            noObstaclesMenu.Checked = ifNoObstacles;
+
             manhattanToolStripMenuItem.Checked = true;
 
             //dynamically add the location of menupanel.
@@ -540,23 +542,79 @@ namespace kagv {
         //parametres
         private void useRecursiveToolStripMenuItem_Click(object sender, EventArgs e) {
             (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
-            useRecursive = (sender as ToolStripMenuItem).Checked;
-            updateParameters();
+            neverCrossMenu.Checked = false;
+            atLeastOneMenu.Checked = false;
+            noObstaclesMenu.Checked = false;
+            jumpParam.DiagonalMovement = DiagonalMovement.Always;
+
+            //do not allow to have an unselected item
+            if (neverCrossMenu.Checked == false &&
+            atLeastOneMenu.Checked == false &&
+            noObstaclesMenu.Checked == false &&
+            alwaysCrossMenu.Checked == false)
+            {
+                (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
+                jumpParam.DiagonalMovement = DiagonalMovement.Always;
+            }
             Redraw();
+
 
         }
 
         private void crossAdjacentPointToolStripMenuItem_Click(object sender, EventArgs e) {
             (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
-            crossAdjacent = (sender as ToolStripMenuItem).Checked;
-            updateParameters();
+            alwaysCrossMenu.Checked = false;
+            atLeastOneMenu.Checked = false;
+            noObstaclesMenu.Checked = false;
+            jumpParam.DiagonalMovement = DiagonalMovement.Never;
+
+            //do not allow to have an unselected item
+            if (neverCrossMenu.Checked == false &&
+            atLeastOneMenu.Checked == false &&
+            noObstaclesMenu.Checked == false &&
+            alwaysCrossMenu.Checked == false)
+            {
+                (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
+                jumpParam.DiagonalMovement = DiagonalMovement.Never;
+            }
             Redraw();
         }
 
         private void crossCornerToolStripMenuItem_Click(object sender, EventArgs e) {
             (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
-            crossCorners = (sender as ToolStripMenuItem).Checked;
-            updateParameters();
+            alwaysCrossMenu.Checked = false;
+            neverCrossMenu.Checked = false;
+            noObstaclesMenu.Checked = false;
+            jumpParam.DiagonalMovement = DiagonalMovement.IfAtLeastOneWalkable;
+
+            //do not allow to have an unselected item
+            if (neverCrossMenu.Checked == false &&
+            atLeastOneMenu.Checked == false &&
+            noObstaclesMenu.Checked == false &&
+            alwaysCrossMenu.Checked == false)
+            {
+                (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
+                jumpParam.DiagonalMovement = DiagonalMovement.IfAtLeastOneWalkable;
+            }
+            Redraw();
+        }
+        private void crossCornerOnlyWhenNoObstaclesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
+            alwaysCrossMenu.Checked = false;
+            atLeastOneMenu.Checked = false;
+            neverCrossMenu.Checked = false;
+            jumpParam.DiagonalMovement = DiagonalMovement.OnlyWhenNoObstacles;
+
+            //do not allow to have an unselected item
+            if (neverCrossMenu.Checked == false &&
+            atLeastOneMenu.Checked == false &&
+            noObstaclesMenu.Checked == false &&
+            alwaysCrossMenu.Checked == false)
+            {
+                (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
+                jumpParam.DiagonalMovement = DiagonalMovement.OnlyWhenNoObstacles;
+            }
             Redraw();
         }
 
@@ -826,6 +884,8 @@ namespace kagv {
         private void nud_weight_ValueChanged(object sender, EventArgs e) {
             Redraw();
         }
+
+        
     }
 
 }

@@ -82,9 +82,12 @@ namespace kagv
         bool NoJumpPointsFound;
         bool mapHasLoads = false;      
         bool allowHighlight = true;
-        bool useRecursive = false;
-        bool crossAdjacent = false;
-        bool crossCorners = true;
+
+        bool alwaysCross = true;
+        bool atLeastOneObstacle = false;
+        bool ifNoObstacles = false;
+        bool never = false;
+
         int loads = 0; //index for keeping count of how many Loads there are in the Grid
 
         Color selectedColor=Color.DarkGray;
