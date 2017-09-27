@@ -703,16 +703,18 @@ namespace kagv {
             //For-loop to repeat the path-finding process for ALL the AGVs that participate in the simulation
             for (int i = 0; i < StartPos.Count; i++) {
 
+                if(loadPos.Count!=0)
+                    loadPos = checkForTrappedLoads(loadPos); //checks which Loads are surrounded by other loads
+
                 if (AGVs[i].Status.Busy == false) {
-                    if (loadPos.Count() == 0)
-                        mapHasLoads = false;
+
+                    MessageBox.Show("maphasloads: " + mapHasLoads);
 
                     //===========================================================
                     //====create the path FROM START TO LOAD, if load exists=====
                     //===========================================================
                     switch (mapHasLoads) {
                         case true:
-                            checkForTrappedLoads(loadPos); //checks which Loads are surrounded by other loads
 
                             //Do not allow walk over any other load except the targeted one
                             for (int k = 0; k < Constants.__WidthBlocks; k++)
@@ -854,7 +856,7 @@ namespace kagv {
         }
 
         //funcion that scans and finds which loads are surrounded by other loads
-        private void checkForTrappedLoads(List<GridPos> pos) {
+        private List<GridPos> checkForTrappedLoads(List<GridPos> loads) {
             int list_index = 0;
             bool removed;    
 
@@ -863,21 +865,27 @@ namespace kagv {
             do
             {
                 removed = false;
-                searchGrid.SetWalkableAt(new GridPos(pos[list_index].x, pos[list_index].y), true);
-                jumpParam.Reset(StartPos[0], pos[list_index]);
+                searchGrid.SetWalkableAt(new GridPos(loads[list_index].x, loads[list_index].y), true);
+                jumpParam.Reset(StartPos[0], loads[list_index]);
                 if (AStarFinder.FindPath(jumpParam).Count == 0)
                 {
-                    searchGrid.SetWalkableAt(new GridPos(pos[list_index].x, pos[list_index].y), false);
-                    isLoad[pos[list_index].x, pos[list_index].y] = 4; //load is marked as trapped
-                    pos.Remove(pos[list_index]); //load is removed from the List with available Loads
+                    searchGrid.SetWalkableAt(new GridPos(loads[list_index].x, loads[list_index].y), false);
+                    isLoad[loads[list_index].x, loads[list_index].y] = 4; //load is marked as trapped
+                    loads.Remove(loads[list_index]); //load is removed from the List with available Loads
                     removed = true;
                 }
                 else
-                    isLoad[pos[list_index].x, pos[list_index].y] = 1; //otherwise, Load is marked as available
+                    isLoad[loads[list_index].x, loads[list_index].y] = 1; //otherwise, Load is marked as available
 
                 if (!removed)
                     list_index++;
-            } while (list_index < pos.Count);
+            } while (list_index < loads.Count);
+
+
+            if (loads.Count == 0)
+                mapHasLoads = false;
+
+            return loads;
         }
 
         //returns the number of steps until AGV reaches the marked Load
