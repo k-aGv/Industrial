@@ -103,6 +103,7 @@ namespace kagv {
 
         private void main_form_Load(object sender, EventArgs e) {
 
+           
             //Load all values
 
             nud_weight.Value = Convert.ToDecimal( Constants.__AStarWeight ) ;
@@ -133,9 +134,16 @@ namespace kagv {
             Text = "K-aGv2 Simulator (Industrial branch)";
             gb_monitor.Size = new Size(gb_monitor.Size.Width + 200, gb_monitor.Size.Height);
 
+         
+            //Automatically enable the CPUs for this app.
             var _proc = System.Diagnostics.Process.GetCurrentProcess();
-            _proc.ProcessorAffinity = new IntPtr(0x0003);//use cores 1,2 
-            //ptr flag has to be (bin) 0011 so its IntPtr 0x0003
+            int coreFlag;
+            if (Environment.ProcessorCount == 1) coreFlag = 0x0001;
+            else if (Environment.ProcessorCount == 2) coreFlag = 0x0003;
+            else if (Environment.ProcessorCount == 3) coreFlag = 0x0007;
+            else coreFlag = 0x000F; //use only 4 cores.We dont care for pcs with more than 4 cores.
+
+            _proc.ProcessorAffinity = new IntPtr(coreFlag);
             //More infos here:https://msdn.microsoft.com/en-us/library/system.diagnostics.processthread.processoraffinity(v=vs.110).aspx
 
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 50;
