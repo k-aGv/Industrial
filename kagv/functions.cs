@@ -134,6 +134,31 @@ namespace kagv {
             emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
         }
 
+        private void stopTimers(int agv_index) {
+            switch (agv_index) {
+                case 0:
+                    timer0.Stop();
+                    agv1steps_LB.Text = "AGV 1: Finished";
+                    break;
+                case 1:
+                    timer1.Stop();
+                    agv2steps_LB.Text = "AGV 2: Finished";
+                    break;
+                case 2:
+                    timer2.Stop();
+                    agv3steps_LB.Text = "AGV 3: Finished";
+                    break;
+                case 3:
+                    timer3.Stop();
+                    agv4steps_LB.Text = "AGV 4: Finished";
+                    break;
+                case 4:
+                    timer4.Stop();
+                    agv5steps_LB.Text = "AGV 5: Finished";
+                    break;
+            }
+        }
+
         //function that executes the whole animation. Will be explaining thoroughly below
         private void animator(int steps_counter, int agv_index) {
 
@@ -232,28 +257,7 @@ namespace kagv {
                     } else { //if no other AVAILABLE Loads are found in the grid
                         AGVs[agv_index].setEmpty();
                         isfreeload = false;
-                        switch (agv_index) {
-                            case 0:
-                                timer0.Stop();
-                                agv1steps_LB.Text = "AGV 1: Finished";
-                                break;
-                            case 1:
-                                timer1.Stop();
-                                agv2steps_LB.Text = "AGV 2: Finished";
-                                break;
-                            case 2:
-                                timer2.Stop();
-                                agv3steps_LB.Text = "AGV 3: Finished";
-                                break;
-                            case 3:
-                                timer3.Stop();
-                                agv4steps_LB.Text = "AGV 4: Finished";
-                                break;
-                            case 4:
-                                timer4.Stop();
-                                agv5steps_LB.Text = "AGV 5: Finished";
-                                break;
-                        }
+                        stopTimers(agv_index);
                     }
                     
                     timer_counter[agv_index] = -1;
@@ -264,54 +268,12 @@ namespace kagv {
                 if (!AGVs[agv_index].HasLoadToPick) {
                     if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].x &&
                         AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].y)
-                        switch (agv_index) {
-                            case 0:
-                                timer0.Stop();
-                                agv1steps_LB.Text = "AGV 1: Finished";
-                                break;
-                            case 1:
-                                timer1.Stop();
-                                agv2steps_LB.Text = "AGV 2: Finished";
-                                break;
-                            case 2:
-                                timer2.Stop();
-                                agv3steps_LB.Text = "AGV 3: Finished";
-                                break;
-                            case 3:
-                                timer3.Stop();
-                                agv4steps_LB.Text = "AGV 4: Finished";
-                                break;
-                            case 4:
-                                timer4.Stop();
-                                agv5steps_LB.Text = "AGV 5: Finished";
-                                break;
-                        }
+                        stopTimers(agv_index);
                 }
                 if (isLoad[AGVs[agv_index].MarkedLoad.X, AGVs[agv_index].MarkedLoad.Y] == 2) //if the AGV has picked up the Load it has marked...
                     if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].x &&
                         AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].y)
-                        switch (agv_index) {
-                            case 0:
-                                timer0.Stop();
-                                agv1steps_LB.Text = "AGV 1: Finished";
-                                break;
-                            case 1:
-                                timer1.Stop();
-                                agv2steps_LB.Text = "AGV 2: Finished";
-                                break;
-                            case 2:
-                                timer2.Stop();
-                                agv3steps_LB.Text = "AGV 3: Finished";
-                                break;
-                            case 3:
-                                timer3.Stop();
-                                agv4steps_LB.Text = "AGV 4: Finished";
-                                break;
-                            case 4:
-                                timer4.Stop();
-                                agv5steps_LB.Text = "AGV 5: Finished";
-                                break;
-                        }
+                        stopTimers(agv_index);
             }
             
 
