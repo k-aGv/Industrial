@@ -447,11 +447,15 @@ namespace kagv {
 
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
 
+            alwaysCross = 
             aGVIndexToolStripMenuItem.Checked =
             beforeStart =
             allowHighlight =
             NoJumpPointsFound = true;
 
+            atLeastOneObstacle = 
+            ifNoObstacles = 
+            never =
             imported =
             importedImage =
             calibrated =
@@ -512,7 +516,7 @@ namespace kagv {
             for (int i = 0; i < AGVs.Count; i++)
                 AGVs[i].Status.Busy = false;
 
-            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 100;
+            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 50;
             refresh_label.Text = "Delay:" + timer0.Interval + " ms";
             
         }
