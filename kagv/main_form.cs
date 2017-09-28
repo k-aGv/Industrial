@@ -109,6 +109,7 @@ namespace kagv {
             //Load all values
             panel_resize.Location = new Point(Width / 2 - (panel_resize.Width / 2), Height / 2 - menuPanel.Height);
             panel_resize.Visible = false;
+            nud_side.BackColor = panel_resize.BackColor;
           
             nud_weight.Value = Convert.ToDecimal(Constants.__AStarWeight);
 
@@ -1000,6 +1001,14 @@ namespace kagv {
             Width = (Constants.__WidthBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
             Size = new Size(Width, Height + Constants.__BottomBarOffset);
 
+            updateGridStats();
+            FullyRestore();
+            holdCTRL = !holdCTRL;
+        }
+
+        private void nud_side_ValueChanged(object sender, EventArgs e)
+        {
+            Constants.__BlockSide = Convert.ToInt32( nud_side.Value );
             updateGridStats();
             FullyRestore();
             holdCTRL = !holdCTRL;

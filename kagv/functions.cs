@@ -1347,6 +1347,7 @@ namespace kagv {
             int pixelsHeight = Constants.__HeightBlocks * Constants.__BlockSide;
             lb_width.Text = "Width blocks: " + Constants.__WidthBlocks +".  "+ pixelsWidth + " pixels";
             lb_height.Text = "Height blocks: " + Constants.__HeightBlocks + ". " + pixelsHeight + " pixels";
+            nud_side.Value = Convert.ToDecimal(Constants.__BlockSide);
         }
 
     }

@@ -105,6 +105,8 @@
             this.btn_right = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.nud_side = new System.Windows.Forms.NumericUpDown();
+            this.lb_blockside = new System.Windows.Forms.Label();
             this.menuPanel.SuspendLayout();
             this.gb_type.SuspendLayout();
             this.gb_monitor.SuspendLayout();
@@ -116,6 +118,7 @@
             this.settings_menu.SuspendLayout();
             this.panel_resize.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_side)).BeginInit();
             this.SuspendLayout();
             // 
             // timer0
@@ -669,6 +672,8 @@
             // 
             // panel_resize
             // 
+            this.panel_resize.Controls.Add(this.lb_blockside);
+            this.panel_resize.Controls.Add(this.nud_side);
             this.panel_resize.Controls.Add(this.lb_height);
             this.panel_resize.Controls.Add(this.lb_width);
             this.panel_resize.Controls.Add(this.btn_rightup);
@@ -704,7 +709,7 @@
             // 
             // btn_rightup
             // 
-            this.btn_rightup.Location = new System.Drawing.Point(164, 76);
+            this.btn_rightup.Location = new System.Drawing.Point(165, 77);
             this.btn_rightup.Name = "btn_rightup";
             this.btn_rightup.Size = new System.Drawing.Size(26, 23);
             this.btn_rightup.TabIndex = 5;
@@ -714,7 +719,7 @@
             // 
             // btn_rightdown
             // 
-            this.btn_rightdown.Location = new System.Drawing.Point(164, 156);
+            this.btn_rightdown.Location = new System.Drawing.Point(165, 157);
             this.btn_rightdown.Name = "btn_rightdown";
             this.btn_rightdown.Size = new System.Drawing.Size(26, 23);
             this.btn_rightdown.TabIndex = 5;
@@ -724,7 +729,7 @@
             // 
             // btn_leftdown
             // 
-            this.btn_leftdown.Location = new System.Drawing.Point(65, 156);
+            this.btn_leftdown.Location = new System.Drawing.Point(66, 157);
             this.btn_leftdown.Name = "btn_leftdown";
             this.btn_leftdown.Size = new System.Drawing.Size(26, 23);
             this.btn_leftdown.TabIndex = 5;
@@ -734,7 +739,7 @@
             // 
             // btn_leftup
             // 
-            this.btn_leftup.Location = new System.Drawing.Point(65, 76);
+            this.btn_leftup.Location = new System.Drawing.Point(66, 77);
             this.btn_leftup.Name = "btn_leftup";
             this.btn_leftup.Size = new System.Drawing.Size(26, 23);
             this.btn_leftup.TabIndex = 5;
@@ -744,7 +749,7 @@
             // 
             // btn_down
             // 
-            this.btn_down.Location = new System.Drawing.Point(97, 152);
+            this.btn_down.Location = new System.Drawing.Point(98, 153);
             this.btn_down.Name = "btn_down";
             this.btn_down.Size = new System.Drawing.Size(64, 45);
             this.btn_down.TabIndex = 1;
@@ -754,7 +759,7 @@
             // 
             // btn_up
             // 
-            this.btn_up.Location = new System.Drawing.Point(97, 59);
+            this.btn_up.Location = new System.Drawing.Point(98, 60);
             this.btn_up.Name = "btn_up";
             this.btn_up.Size = new System.Drawing.Size(64, 45);
             this.btn_up.TabIndex = 2;
@@ -764,7 +769,7 @@
             // 
             // btn_left
             // 
-            this.btn_left.Location = new System.Drawing.Point(27, 105);
+            this.btn_left.Location = new System.Drawing.Point(28, 106);
             this.btn_left.Name = "btn_left";
             this.btn_left.Size = new System.Drawing.Size(64, 45);
             this.btn_left.TabIndex = 3;
@@ -774,7 +779,7 @@
             // 
             // btn_right
             // 
-            this.btn_right.Location = new System.Drawing.Point(167, 105);
+            this.btn_right.Location = new System.Drawing.Point(168, 106);
             this.btn_right.Name = "btn_right";
             this.btn_right.Size = new System.Drawing.Size(64, 45);
             this.btn_right.TabIndex = 4;
@@ -799,6 +804,23 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(190, 17);
             this.toolStripStatusLabel1.Text = "Hold CTRL for grid configuration...";
+            // 
+            // nud_side
+            // 
+            this.nud_side.Location = new System.Drawing.Point(71, 37);
+            this.nud_side.Name = "nud_side";
+            this.nud_side.Size = new System.Drawing.Size(41, 20);
+            this.nud_side.TabIndex = 8;
+            this.nud_side.ValueChanged += new System.EventHandler(this.nud_side_ValueChanged);
+            // 
+            // lb_blockside
+            // 
+            this.lb_blockside.AutoSize = true;
+            this.lb_blockside.Location = new System.Drawing.Point(4, 39);
+            this.lb_blockside.Name = "lb_blockside";
+            this.lb_blockside.Size = new System.Drawing.Size(61, 13);
+            this.lb_blockside.TabIndex = 9;
+            this.lb_blockside.Text = "Block Side:";
             // 
             // main_form
             // 
@@ -838,6 +860,7 @@
             this.panel_resize.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_side)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -925,6 +948,8 @@
         private System.Windows.Forms.Button btn_leftup;
         private System.Windows.Forms.Label lb_height;
         private System.Windows.Forms.Label lb_width;
+        private System.Windows.Forms.Label lb_blockside;
+        private System.Windows.Forms.NumericUpDown nud_side;
     }
 }
 
