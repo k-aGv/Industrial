@@ -140,7 +140,7 @@ namespace kagv {
 
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 50;
             refresh_label.Text = "Delay :" + timer0.Interval + " ms";
-
+            loads_label.Location = new Point(refresh_label.Location.X + refresh_label.Width, refresh_label.Location.Y);
             nUD_AGVs.Value = 0;
 
             agv1steps_LB.Text =
