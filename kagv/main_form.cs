@@ -735,7 +735,7 @@ namespace kagv {
                 AGVs[i].MarkedLoad = new Point();
 
             Redraw();
-
+            labeled_loads = loads;
             for (int i = 0; i < StartPos.Count; i++) {
                 AGVs[i].StartX = m_rectangles[StartPos[i].x][StartPos[i].y].boxRec.X;
                 AGVs[i].StartY = m_rectangles[StartPos[i].x][StartPos[i].y].boxRec.Y;

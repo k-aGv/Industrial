@@ -89,8 +89,9 @@ namespace kagv
         bool never = false;
 
         int loads = 0; //index for keeping count of how many Loads there are in the Grid
+        int labeled_loads; //index that is used for displaying how many loads have not been picked up
 
-        Color selectedColor=Color.DarkGray;
+        Color selectedColor =Color.DarkGray;
         Color boxDefaultColor = (Constants.__SemiTransparency) ? Color.FromArgb( Constants.__Opacity,Color.WhiteSmoke) : Color.WhiteSmoke;
    
 

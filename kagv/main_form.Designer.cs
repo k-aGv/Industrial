@@ -91,6 +91,7 @@
             this.borderColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
+            this.loads_label = new System.Windows.Forms.Label();
             this.menuPanel.SuspendLayout();
             this.gb_type.SuspendLayout();
             this.gb_monitor.SuspendLayout();
@@ -109,6 +110,7 @@
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.menuPanel.Controls.Add(this.loads_label);
             this.menuPanel.Controls.Add(this.gb_type);
             this.menuPanel.Controls.Add(this.gb_monitor);
             this.menuPanel.Controls.Add(this.gb_settings);
@@ -123,7 +125,7 @@
             this.gb_type.Controls.Add(this.cb_type);
             this.gb_type.Location = new System.Drawing.Point(226, 5);
             this.gb_type.Name = "gb_type";
-            this.gb_type.Size = new System.Drawing.Size(68, 65);
+            this.gb_type.Size = new System.Drawing.Size(68, 45);
             this.gb_type.TabIndex = 27;
             this.gb_type.TabStop = false;
             this.gb_type.Text = "Type";
@@ -296,10 +298,10 @@
             this.groupBox1.Controls.Add(this.nud_weight);
             this.groupBox1.Location = new System.Drawing.Point(301, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(69, 65);
+            this.groupBox1.Size = new System.Drawing.Size(69, 45);
             this.groupBox1.TabIndex = 29;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "AStar Weight";
+            this.groupBox1.Text = "A* Weight";
             // 
             // nud_weight
             // 
@@ -309,7 +311,7 @@
             0,
             0,
             131072});
-            this.nud_weight.Location = new System.Drawing.Point(5, 36);
+            this.nud_weight.Location = new System.Drawing.Point(3, 20);
             this.nud_weight.Name = "nud_weight";
             this.nud_weight.Size = new System.Drawing.Size(64, 20);
             this.nud_weight.TabIndex = 28;
@@ -546,7 +548,7 @@
             this.highlightOverCurrentBoxToolStripMenuItem,
             this.aGVIndexToolStripMenuItem});
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.showToolStripMenuItem.Text = "Show...";
             // 
             // stepsToolStripMenuItem
@@ -594,14 +596,14 @@
             // borderColorToolStripMenuItem
             // 
             this.borderColorToolStripMenuItem.Name = "borderColorToolStripMenuItem";
-            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.borderColorToolStripMenuItem.Text = "Border Color";
             this.borderColorToolStripMenuItem.Click += new System.EventHandler(this.borderColorToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(138, 6);
             // 
             // clearToolStripMenuItem
             // 
@@ -610,7 +612,7 @@
             this.allToolStripMenuItem,
             this.borderColorToolStripMenuItem1});
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             // 
             // wallsToolStripMenuItem
@@ -642,6 +644,14 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
+            // loads_label
+            // 
+            this.loads_label.AutoSize = true;
+            this.loads_label.Location = new System.Drawing.Point(226, 53);
+            this.loads_label.Name = "loads_label";
+            this.loads_label.Size = new System.Drawing.Size(0, 13);
+            this.loads_label.TabIndex = 30;
+            // 
             // main_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -663,6 +673,7 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseUp);
             this.menuPanel.ResumeLayout(false);
+            this.menuPanel.PerformLayout();
             this.gb_type.ResumeLayout(false);
             this.gb_monitor.ResumeLayout(false);
             this.gb_monitor.PerformLayout();
@@ -747,6 +758,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem noObstaclesMenu;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label loads_label;
     }
 }
 

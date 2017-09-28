@@ -206,6 +206,11 @@ namespace kagv {
                 
                 m_rectangles[AGVs[agv_index].MarkedLoad.X][AGVs[agv_index].MarkedLoad.Y].SwitchLoad(); //converts a specific GridBox, from Load, to Normal box (SwitchLoad function)
                 searchGrid.SetWalkableAt(AGVs[agv_index].MarkedLoad.X, AGVs[agv_index].MarkedLoad.Y, true);//marks the picked-up load as walkable AGAIN (since it is now a normal gridbox)
+                labeled_loads--;
+                if (labeled_loads <= 0)
+                    loads_label.Text = "All loads have been picked up";
+                else
+                    loads_label.Text = "Loads remaining: " + labeled_loads;
 
                 AGVs[agv_index].Status.Busy = true; //Sets the status of the AGV to Busy (because it has just picked-up the marked Load
                 AGVs[agv_index].setLoaded(); //changes the icon of the AGV and it now appears as Loaded
@@ -418,6 +423,8 @@ namespace kagv {
         //function that resets all of the used objects so they are ready for reuse, preventing memory leaks
         private void FullyRestore()
         {
+            loads_label.Text = "";
+            labeled_loads = 0;
 
             if (timer_counter != null)
                 Array.Clear(timer_counter, 0, timer_counter.GetLength(0));
@@ -753,7 +760,8 @@ namespace kagv {
             for (int i = 0; i < StartPos.Count; i++)
                 if ((c - 1) > 0)
                     Array.Resize(ref AGVs[i].Paths, c - 1); //resize of the AGVs steps Table
-            
+            if (loads != 0)
+                loads_label.Text = "Loads: " + loads;
             Invalidate();
         }
 
