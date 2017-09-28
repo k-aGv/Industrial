@@ -46,6 +46,8 @@ namespace kagv {
                     decreaseSpeedToolStripMenuItem_Click(new object(), new EventArgs());
                     return true;
                 case Keys.Space:
+                    if (timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled)
+                        return false;
                     int c = 0;
                     for (int i = 0; i < StartPos.Count; i++)
                         c += AGVs[i].JumpPoints.Count;
