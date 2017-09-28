@@ -84,7 +84,6 @@
             this.highlightOverCurrentBoxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aGVIndexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.borderColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resolutionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wallsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -531,7 +530,6 @@
             this.gridToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showToolStripMenuItem,
             this.borderColorToolStripMenuItem,
-            this.resolutionToolStripMenuItem,
             this.toolStripMenuItem2,
             this.clearToolStripMenuItem});
             this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
@@ -548,7 +546,7 @@
             this.highlightOverCurrentBoxToolStripMenuItem,
             this.aGVIndexToolStripMenuItem});
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.showToolStripMenuItem.Text = "Show...";
             // 
             // stepsToolStripMenuItem
@@ -596,21 +594,14 @@
             // borderColorToolStripMenuItem
             // 
             this.borderColorToolStripMenuItem.Name = "borderColorToolStripMenuItem";
-            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.borderColorToolStripMenuItem.Text = "Border Color";
             this.borderColorToolStripMenuItem.Click += new System.EventHandler(this.borderColorToolStripMenuItem_Click);
-            // 
-            // resolutionToolStripMenuItem
-            // 
-            this.resolutionToolStripMenuItem.Name = "resolutionToolStripMenuItem";
-            this.resolutionToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.resolutionToolStripMenuItem.Text = "Resolution";
-            this.resolutionToolStripMenuItem.Click += new System.EventHandler(this.resolutionToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(138, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
             // 
             // clearToolStripMenuItem
             // 
@@ -619,7 +610,7 @@
             this.allToolStripMenuItem,
             this.borderColorToolStripMenuItem1});
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             // 
             // wallsToolStripMenuItem
@@ -749,7 +740,6 @@
         private System.Windows.Forms.GroupBox gb_type;
         private System.Windows.Forms.ComboBox cb_type;
         private System.Windows.Forms.ToolStripMenuItem aGVIndexToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem resolutionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importImageLayoutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem priorityRulesbetaToolStripMenuItem;

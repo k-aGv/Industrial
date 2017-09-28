@@ -101,13 +101,12 @@ namespace kagv {
             } catch { }
         }
 
-        private void main_form_Load(object sender, EventArgs e) {
-
-           
+        private void main_form_Load(object sender, EventArgs e)
+        {
             //Load all values
 
-            nud_weight.Value = Convert.ToDecimal( Constants.__AStarWeight ) ;
-            
+            nud_weight.Value = Convert.ToDecimal(Constants.__AStarWeight);
+
             //Transparent and SemiTransparent feature serves the agri/industrial branch recursively
             importImageLayoutToolStripMenuItem.Enabled = Constants.__SemiTransparency;
 
@@ -116,25 +115,18 @@ namespace kagv {
             else
                 importImageLayoutToolStripMenuItem.Text = "Semi Transparency feature is disabled";
 
-            //Reflection here is not actually a C# Reflection but a mirroring of some apps
-            if (!reflected) {
-                reflectedWidth = Constants.__WidthBlocks;
-                reflectedHeight = Constants.__HeightBlocks;
-                reflectedBlock = Constants.__BlockSide;
-                reflected = true;
+            stepsToolStripMenuItem.Checked = false;
+            linesToolStripMenuItem.Checked =
+            dotsToolStripMenuItem.Checked =
+            bordersToolStripMenuItem.Checked =
+            aGVIndexToolStripMenuItem.Checked =
+            highlightOverCurrentBoxToolStripMenuItem.Checked = true;
 
-                stepsToolStripMenuItem.Checked = false;
-                linesToolStripMenuItem.Checked =
-                dotsToolStripMenuItem.Checked =
-                bordersToolStripMenuItem.Checked =
-                aGVIndexToolStripMenuItem.Checked =
-                highlightOverCurrentBoxToolStripMenuItem.Checked = true;
-            }
 
             Text = "K-aGv2 Simulator (Industrial branch)";
             gb_monitor.Size = new Size(Constants.__gb_monitor_width, Constants.__gb_monitor_height);
 
-         
+
             //Automatically enable the CPUs for this app.
             var _proc = System.Diagnostics.Process.GetCurrentProcess();
             int coreFlag;
@@ -793,9 +785,7 @@ namespace kagv {
         }
 
         private void resolutionToolStripMenuItem_Click(object sender, EventArgs e) {
-            resolution res = new resolution();
-            if (res.ShowDialog() == DialogResult.OK)
-                FullyRestore();
+          
             
         }
         

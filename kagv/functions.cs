@@ -416,20 +416,22 @@ namespace kagv {
         }
 
         //function that resets all of the used objects so they are ready for reuse, preventing memory leaks
-        private void FullyRestore() {
+        private void FullyRestore()
+        {
 
             if (timer_counter != null)
                 Array.Clear(timer_counter, 0, timer_counter.GetLength(0));
 
-            if(TrappedStatus!=null)
-            Array.Clear(TrappedStatus, 0, TrappedStatus.GetLength(0));
-            
+            if (TrappedStatus != null)
+                Array.Clear(TrappedStatus, 0, TrappedStatus.GetLength(0));
+
 
             for (int i = 0; i < AGVs.Count; i++)
                 AGVs[i].killIcon();
 
 
-            if (importmap != null) {
+            if (importmap != null)
+            {
                 Array.Clear(importmap, 0, importmap.GetLength(0));
                 Array.Clear(importmap, 0, importmap.GetLength(1));
             }
@@ -449,14 +451,14 @@ namespace kagv {
 
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
 
-            alwaysCross = 
+            alwaysCross =
             aGVIndexToolStripMenuItem.Checked =
             beforeStart =
             allowHighlight =
             NoJumpPointsFound = true;
 
-            atLeastOneObstacle = 
-            ifNoObstacles = 
+            atLeastOneObstacle =
+            ifNoObstacles =
             never =
             imported =
             importedImage =
@@ -476,31 +478,20 @@ namespace kagv {
             = b
             = new int();
 
-            
+
             AGVs = new List<Vehicle>();
-            if (emissions != null) {
+            if (emissions != null)
+            {
                 emissions.Dispose();
                 CO2 = CO = NOx = THC = GlobalWarming = 0;
                 emissions = new emissions();
             }
 
+            allowHighlight = true;
+            highlightOverCurrentBoxToolStripMenuItem.Enabled = true;
+            highlightOverCurrentBoxToolStripMenuItem.Checked = true;
 
-            if (Constants.__ResolutionMultiplier == 2) {
-                Constants.__BlockSide = reflectedBlock / Convert.ToInt32(Constants.__ResolutionMultiplier);
-                Constants.__HeightBlocks = reflectedHeight * Convert.ToInt32(Constants.__ResolutionMultiplier);
-                Constants.__WidthBlocks = reflectedWidth * Convert.ToInt32(Constants.__ResolutionMultiplier);
-                allowHighlight = false;
-                highlightOverCurrentBoxToolStripMenuItem.Enabled = false;
-                highlightOverCurrentBoxToolStripMenuItem.Checked = false;
-            } else {
-                Constants.__BlockSide = reflectedBlock;
-                Constants.__HeightBlocks = reflectedHeight;
-                Constants.__WidthBlocks = reflectedWidth;
-                allowHighlight = true;
-                highlightOverCurrentBoxToolStripMenuItem.Enabled = true;
-                highlightOverCurrentBoxToolStripMenuItem.Checked = true;
-            }
-            
+
 
             isLoad = new int[Constants.__WidthBlocks, Constants.__HeightBlocks];
             m_rectangles = new GridBox[Constants.__WidthBlocks][];
@@ -511,7 +502,7 @@ namespace kagv {
             for (int i = 0; i < Constants.__WidthBlocks; i++)
                 for (int j = 0; j < Constants.__HeightBlocks; j++)
                     m_rectangles[i][j] = new GridBox(i * Constants.__BlockSide, j * Constants.__BlockSide + Constants.__TopBarOffset, BoxType.Normal);
-            
+
             initialization();
             main_form_Load(new object(), new EventArgs());
 
@@ -520,7 +511,7 @@ namespace kagv {
 
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 50;
             refresh_label.Text = "Delay:" + timer0.Interval + " ms";
-            
+
         }
 
         //has to do with optical features in the Grid option from the menu
