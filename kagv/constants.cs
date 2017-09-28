@@ -29,7 +29,7 @@ namespace kagv {
     public static class Constants {
         public const int __MaximumSteps = 2000;
         public const int __TopBarOffset = 75 + 24 + 2;//distance from top to the grid=offset+menubar+2pixel of gray border
-        public const int __BottomBarOffset = 50 + 10;//distance between grid and the bottom of the form
+        public const int __BottomBarOffset = 50 +20;//distance between grid and the bottom of the form +20 for bottom toolstrip
         public static int __MaximumAGVs = 5;
         public const int __gb_monitor_width = 275;
         public const int __gb_monitor_height = 65;
@@ -38,8 +38,6 @@ namespace kagv {
         public static int __WidthBlocks = 78; //grid blocks
         public static int __HeightBlocks = 44; //grid blocks
         public static int __BlockSide = 15;
-
-        public static int __ResolutionMultiplier = 1;
 
         public static bool __SemiTransparency = true;
         public static byte __Opacity = (byte) ( (BitConverter.GetBytes(Color.WhiteSmoke.ToArgb()).Reverse().ToArray())[0] - (100) );

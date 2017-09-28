@@ -30,10 +30,76 @@ using System.IO;
 
 namespace kagv {
 
-    public partial class main_form {
+    public partial class main_form : IMessageFilter {
+
+        bool holdCTRL;
+ 
+        //Message callback of key
+        public bool PreFilterMessage (ref Message _msg)
+        {
+            if (timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled)
+                return false;
+            if (_msg.Msg == 0x101) //0x101 means key is up
+            {
+        
+                holdCTRL = false;
+                panel_resize.Visible = false;
+                toolStripStatusLabel1.Text = "Hold CTRL for grid configuration...";
+                Refresh();
+                return true;
+            }
+            return false;
+        }
 
         //function for handling keystrokes and assigning specific actions to them
-        protected override bool ProcessCmdKey(ref Message _msg, Keys _keyData) {
+        protected override bool ProcessCmdKey(ref Message _msg, Keys _keyData)
+        {
+            bool emptymap = true;
+            if(ModifierKeys.HasFlag( Keys.Control) && !holdCTRL ) {
+
+                if (timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled)
+                    return false;
+                for (int k = 0; k < Constants.__WidthBlocks; k++)
+                {
+                    for (int l = 0; l < Constants.__HeightBlocks; l++)
+                    {
+                        if (m_rectangles[k][l].boxType != BoxType.Normal)
+                        {
+                            emptymap = false;
+                            break;
+                        }
+                    }
+                    if (!emptymap)
+                    {
+                        break;
+                    }
+                }
+
+                if (!emptymap)
+                {
+                    DialogResult s = MessageBox.Show("The grid will be deleted.\nProceed?"
+                                   , "", MessageBoxButtons.YesNo);
+                    if (s == DialogResult.Yes)
+                    {
+                        holdCTRL = true;
+                        updateGridStats();
+                        toolStripStatusLabel1.Text = "Release CTRL to return...";
+                        panel_resize.Visible = true;
+                        return true;
+                    }
+                    else return false;
+                }
+                else
+                {
+                    holdCTRL = true;
+                    updateGridStats();
+                    toolStripStatusLabel1.Text = "Release CTRL to return...";
+                    panel_resize.Visible = true;
+                    return true;
+                }
+                
+            }
+            
             switch (_keyData)
             {
                 case Keys.F5:
@@ -65,7 +131,7 @@ namespace kagv {
             }
 
         }
-
+        /*-----------------------------------------------------*/
         //function for emissions Form
         private void show_emissions() {
             //creates a set of coordinates (Point) that determine the Location of the emissions Form
@@ -307,7 +373,8 @@ namespace kagv {
                 //clear all the paths
                 for (int i = 0; i < StartPos.Count(); i++)
                     AGVs[i].JumpPoints = new List<GridPos>();
-                
+
+                toolStripStatusLabel1.Text = "Hold CTRL for grid configuration...";
                 allowHighlight = false;
                 highlightOverCurrentBoxToolStripMenuItem.Checked = allowHighlight;
                 triggerStartMenu(false);
@@ -1272,6 +1339,14 @@ namespace kagv {
                 return false;
 
             return true;
+        }
+
+        private void updateGridStats()
+        {
+            int pixelsWidth = Constants.__WidthBlocks * Constants.__BlockSide;
+            int pixelsHeight = Constants.__HeightBlocks * Constants.__BlockSide;
+            lb_width.Text = "Width blocks: " + Constants.__WidthBlocks +".  "+ pixelsWidth + " pixels";
+            lb_height.Text = "Height blocks: " + Constants.__HeightBlocks + ". " + pixelsHeight + " pixels";
         }
 
     }

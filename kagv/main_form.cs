@@ -34,6 +34,7 @@ namespace kagv {
         //custom constructor of this form.
         public main_form() {
             InitializeComponent();//Create the form layout
+            Application.AddMessageFilter(this);
             initialization();//initialize our stuff
         }
 
@@ -41,9 +42,11 @@ namespace kagv {
         //This event is triggered when a paint event or mouse event is happening over the form.
         //mouse clicks ,hovers and clicks are also considered as triggers
         private void main_form_Paint(object sender, PaintEventArgs e) {
+         
+            
             paper = e.Graphics;
             paper.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            
+          
             try {
                 if (importedLayout != null) {
                    
@@ -104,7 +107,9 @@ namespace kagv {
         private void main_form_Load(object sender, EventArgs e)
         {
             //Load all values
-
+            panel_resize.Location = new Point(Width / 2 - (panel_resize.Width / 2), Height / 2 - menuPanel.Height);
+            panel_resize.Visible = false;
+          
             nud_weight.Value = Convert.ToDecimal(Constants.__AStarWeight);
 
             //Transparent and SemiTransparent feature serves the agri/industrial branch recursively
@@ -140,6 +145,7 @@ namespace kagv {
 
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 50;
             refresh_label.Text = "Delay :" + timer0.Interval + " ms";
+
             loads_label.Location = new Point(refresh_label.Location.X + refresh_label.Width, refresh_label.Location.Y);
             nUD_AGVs.Value = 0;
 
@@ -716,6 +722,7 @@ namespace kagv {
         private void startToolStripMenuItem_Click(object sender, EventArgs e) {
             //start the animations
 
+           
             //refresh the numeric value regarding the drawn agvs
             nUD_AGVs.Value = getNumberOfAGVs();
 
@@ -733,8 +740,9 @@ namespace kagv {
 
             for (int i = 0; i < StartPos.Count; i++)
                 AGVs[i].MarkedLoad = new Point();
-
+            
             Redraw();
+           
             labeled_loads = loads;
             for (int i = 0; i < StartPos.Count; i++) {
                 AGVs[i].StartX = m_rectangles[StartPos[i].x][StartPos[i].y].boxRec.X;
@@ -750,6 +758,7 @@ namespace kagv {
             gb_settings.Enabled = false;
             nud_weight.Enabled = false;
             cb_type.Enabled = false;
+            toolStripStatusLabel1.Text = "Simulation is running...";
 
             show_emissions();
         }
@@ -900,6 +909,101 @@ namespace kagv {
         }
 
         
+        private void btn_up_Click(object sender, EventArgs e)
+        {
+            Constants.__HeightBlocks--;
+            Height = (Constants.__HeightBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
+            Size = new Size(Width, Height + Constants.__BottomBarOffset);
+
+            updateGridStats();
+            FullyRestore();
+            holdCTRL = !holdCTRL;
+        }
+
+        private void btn_right_Click(object sender, EventArgs e)
+        {
+            Constants.__WidthBlocks++;
+            Width = (Constants.__WidthBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
+            Size = new Size(Width, Height + Constants.__BottomBarOffset);
+
+            updateGridStats();
+            FullyRestore();
+            holdCTRL = !holdCTRL;
+        }
+
+        private void btn_down_Click(object sender, EventArgs e)
+        {
+            Constants.__HeightBlocks++;
+            Height = (Constants.__HeightBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
+            Size = new Size(Width, Height + Constants.__BottomBarOffset);
+
+            updateGridStats();
+            FullyRestore();
+            holdCTRL = !holdCTRL;
+        }
+
+        private void btn_left_Click(object sender, EventArgs e)
+        {
+            Constants.__WidthBlocks--;
+            Width = (Constants.__WidthBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
+            Size = new Size(Width, Height + Constants.__BottomBarOffset);
+
+            updateGridStats();
+            FullyRestore();
+            holdCTRL = !holdCTRL;
+        }
+
+        private void btn_leftup_Click(object sender, EventArgs e)
+        {
+            Constants.__WidthBlocks--;
+            Constants.__HeightBlocks--;
+            Height = (Constants.__HeightBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
+            Width = (Constants.__WidthBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
+            Size = new Size(Width, Height + Constants.__BottomBarOffset);
+
+            updateGridStats();
+            FullyRestore();
+            holdCTRL = !holdCTRL;
+        }
+
+        private void btn_rightup_Click(object sender, EventArgs e)
+        {
+            Constants.__WidthBlocks++;
+            Constants.__HeightBlocks--;
+            Height = (Constants.__HeightBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
+            Width = (Constants.__WidthBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
+            Size = new Size(Width, Height + Constants.__BottomBarOffset);
+
+            updateGridStats();
+            FullyRestore();
+            holdCTRL = !holdCTRL;
+        }
+
+        private void btn_rightdown_Click(object sender, EventArgs e)
+        {
+            Constants.__WidthBlocks++;
+            Constants.__HeightBlocks++;
+            Height = (Constants.__HeightBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
+            Width = (Constants.__WidthBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
+            Size = new Size(Width, Height + Constants.__BottomBarOffset);
+
+            updateGridStats();
+            FullyRestore();
+            holdCTRL = !holdCTRL;
+        }
+
+        private void btn_leftdown_Click(object sender, EventArgs e)
+        {
+            Constants.__WidthBlocks--;
+            Constants.__HeightBlocks++;
+            Height = (Constants.__HeightBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
+            Width = (Constants.__WidthBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
+            Size = new Size(Width, Height + Constants.__BottomBarOffset);
+
+            updateGridStats();
+            FullyRestore();
+            holdCTRL = !holdCTRL;
+        }
     }
 
 }

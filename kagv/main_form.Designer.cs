@@ -27,6 +27,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main_form));
             this.timer0 = new System.Windows.Forms.Timer(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.loads_label = new System.Windows.Forms.Label();
             this.gb_type = new System.Windows.Forms.GroupBox();
             this.cb_type = new System.Windows.Forms.ComboBox();
             this.gb_monitor = new System.Windows.Forms.GroupBox();
@@ -91,7 +92,19 @@
             this.borderColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
-            this.loads_label = new System.Windows.Forms.Label();
+            this.panel_resize = new System.Windows.Forms.Panel();
+            this.btn_down = new System.Windows.Forms.Button();
+            this.btn_up = new System.Windows.Forms.Button();
+            this.btn_left = new System.Windows.Forms.Button();
+            this.btn_right = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btn_leftup = new System.Windows.Forms.Button();
+            this.btn_rightup = new System.Windows.Forms.Button();
+            this.btn_leftdown = new System.Windows.Forms.Button();
+            this.btn_rightdown = new System.Windows.Forms.Button();
+            this.lb_width = new System.Windows.Forms.Label();
+            this.lb_height = new System.Windows.Forms.Label();
             this.menuPanel.SuspendLayout();
             this.gb_type.SuspendLayout();
             this.gb_monitor.SuspendLayout();
@@ -101,6 +114,8 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).BeginInit();
             this.settings_menu.SuspendLayout();
+            this.panel_resize.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer0
@@ -118,6 +133,14 @@
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(656, 75);
             this.menuPanel.TabIndex = 7;
+            // 
+            // loads_label
+            // 
+            this.loads_label.AutoSize = true;
+            this.loads_label.Location = new System.Drawing.Point(77, 52);
+            this.loads_label.Name = "loads_label";
+            this.loads_label.Size = new System.Drawing.Size(0, 13);
+            this.loads_label.TabIndex = 30;
             // 
             // gb_type
             // 
@@ -633,7 +656,7 @@
             // borderColorToolStripMenuItem1
             // 
             this.borderColorToolStripMenuItem1.Name = "borderColorToolStripMenuItem1";
-            this.borderColorToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.borderColorToolStripMenuItem1.Size = new System.Drawing.Size(141, 22);
             this.borderColorToolStripMenuItem1.Text = "Border Color";
             this.borderColorToolStripMenuItem1.Click += new System.EventHandler(this.borderColorToolStripMenuItem1_Click);
             // 
@@ -644,13 +667,137 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // loads_label
+            // panel_resize
             // 
-            this.loads_label.AutoSize = true;
-            this.loads_label.Location = new System.Drawing.Point(77, 52);
-            this.loads_label.Name = "loads_label";
-            this.loads_label.Size = new System.Drawing.Size(0, 13);
-            this.loads_label.TabIndex = 30;
+            this.panel_resize.Controls.Add(this.lb_height);
+            this.panel_resize.Controls.Add(this.lb_width);
+            this.panel_resize.Controls.Add(this.btn_rightup);
+            this.panel_resize.Controls.Add(this.btn_rightdown);
+            this.panel_resize.Controls.Add(this.btn_leftdown);
+            this.panel_resize.Controls.Add(this.btn_leftup);
+            this.panel_resize.Controls.Add(this.btn_down);
+            this.panel_resize.Controls.Add(this.btn_up);
+            this.panel_resize.Controls.Add(this.btn_left);
+            this.panel_resize.Controls.Add(this.btn_right);
+            this.panel_resize.Location = new System.Drawing.Point(229, 108);
+            this.panel_resize.Name = "panel_resize";
+            this.panel_resize.Size = new System.Drawing.Size(259, 202);
+            this.panel_resize.TabIndex = 9;
+            // 
+            // btn_down
+            // 
+            this.btn_down.Location = new System.Drawing.Point(97, 152);
+            this.btn_down.Name = "btn_down";
+            this.btn_down.Size = new System.Drawing.Size(64, 45);
+            this.btn_down.TabIndex = 1;
+            this.btn_down.Text = "Increase height";
+            this.btn_down.UseVisualStyleBackColor = true;
+            this.btn_down.Click += new System.EventHandler(this.btn_down_Click);
+            // 
+            // btn_up
+            // 
+            this.btn_up.Location = new System.Drawing.Point(97, 59);
+            this.btn_up.Name = "btn_up";
+            this.btn_up.Size = new System.Drawing.Size(64, 45);
+            this.btn_up.TabIndex = 2;
+            this.btn_up.Text = "Decrease height";
+            this.btn_up.UseVisualStyleBackColor = true;
+            this.btn_up.Click += new System.EventHandler(this.btn_up_Click);
+            // 
+            // btn_left
+            // 
+            this.btn_left.Location = new System.Drawing.Point(27, 105);
+            this.btn_left.Name = "btn_left";
+            this.btn_left.Size = new System.Drawing.Size(64, 45);
+            this.btn_left.TabIndex = 3;
+            this.btn_left.Text = "Decrease width";
+            this.btn_left.UseVisualStyleBackColor = true;
+            this.btn_left.Click += new System.EventHandler(this.btn_left_Click);
+            // 
+            // btn_right
+            // 
+            this.btn_right.Location = new System.Drawing.Point(167, 105);
+            this.btn_right.Name = "btn_right";
+            this.btn_right.Size = new System.Drawing.Size(64, 45);
+            this.btn_right.TabIndex = 4;
+            this.btn_right.Text = "Increase width";
+            this.btn_right.UseVisualStyleBackColor = true;
+            this.btn_right.Click += new System.EventHandler(this.btn_right_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 313);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(650, 22);
+            this.statusStrip1.SizingGrip = false;
+            this.statusStrip1.TabIndex = 10;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(190, 17);
+            this.toolStripStatusLabel1.Text = "Hold CTRL for grid configuration...";
+            // 
+            // btn_leftup
+            // 
+            this.btn_leftup.Location = new System.Drawing.Point(65, 76);
+            this.btn_leftup.Name = "btn_leftup";
+            this.btn_leftup.Size = new System.Drawing.Size(26, 23);
+            this.btn_leftup.TabIndex = 5;
+            this.btn_leftup.Text = "\\";
+            this.btn_leftup.UseVisualStyleBackColor = true;
+            this.btn_leftup.Click += new System.EventHandler(this.btn_leftup_Click);
+            // 
+            // btn_rightup
+            // 
+            this.btn_rightup.Location = new System.Drawing.Point(164, 76);
+            this.btn_rightup.Name = "btn_rightup";
+            this.btn_rightup.Size = new System.Drawing.Size(26, 23);
+            this.btn_rightup.TabIndex = 5;
+            this.btn_rightup.Text = "/";
+            this.btn_rightup.UseVisualStyleBackColor = true;
+            this.btn_rightup.Click += new System.EventHandler(this.btn_rightup_Click);
+            // 
+            // btn_leftdown
+            // 
+            this.btn_leftdown.Location = new System.Drawing.Point(65, 156);
+            this.btn_leftdown.Name = "btn_leftdown";
+            this.btn_leftdown.Size = new System.Drawing.Size(26, 23);
+            this.btn_leftdown.TabIndex = 5;
+            this.btn_leftdown.Text = "/";
+            this.btn_leftdown.UseVisualStyleBackColor = true;
+            this.btn_leftdown.Click += new System.EventHandler(this.btn_leftdown_Click);
+            // 
+            // btn_rightdown
+            // 
+            this.btn_rightdown.Location = new System.Drawing.Point(164, 156);
+            this.btn_rightdown.Name = "btn_rightdown";
+            this.btn_rightdown.Size = new System.Drawing.Size(26, 23);
+            this.btn_rightdown.TabIndex = 5;
+            this.btn_rightdown.Text = "\\";
+            this.btn_rightdown.UseVisualStyleBackColor = true;
+            this.btn_rightdown.Click += new System.EventHandler(this.btn_rightdown_Click);
+            // 
+            // lb_width
+            // 
+            this.lb_width.AutoSize = true;
+            this.lb_width.Location = new System.Drawing.Point(4, 4);
+            this.lb_width.Name = "lb_width";
+            this.lb_width.Size = new System.Drawing.Size(72, 13);
+            this.lb_width.TabIndex = 6;
+            this.lb_width.Text = "Width blocks:";
+            // 
+            // lb_height
+            // 
+            this.lb_height.AutoSize = true;
+            this.lb_height.Location = new System.Drawing.Point(4, 21);
+            this.lb_height.Name = "lb_height";
+            this.lb_height.Size = new System.Drawing.Size(75, 13);
+            this.lb_height.TabIndex = 7;
+            this.lb_height.Text = "Height blocks:";
             // 
             // main_form
             // 
@@ -659,6 +806,8 @@
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(650, 335);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.panel_resize);
             this.Controls.Add(this.menuPanel);
             this.Controls.Add(this.settings_menu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -684,6 +833,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).EndInit();
             this.settings_menu.ResumeLayout(false);
             this.settings_menu.PerformLayout();
+            this.panel_resize.ResumeLayout(false);
+            this.panel_resize.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -758,6 +911,19 @@
         private System.Windows.Forms.ToolStripMenuItem noObstaclesMenu;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label loads_label;
+        private System.Windows.Forms.Panel panel_resize;
+        private System.Windows.Forms.Button btn_down;
+        private System.Windows.Forms.Button btn_up;
+        private System.Windows.Forms.Button btn_left;
+        private System.Windows.Forms.Button btn_right;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.Button btn_rightup;
+        private System.Windows.Forms.Button btn_rightdown;
+        private System.Windows.Forms.Button btn_leftdown;
+        private System.Windows.Forms.Button btn_leftup;
+        private System.Windows.Forms.Label lb_height;
+        private System.Windows.Forms.Label lb_width;
     }
 }
 
