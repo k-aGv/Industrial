@@ -1160,18 +1160,12 @@ namespace kagv {
 
                 bool proceed = false;
                 StreamReader _tmp = new StreamReader(ofd_importmap.FileName);
-                if (Constants.__ResolutionMultiplier == 2)
-                    if (_tmp.ReadToEnd().Contains("Width blocks: 128  Height blocks: 64"))
-                        proceed = true;
-                    else
-                        proceed = false;
-                else if (Constants.__ResolutionMultiplier == 1)
-                    if (_tmp.ReadToEnd().Contains("Width blocks: 64  Height blocks: 32"))
+                if (_tmp.ReadToEnd().Contains("Width blocks: 78  Height blocks: 44"))
                         proceed = true;
                     else
                         proceed = false;
                 _tmp.Close();
-
+                
                 if (proceed) {
                     StreamReader reader = new StreamReader(ofd_importmap.FileName);
                     reader.ReadLine();
