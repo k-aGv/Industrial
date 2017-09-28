@@ -27,7 +27,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main_form));
             this.timer0 = new System.Windows.Forms.Timer(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
-            this.nud_weight = new System.Windows.Forms.NumericUpDown();
             this.gb_type = new System.Windows.Forms.GroupBox();
             this.cb_type = new System.Windows.Forms.ComboBox();
             this.gb_monitor = new System.Windows.Forms.GroupBox();
@@ -44,6 +43,8 @@
             this.rb_start = new System.Windows.Forms.RadioButton();
             this.rb_stop = new System.Windows.Forms.RadioButton();
             this.rb_load = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.nud_weight = new System.Windows.Forms.NumericUpDown();
             this.tp_info = new System.Windows.Forms.ToolTip(this.components);
             this.sfd_exportmap = new System.Windows.Forms.SaveFileDialog();
             this.ofd_importmap = new System.Windows.Forms.OpenFileDialog();
@@ -66,7 +67,9 @@
             this.parametresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alwaysCrossMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.neverCrossMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.noObstaclesMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.atLeastOneMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.priorityRulesbetaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.heuristicModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manhattanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,18 +92,15 @@
             this.borderColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.noObstaclesMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.menuPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).BeginInit();
             this.gb_type.SuspendLayout();
             this.gb_monitor.SuspendLayout();
             this.gb_settings.SuspendLayout();
             this.gb_agvs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_AGVs)).BeginInit();
-            this.settings_menu.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).BeginInit();
+            this.settings_menu.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer0
@@ -118,20 +118,6 @@
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(656, 75);
             this.menuPanel.TabIndex = 7;
-            // 
-            // nud_weight
-            // 
-            this.nud_weight.DecimalPlaces = 2;
-            this.nud_weight.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nud_weight.Location = new System.Drawing.Point(5, 36);
-            this.nud_weight.Name = "nud_weight";
-            this.nud_weight.Size = new System.Drawing.Size(64, 20);
-            this.nud_weight.TabIndex = 28;
-            this.nud_weight.ValueChanged += new System.EventHandler(this.nud_weight_ValueChanged);
             // 
             // gb_type
             // 
@@ -306,6 +292,30 @@
             this.rb_load.Text = "Load";
             this.rb_load.UseVisualStyleBackColor = true;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.nud_weight);
+            this.groupBox1.Location = new System.Drawing.Point(301, 5);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(69, 65);
+            this.groupBox1.TabIndex = 29;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "AStar Weight";
+            // 
+            // nud_weight
+            // 
+            this.nud_weight.DecimalPlaces = 2;
+            this.nud_weight.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nud_weight.Location = new System.Drawing.Point(5, 36);
+            this.nud_weight.Name = "nud_weight";
+            this.nud_weight.Size = new System.Drawing.Size(64, 20);
+            this.nud_weight.TabIndex = 28;
+            this.nud_weight.ValueChanged += new System.EventHandler(this.nud_weight_ValueChanged);
+            // 
             // ofd_importmap
             // 
             this.ofd_importmap.FileName = "openFileDialog1";
@@ -456,12 +466,27 @@
             this.neverCrossMenu.Text = "Never cross corners";
             this.neverCrossMenu.Click += new System.EventHandler(this.crossAdjacentPointToolStripMenuItem_Click);
             // 
+            // noObstaclesMenu
+            // 
+            this.noObstaclesMenu.Name = "noObstaclesMenu";
+            this.noObstaclesMenu.Size = new System.Drawing.Size(299, 22);
+            this.noObstaclesMenu.Text = "Cross corner only when no obstacles";
+            this.noObstaclesMenu.Click += new System.EventHandler(this.crossCornerOnlyWhenNoObstaclesToolStripMenuItem_Click);
+            // 
             // atLeastOneMenu
             // 
             this.atLeastOneMenu.Name = "atLeastOneMenu";
             this.atLeastOneMenu.Size = new System.Drawing.Size(299, 22);
             this.atLeastOneMenu.Text = "Cross corner only if at least one is walkable";
             this.atLeastOneMenu.Click += new System.EventHandler(this.crossCornerToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.toolStripSeparator2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(296, 6);
             // 
             // priorityRulesbetaToolStripMenuItem
             // 
@@ -483,21 +508,21 @@
             // manhattanToolStripMenuItem
             // 
             this.manhattanToolStripMenuItem.Name = "manhattanToolStripMenuItem";
-            this.manhattanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.manhattanToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.manhattanToolStripMenuItem.Text = "Manhattan";
             this.manhattanToolStripMenuItem.Click += new System.EventHandler(this.manhattanToolStripMenuItem_Click);
             // 
             // euclideanToolStripMenuItem
             // 
             this.euclideanToolStripMenuItem.Name = "euclideanToolStripMenuItem";
-            this.euclideanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.euclideanToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.euclideanToolStripMenuItem.Text = "Euclidean";
             this.euclideanToolStripMenuItem.Click += new System.EventHandler(this.euclideanToolStripMenuItem_Click);
             // 
             // chebyshevToolStripMenuItem
             // 
             this.chebyshevToolStripMenuItem.Name = "chebyshevToolStripMenuItem";
-            this.chebyshevToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.chebyshevToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.chebyshevToolStripMenuItem.Text = "Chebyshev";
             this.chebyshevToolStripMenuItem.Click += new System.EventHandler(this.chebyshevToolStripMenuItem_Click);
             // 
@@ -523,7 +548,7 @@
             this.highlightOverCurrentBoxToolStripMenuItem,
             this.aGVIndexToolStripMenuItem});
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.showToolStripMenuItem.Text = "Show...";
             // 
             // stepsToolStripMenuItem
@@ -571,21 +596,21 @@
             // borderColorToolStripMenuItem
             // 
             this.borderColorToolStripMenuItem.Name = "borderColorToolStripMenuItem";
-            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.borderColorToolStripMenuItem.Text = "Border Color";
             this.borderColorToolStripMenuItem.Click += new System.EventHandler(this.borderColorToolStripMenuItem_Click);
             // 
             // resolutionToolStripMenuItem
             // 
             this.resolutionToolStripMenuItem.Name = "resolutionToolStripMenuItem";
-            this.resolutionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.resolutionToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.resolutionToolStripMenuItem.Text = "Resolution";
             this.resolutionToolStripMenuItem.Click += new System.EventHandler(this.resolutionToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(138, 6);
             // 
             // clearToolStripMenuItem
             // 
@@ -594,7 +619,7 @@
             this.allToolStripMenuItem,
             this.borderColorToolStripMenuItem1});
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             // 
             // wallsToolStripMenuItem
@@ -626,31 +651,6 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripSeparator2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.toolStripSeparator2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(296, 6);
-            // 
-            // noObstaclesMenu
-            // 
-            this.noObstaclesMenu.Name = "noObstaclesMenu";
-            this.noObstaclesMenu.Size = new System.Drawing.Size(299, 22);
-            this.noObstaclesMenu.Text = "Cross corner only when no obstacles";
-            this.noObstaclesMenu.Click += new System.EventHandler(this.crossCornerOnlyWhenNoObstaclesToolStripMenuItem_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.nud_weight);
-            this.groupBox1.Location = new System.Drawing.Point(301, 5);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(69, 65);
-            this.groupBox1.TabIndex = 29;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "AStar Weight";
-            // 
             // main_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -672,7 +672,6 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseUp);
             this.menuPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).EndInit();
             this.gb_type.ResumeLayout(false);
             this.gb_monitor.ResumeLayout(false);
             this.gb_monitor.PerformLayout();
@@ -680,9 +679,10 @@
             this.gb_settings.PerformLayout();
             this.gb_agvs.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nUD_AGVs)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).EndInit();
             this.settings_menu.ResumeLayout(false);
             this.settings_menu.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

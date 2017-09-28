@@ -132,7 +132,7 @@ namespace kagv {
             }
 
             Text = "K-aGv2 Simulator (Industrial branch)";
-            gb_monitor.Size = new Size(gb_monitor.Size.Width + 200, gb_monitor.Size.Height);
+            gb_monitor.Size = new Size(Constants.__gb_monitor_width, Constants.__gb_monitor_height);
 
          
             //Automatically enable the CPUs for this app.
@@ -446,8 +446,13 @@ namespace kagv {
                     //if we reduce the numeric value and become less than the already-drawn agvs,remove the rest agvs
                     if (starts_counter > nUD_AGVs.Value) {
                         m_rectangles[starts_position[0, starts_counter - 1]][starts_position[1, starts_counter - 1]].SwitchEnd_StartToNormal(); //removes the very last
-                        
+
                         removed = true;
+
+                        gb_monitor.Controls.Find(
+                     "agv" + (starts_counter) + "steps_LB",
+                 true)
+                 [0].Text="";
                         Invalidate();
                     }
                 }
@@ -528,6 +533,8 @@ namespace kagv {
                          && m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal)
                                 m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * Constants.__BlockSide, heightTrav * Constants.__BlockSide + Constants.__TopBarOffset, BoxType.Start);
                 
+
+
             }
             //same for Stop
             if (rb_stop.Checked) {
@@ -722,8 +729,9 @@ namespace kagv {
 
             //if we add more than 2 agvs,we have to resize the monitor.
             if (nUD_AGVs.Value > 2)
-                gb_monitor.Width += gb_monitor.Width - 100;
-
+                gb_monitor.Size = new Size(Constants.__gb_monitor_width * 2, Constants.__gb_monitor_height);
+            else
+                gb_monitor.Size = new Size(Constants.__gb_monitor_width, Constants.__gb_monitor_height);
 
             for (int i = 0; i < fromstart.Length; i++)
                 fromstart[i] = true;
