@@ -27,10 +27,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main_form));
             this.timer0 = new System.Windows.Forms.Timer(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
-            this.loads_label = new System.Windows.Forms.Label();
             this.gb_type = new System.Windows.Forms.GroupBox();
             this.cb_type = new System.Windows.Forms.ComboBox();
             this.gb_monitor = new System.Windows.Forms.GroupBox();
+            this.loads_label = new System.Windows.Forms.Label();
             this.agv3steps_LB = new System.Windows.Forms.Label();
             this.refresh_label = new System.Windows.Forms.Label();
             this.agv4steps_LB = new System.Windows.Forms.Label();
@@ -93,18 +93,18 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
             this.panel_resize = new System.Windows.Forms.Panel();
+            this.lb_height = new System.Windows.Forms.Label();
+            this.lb_width = new System.Windows.Forms.Label();
+            this.btn_rightup = new System.Windows.Forms.Button();
+            this.btn_rightdown = new System.Windows.Forms.Button();
+            this.btn_leftdown = new System.Windows.Forms.Button();
+            this.btn_leftup = new System.Windows.Forms.Button();
             this.btn_down = new System.Windows.Forms.Button();
             this.btn_up = new System.Windows.Forms.Button();
             this.btn_left = new System.Windows.Forms.Button();
             this.btn_right = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btn_leftup = new System.Windows.Forms.Button();
-            this.btn_rightup = new System.Windows.Forms.Button();
-            this.btn_leftdown = new System.Windows.Forms.Button();
-            this.btn_rightdown = new System.Windows.Forms.Button();
-            this.lb_width = new System.Windows.Forms.Label();
-            this.lb_height = new System.Windows.Forms.Label();
             this.menuPanel.SuspendLayout();
             this.gb_type.SuspendLayout();
             this.gb_monitor.SuspendLayout();
@@ -133,14 +133,6 @@
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(656, 75);
             this.menuPanel.TabIndex = 7;
-            // 
-            // loads_label
-            // 
-            this.loads_label.AutoSize = true;
-            this.loads_label.Location = new System.Drawing.Point(77, 52);
-            this.loads_label.Name = "loads_label";
-            this.loads_label.Size = new System.Drawing.Size(0, 13);
-            this.loads_label.TabIndex = 30;
             // 
             // gb_type
             // 
@@ -180,6 +172,14 @@
             this.gb_monitor.TabIndex = 26;
             this.gb_monitor.TabStop = false;
             this.gb_monitor.Text = "Monitor";
+            // 
+            // loads_label
+            // 
+            this.loads_label.AutoSize = true;
+            this.loads_label.Location = new System.Drawing.Point(77, 52);
+            this.loads_label.Name = "loads_label";
+            this.loads_label.Size = new System.Drawing.Size(0, 13);
+            this.loads_label.TabIndex = 30;
             // 
             // agv3steps_LB
             // 
@@ -571,7 +571,7 @@
             this.highlightOverCurrentBoxToolStripMenuItem,
             this.aGVIndexToolStripMenuItem});
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.showToolStripMenuItem.Text = "Show...";
             // 
             // stepsToolStripMenuItem
@@ -619,14 +619,14 @@
             // borderColorToolStripMenuItem
             // 
             this.borderColorToolStripMenuItem.Name = "borderColorToolStripMenuItem";
-            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.borderColorToolStripMenuItem.Text = "Border Color";
             this.borderColorToolStripMenuItem.Click += new System.EventHandler(this.borderColorToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(138, 6);
             // 
             // clearToolStripMenuItem
             // 
@@ -635,13 +635,13 @@
             this.allToolStripMenuItem,
             this.borderColorToolStripMenuItem1});
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             // 
             // wallsToolStripMenuItem
             // 
             this.wallsToolStripMenuItem.Name = "wallsToolStripMenuItem";
-            this.wallsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.wallsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.wallsToolStripMenuItem.Text = "Walls";
             this.wallsToolStripMenuItem.Click += new System.EventHandler(this.wallsToolStripMenuItem_Click);
             // 
@@ -649,7 +649,7 @@
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
             this.allToolStripMenuItem.ShortcutKeyDisplayString = "(F5)";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.allToolStripMenuItem.Text = "All";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.allToolStripMenuItem_Click);
             // 
@@ -683,6 +683,64 @@
             this.panel_resize.Name = "panel_resize";
             this.panel_resize.Size = new System.Drawing.Size(259, 202);
             this.panel_resize.TabIndex = 9;
+            // 
+            // lb_height
+            // 
+            this.lb_height.AutoSize = true;
+            this.lb_height.Location = new System.Drawing.Point(4, 21);
+            this.lb_height.Name = "lb_height";
+            this.lb_height.Size = new System.Drawing.Size(75, 13);
+            this.lb_height.TabIndex = 7;
+            this.lb_height.Text = "Height blocks:";
+            // 
+            // lb_width
+            // 
+            this.lb_width.AutoSize = true;
+            this.lb_width.Location = new System.Drawing.Point(4, 4);
+            this.lb_width.Name = "lb_width";
+            this.lb_width.Size = new System.Drawing.Size(72, 13);
+            this.lb_width.TabIndex = 6;
+            this.lb_width.Text = "Width blocks:";
+            // 
+            // btn_rightup
+            // 
+            this.btn_rightup.Location = new System.Drawing.Point(164, 76);
+            this.btn_rightup.Name = "btn_rightup";
+            this.btn_rightup.Size = new System.Drawing.Size(26, 23);
+            this.btn_rightup.TabIndex = 5;
+            this.btn_rightup.Text = "/";
+            this.btn_rightup.UseVisualStyleBackColor = true;
+            this.btn_rightup.Click += new System.EventHandler(this.btn_rightup_Click);
+            // 
+            // btn_rightdown
+            // 
+            this.btn_rightdown.Location = new System.Drawing.Point(164, 156);
+            this.btn_rightdown.Name = "btn_rightdown";
+            this.btn_rightdown.Size = new System.Drawing.Size(26, 23);
+            this.btn_rightdown.TabIndex = 5;
+            this.btn_rightdown.Text = "\\";
+            this.btn_rightdown.UseVisualStyleBackColor = true;
+            this.btn_rightdown.Click += new System.EventHandler(this.btn_rightdown_Click);
+            // 
+            // btn_leftdown
+            // 
+            this.btn_leftdown.Location = new System.Drawing.Point(65, 156);
+            this.btn_leftdown.Name = "btn_leftdown";
+            this.btn_leftdown.Size = new System.Drawing.Size(26, 23);
+            this.btn_leftdown.TabIndex = 5;
+            this.btn_leftdown.Text = "/";
+            this.btn_leftdown.UseVisualStyleBackColor = true;
+            this.btn_leftdown.Click += new System.EventHandler(this.btn_leftdown_Click);
+            // 
+            // btn_leftup
+            // 
+            this.btn_leftup.Location = new System.Drawing.Point(65, 76);
+            this.btn_leftup.Name = "btn_leftup";
+            this.btn_leftup.Size = new System.Drawing.Size(26, 23);
+            this.btn_leftup.TabIndex = 5;
+            this.btn_leftup.Text = "\\";
+            this.btn_leftup.UseVisualStyleBackColor = true;
+            this.btn_leftup.Click += new System.EventHandler(this.btn_leftup_Click);
             // 
             // btn_down
             // 
@@ -737,67 +795,10 @@
             // 
             // toolStripStatusLabel1
             // 
+            this.toolStripStatusLabel1.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(190, 17);
             this.toolStripStatusLabel1.Text = "Hold CTRL for grid configuration...";
-            // 
-            // btn_leftup
-            // 
-            this.btn_leftup.Location = new System.Drawing.Point(65, 76);
-            this.btn_leftup.Name = "btn_leftup";
-            this.btn_leftup.Size = new System.Drawing.Size(26, 23);
-            this.btn_leftup.TabIndex = 5;
-            this.btn_leftup.Text = "\\";
-            this.btn_leftup.UseVisualStyleBackColor = true;
-            this.btn_leftup.Click += new System.EventHandler(this.btn_leftup_Click);
-            // 
-            // btn_rightup
-            // 
-            this.btn_rightup.Location = new System.Drawing.Point(164, 76);
-            this.btn_rightup.Name = "btn_rightup";
-            this.btn_rightup.Size = new System.Drawing.Size(26, 23);
-            this.btn_rightup.TabIndex = 5;
-            this.btn_rightup.Text = "/";
-            this.btn_rightup.UseVisualStyleBackColor = true;
-            this.btn_rightup.Click += new System.EventHandler(this.btn_rightup_Click);
-            // 
-            // btn_leftdown
-            // 
-            this.btn_leftdown.Location = new System.Drawing.Point(65, 156);
-            this.btn_leftdown.Name = "btn_leftdown";
-            this.btn_leftdown.Size = new System.Drawing.Size(26, 23);
-            this.btn_leftdown.TabIndex = 5;
-            this.btn_leftdown.Text = "/";
-            this.btn_leftdown.UseVisualStyleBackColor = true;
-            this.btn_leftdown.Click += new System.EventHandler(this.btn_leftdown_Click);
-            // 
-            // btn_rightdown
-            // 
-            this.btn_rightdown.Location = new System.Drawing.Point(164, 156);
-            this.btn_rightdown.Name = "btn_rightdown";
-            this.btn_rightdown.Size = new System.Drawing.Size(26, 23);
-            this.btn_rightdown.TabIndex = 5;
-            this.btn_rightdown.Text = "\\";
-            this.btn_rightdown.UseVisualStyleBackColor = true;
-            this.btn_rightdown.Click += new System.EventHandler(this.btn_rightdown_Click);
-            // 
-            // lb_width
-            // 
-            this.lb_width.AutoSize = true;
-            this.lb_width.Location = new System.Drawing.Point(4, 4);
-            this.lb_width.Name = "lb_width";
-            this.lb_width.Size = new System.Drawing.Size(72, 13);
-            this.lb_width.TabIndex = 6;
-            this.lb_width.Text = "Width blocks:";
-            // 
-            // lb_height
-            // 
-            this.lb_height.AutoSize = true;
-            this.lb_height.Location = new System.Drawing.Point(4, 21);
-            this.lb_height.Name = "lb_height";
-            this.lb_height.Size = new System.Drawing.Size(75, 13);
-            this.lb_height.TabIndex = 7;
-            this.lb_height.Text = "Height blocks:";
             // 
             // main_form
             // 
