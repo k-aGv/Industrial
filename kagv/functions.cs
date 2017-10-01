@@ -1222,19 +1222,31 @@ namespace kagv {
             ofd_importmap.Filter = "kagv Map (*.kmap)|*.kmap";
             ofd_importmap.FileName = "";
 
-            
-            if (ofd_importmap.ShowDialog() == DialogResult.OK) {
-                FullyRestore();
 
+            if (ofd_importmap.ShowDialog() == DialogResult.OK) {
                 bool proceed = false;
-                StreamReader _tmp = new StreamReader(ofd_importmap.FileName);
-                if (_tmp.ReadToEnd().Contains("Width blocks: 78  Height blocks: 44"))
+                string _line = "";
+
+
+                StreamReader _tmpReader = new StreamReader(ofd_importmap.FileName);
+                do {
+                    _line = _tmpReader.ReadLine();
+                    if (_line.Contains("Width blocks:") && _line.Contains("Height blocks:"))
                         proceed = true;
-                    else
-                        proceed = false;
-                _tmp.Close();
+                } while (!_line.Contains("Width blocks") && !_tmpReader.EndOfStream);
+                _tmpReader.Close();
+                string[] _lineArray;
+                char[] sep = { ':', ' ' };
+                _lineArray = _line.Split(sep);
+
                 
                 if (proceed) {
+
+                    Constants.__WidthBlocks = Convert.ToInt32(_lineArray[3]);
+                    Constants.__HeightBlocks = Convert.ToInt32(_lineArray[8]);
+
+                    FullyRestore();
+
                     StreamReader reader = new StreamReader(ofd_importmap.FileName);
                     reader.ReadLine();
 
@@ -1264,7 +1276,7 @@ namespace kagv {
                     }
 
                     reader.ReadLine();
-                   
+
                     importmap = new BoxType[width_blocks, height_blocks];
                     words = reader.ReadLine().Split(delim);
 
@@ -1290,7 +1302,7 @@ namespace kagv {
                             words = reader.ReadLine().Split(delim);
                     }
                     reader.Close();
-                    
+
                     for (int z = 0; z < importmap.GetLength(0); z++)
                         for (int i = 0; i < importmap.GetLength(1); i++)
                             m_rectangles[z][i].boxType = importmap[z, i];
