@@ -892,6 +892,31 @@ namespace kagv {
             return pos;
         }
 
+        private void checkForTrappedLoads() {
+            int list_index = 0;
+            bool removed;
+            do {
+                removed = false;
+                if (isLoad[loadPos[list_index].x, loadPos[list_index].y] == 4) {
+                    searchGrid.SetWalkableAt(new GridPos(loadPos[list_index].x, loadPos[list_index].y), true);
+                    jumpParam.Reset(StartPos[0], loadPos[list_index]);
+                    if (AStarFinder.FindPath(jumpParam, nud_weight.Value).Count == 0) {
+
+                        searchGrid.SetWalkableAt(new GridPos(loadPos[list_index].x, loadPos[list_index].y), false);
+                        loadPos.Remove(loadPos[list_index]);
+                        removed = true;
+                    } else
+                        isLoad[loadPos[list_index].x, loadPos[list_index].y] = 1;
+                }
+
+                if (!removed)
+                    list_index++;
+
+
+
+            } while (list_index < loadPos.Count);
+        }
+
         //returns the number of steps until AGV reaches the marked Load
         private int getStepsToLoad(int whichAGV) {
             int ix = AGVs[whichAGV].MarkedLoad.X * Constants.__BlockSide;
@@ -1024,8 +1049,8 @@ namespace kagv {
                     if (isLoad[i, j] == 1 || isLoad[i, j] == 4)
                         loadPos.Add(new GridPos(i, j));
                 }
-            loadPos = checkForTrappedLoads(loadPos); //scans the loadPos list to check which loads are available
-            
+            //loadPos = checkForTrappedLoads(loadPos); //scans the loadPos list to check which loads are available
+            checkForTrappedLoads();
             isLoad[loadPos[0].x, loadPos[0].y] = 3;
             AGVs[whichAGV].MarkedLoad = new Point(loadPos[0].x, loadPos[0].y);
             loads--;
@@ -1226,18 +1251,17 @@ namespace kagv {
             if (ofd_importmap.ShowDialog() == DialogResult.OK) {
                 bool proceed = false;
                 string _line = "";
-
+                char[] sep = { ':', ' ' };
 
                 StreamReader _tmpReader = new StreamReader(ofd_importmap.FileName);
                 do {
                     _line = _tmpReader.ReadLine();
                     if (_line.Contains("Width blocks:") && _line.Contains("Height blocks:"))
                         proceed = true;
-                } while (!_line.Contains("Width blocks") && !_tmpReader.EndOfStream);
+                } while (!(_line.Contains("Width blocks:") && _line.Contains("Height blocks:")) && 
+                         !_tmpReader.EndOfStream);
                 _tmpReader.Close();
-                string[] _lineArray;
-                char[] sep = { ':', ' ' };
-                _lineArray = _line.Split(sep);
+                string[] _lineArray = _line.Split(sep);
 
                 
                 if (proceed) {
