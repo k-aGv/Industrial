@@ -24,6 +24,7 @@ THE SOFTWARE.
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 
 namespace kagv {
@@ -363,21 +364,18 @@ namespace kagv {
             //if we change the AGVs value from numeric updown,do the following
             int starts_counter = 0;
             bool removed = false;
-            int[,] starts_position = new int[2, Convert.ToInt32(nUD_AGVs.Value) + 1]; //keeps the size of the array +1 in relation with the nUD
+            List<GridPos> start_position = new List<GridPos>();
 
             for (int widthTrav = 0; widthTrav < Constants._WidthBlocks; widthTrav++)
                 for (int heightTrav = 0; heightTrav < Constants._HeightBlocks; heightTrav++) {
                     if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Start) {
-                        starts_position[0, starts_counter] = widthTrav;
-                        starts_position[1, starts_counter] = heightTrav;
+                        start_position.Add(new GridPos(widthTrav, heightTrav));
                         starts_counter++;
                     }
                     //if we reduce the numeric value and become less than the already-drawn agvs,remove the rest agvs
-                    if (starts_counter > nUD_AGVs.Value) {
-                        m_rectangles[starts_position[0, starts_counter - 1]][starts_position[1, starts_counter - 1]].SwitchEnd_StartToNormal(); //removes the very last
-
+                    if (start_position.Count > nUD_AGVs.Value) {
+                        m_rectangles[start_position[0].x][start_position[0].y].SwitchEnd_StartToNormal(); //removes the very last
                         removed = true;
-
                         gb_monitor.Controls.Find(
                      "agv" + (starts_counter) + "steps_LB",
                  true)
