@@ -81,14 +81,13 @@ namespace kagv {
 
                 for (int i = 0; i < startPos.Count; i++) {
                     AGVs[i].StepsCounter = 0;
-
-                        for (int resultTrav = 0; resultTrav < c; resultTrav++)
-                            try {
-                                if (linesToolStripMenuItem.Checked)
-                                    AGVs[i].Paths[resultTrav].drawLine(paper);//draw the lines 
-                                if (!isMouseDown)
-                                    DrawPoints(AGVs[i].Paths[resultTrav], i);//show points
-                            } catch { }
+                    for (int resultTrav = 0; resultTrav < c; resultTrav++)
+                        try {
+                            if (linesToolStripMenuItem.Checked)
+                                AGVs[i].Paths[resultTrav].drawLine(paper);//draw the lines 
+                            if (!isMouseDown)
+                                DrawPoints(AGVs[i].Paths[resultTrav], i);//show points
+                        } catch { }
                 }
 
                 //handle the red message above every agv
