@@ -51,7 +51,7 @@ namespace kagv {
                 if (importedLayout != null) {
 
                     Rectangle r = new Rectangle(new Point(m_rectangles[0][0].x, m_rectangles[0][0].y)
-                        , new Size((m_rectangles[Constants._WidthBlocks - 1][Constants._HeightBlocks - 1].x) + Constants._BlockSide
+                        , new Size((m_rectangles[Constants._WidthBlocks - 1][Constants._HeightBlocks - 1].x) - Constants._LeftBarOffset + Constants._BlockSide
                             , (m_rectangles[Constants._WidthBlocks - 1][Constants._HeightBlocks - 1].y) - Constants._TopBarOffset + Constants._BlockSide));
                     paper.DrawImage(importedLayout, r);
 
