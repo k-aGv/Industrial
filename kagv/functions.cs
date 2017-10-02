@@ -78,14 +78,30 @@ namespace kagv {
 
                 if (!emptymap)
                 {
-                    DialogResult s = MessageBox.Show("The grid will be deleted.\nProceed?"
-                                   , "", MessageBoxButtons.YesNo);
+                    DialogResult s = MessageBox.Show("Grid resize is only possible in an empty grid\nThe grid will be deleted.\nProceed?"
+                                   , "Grid Resize triggered", MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
                     if (s == DialogResult.Yes)
                     {
                         holdCTRL = true;
                         updateGridStats();
                         toolStripStatusLabel1.Text = "Release CTRL to return...";
                         panel_resize.Visible = true;
+                        return true;
+                    }
+                    else return false;
+                }
+
+                if (overImage)
+                {
+                    DialogResult s = MessageBox.Show("Grid resize is only possible in an empty grid\nThe grid will be deleted.\nProceed?"
+                                  , "Grid Resize triggered", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (s == DialogResult.Yes)
+                    {
+                        holdCTRL = true;
+                        updateGridStats();
+                        toolStripStatusLabel1.Text = "Release CTRL to return...";
+                        panel_resize.Visible = true;
+                        overImage = false;
                         return true;
                     }
                     else return false;
