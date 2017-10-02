@@ -24,6 +24,14 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node4");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Node0", new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Node2");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Node3");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Node1", new System.Windows.Forms.TreeNode[] {
+            treeNode3,
+            treeNode4});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main_form));
             this.timer0 = new System.Windows.Forms.Timer(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
@@ -93,6 +101,8 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
             this.panel_resize = new System.Windows.Forms.Panel();
+            this.lb_blockside = new System.Windows.Forms.Label();
+            this.nud_side = new System.Windows.Forms.NumericUpDown();
             this.lb_height = new System.Windows.Forms.Label();
             this.lb_width = new System.Windows.Forms.Label();
             this.btn_rightup = new System.Windows.Forms.Button();
@@ -105,8 +115,7 @@
             this.btn_right = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.nud_side = new System.Windows.Forms.NumericUpDown();
-            this.lb_blockside = new System.Windows.Forms.Label();
+            this.tree_stats = new System.Windows.Forms.TreeView();
             this.menuPanel.SuspendLayout();
             this.gb_type.SuspendLayout();
             this.gb_monitor.SuspendLayout();
@@ -117,8 +126,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).BeginInit();
             this.settings_menu.SuspendLayout();
             this.panel_resize.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_side)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer0
@@ -132,7 +141,7 @@
             this.menuPanel.Controls.Add(this.gb_monitor);
             this.menuPanel.Controls.Add(this.gb_settings);
             this.menuPanel.Controls.Add(this.groupBox1);
-            this.menuPanel.Location = new System.Drawing.Point(0, 27);
+            this.menuPanel.Location = new System.Drawing.Point(191, 27);
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(656, 75);
             this.menuPanel.TabIndex = 7;
@@ -376,7 +385,7 @@
             this.aboutToolStripMenuItem});
             this.settings_menu.Location = new System.Drawing.Point(0, 0);
             this.settings_menu.Name = "settings_menu";
-            this.settings_menu.Size = new System.Drawing.Size(650, 24);
+            this.settings_menu.Size = new System.Drawing.Size(804, 24);
             this.settings_menu.TabIndex = 8;
             this.settings_menu.Text = "menuStrip1";
             // 
@@ -684,10 +693,27 @@
             this.panel_resize.Controls.Add(this.btn_up);
             this.panel_resize.Controls.Add(this.btn_left);
             this.panel_resize.Controls.Add(this.btn_right);
-            this.panel_resize.Location = new System.Drawing.Point(229, 108);
+            this.panel_resize.Location = new System.Drawing.Point(226, 176);
             this.panel_resize.Name = "panel_resize";
             this.panel_resize.Size = new System.Drawing.Size(259, 202);
             this.panel_resize.TabIndex = 9;
+            // 
+            // lb_blockside
+            // 
+            this.lb_blockside.AutoSize = true;
+            this.lb_blockside.Location = new System.Drawing.Point(4, 39);
+            this.lb_blockside.Name = "lb_blockside";
+            this.lb_blockside.Size = new System.Drawing.Size(61, 13);
+            this.lb_blockside.TabIndex = 9;
+            this.lb_blockside.Text = "Block Side:";
+            // 
+            // nud_side
+            // 
+            this.nud_side.Location = new System.Drawing.Point(71, 37);
+            this.nud_side.Name = "nud_side";
+            this.nud_side.Size = new System.Drawing.Size(41, 20);
+            this.nud_side.TabIndex = 8;
+            this.nud_side.ValueChanged += new System.EventHandler(this.nud_side_ValueChanged);
             // 
             // lb_height
             // 
@@ -791,9 +817,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 313);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 444);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(650, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(804, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 10;
             this.statusStrip1.Text = "statusStrip1";
@@ -805,22 +831,25 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(190, 17);
             this.toolStripStatusLabel1.Text = "Hold CTRL for grid configuration...";
             // 
-            // nud_side
+            // tree_stats
             // 
-            this.nud_side.Location = new System.Drawing.Point(71, 37);
-            this.nud_side.Name = "nud_side";
-            this.nud_side.Size = new System.Drawing.Size(41, 20);
-            this.nud_side.TabIndex = 8;
-            this.nud_side.ValueChanged += new System.EventHandler(this.nud_side_ValueChanged);
-            // 
-            // lb_blockside
-            // 
-            this.lb_blockside.AutoSize = true;
-            this.lb_blockside.Location = new System.Drawing.Point(4, 39);
-            this.lb_blockside.Name = "lb_blockside";
-            this.lb_blockside.Size = new System.Drawing.Size(61, 13);
-            this.lb_blockside.TabIndex = 9;
-            this.lb_blockside.Text = "Block Side:";
+            this.tree_stats.Location = new System.Drawing.Point(0, 27);
+            this.tree_stats.Name = "tree_stats";
+            treeNode1.Name = "Node4";
+            treeNode1.Text = "Node4";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "Node0";
+            treeNode3.Name = "Node2";
+            treeNode3.Text = "Node2";
+            treeNode4.Name = "Node3";
+            treeNode4.Text = "Node3";
+            treeNode5.Name = "Node1";
+            treeNode5.Text = "Node1";
+            this.tree_stats.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode5});
+            this.tree_stats.Size = new System.Drawing.Size(150, 414);
+            this.tree_stats.TabIndex = 11;
             // 
             // main_form
             // 
@@ -828,7 +857,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(650, 335);
+            this.ClientSize = new System.Drawing.Size(804, 466);
+            this.Controls.Add(this.tree_stats);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel_resize);
             this.Controls.Add(this.menuPanel);
@@ -858,9 +888,9 @@
             this.settings_menu.PerformLayout();
             this.panel_resize.ResumeLayout(false);
             this.panel_resize.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_side)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_side)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -950,6 +980,7 @@
         private System.Windows.Forms.Label lb_width;
         private System.Windows.Forms.Label lb_blockside;
         private System.Windows.Forms.NumericUpDown nud_side;
+        private System.Windows.Forms.TreeView tree_stats;
     }
 }
 

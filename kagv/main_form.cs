@@ -72,6 +72,7 @@ namespace kagv {
                     }
                 }
 
+       
                 int c = 0;
                 for (int i = 0; i < StartPos.Count; i++) //count how much agvs we have added to the grid
                     c += AGVs[i].JumpPoints.Count; //...and add them in a variable
@@ -97,7 +98,7 @@ namespace kagv {
                             paper.DrawString("AGV:" + AGVs[AGVs_list_index].ID,
                                              new Font("Tahoma", 8, FontStyle.Bold),
                                              new SolidBrush(Color.Red),
-                                             new Point((StartPos[AGVs_list_index].x * Constants.__BlockSide) - 10, ((StartPos[AGVs_list_index].y * Constants.__BlockSide) + Constants.__TopBarOffset) - Constants.__BlockSide));
+                                             new Point((StartPos[AGVs_list_index].x * Constants.__BlockSide) - 10 + Constants.__LeftBarOffset, ((StartPos[AGVs_list_index].y * Constants.__BlockSide) + Constants.__TopBarOffset) - Constants.__BlockSide));
                             AGVs_list_index++;
                         }    
                         
@@ -173,9 +174,15 @@ namespace kagv {
 
             //dynamically add the location of menupanel.
             //We have to do it dynamically because the forms size is always depended on PCs actual screen size
-            menuPanel.Location = new Point(0, 24 + 1);//24=menu bar Y
+           
+            tree_stats.Location = new Point(0, 25);
+            tree_stats.Height = Height;
+
+            menuPanel.Location = new Point(tree_stats.Width, 24 + 1);//24=menu bar Y
             menuPanel.Width = Width;
 
+            statusStrip1.Location = new Point(tree_stats.Width, Height - statusStrip1.Height);
+            statusStrip1.BringToFront();
             tp = new ToolTip
             {
 
@@ -200,7 +207,6 @@ namespace kagv {
             Point _validationPoint = new Point(e.X, e.Y);
             if (!isvalid(_validationPoint))
                 return;
-
             //if the clicked point is inside a rectangle...
             isMouseDown = true;
             if ((e.Button == MouseButtons.Left) && (rb_wall.Checked))
@@ -530,7 +536,7 @@ namespace kagv {
                     for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++)
                         if (m_rectangles[widthTrav][heightTrav].boxRec.Contains(click_coords)
                          && m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal)
-                                m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * Constants.__BlockSide, heightTrav * Constants.__BlockSide + Constants.__TopBarOffset, BoxType.Start);
+                                m_rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Constants.__BlockSide) + Constants.__LeftBarOffset, heightTrav * Constants.__BlockSide + Constants.__TopBarOffset, BoxType.Start);
                 
 
 
@@ -548,7 +554,7 @@ namespace kagv {
                         if (m_rectangles[widthTrav][heightTrav].boxRec.Contains(click_coords)
                              &&
                             m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal) {
-                                m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * Constants.__BlockSide, heightTrav * Constants.__BlockSide + Constants.__TopBarOffset, BoxType.End);
+                                m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * Constants.__BlockSide + Constants.__LeftBarOffset, heightTrav * Constants.__BlockSide + Constants.__TopBarOffset, BoxType.End);
                         }
             }
             

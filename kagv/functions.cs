@@ -59,6 +59,7 @@ namespace kagv {
 
                 if (timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled)
                     return false;
+
                 for (int k = 0; k < Constants.__WidthBlocks; k++)
                 {
                     for (int l = 0; l < Constants.__HeightBlocks; l++)
@@ -1179,7 +1180,7 @@ namespace kagv {
             }
 
             DoubleBuffered = true;
-            Width = ((Constants.__WidthBlocks + 1) * Constants.__BlockSide) ; 
+            Width = ((Constants.__WidthBlocks + 1) * Constants.__BlockSide) + Constants.__LeftBarOffset ; 
             Height = (Constants.__HeightBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset + 7; //+7 for borders
             Size = new Size(this.Width, this.Height + Constants.__BottomBarOffset);
             MaximizeBox = false;
@@ -1197,13 +1198,13 @@ namespace kagv {
                     //size of the m_rectangels is constantly increasing (while adding
                     //the gridbox values) until size=height or size = width.
                     if (imported) { //this IF is executed as long as the user has imported a map of his choice
-                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * Constants.__BlockSide, heightTrav * Constants.__BlockSide + Constants.__TopBarOffset, importmap[widthTrav, heightTrav]);
+                        m_rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Constants.__BlockSide) + Constants.__LeftBarOffset, heightTrav * Constants.__BlockSide + Constants.__TopBarOffset, importmap[widthTrav, heightTrav]);
                         if (importmap[widthTrav, heightTrav] == BoxType.Load) {
                             isLoad[widthTrav, heightTrav] = 1;
                             loads++;
                         }
                     } else {
-                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * Constants.__BlockSide, heightTrav * Constants.__BlockSide + Constants.__TopBarOffset, BoxType.Normal);
+                        m_rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Constants.__BlockSide)+Constants.__LeftBarOffset, heightTrav * Constants.__BlockSide + Constants.__TopBarOffset, BoxType.Normal);
                         isLoad[widthTrav, heightTrav] = 2;
                     }
 
@@ -1359,19 +1360,19 @@ namespace kagv {
 
         //Function that validates the user's click 
         private bool isvalid(Point _temp) {
-
+           
             //The function received the coordinates of the user's click.
             //Clicking anywhere but on the Grid itself, will cause a "false" return, preventing
             //the click from giving any results
 
             if (_temp.Y < menuPanel.Location.Y)
                 return false;
-
-            if (_temp.X > m_rectangles[Constants.__WidthBlocks - 1][Constants.__HeightBlocks - 1].boxRec.X + (Constants.__BlockSide - 1)
+           
+            if (_temp.X > m_rectangles[Constants.__WidthBlocks - 1][Constants.__HeightBlocks - 1].boxRec.X + (Constants.__BlockSide - 1) + Constants.__LeftBarOffset
             || _temp.Y > m_rectangles[Constants.__WidthBlocks - 1][Constants.__HeightBlocks - 1].boxRec.Y + (Constants.__BlockSide - 1)) // 18 because its 20-boarder size
                 return false;
-
-            if (!m_rectangles[(_temp.X) / Constants.__BlockSide][(_temp.Y - Constants.__TopBarOffset) / Constants.__BlockSide].boxRec.Contains(_temp))
+            
+            if (!m_rectangles[(_temp.X - Constants.__LeftBarOffset) / Constants.__BlockSide][(_temp.Y - Constants.__TopBarOffset) / Constants.__BlockSide].boxRec.Contains(_temp))
                 return false;
 
             return true;

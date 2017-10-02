@@ -30,12 +30,13 @@ namespace kagv {
         public const int __MaximumSteps = 2000;
         public const int __TopBarOffset = 75 + 24 + 2;//distance from top to the grid=offset+menubar+2pixel of gray border
         public const int __BottomBarOffset = 50 +20;//distance between grid and the bottom of the form +20 for bottom toolstrip
+        public const int __LeftBarOffset = 151; //150 is the treeview's width. +1 for border
         public static int __MaximumAGVs = 5;
         public const int __gb_monitor_width = 275;
         public const int __gb_monitor_height = 65;
 
         //Grid's stats
-        public static int __WidthBlocks = 78; //grid blocks
+        public static int __WidthBlocks = 70; //grid blocks
         public static int __HeightBlocks = 44; //grid blocks
         public static int __BlockSide = 15;
 
