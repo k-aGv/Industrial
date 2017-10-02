@@ -220,9 +220,12 @@ namespace kagv {
             Location = AgvLocation;
         }
 
-        public Point GetLocation() {
-            return new Point(AgvLocation.X, AgvLocation.Y);
+        //AGVs[agv_index].SetLocation(stepx - ((Constants._BlockSide / 2) - 1) +1, stepy - ((Constants._BlockSide / 2) - 1) + 1); //this is how we move the AGV on the grid (Setlocation function)
+        //                                                                     ^
+        public Point GetLocation() { //has to be -1 to balance this            |   from functions.cs
+            return new Point(AgvLocation.X - 1, AgvLocation.Y - 1);//          |  
         }
+
 
     }
 

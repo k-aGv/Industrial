@@ -250,9 +250,9 @@ namespace kagv {
                         halted = true;
                     } else
                         if (!halted)
-                        AGVs[agv_index].SetLocation(stepx - ((Constants._BlockSide / 2) - 1), stepy - ((Constants._BlockSide / 2) - 1));
+                        AGVs[agv_index].SetLocation(stepx - ((Constants._BlockSide / 2) - 1) + 1, stepy - ((Constants._BlockSide / 2) - 1) + 1);
             } else
-                AGVs[agv_index].SetLocation(stepx - ((Constants._BlockSide / 2) - 1), stepy - ((Constants._BlockSide / 2) - 1)); //this is how we move the AGV on the grid (Setlocation function)
+                AGVs[agv_index].SetLocation(stepx - ((Constants._BlockSide / 2) - 1) + 1, stepy - ((Constants._BlockSide / 2) - 1) + 1); //this is how we move the AGV on the grid (Setlocation function)
 
             /////////////////////////////////////////////////////////////////
             //Here is the part where an AGV arrives at the Load it has marked.
