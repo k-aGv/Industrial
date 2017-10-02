@@ -42,9 +42,10 @@ namespace kagv {
         //This event is triggered when a paint event or mouse event is happening over the form.
         //mouse clicks ,hovers and clicks are also considered as triggers
         private void main_form_Paint(object sender, PaintEventArgs e) {
-
             paper = e.Graphics;
             paper.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+
+            
 
             try {
                 if (importedLayout != null) {
@@ -68,9 +69,11 @@ namespace kagv {
                         if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Load
                             && isLoad[widthTrav, heightTrav] == 3)
                             m_rectangles[widthTrav][heightTrav].SetAsTargetted(paper);
+
                     }
                 }
 
+                
 
                 int c = 0;
                 for (int i = 0; i < startPos.Count; i++) //count how much agvs we have added to the grid
@@ -105,6 +108,9 @@ namespace kagv {
         }
 
         private void main_form_Load(object sender, EventArgs e) {
+
+            debugToolStripMenuItem.Visible = true;
+
             //Automatically enable the CPUs for this app.
             var _proc = System.Diagnostics.Process.GetCurrentProcess();
             int coreFlag;
@@ -115,8 +121,6 @@ namespace kagv {
 
             _proc.ProcessorAffinity = new IntPtr(coreFlag);
             //More infos here:https://msdn.microsoft.com/en-us/library/system.diagnostics.processthread.processoraffinity(v=vs.110).aspx
-
-
         }
 
         private void main_form_MouseDown(object sender, MouseEventArgs e) {
@@ -926,6 +930,44 @@ namespace kagv {
             UpdateGridStats();
             FullyRestore();
             holdCTRL = !holdCTRL;
+        }
+
+        //Debug methods
+
+        private void showGridBlockLocationsToolStripMenuItem_MouseEnter(object sender, EventArgs e) {
+
+            Graphics g = CreateGraphics();
+
+            //Supposed to make graphics faster but i see no difference.nevermind...who cares -->
+            Paint -= main_form_Paint;
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low;
+            g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighSpeed;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
+            SetStyle(
+            ControlStyles.AllPaintingInWmPaint |
+            ControlStyles.UserPaint |
+            ControlStyles.DoubleBuffer, true);
+            
+            for (int widthTrav = 0; widthTrav < Constants._WidthBlocks; widthTrav++) {
+                for (int heightTrav = 0; heightTrav < Constants._HeightBlocks; heightTrav++) {
+                    g.DrawString("x" + widthTrav + "\n" + "y" + heightTrav,
+                                    new Font("Tahoma", 5, FontStyle.Bold),
+                                    new SolidBrush(Color.DarkSlateBlue),
+                                    new Point(m_rectangles[widthTrav][heightTrav].x, m_rectangles[widthTrav][heightTrav].y)
+                                    );
+                    
+                }
+            }
+
+            // <---
+            Paint += main_form_Paint;
+        }
+
+        private void showGridBlockLocationsToolStripMenuItem_MouseLeave(object sender, EventArgs e) {
+            Redraw();
+            Refresh();
         }
     }
 

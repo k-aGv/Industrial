@@ -116,6 +116,8 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tree_stats = new System.Windows.Forms.TreeView();
+            this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showGridBlockLocationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuPanel.SuspendLayout();
             this.gb_type.SuspendLayout();
             this.gb_monitor.SuspendLayout();
@@ -382,7 +384,8 @@
             this.fileToolStripMenuItem,
             this.aToolStripMenuItem,
             this.gridToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.debugToolStripMenuItem});
             this.settings_menu.Location = new System.Drawing.Point(0, 0);
             this.settings_menu.Name = "settings_menu";
             this.settings_menu.Size = new System.Drawing.Size(804, 24);
@@ -851,6 +854,22 @@
             this.tree_stats.Size = new System.Drawing.Size(150, 414);
             this.tree_stats.TabIndex = 11;
             // 
+            // debugToolStripMenuItem
+            // 
+            this.debugToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showGridBlockLocationsToolStripMenuItem});
+            this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
+            this.debugToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.debugToolStripMenuItem.Text = "Debug";
+            // 
+            // showGridBlockLocationsToolStripMenuItem
+            // 
+            this.showGridBlockLocationsToolStripMenuItem.Name = "showGridBlockLocationsToolStripMenuItem";
+            this.showGridBlockLocationsToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.showGridBlockLocationsToolStripMenuItem.Text = "Show grid block locations";
+            this.showGridBlockLocationsToolStripMenuItem.MouseEnter += new System.EventHandler(this.showGridBlockLocationsToolStripMenuItem_MouseEnter);
+            this.showGridBlockLocationsToolStripMenuItem.MouseLeave += new System.EventHandler(this.showGridBlockLocationsToolStripMenuItem_MouseLeave);
+            // 
             // main_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -981,6 +1000,8 @@
         private System.Windows.Forms.Label lb_blockside;
         private System.Windows.Forms.NumericUpDown nud_side;
         private System.Windows.Forms.TreeView tree_stats;
+        private System.Windows.Forms.ToolStripMenuItem debugToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showGridBlockLocationsToolStripMenuItem;
     }
 }
 

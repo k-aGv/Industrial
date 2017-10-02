@@ -91,8 +91,9 @@ namespace kagv {
         Color selectedColor = Color.DarkGray;
         Color boxDefaultColor = (Constants._SemiTransparency) ? Color.FromArgb(Constants._Opacity, Color.WhiteSmoke) : Color.WhiteSmoke;
 
-
         Image importedImageFile;
         Image importedLayout = null;
+
+      
     }
 }
