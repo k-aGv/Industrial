@@ -103,6 +103,17 @@ namespace kagv {
             }
         }
         //=========================================
+        /// <summary>
+        /// Returns the absolute Location of the Marked Load on the Grid
+        /// </summary>
+        /// <returns></returns>
+        public Point GetMarkedLoad() {
+            Point _p = new Point(
+                (MarkedLoad.X * Constants._BlockSide) + Constants._LeftBarOffset,
+                (MarkedLoad.Y * Constants._BlockSide) + Constants._TopBarOffset
+                );
+            return _p;
+        }
 
 
 
