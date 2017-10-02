@@ -107,33 +107,6 @@ namespace kagv {
 
         private void main_form_Load(object sender, EventArgs e)
         {
-            //Load all values
-            panel_resize.Location = new Point(Width / 2 - (panel_resize.Width / 2), Height / 2 - menuPanel.Height);
-            panel_resize.Visible = false;
-            nud_side.BackColor = panel_resize.BackColor;
-          
-            nud_weight.Value = Convert.ToDecimal(Constants.__AStarWeight);
-
-            //Transparent and SemiTransparent feature serves the agri/industrial branch recursively
-            importImageLayoutToolStripMenuItem.Enabled = Constants.__SemiTransparency;
-
-            if (importImageLayoutToolStripMenuItem.Enabled)
-                importImageLayoutToolStripMenuItem.Text = "Import image layout";
-            else
-                importImageLayoutToolStripMenuItem.Text = "Semi Transparency feature is disabled";
-
-            stepsToolStripMenuItem.Checked = false;
-            linesToolStripMenuItem.Checked =
-            dotsToolStripMenuItem.Checked =
-            bordersToolStripMenuItem.Checked =
-            aGVIndexToolStripMenuItem.Checked =
-            highlightOverCurrentBoxToolStripMenuItem.Checked = true;
-
-
-            Text = "K-aGv2 Simulator (Industrial branch)";
-            gb_monitor.Size = new Size(Constants.__gb_monitor_width, Constants.__gb_monitor_height);
-
-
             //Automatically enable the CPUs for this app.
             var _proc = System.Diagnostics.Process.GetCurrentProcess();
             int coreFlag;
@@ -145,56 +118,7 @@ namespace kagv {
             _proc.ProcessorAffinity = new IntPtr(coreFlag);
             //More infos here:https://msdn.microsoft.com/en-us/library/system.diagnostics.processthread.processoraffinity(v=vs.110).aspx
 
-            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 50;
-            refresh_label.Text = "Delay :" + timer0.Interval + " ms";
-
-            loads_label.Location = new Point(refresh_label.Location.X + refresh_label.Width, refresh_label.Location.Y);
-            nUD_AGVs.Value = 0;
-
-            agv1steps_LB.Text =
-            agv2steps_LB.Text =
-            agv3steps_LB.Text =
-            agv4steps_LB.Text =
-            agv5steps_LB.Text = "";
-
-            //Do not show the START menu because there is no valid path yet
-            triggerStartMenu(false);
-
-            rb_start.Checked = true;
-            BackColor = Color.DarkGray;
-
-            CenterToScreen();
-
-            alwaysCrossMenu.Checked = alwaysCross;
-            atLeastOneMenu.Checked = atLeastOneObstacle;
-            neverCrossMenu.Checked = never;
-            noObstaclesMenu.Checked = ifNoObstacles;
-
-            manhattanToolStripMenuItem.Checked = true;
-
-            //dynamically add the location of menupanel.
-            //We have to do it dynamically because the forms size is always depended on PCs actual screen size
            
-            tree_stats.Location = new Point(0, 25);
-            tree_stats.Height = Height;
-
-            menuPanel.Location = new Point(tree_stats.Width, 24 + 1);//24=menu bar Y
-            menuPanel.Width = Width;
-
-            statusStrip1.Location = new Point(tree_stats.Width, Height - statusStrip1.Height);
-            statusStrip1.BringToFront();
-            tp = new ToolTip
-            {
-
-                AutomaticDelay = 0,
-                ReshowDelay = 0,
-                InitialDelay = 0,
-                AutoPopDelay = 0,
-                IsBalloon = true,
-                ToolTipIcon = ToolTipIcon.Info,
-                ToolTipTitle = "Grid Block Information",
-            };
-
         }
 
         private void main_form_MouseDown(object sender, MouseEventArgs e) {
