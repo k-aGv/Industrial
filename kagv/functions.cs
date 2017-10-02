@@ -256,8 +256,7 @@ namespace kagv {
 
             /////////////////////////////////////////////////////////////////
             //Here is the part where an AGV arrives at the Load it has marked.
-            if (AGVs[agv_index].GetMarkedLoad().X == AGVs[agv_index].GetLocation().X &&
-                AGVs[agv_index].GetMarkedLoad().Y == AGVs[agv_index].GetLocation().Y &&
+            if (AGVs[agv_index].GetMarkedLoad() == AGVs[agv_index].GetLocation() &&
                 !AGVs[agv_index].Status.Busy) {
 
                 m_rectangles[AGVs[agv_index].MarkedLoad.X][AGVs[agv_index].MarkedLoad.Y].SwitchLoad(); //converts a specific GridBox, from Load, to Normal box (SwitchLoad function)
