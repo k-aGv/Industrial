@@ -894,14 +894,12 @@ namespace kagv {
 
         //returns the number of steps until AGV reaches the marked Load
         private int GetStepsToLoad(int whichAGV) {
-            int ix = AGVs[whichAGV].MarkedLoad.X * Constants._BlockSide;
-            int iy = (AGVs[whichAGV].MarkedLoad.Y * Constants._BlockSide) + Constants._TopBarOffset;
-
+            Point iCords = new Point(AGVs[whichAGV].GetMarkedLoad().X, AGVs[whichAGV].GetMarkedLoad().Y);
             int step = -1;
 
             for (int i = 0; i < AGVs[whichAGV].Steps.GetLength(0); i++)
-                if (AGVs[whichAGV].Steps[i].X - ((Constants._BlockSide / 2) - 1) == ix &&
-                    AGVs[whichAGV].Steps[i].Y - ((Constants._BlockSide / 2) - 1) == iy) {
+                if (AGVs[whichAGV].Steps[i].X - ((Constants._BlockSide / 2) - 1) == iCords.X &&
+                    AGVs[whichAGV].Steps[i].Y - ((Constants._BlockSide / 2) - 1) == iCords.Y) {
                     step = i;
                     i = AGVs[whichAGV].Steps.GetLength(0);
                 }
