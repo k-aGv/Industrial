@@ -38,7 +38,8 @@ namespace kagv {
         }
 
         private AGVStatus status = new AGVStatus();
-        public AGVStatus Status {
+        public AGVStatus Status
+        {
             get { return this.status; }
         }
         //=========================================
@@ -51,12 +52,13 @@ namespace kagv {
         }
 
         private AGVSteps[] steps;
-        public AGVSteps[] Steps {
+        public AGVSteps[] Steps
+        {
             get { return this.steps; }
         }
         //=========================================
         //AGV Path
-        public GridLine[] Paths = new GridLine[Constants.__MaximumSteps];
+        public GridLine[] Paths = new GridLine[Constants._MaximumSteps];
         public Point Location;
         public Point MarkedLoad;
 
@@ -77,7 +79,8 @@ namespace kagv {
         //*****************************************
         //AGV JumpPoints
         private List<GridPos> jmp_pnts = new List<GridPos>();
-        public List<GridPos> JumpPoints {
+        public List<GridPos> JumpPoints
+        {
             get {
                 return this.jmp_pnts;
             }
@@ -90,7 +93,8 @@ namespace kagv {
         //*****************************************
         //AGV StepsCounter
         private int steps_counter;
-        public int StepsCounter {
+        public int StepsCounter
+        {
             get {
                 return this.steps_counter;
             }
@@ -106,16 +110,15 @@ namespace kagv {
             mirroredForm = handle;
             this.status.Busy = false;
             this.status.Loaded = false;
-            this.steps = new AGVSteps[Constants.__MaximumSteps];
+            this.steps = new AGVSteps[Constants._MaximumSteps];
             for (int i = 0; i < steps.Length; i++) {
                 steps[i] = new AGVSteps();
                 steps[i].X = -1;
                 steps[i].Y = -1;
             }
         }
-
+     
         public void Init() {
-
             //init vars
             this.status.Busy = false;
             this.status.Loaded = false;
@@ -126,7 +129,7 @@ namespace kagv {
 
             AgvPortrait.Controls.Add(AgvIcon);
 
-            Size _size = new Size(Constants.__BlockSide - 2, Constants.__BlockSide - 2);
+            Size _size = new Size(Constants._BlockSide - 2, Constants._BlockSide - 2);
             Point _location = new Point(StartX, StartY);
             AgvPortrait.Size = _size;
             AgvPortrait.Location = _location;
@@ -164,7 +167,7 @@ namespace kagv {
 
         }
 
-        public void killIcon() {
+        public void KillIcon() {
             try {
                 this.AgvIcon.Dispose();
                 this.AgvPortrait.Dispose();
@@ -172,17 +175,17 @@ namespace kagv {
         }
 
 
-        public void setLoaded() {
+        public void SetLoaded() {
             this.AgvIcon.Image = _getEmbedResource("loaded.png");
             this.status.Loaded = true;
         }
 
-        public void setEmpty() {
+        public void SetEmpty() {
             this.AgvIcon.Image = _getEmbedResource("empty.png");
             this.status.Loaded = false;
         }
 
-        public void updateAGV() {
+        public void UpdateAGV() {
             if (mirroredForm.Controls.Count != 0) {
                 foreach (Control p in mirroredForm.Controls) {
                     if (p == AgvIcon)
@@ -194,7 +197,6 @@ namespace kagv {
             } else
                 return;
         }
-
 
         public void SetLocation(int X, int Y) {
             AgvLocation = new Point(X, Y);

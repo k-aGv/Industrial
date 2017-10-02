@@ -35,31 +35,27 @@ THE SOFTWARE.
 using System;
 using System.Drawing;
 
-namespace kagv
-{
+namespace kagv {
     enum BoxType { Start, End, Wall, Normal, Load };
 
-    class GridBox:IDisposable
-    {
+    class GridBox : IDisposable {
         public int x, y, width, height;
-      
+
         public Rectangle boxRec;
         public BoxType boxType;
 
         private Color myBrown = Color.FromArgb(138, 109, 86);
         private SolidBrush brush;
-        public GridBox(int iX, int iY,BoxType iType)
-        {
+        public GridBox(int iX, int iY, BoxType iType) {
             x = iX;
             y = iY;
             boxType = iType;
-            switch (iType)
-            {
+            switch (iType) {
                 case BoxType.Normal:
-                    if (!Constants.__SemiTransparency)
+                    if (!Constants._SemiTransparency)
                         brush = new SolidBrush(Color.WhiteSmoke);
                     else
-                        brush = new SolidBrush(Constants.__SemiTransparent);
+                        brush = new SolidBrush(Constants._SemiTransparent);
                     break;
                 case BoxType.End:
                     brush = new SolidBrush(Color.Red);
@@ -75,64 +71,55 @@ namespace kagv
                     break;
 
             }
-            width = height = Constants.__BlockSide - 1;
-            
+            width = height = Constants._BlockSide - 1;
+
             boxRec = new Rectangle(x, y, width, height);
         }
 
-        public void DrawBox(Graphics iPaper,BoxType iType)
-        {
-            if (iType == boxType)
-            {
+        public void DrawBox(Graphics iPaper, BoxType iType) {
+            if (iType == boxType) {
                 boxRec.X = x;
                 boxRec.Y = y;
                 iPaper.FillRectangle(brush, boxRec);
             }
         }
 
-        public void onHover(Color c)
-        {
+        public void onHover(Color c) {
             brush = new SolidBrush(c);
         }
 
-        public void SwitchEnd_StartToNormal()
-        {
+        public void SwitchEnd_StartToNormal() {
             if (brush != null)
                 brush.Dispose();
-            if (!Constants.__SemiTransparency)
+            if (!Constants._SemiTransparency)
                 brush = new SolidBrush(Color.WhiteSmoke);
             else
-                brush = new SolidBrush(Constants.__SemiTransparent);
+                brush = new SolidBrush(Constants._SemiTransparent);
             boxType = BoxType.Normal;
 
         }
 
 
-        public void SetAsTargetted(Graphics iPaper)
-        {
+        public void SetAsTargetted(Graphics iPaper) {
             iPaper.FillRectangle(new SolidBrush(Color.Orange), boxRec);
         }
 
 
-        public void BeTransparent()
-        {
-            switch (boxType)
-            {
+        public void BeTransparent() {
+            switch (boxType) {
                 case BoxType.Normal:
                     brush = new SolidBrush(Color.Transparent);
                     break;
             }
         }
 
-        public void BeVisible()
-        {
-            switch (boxType)
-            {
+        public void BeVisible() {
+            switch (boxType) {
                 case BoxType.Normal:
-                    if (!Constants.__SemiTransparency)
+                    if (!Constants._SemiTransparency)
                         brush = new SolidBrush(Color.WhiteSmoke);
                     else
-                        brush = new SolidBrush(Constants.__SemiTransparent);
+                        brush = new SolidBrush(Constants._SemiTransparent);
                     break;
                 case BoxType.Wall:
                     if (brush != null)
@@ -143,10 +130,8 @@ namespace kagv
         }
 
 
-        public void SwitchLoad()
-        {
-            switch (boxType)
-            {
+        public void SwitchLoad() {
+            switch (boxType) {
                 case BoxType.Normal:
                     if (brush != null)
                         brush.Dispose();
@@ -157,10 +142,10 @@ namespace kagv
                     if (brush != null)
                         brush.Dispose();
 
-                    if (!Constants.__SemiTransparency)
+                    if (!Constants._SemiTransparency)
                         brush = new SolidBrush(Color.WhiteSmoke);
                     else
-                        brush = new SolidBrush(Constants.__SemiTransparent);
+                        brush = new SolidBrush(Constants._SemiTransparent);
 
 
                     boxType = BoxType.Normal;
@@ -170,10 +155,8 @@ namespace kagv
         }
 
 
-        public void SwitchBox()
-        {
-            switch (boxType)
-            {
+        public void SwitchBox() {
+            switch (boxType) {
                 case BoxType.Normal:
                     if (brush != null)
                         brush.Dispose();
@@ -190,24 +173,21 @@ namespace kagv
             }
         }
 
-        public void SetNormalBox()
-        {
+        public void SetNormalBox() {
             if (brush != null)
                 brush.Dispose();
-           brush = new SolidBrush(Color.WhiteSmoke);
-           boxType = BoxType.Normal;
+            brush = new SolidBrush(Color.WhiteSmoke);
+            boxType = BoxType.Normal;
         }
 
-        public void SetStartBox()
-        {
+        public void SetStartBox() {
             if (brush != null)
                 brush.Dispose();
             brush = new SolidBrush(Color.Green);
             boxType = BoxType.Start;
         }
 
-        public void SetEndBox()
-        {
+        public void SetEndBox() {
             if (brush != null)
                 brush.Dispose();
             brush = new SolidBrush(Color.Red);
@@ -215,9 +195,8 @@ namespace kagv
         }
 
 
-        public void Dispose()
-        {
-            if(brush!=null)
+        public void Dispose() {
+            if (brush != null)
                 brush.Dispose();
 
         }

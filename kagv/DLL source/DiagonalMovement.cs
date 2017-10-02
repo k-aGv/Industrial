@@ -1,9 +1,6 @@
 ﻿
-namespace kagv
-
-{
-    public enum DiagonalMovement
-    {
+namespace kagv {
+    public enum DiagonalMovement {
         Always,
         Never,
         IfAtLeastOneWalkable,

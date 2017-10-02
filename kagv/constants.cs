@@ -27,23 +27,23 @@ using System.Drawing;
 
 namespace kagv {
     public static class Constants {
-        public const int __MaximumSteps = 2000;
-        public const int __TopBarOffset = 75 + 24 + 2;//distance from top to the grid=offset+menubar+2pixel of gray border
-        public const int __BottomBarOffset = 50 +20;//distance between grid and the bottom of the form +20 for bottom toolstrip
-        public const int __LeftBarOffset = 151; //150 is the treeview's width. +1 for border
-        public static int __MaximumAGVs = 5;
-        public const int __gb_monitor_width = 275;
-        public const int __gb_monitor_height = 65;
+        public const int _MaximumSteps = 2000;
+        public const int _TopBarOffset = 75 + 24 + 2;//distance from top to the grid=offset+menubar+2pixel of gray border
+        public const int _BottomBarOffset = 50 +20;//distance between grid and the bottom of the form +20 for bottom toolstrip
+        public const int _LeftBarOffset = 151; //150 is the treeview's width. +1 for border
+        public static int _MaximumAGVs = 5;
+        public const int _gb_monitor_width = 275;
+        public const int _gb_monitor_height = 65;
 
         //Grid's stats
-        public static int __WidthBlocks = 70; //grid blocks
-        public static int __HeightBlocks = 44; //grid blocks
-        public static int __BlockSide = 15;
+        public static int _WidthBlocks = 70; //grid blocks
+        public static int _HeightBlocks = 44; //grid blocks
+        public static int _BlockSide = 15;
 
-        public static bool __SemiTransparency = true;
-        public static byte __Opacity = (byte) ( (BitConverter.GetBytes(Color.WhiteSmoke.ToArgb()).Reverse().ToArray())[0] - (100) );
-        public static Color __SemiTransparent;
+        public static bool _SemiTransparency = true;
+        public static byte _Opacity = (byte) ( (BitConverter.GetBytes(Color.WhiteSmoke.ToArgb()).Reverse().ToArray())[0] - (100) );
+        public static Color _SemiTransparent;
 
-        public static double __AStarWeight = 0.5;
+        public static double _AStarWeight = 0.5;
     }
 }

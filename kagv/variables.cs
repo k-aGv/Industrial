@@ -25,11 +25,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace kagv
-{
-    
-    public partial class main_form
-    {
+namespace kagv {
+
+    public partial class main_form {
 
         emissions emissions = new emissions();
         double CO2 = 0, CO = 0, NOx = 0, THC = 0, GlobalWarming = 0;
@@ -43,19 +41,19 @@ namespace kagv
         //not a Load = 2
         //Marked by an AGV Load = 3
         //Temporarily trapped Load = 4
-        int[,] isLoad = new int[Constants.__WidthBlocks, Constants.__HeightBlocks];
+        int[,] isLoad = new int[Constants._WidthBlocks, Constants._HeightBlocks];
 
         BoxType[,] importmap;
 
         GridBox[][] m_rectangles;//2d jagged array. Contains grid information (coords of each box, boxtype, etc etc)  
 
         int[] timer_counter;
-        bool[] fromstart = new bool[Constants.__MaximumAGVs];
-        
+        bool[] fromstart = new bool[Constants._MaximumAGVs];
+
         List<Vehicle> AGVs = new List<Vehicle>();
-        List<GridPos> StartPos = new List<GridPos>(); //Contains the coords of the Start boxes
+        List<GridPos> startPos = new List<GridPos>(); //Contains the coords of the Start boxes
         List<GridPos> loadPos;
-        bool[] TrappedStatus = new bool[5];
+        bool[] trappedStatus = new bool[5];
 
 
         int a; //temporary X.Used to calculate the remained length of current line
@@ -64,13 +62,13 @@ namespace kagv
         BaseGrid searchGrid;
         AStarParam jumpParam;//custom jump method with its features exposed
         static Graphics paper;//main graphics for grid
-        
+
         GridBox m_lastBoxSelect;
         BoxType m_lastBoxType = new BoxType();
         ToolTip tp;
-        Point endPointCoords = new Point(-1,-1);
+        Point endPointCoords = new Point(-1, -1);
 
-      
+
         bool use_Halt = false;
         bool overImage = false;
         bool imported;
@@ -78,8 +76,8 @@ namespace kagv
         bool beforeStart = true;
         bool calibrated = false;//flag checking if current point is correctly callibrated in the middle of the rectangle
         bool isMouseDown = false;
-        bool NoJumpPointsFound;
-        bool mapHasLoads = false;      
+        bool noJumpPointsFound;
+        bool mapHasLoads = false;
         bool allowHighlight = true;
 
         bool alwaysCross = true;
@@ -90,10 +88,11 @@ namespace kagv
         int loads = 0; //index for keeping count of how many Loads there are in the Grid
         int labeled_loads; //index that is used for displaying how many loads have not been picked up
 
-        Color selectedColor =Color.DarkGray;
-        Color boxDefaultColor = (Constants.__SemiTransparency) ? Color.FromArgb( Constants.__Opacity,Color.WhiteSmoke) : Color.WhiteSmoke;
-   
+        Color selectedColor = Color.DarkGray;
+        Color boxDefaultColor = (Constants._SemiTransparency) ? Color.FromArgb(Constants._Opacity, Color.WhiteSmoke) : Color.WhiteSmoke;
 
+
+        Image importedImageFile;
         Image importedLayout = null;
     }
 }

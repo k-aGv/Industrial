@@ -33,15 +33,14 @@ namespace kagv {
     public partial class main_form : IMessageFilter {
 
         bool holdCTRL;
- 
+
         //Message callback of key
-        public bool PreFilterMessage (ref Message _msg)
-        {
+        public bool PreFilterMessage(ref Message _msg) {
             if (timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled)
                 return false;
             if (_msg.Msg == 0x101) //0x101 means key is up
             {
-        
+
                 holdCTRL = false;
                 panel_resize.Visible = false;
                 toolStripStatusLabel1.Text = "Hold CTRL for grid configuration...";
@@ -52,73 +51,59 @@ namespace kagv {
         }
 
         //function for handling keystrokes and assigning specific actions to them
-        protected override bool ProcessCmdKey(ref Message _msg, Keys _keyData)
-        {
+        protected override bool ProcessCmdKey(ref Message _msg, Keys _keyData) {
             bool emptymap = true;
-            if(ModifierKeys.HasFlag( Keys.Control) && !holdCTRL ) {
+            if (ModifierKeys.HasFlag(Keys.Control) && !holdCTRL) {
 
                 if (timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled)
                     return false;
 
-                for (int k = 0; k < Constants.__WidthBlocks; k++)
-                {
-                    for (int l = 0; l < Constants.__HeightBlocks; l++)
-                    {
-                        if (m_rectangles[k][l].boxType != BoxType.Normal)
-                        {
+                for (int k = 0; k < Constants._WidthBlocks; k++) {
+                    for (int l = 0; l < Constants._HeightBlocks; l++) {
+                        if (m_rectangles[k][l].boxType != BoxType.Normal) {
                             emptymap = false;
                             break;
                         }
                     }
-                    if (!emptymap)
-                    {
+                    if (!emptymap) {
                         break;
                     }
                 }
 
-                if (!emptymap)
-                {
+                if (!emptymap) {
                     DialogResult s = MessageBox.Show("Grid resize is only possible in an empty grid\nThe grid will be deleted.\nProceed?"
-                                   , "Grid Resize triggered", MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
-                    if (s == DialogResult.Yes)
-                    {
+                                   , "Grid Resize triggered", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (s == DialogResult.Yes) {
                         holdCTRL = true;
-                        updateGridStats();
+                        UpdateGridStats();
                         toolStripStatusLabel1.Text = "Release CTRL to return...";
                         panel_resize.Visible = true;
                         return true;
-                    }
-                    else return false;
+                    } else return false;
                 }
 
-                if (overImage)
-                {
+                if (overImage) {
                     DialogResult s = MessageBox.Show("Grid resize is only possible in an empty grid\nThe grid will be deleted.\nProceed?"
                                   , "Grid Resize triggered", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (s == DialogResult.Yes)
-                    {
+                    if (s == DialogResult.Yes) {
                         holdCTRL = true;
-                        updateGridStats();
+                        UpdateGridStats();
                         toolStripStatusLabel1.Text = "Release CTRL to return...";
                         panel_resize.Visible = true;
                         overImage = false;
                         return true;
-                    }
-                    else return false;
-                }
-                else
-                {
+                    } else return false;
+                } else {
                     holdCTRL = true;
-                    updateGridStats();
+                    UpdateGridStats();
                     toolStripStatusLabel1.Text = "Release CTRL to return...";
                     panel_resize.Visible = true;
                     return true;
                 }
-                
+
             }
-            
-            switch (_keyData)
-            {
+
+            switch (_keyData) {
                 case Keys.F5:
                     allToolStripMenuItem_Click(new object(), new EventArgs());
                     return true;
@@ -132,11 +117,11 @@ namespace kagv {
                     if (timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled)
                         return false;
                     int c = 0;
-                    for (int i = 0; i < StartPos.Count; i++)
+                    for (int i = 0; i < startPos.Count; i++)
                         c += AGVs[i].JumpPoints.Count;
 
                     if (c > 0)
-                        triggerStartMenu(true);
+                        TriggerStartMenu(true);
 
                     if (startToolStripMenuItem.Enabled)
                         startToolStripMenuItem_Click(new object(), new EventArgs());
@@ -150,58 +135,47 @@ namespace kagv {
         }
         /*-----------------------------------------------------*/
         //function for emissions Form
-        private void show_emissions() {
+        private void Show_emissions() {
             //creates a set of coordinates (Point) that determine the Location of the emissions Form
-            Point emissions_loc = new Point(this.Location.X + this.Size.Width - emissions.Size.Width, this.Location.Y+30);
+            Point emissions_loc = new Point(this.Location.X + this.Size.Width - emissions.Size.Width, this.Location.Y + 30);
             emissions.Show();
             emissions.Location = emissions_loc;
             emissions.BringToFront();
         }
 
         //function for updating the values that are shown in the emissions Form
-        private void update_emissions(int whichAGV)
-        {
+        private void Update_emissions(int whichAGV) {
 
-            if (cb_type.SelectedItem.ToString() == "LPG")
-            {
-                if (AGVs[whichAGV].Status.Busy)
-                {
+            if (cb_type.SelectedItem.ToString() == "LPG") {
+                if (AGVs[whichAGV].Status.Busy) {
                     CO2 += 2959.57;
                     CO += 27.04;
                     NOx += 19.63;
                     THC += 3.06;
                     GlobalWarming += 3.58;
-                }
-                else
-                {
+                } else {
                     CO2 += 1935.16;
                     CO += 13.36;
                     NOx += 13.90;
                     THC += 1.51;
                     GlobalWarming += 2.33;
                 }
-            }
-            else if (cb_type.SelectedItem.ToString() == "DSL")
-            {
-                if (AGVs[whichAGV].Status.Busy)
-                {
+            } else if (cb_type.SelectedItem.ToString() == "DSL") {
+                if (AGVs[whichAGV].Status.Busy) {
                     CO2 += 2130.11;
                     CO += 7.28;
                     NOx += 20.16;
                     THC += 1.77;
                     GlobalWarming += 2.49;
-                }
-                else
-                {
+                } else {
                     CO2 += 1510.83;
                     CO += 3.84;
                     NOx += 14.33;
                     THC += 1.08;
                     GlobalWarming += 1.2;
                 }
-            } 
-            else // ELE
-              { 
+            } else // ELE
+                {
                 CO2 = 0;
                 CO = 0;
                 NOx = 0;
@@ -219,7 +193,7 @@ namespace kagv {
             emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
         }
 
-        private void stopTimers(int agv_index) {
+        private void StopTimers(int agv_index) {
             switch (agv_index) {
                 case 0:
                     timer0.Stop();
@@ -245,7 +219,7 @@ namespace kagv {
         }
 
         //function that executes the whole animation. Will be explaining thoroughly below
-        private void animator(int steps_counter, int agv_index) {
+        private void Animator(int steps_counter, int agv_index) {
 
             //we use the incoming parameters, given from the corresponding Timer that calls Animator at a given time
             //steps_counter index tells us on which Step the timer is AT THE TIME this function is called
@@ -257,36 +231,35 @@ namespace kagv {
             if (stepx == 0 || stepx == 0)
                 return;
 
-            
+
             bool isfreeload = false;
             bool halted = false;
 
-            displayStepsToLoad(steps_counter, agv_index); //Call of function that shows information regarding the status of AGVs in the Monitoring Panel
-            update_emissions(agv_index); //Call of function that updates the values of emissions
+            DisplayStepsToLoad(steps_counter, agv_index); //Call of function that shows information regarding the status of AGVs in the Monitoring Panel
+            Update_emissions(agv_index); //Call of function that updates the values of emissions
 
             //RULES OF WHICH AGV WILL STOP WILL BE ADDED
             if (use_Halt) {
-                for (int i = 0; i < StartPos.Count; i++)
+                for (int i = 0; i < startPos.Count; i++)
                     if (agv_index != i
                         && AGVs[i].GetLocation() != new Point(0, 0)
                         && AGVs[agv_index].GetLocation() == AGVs[i].GetLocation()
                         && AGVs[agv_index].GetLocation() != endPointCoords
                         ) {
-                        halt(agv_index, steps_counter); //function for manipulating the movement of AGVs - must be perfected (still under dev)
+                        Halt(agv_index, steps_counter); //function for manipulating the movement of AGVs - must be perfected (still under dev)
                         halted = true;
                     } else
                         if (!halted)
-                        AGVs[agv_index].SetLocation(stepx - ((Constants.__BlockSide / 2) - 1), stepy - ((Constants.__BlockSide / 2) - 1));
-            }
-            else
-                AGVs[agv_index].SetLocation(stepx - ((Constants.__BlockSide / 2) - 1), stepy - ((Constants.__BlockSide / 2) - 1)); //this is how we move the AGV on the grid (Setlocation function)
+                        AGVs[agv_index].SetLocation(stepx - ((Constants._BlockSide / 2) - 1), stepy - ((Constants._BlockSide / 2) - 1));
+            } else
+                AGVs[agv_index].SetLocation(stepx - ((Constants._BlockSide / 2) - 1), stepy - ((Constants._BlockSide / 2) - 1)); //this is how we move the AGV on the grid (Setlocation function)
 
             /////////////////////////////////////////////////////////////////
             //Here is the part where an AGV arrives at the Load it has marked.
-            if (AGVs[agv_index].MarkedLoad.X * Constants.__BlockSide == AGVs[agv_index].GetLocation().X &&
-                (AGVs[agv_index].MarkedLoad.Y * Constants.__BlockSide) + Constants.__TopBarOffset == AGVs[agv_index].GetLocation().Y &&
+            if (AGVs[agv_index].MarkedLoad.X * Constants._BlockSide == AGVs[agv_index].GetLocation().X &&
+                (AGVs[agv_index].MarkedLoad.Y * Constants._BlockSide) + Constants._TopBarOffset == AGVs[agv_index].GetLocation().Y &&
                 !AGVs[agv_index].Status.Busy) {
-                
+
                 m_rectangles[AGVs[agv_index].MarkedLoad.X][AGVs[agv_index].MarkedLoad.Y].SwitchLoad(); //converts a specific GridBox, from Load, to Normal box (SwitchLoad function)
                 searchGrid.SetWalkableAt(AGVs[agv_index].MarkedLoad.X, AGVs[agv_index].MarkedLoad.Y, true);//marks the picked-up load as walkable AGAIN (since it is now a normal gridbox)
                 labeled_loads--;
@@ -296,7 +269,7 @@ namespace kagv {
                     loads_label.Text = "Loads remaining: " + labeled_loads;
 
                 AGVs[agv_index].Status.Busy = true; //Sets the status of the AGV to Busy (because it has just picked-up the marked Load
-                AGVs[agv_index].setLoaded(); //changes the icon of the AGV and it now appears as Loaded
+                AGVs[agv_index].SetLoaded(); //changes the icon of the AGV and it now appears as Loaded
                 this.Refresh();
 
                 //We needed to find a way to know if the animation is scheduled by Redraw or by GetNextLoad
@@ -312,22 +285,22 @@ namespace kagv {
 
             if (!fromstart[agv_index]) {
                 //this is how we check if the AGV has arrived at the exit (red block - end point)
-                if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].x &&
-                    AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].y) {
+                if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Constants._BlockSide][(endPointCoords.Y - Constants._TopBarOffset) / Constants._BlockSide].x &&
+                    AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Constants._BlockSide][(endPointCoords.Y - Constants._TopBarOffset) / Constants._BlockSide].y) {
 
 
                     AGVs[agv_index].Status.Busy = false; //change the AGV's status back to available again (not busy obviously)
 
                     //here we scan the Grid and search for Loads that either ARE available or WILL BE available
                     //if there's at least 1 available Load, set isfreeload = true and stop the double For-loops
-                    for (int k = 0; k < Constants.__WidthBlocks; k++) {
-                        for (int b = 0; b < Constants.__HeightBlocks; b++) {
-                            if (isLoad[k, b] == 1 || isLoad[k,b]==4) //isLoad[ , ] == 1 means the corresponding Load is available at the moment
-                                                                     //isLoad[ ,] == 4 means that the corresponding Load is surrounded by other 
+                    for (int k = 0; k < Constants._WidthBlocks; k++) {
+                        for (int b = 0; b < Constants._HeightBlocks; b++) {
+                            if (isLoad[k, b] == 1 || isLoad[k, b] == 4) //isLoad[ , ] == 1 means the corresponding Load is available at the moment
+                                                                        //isLoad[ ,] == 4 means that the corresponding Load is surrounded by other 
                             {                                        //loads and TEMPORARILY unavailable - will be freed later
                                 isfreeload = true;
-                                k = Constants.__WidthBlocks;
-                                b = Constants.__HeightBlocks;
+                                k = Constants._WidthBlocks;
+                                b = Constants._HeightBlocks;
                             }
                         }
                     }
@@ -338,42 +311,41 @@ namespace kagv {
                         Reset(agv_index);
                         AGVs[agv_index].Status.Busy = true;
                         AGVs[agv_index].MarkedLoad = new Point();
-                        getNextLoad(agv_index); //function that is responsible for Aaaaaall the future path planning
+                        GetNextLoad(agv_index); //function that is responsible for Aaaaaall the future path planning
 
 
                         AGVs[agv_index].Status.Busy = false;
-                        AGVs[agv_index].setEmpty();
+                        AGVs[agv_index].SetEmpty();
 
                     } else { //if no other AVAILABLE Loads are found in the grid
-                        AGVs[agv_index].setEmpty();
+                        AGVs[agv_index].SetEmpty();
                         isfreeload = false;
-                        stopTimers(agv_index);
+                        StopTimers(agv_index);
                     }
-                    
+
                     timer_counter[agv_index] = -1;
                     steps_counter = 0;
 
                 }
             } else {
                 if (!AGVs[agv_index].HasLoadToPick) {
-                    if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].x &&
-                        AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].y)
-                        stopTimers(agv_index);
+                    if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Constants._BlockSide][(endPointCoords.Y - Constants._TopBarOffset) / Constants._BlockSide].x &&
+                        AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Constants._BlockSide][(endPointCoords.Y - Constants._TopBarOffset) / Constants._BlockSide].y)
+                        StopTimers(agv_index);
                 }
                 if (isLoad[AGVs[agv_index].MarkedLoad.X, AGVs[agv_index].MarkedLoad.Y] == 2) //if the AGV has picked up the Load it has marked...
-                    if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].x &&
-                        AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Constants.__BlockSide][(endPointCoords.Y - Constants.__TopBarOffset) / Constants.__BlockSide].y)
-                        stopTimers(agv_index);
+                    if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Constants._BlockSide][(endPointCoords.Y - Constants._TopBarOffset) / Constants._BlockSide].x &&
+                        AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Constants._BlockSide][(endPointCoords.Y - Constants._TopBarOffset) / Constants._BlockSide].y)
+                        StopTimers(agv_index);
             }
-            
+
 
             //if at least 1 timer is active, do not let the user access the Checkboxes etc. etc
-            if (!(timer0.Enabled 
-                || timer1.Enabled 
-                || timer2.Enabled 
+            if (!(timer0.Enabled
+                || timer1.Enabled
+                || timer2.Enabled
                 || timer3.Enabled
-                || timer4.Enabled)) 
-            {
+                || timer4.Enabled)) {
                 gb_settings.Enabled = true;
                 settings_menu.Enabled = true;
                 nud_weight.Enabled = true;
@@ -381,24 +353,23 @@ namespace kagv {
             }
 
             //when all agvs have finished their tasks
-            if (!timer0.Enabled 
-                && !timer1.Enabled 
-                && !timer2.Enabled 
-                && !timer3.Enabled 
-                && !timer4.Enabled)
-            {
+            if (!timer0.Enabled
+                && !timer1.Enabled
+                && !timer2.Enabled
+                && !timer3.Enabled
+                && !timer4.Enabled) {
                 //clear all the paths
-                for (int i = 0; i < StartPos.Count(); i++)
+                for (int i = 0; i < startPos.Count(); i++)
                     AGVs[i].JumpPoints = new List<GridPos>();
 
                 toolStripStatusLabel1.Text = "Hold CTRL for grid configuration...";
                 allowHighlight = false;
                 highlightOverCurrentBoxToolStripMenuItem.Checked = allowHighlight;
-                triggerStartMenu(false);
-                this.Refresh();
-                this.Invalidate(); //invalidates the form, causing it to "refresh" the graphics
+                TriggerStartMenu(false);
+                Refresh();
+                Invalidate(); //invalidates the form, causing it to "refresh" the graphics
             }
-            
+
         }
 
         //function that calculates all the intermediate points between each turning point (or jumpPoint if you may)
@@ -414,7 +385,7 @@ namespace kagv {
             //the parent-Line will finaly consist of many pairs of (x,y): e.g [X1,Y1 / X2,Y2 / X3,Y3 ... Xn,Yn]
             Point[] currentLinePoints;//1d array of points.used to track all the points of current line
 
-            int x1 = x.fromX; 
+            int x1 = x.fromX;
             int y1 = x.fromY;
             int x2 = x.toX;
             int y2 = x.toY;
@@ -424,7 +395,7 @@ namespace kagv {
                             , m_rectangles[0][0].height); //function that returns the hypotenuse of a GridBox
 
             int distanceBlocks = -1; //the quantity of blocks,matching the current line's length
-            
+
             //Calculates the number of GridBoxes that the Line consists of. Calculation depends on 2 scenarios:
             //Scenario 1: Line is Diagonal
             //Scenario 2: Line is Straight
@@ -445,26 +416,26 @@ namespace kagv {
             currentLinePoints = new Point[distanceBlocks];
             double t;
             //here we calculate the X,Y coordinates of all the intermediate points
-            for (int i = 0; i < distanceBlocks; i++) { 
+            for (int i = 0; i < distanceBlocks; i++) {
                 calibrated = false;
 
                 if (distance != 0) //obviously, distance cannot be zero
                     t = ((side) / distance);
                 else
                     return;
-                
+
                 //these are the x,y coord that are calculated in every for-loop
-                a = Convert.ToInt32(((1 - t) * x1) + (t * x2)); 
+                a = Convert.ToInt32(((1 - t) * x1) + (t * x2));
                 b = Convert.ToInt32(((1 - t) * y1) + (t * y2));
                 Point _p = new Point(a, b); //merges the calculated x,y into 1 Point variable
 
-                for (int k = 0; k < Constants.__WidthBlocks; k++)
-                    for (int l = 0; l < Constants.__HeightBlocks; l++)
+                for (int k = 0; k < Constants._WidthBlocks; k++)
+                    for (int l = 0; l < Constants._HeightBlocks; l++)
                         if (m_rectangles[k][l].boxRec.Contains(_p)) { //this is how we assign the previously calculated pair of X,Y to a GridBox
-                            
+
                             //a smart way to handle GridBoxes from their center
-                            int sideX = m_rectangles[k][l].boxRec.X + ((Constants.__BlockSide / 2) - 1);
-                            int sideY = m_rectangles[k][l].boxRec.Y + ((Constants.__BlockSide / 2) - 1);
+                            int sideX = m_rectangles[k][l].boxRec.X + ((Constants._BlockSide / 2) - 1);
+                            int sideY = m_rectangles[k][l].boxRec.Y + ((Constants._BlockSide / 2) - 1);
                             currentLinePoints[i].X = sideX;
                             currentLinePoints[i].Y = sideY;
 
@@ -488,14 +459,14 @@ namespace kagv {
                             calibrated = true;
 
                         }
-                
+
                 if (calibrated) { //for each one of the above calculations, we check if the calibration has been done correctly and, if so, each pair is inserted to the corresponding AGV's steps List 
                     AGVs[agv_index].Steps[AGVs[agv_index].StepsCounter].X = currentLinePoints[i].X;
                     AGVs[agv_index].Steps[AGVs[agv_index].StepsCounter].Y = currentLinePoints[i].Y;
                     AGVs[agv_index].StepsCounter++;
                 }
                 //initialize next steps.
-                x1 = currentLinePoints[i].X; 
+                x1 = currentLinePoints[i].X;
                 y1 = currentLinePoints[i].Y;
                 distance = __f.GetLength(x1, y1, x2, y2);
 
@@ -505,24 +476,22 @@ namespace kagv {
         }
 
         //function that resets all of the used objects so they are ready for reuse, preventing memory leaks
-        private void FullyRestore()
-        {
+        private void FullyRestore() {
             loads_label.Text = "";
             labeled_loads = 0;
 
             if (timer_counter != null)
                 Array.Clear(timer_counter, 0, timer_counter.GetLength(0));
 
-            if (TrappedStatus != null)
-                Array.Clear(TrappedStatus, 0, TrappedStatus.GetLength(0));
+            if (trappedStatus != null)
+                Array.Clear(trappedStatus, 0, trappedStatus.GetLength(0));
 
 
             for (int i = 0; i < AGVs.Count; i++)
-                AGVs[i].killIcon();
+                AGVs[i].KillIcon();
 
 
-            if (importmap != null)
-            {
+            if (importmap != null) {
                 Array.Clear(importmap, 0, importmap.GetLength(0));
                 Array.Clear(importmap, 0, importmap.GetLength(1));
             }
@@ -530,14 +499,14 @@ namespace kagv {
             if (this.BackgroundImage != null)
                 this.BackgroundImage = null;
 
-            fromstart = new bool[Constants.__MaximumAGVs];
+            fromstart = new bool[Constants._MaximumAGVs];
 
 
-            StartPos = new List<GridPos>();
+            startPos = new List<GridPos>();
             endPointCoords = new Point(-1, -1);
             selectedColor = Color.DarkGray;
 
-            for (int i = 0; i < StartPos.Count(); i++)
+            for (int i = 0; i < startPos.Count(); i++)
                 AGVs[i].JumpPoints = new List<GridPos>();
 
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
@@ -546,7 +515,7 @@ namespace kagv {
             aGVIndexToolStripMenuItem.Checked =
             beforeStart =
             allowHighlight =
-            NoJumpPointsFound = true;
+            noJumpPointsFound = true;
 
             atLeastOneObstacle =
             ifNoObstacles =
@@ -571,8 +540,7 @@ namespace kagv {
 
 
             AGVs = new List<Vehicle>();
-            if (emissions != null)
-            {
+            if (emissions != null) {
                 emissions.Dispose();
                 CO2 = CO = NOx = THC = GlobalWarming = 0;
                 emissions = new emissions();
@@ -584,17 +552,17 @@ namespace kagv {
 
 
 
-            isLoad = new int[Constants.__WidthBlocks, Constants.__HeightBlocks];
-            m_rectangles = new GridBox[Constants.__WidthBlocks][];
-            for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++)
-                m_rectangles[widthTrav] = new GridBox[Constants.__HeightBlocks];
+            isLoad = new int[Constants._WidthBlocks, Constants._HeightBlocks];
+            m_rectangles = new GridBox[Constants._WidthBlocks][];
+            for (int widthTrav = 0; widthTrav < Constants._WidthBlocks; widthTrav++)
+                m_rectangles[widthTrav] = new GridBox[Constants._HeightBlocks];
 
             //jagged array has to be resetted like this
-            for (int i = 0; i < Constants.__WidthBlocks; i++)
-                for (int j = 0; j < Constants.__HeightBlocks; j++)
-                    m_rectangles[i][j] = new GridBox(i * Constants.__BlockSide, j * Constants.__BlockSide + Constants.__TopBarOffset, BoxType.Normal);
+            for (int i = 0; i < Constants._WidthBlocks; i++)
+                for (int j = 0; j < Constants._HeightBlocks; j++)
+                    m_rectangles[i][j] = new GridBox(i * Constants._BlockSide, j * Constants._BlockSide + Constants._TopBarOffset, BoxType.Normal);
 
-            initialization();
+            Initialization();
             main_form_Load(new object(), new EventArgs());
 
             for (int i = 0; i < AGVs.Count; i++)
@@ -606,20 +574,19 @@ namespace kagv {
         }
 
         //has to do with optical features in the Grid option from the menu
-        private void updateBorderVisibility(bool hide) {
+        private void UpdateBorderVisibility(bool hide) {
             if (hide) {
-                for (int i = 0; i < Constants.__WidthBlocks; i++)
-                    for (int j = 0; j < Constants.__HeightBlocks; j++)
+                for (int i = 0; i < Constants._WidthBlocks; i++)
+                    for (int j = 0; j < Constants._HeightBlocks; j++)
                         m_rectangles[i][j].BeTransparent();
                 this.BackColor = Color.DarkGray;
-            } 
-            else {
-                for (int i = 0; i < Constants.__WidthBlocks; i++)
-                    for (int j = 0; j < Constants.__HeightBlocks; j++)
+            } else {
+                for (int i = 0; i < Constants._WidthBlocks; i++)
+                    for (int j = 0; j < Constants._HeightBlocks; j++)
                         if (m_rectangles[i][j].boxType == BoxType.Normal) {
                             m_rectangles[i][j].BeVisible();
 
-                            if (!Constants.__SemiTransparency)
+                            if (!Constants._SemiTransparency)
                                 boxDefaultColor = Color.WhiteSmoke;
                             else
                                 boxDefaultColor = Color.FromArgb(128, 255, 0, 255);
@@ -631,10 +598,10 @@ namespace kagv {
         }
 
         //returns the number of AGVs
-        private int getNumberOfAGVs() {
+        private int GetNumberOfAGVs() {
             int agvs = 0;
-            for (int i = 0; i < Constants.__WidthBlocks; i++)
-                for (int j = 0; j < Constants.__HeightBlocks; j++)
+            for (int i = 0; i < Constants._WidthBlocks; i++)
+                for (int j = 0; j < Constants._HeightBlocks; j++)
                     if (m_rectangles[i][j].boxType == BoxType.Start)
                         agvs++;
 
@@ -649,8 +616,8 @@ namespace kagv {
             bool removed;
 
             //First, we must assume that ALL the AGVs are trapped and cannot move (trapped means they are prevented from reaching the END block)
-            for (int i = 0; i < TrappedStatus.Length; i++)
-                TrappedStatus[i] = true;
+            for (int i = 0; i < trappedStatus.Length; i++)
+                trappedStatus[i] = true;
 
             do {
                 removed = false;
@@ -661,9 +628,8 @@ namespace kagv {
                     Vehicles.Remove(Vehicles[list_index]); //we removed, from the returning list, the AGV for which there was no path found
                     AGVs.Remove(AGVs[list_index]); //we remove the corresponding AGV from the public list that contains all the AGVs which will participate in the simulation
                     removed = true;
-                }
-                else
-                    TrappedStatus[trapped_index] = false; //since it's not trapped, we switch its state to false 
+                } else
+                    trappedStatus[trapped_index] = false; //since it's not trapped, we switch its state to false 
 
                 if (!removed) {
                     AGVs[list_index].ID = list_index;
@@ -681,29 +647,28 @@ namespace kagv {
 
         //Basic path planner function
         private void Redraw() {
-            
+
             bool start_found = false;
             bool end_found = false;
             mapHasLoads = false;
-            
+
             GridPos endPos = new GridPos();
 
             pos_index = 0;
-            StartPos = new List<GridPos>(); //list that will be filled with the starting points of every AGV
+            startPos = new List<GridPos>(); //list that will be filled with the starting points of every AGV
             AGVs = new List<Vehicle>();  //list that will be filled with objects of the class Vehicle
             loadPos = new List<GridPos>(); //list that will be filled with the points of every Load
             loads = 0;
             //Double FOR-loops to scan the whole Grid and perform the needed actions
-            for (int i = 0; i < Constants.__WidthBlocks; i++)
-                for (int j = 0; j < Constants.__HeightBlocks; j++) {
+            for (int i = 0; i < Constants._WidthBlocks; i++)
+                for (int j = 0; j < Constants._HeightBlocks; j++) {
 
                     if (m_rectangles[i][j].boxType == BoxType.Wall)
                         searchGrid.SetWalkableAt(new GridPos(i, j), false);//Walls are marked as non-walkable
                     else
                         searchGrid.SetWalkableAt(new GridPos(i, j), true);//every other block is marked as walkable (for now)
-                    
-                    if (m_rectangles[i][j].boxType == BoxType.Load) 
-                    {
+
+                    if (m_rectangles[i][j].boxType == BoxType.Load) {
                         mapHasLoads = true;
                         searchGrid.SetWalkableAt(new GridPos(i, j), false); //marks every Load as non-walkable
                         isLoad[i, j] = 1; //considers every Load as available
@@ -725,14 +690,14 @@ namespace kagv {
                         AGVs.Add(new Vehicle(this));
                         AGVs[pos_index].ID = pos_index;
 
-                        StartPos.Add(new GridPos(i, j)); //adds the starting coordinates of an AGV to the StartPos list
+                        startPos.Add(new GridPos(i, j)); //adds the starting coordinates of an AGV to the StartPos list
 
                         //a & b are used by DrawPoints() as the starting x,y for calculation purposes
-                        a = StartPos[pos_index].x;
-                        b = StartPos[pos_index].y;
+                        a = startPos[pos_index].x;
+                        b = startPos[pos_index].y;
 
-                        if (pos_index < StartPos.Count) {
-                            StartPos[pos_index] = new GridPos(StartPos[pos_index].x, StartPos[pos_index].y);
+                        if (pos_index < startPos.Count) {
+                            startPos[pos_index] = new GridPos(startPos[pos_index].x, startPos[pos_index].y);
                             pos_index++;
                         }
                     }
@@ -741,39 +706,39 @@ namespace kagv {
                         end_found = true;
                         endPos.x = i;
                         endPos.y = j;
-                        endPointCoords = new Point(i * Constants.__BlockSide, j * Constants.__BlockSide + Constants.__TopBarOffset);
+                        endPointCoords = new Point(i * Constants._BlockSide, j * Constants._BlockSide + Constants._TopBarOffset);
                     }
                 }
-           
+
             Reset();
-           
+
             if (!start_found || !end_found)
                 return; //will return if there are no starting or end points in the Grid
-            
-            NoJumpPointsFound = true;
-            
+
+            noJumpPointsFound = true;
+
             pos_index = 0;
-            
+
             if (AGVs != null)
                 for (int i = 0; i < AGVs.Count(); i++)
                     if (AGVs[i] != null) {
-                        AGVs[i].updateAGV();
+                        AGVs[i].UpdateAGV();
                         AGVs[i].Status.Busy = false; //initialize the status of AGVs, as 'available'
                     }
-            
-            StartPos = NotTrappedVehicles(StartPos, endPos); //replaces the List with all the inserted AGVs
+
+            startPos = NotTrappedVehicles(startPos, endPos); //replaces the List with all the inserted AGVs
                                                              //with a new one containing the right ones
-            if(mapHasLoads)
+            if (mapHasLoads)
                 KeepValidLoads(endPos); //calls a function that checks which Loads are available
                                         //to be picked up by AGVs and removed the trapped ones.
 
-            
-            //For-loop to repeat the path-finding process for ALL the AGVs that participate in the simulation
-            for (int i = 0; i < StartPos.Count; i++) {
-                if (loadPos.Count != 0)
-                    loadPos = checkForTrappedLoads(loadPos);
 
-                if (loadPos.Count ==0) {
+            //For-loop to repeat the path-finding process for ALL the AGVs that participate in the simulation
+            for (int i = 0; i < startPos.Count; i++) {
+                if (loadPos.Count != 0)
+                    loadPos = CheckForTrappedLoads(loadPos);
+
+                if (loadPos.Count == 0) {
                     mapHasLoads = false;
                     AGVs[i].HasLoadToPick = false;
                 } else {
@@ -792,7 +757,7 @@ namespace kagv {
                             searchGrid.SetWalkableAt(loadPos[0], true);
 
                             //use of the A* alorithms to find the path between AGV and its marked Load
-                            jumpParam.Reset(StartPos[pos_index], loadPos[0]);
+                            jumpParam.Reset(startPos[pos_index], loadPos[0]);
                             JumpPointsList = AStarFinder.FindPath(jumpParam, nud_weight.Value);
                             AGVs[i].JumpPoints = JumpPointsList;
                             AGVs[i].Status.Busy = true;
@@ -804,44 +769,44 @@ namespace kagv {
                             jumpParam.Reset(loadPos[0], endPos);
                             JumpPointsList = AStarFinder.FindPath(jumpParam, nud_weight.Value);
                             AGVs[i].JumpPoints.AddRange(JumpPointsList);
-                            NoJumpPointsFound = false;
+                            noJumpPointsFound = false;
 
                             //marks the load that each AGV picks up on the 1st route, as 3, so each agv knows where to go after delivering the 1st load
                             isLoad[loadPos[0].x, loadPos[0].y] = 3;
                             AGVs[i].MarkedLoad = new Point(loadPos[0].x, loadPos[0].y);
-                            
+
                             loadPos.Remove(loadPos[0]);
                             //======FROM LOAD TO END======
                             break;
                         case false:
-                            jumpParam.Reset(StartPos[pos_index], endPos);
+                            jumpParam.Reset(startPos[pos_index], endPos);
                             JumpPointsList = AStarFinder.FindPath(jumpParam, nud_weight.Value);
 
                             AGVs[i].JumpPoints = JumpPointsList;
-                            NoJumpPointsFound = false;
+                            noJumpPointsFound = false;
                             break;
                     }
                 }
                 pos_index++;
             }
-           
+
             int c = 0;
-            for (int i = 0; i < StartPos.Count; i++)
+            for (int i = 0; i < startPos.Count; i++)
                 c += AGVs[i].JumpPoints.Count;
 
 
-            for (int i = 0; i < StartPos.Count; i++)
+            for (int i = 0; i < startPos.Count; i++)
                 for (int j = 0; j < AGVs[i].JumpPoints.Count - 1; j++) {
                     GridLine line = new GridLine
                         (
                         m_rectangles[AGVs[i].JumpPoints[j].x][AGVs[i].JumpPoints[j].y],
                         m_rectangles[AGVs[i].JumpPoints[j + 1].x][AGVs[i].JumpPoints[j + 1].y]
                         );
-                    
+
                     AGVs[i].Paths[j] = line;
                 }
 
-            for (int i = 0; i < StartPos.Count; i++)
+            for (int i = 0; i < startPos.Count; i++)
                 if ((c - 1) > 0)
                     Array.Resize(ref AGVs[i].Paths, c - 1); //resize of the AGVs steps Table
             if (loads != 0)
@@ -850,19 +815,17 @@ namespace kagv {
         }
 
         //function that determines which loads are valid to keep and which are not
-        private void KeepValidLoads(GridPos EndPoint)
-        {
+        private void KeepValidLoads(GridPos EndPoint) {
             int list_index = 0;
             bool removed;
 
             for (int i = 0; i < loadPos.Count; i++)
                 searchGrid.SetWalkableAt(loadPos[i], true); //assumes that all loads are walkable
                                                             //and only walls are in fact the only obstacles in the grid
-            do
-            {
+            do {
                 removed = false;
                 jumpParam.Reset(loadPos[list_index], EndPoint); //tries to find path between each Load and the exit
-                if(AStarFinder.FindPath(jumpParam,nud_weight.Value).Count==0) //if no path is found
+                if (AStarFinder.FindPath(jumpParam, nud_weight.Value).Count == 0) //if no path is found
                 {
                     isLoad[loadPos[list_index].x, loadPos[list_index].y] = 2; //mark the corresponding load as NOT available
                     loads--; //decrease the counter of total loads in the grid
@@ -871,7 +834,7 @@ namespace kagv {
                 }
                 if (!removed)
                     list_index++;
-            }while(list_index< loadPos.Count); //loop repeats untill all loads are checked
+            } while (list_index < loadPos.Count); //loop repeats untill all loads are checked
 
             for (int i = 0; i < loadPos.Count; i++)
                 searchGrid.SetWalkableAt(loadPos[i], false); //re-sets every Load to non-walkable
@@ -880,26 +843,23 @@ namespace kagv {
                 mapHasLoads = false;
         }
 
-        //funcion that scans and finds which loads are surrounded by other loads
-        private List<GridPos> checkForTrappedLoads(List<GridPos> pos) {
+        //function that scans and finds which loads are surrounded by other loads
+        private List<GridPos> CheckForTrappedLoads(List<GridPos> pos) {
             int list_index = 0;
-            bool removed;    
+            bool removed;
 
             //if the 1st AGV  cannot reach a Load, then that Load is  
             //removed from the loadPos and not considered as available - marked as "4"  (temporarily trapped)
-            do
-            {
+            do {
                 removed = false;
                 searchGrid.SetWalkableAt(new GridPos(pos[list_index].x, pos[list_index].y), true);
-                jumpParam.Reset(StartPos[0], pos[list_index]);
-                if (AStarFinder.FindPath(jumpParam, nud_weight.Value).Count == 0)
-                {
+                jumpParam.Reset(startPos[0], pos[list_index]);
+                if (AStarFinder.FindPath(jumpParam, nud_weight.Value).Count == 0) {
                     searchGrid.SetWalkableAt(new GridPos(pos[list_index].x, pos[list_index].y), false);
                     isLoad[pos[list_index].x, pos[list_index].y] = 4; //load is marked as trapped
                     pos.Remove(pos[list_index]); //load is removed from the List with available Loads
                     removed = true;
-                }
-                else
+                } else
                     isLoad[pos[list_index].x, pos[list_index].y] = 1; //otherwise, Load is marked as available
 
                 if (!removed)
@@ -909,14 +869,14 @@ namespace kagv {
             return pos;
         }
 
-        private void checkForTrappedLoads() {
+        private void CheckForTrappedLoads() {
             int list_index = 0;
             bool removed;
             do {
                 removed = false;
                 if (isLoad[loadPos[list_index].x, loadPos[list_index].y] == 4) {
                     searchGrid.SetWalkableAt(new GridPos(loadPos[list_index].x, loadPos[list_index].y), true);
-                    jumpParam.Reset(StartPos[0], loadPos[list_index]);
+                    jumpParam.Reset(startPos[0], loadPos[list_index]);
                     if (AStarFinder.FindPath(jumpParam, nud_weight.Value).Count == 0) {
 
                         searchGrid.SetWalkableAt(new GridPos(loadPos[list_index].x, loadPos[list_index].y), false);
@@ -935,39 +895,39 @@ namespace kagv {
         }
 
         //returns the number of steps until AGV reaches the marked Load
-        private int getStepsToLoad(int whichAGV) {
-            int ix = AGVs[whichAGV].MarkedLoad.X * Constants.__BlockSide;
-            int iy = (AGVs[whichAGV].MarkedLoad.Y * Constants.__BlockSide) + Constants.__TopBarOffset;
+        private int GetStepsToLoad(int whichAGV) {
+            int ix = AGVs[whichAGV].MarkedLoad.X * Constants._BlockSide;
+            int iy = (AGVs[whichAGV].MarkedLoad.Y * Constants._BlockSide) + Constants._TopBarOffset;
 
             int step = -1;
 
             for (int i = 0; i < AGVs[whichAGV].Steps.GetLength(0); i++)
-                if (AGVs[whichAGV].Steps[i].X - ((Constants.__BlockSide / 2) - 1) == ix &&
-                    AGVs[whichAGV].Steps[i].Y - ((Constants.__BlockSide / 2) - 1) == iy) {
+                if (AGVs[whichAGV].Steps[i].X - ((Constants._BlockSide / 2) - 1) == ix &&
+                    AGVs[whichAGV].Steps[i].Y - ((Constants._BlockSide / 2) - 1) == iy) {
                     step = i;
                     i = AGVs[whichAGV].Steps.GetLength(0);
                 }
-            
+
             if (step >= 0) return step;
             else return -1;
         }
 
         //resets the all AGVs' embedded arrays - memory leaks prevention
         private void Reset() {
-            
+
             int c = 0;
-            for (int i = 0; i < StartPos.Count; i++)
+            for (int i = 0; i < startPos.Count; i++)
                 c += AGVs[i].JumpPoints.Count;
 
-            
+
             for (int i = 0; i < AGVs.Count; i++)
-                for (int j = 0; j < Constants.__MaximumSteps; j++) {
+                for (int j = 0; j < Constants._MaximumSteps; j++) {
                     AGVs[i].Steps[j].X = 0;
                     AGVs[i].Steps[j].Y = 0;
                     AGVs[i].StepsCounter = new int();
-                    AGVs[i].Paths = new GridLine[Constants.__MaximumSteps];
+                    AGVs[i].Paths = new GridLine[Constants._MaximumSteps];
                 }
-            
+
         }
 
         //Reset function with overload for specific AGV 
@@ -977,12 +937,12 @@ namespace kagv {
 
             AGVs[whichAGV].JumpPoints = new List<GridPos>(); //empties the AGV's JumpPoints List for the new JumpPoints to be added
 
-            StartPos[whichAGV] = new GridPos(); //empties the correct start Pos for each AGV
+            startPos[whichAGV] = new GridPos(); //empties the correct start Pos for each AGV
 
             for (int i = 0; i < c; i++)
                 AGVs[whichAGV].Paths[i] = null;
 
-            for (int j = 0; j < Constants.__MaximumSteps; j++) {
+            for (int j = 0; j < Constants._MaximumSteps; j++) {
                 AGVs[whichAGV].Steps[j].X = 0;
                 AGVs[whichAGV].Steps[j].Y = 0;
             }
@@ -991,17 +951,17 @@ namespace kagv {
         }
 
         //Shows information on the Monitor Panel
-        private void displayStepsToLoad(int counter, int agv_index) {
+        private void DisplayStepsToLoad(int counter, int agv_index) {
             int stepstoload;
             string agvinfo;
 
-            if (getStepsToLoad(agv_index) == -1)
+            if (GetStepsToLoad(agv_index) == -1)
                 agvinfo = "AGV " + (agv_index) + ": Moving straight to the end point";
             else {
-                stepstoload = (getStepsToLoad(agv_index) - counter);
-                agvinfo = "AGV " + (agv_index ) + ": Marked load @" + getStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
+                stepstoload = (GetStepsToLoad(agv_index) - counter);
+                agvinfo = "AGV " + (agv_index) + ": Marked load @" + GetStepsToLoad(agv_index) + ". Steps remaining to Load: " + stepstoload;
                 if (stepstoload < 0)
-                    agvinfo = "AGV " + (agv_index ) + " is Loaded.";
+                    agvinfo = "AGV " + (agv_index) + " is Loaded.";
             }
 
             gb_monitor.Controls.Find(
@@ -1012,18 +972,18 @@ namespace kagv {
         }
 
         //function for holding the AGV back so another can pass without colliding
-        private void halt(int index, int _c) {
+        private void Halt(int index, int _c) {
             timer_counter[index]--;
             if (!(_c - 1 < 0)) //in case the intersection is in the 1st step of the route, then the index of that step will be 0. 
             {                  //this means that trying to get to the "_c -1" step, will have the index decreased to -1 causing the "index out of bound" crash
                 int stepx = Convert.ToInt32(AGVs[index].Steps[_c - 1].X);
                 int stepy = Convert.ToInt32(AGVs[index].Steps[_c - 1].Y);
-                AGVs[index].SetLocation(stepx - ((Constants.__BlockSide / 2) - 1), stepy - ((Constants.__BlockSide / 2) - 1));
+                AGVs[index].SetLocation(stepx - ((Constants._BlockSide / 2) - 1), stepy - ((Constants._BlockSide / 2) - 1));
             }
         }
 
         //manipulates the text of the Start button 
-        private void triggerStartMenu(bool t) {
+        private void TriggerStartMenu(bool t) {
             startToolStripMenuItem.Enabled = t;
             if (!t) {
                 startToolStripMenuItem.Text = "Start            Clear and redraw the components please.";
@@ -1037,28 +997,26 @@ namespace kagv {
         }
 
         //Path-planner for collecting all the remaining Loads in the Grid
-        private void getNextLoad(int whichAGV) {
+        private void GetNextLoad(int whichAGV) {
 
             aGVIndexToolStripMenuItem.Checked = false;
             GridPos endPos = new GridPos();
 
 
             //finds the End point and uses it's coordinates as the starting coords for every AGV
-            for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++)
-                for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++)
+            for (int widthTrav = 0; widthTrav < Constants._WidthBlocks; widthTrav++)
+                for (int heightTrav = 0; heightTrav < Constants._HeightBlocks; heightTrav++)
                     if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.End)
                         try {
-                            StartPos[whichAGV] = new GridPos(widthTrav, heightTrav);
-                            a = StartPos[whichAGV].x;
-                            b = StartPos[whichAGV].y;
-                        }
-                        catch {  }
+                            startPos[whichAGV] = new GridPos(widthTrav, heightTrav);
+                            a = startPos[whichAGV].x;
+                            b = startPos[whichAGV].y;
+                        } catch { }
 
             List<GridPos> loadPos = new List<GridPos>();
 
-            for (int i = 0; i < Constants.__WidthBlocks; i++)
-                for (int j = 0; j < Constants.__HeightBlocks; j++)
-                {
+            for (int i = 0; i < Constants._WidthBlocks; i++)
+                for (int j = 0; j < Constants._HeightBlocks; j++) {
                     if (m_rectangles[i][j].boxType == BoxType.Load)
                         searchGrid.SetWalkableAt(new GridPos(i, j), false);
 
@@ -1067,7 +1025,7 @@ namespace kagv {
                         loadPos.Add(new GridPos(i, j));
                 }
             //loadPos = checkForTrappedLoads(loadPos); //scans the loadPos list to check which loads are available
-            checkForTrappedLoads();
+            CheckForTrappedLoads();
             isLoad[loadPos[0].x, loadPos[0].y] = 3;
             AGVs[whichAGV].MarkedLoad = new Point(loadPos[0].x, loadPos[0].y);
             loads--;
@@ -1077,22 +1035,22 @@ namespace kagv {
             for (int m = 0; m < loadPos.Count; m++)
                 searchGrid.SetWalkableAt(loadPos[m], false);
             searchGrid.SetWalkableAt(loadPos[0], true);
-            
+
             //creates the path between the AGV (which at the moment is at the exit) and the Load
-            jumpParam.Reset(StartPos[whichAGV], endPos); 
-            List <GridPos> JumpPointsList = AStarFinder.FindPath(jumpParam, nud_weight.Value);
+            jumpParam.Reset(startPos[whichAGV], endPos);
+            List<GridPos> JumpPointsList = AStarFinder.FindPath(jumpParam, nud_weight.Value);
             AGVs[whichAGV].JumpPoints = JumpPointsList;//adds the result from A* to the AGV's
                                                        //embedded List
-                                                       
+
             //Mark all loads as unwalkable
             for (int m = 0; m < loadPos.Count; m++)
                 searchGrid.SetWalkableAt(loadPos[m], false);
-            
+
             int c = 0;
-            for (int i = 0; i < StartPos.Count; i++)
+            for (int i = 0; i < startPos.Count; i++)
                 c += AGVs[i].JumpPoints.Count;
 
-            for (int i = 0; i < StartPos.Count; i++)
+            for (int i = 0; i < startPos.Count; i++)
                 if ((c - 1) > 0)
                     Array.Resize(ref AGVs[i].Paths, c - 1);
 
@@ -1110,24 +1068,24 @@ namespace kagv {
                 AGVs[whichAGV].Paths[j] = line;
             }
 
-            
+
             //2nd part of route: Go to exit
-            int old_c = c-1;
-            
-            jumpParam.Reset(endPos, StartPos[whichAGV]);
+            int old_c = c - 1;
+
+            jumpParam.Reset(endPos, startPos[whichAGV]);
             JumpPointsList = AStarFinder.FindPath(jumpParam, nud_weight.Value);
             AGVs[whichAGV].JumpPoints.AddRange(JumpPointsList);
 
             c = 0;
-            for (int i = 0; i < StartPos.Count; i++)
+            for (int i = 0; i < startPos.Count; i++)
                 c += AGVs[i].JumpPoints.Count;
 
-            for (int i = 0; i < StartPos.Count; i++)
+            for (int i = 0; i < startPos.Count; i++)
                 if ((c - 1) > 0)
-                    Array.Resize(ref AGVs[i].Paths, old_c+(c - 1));
+                    Array.Resize(ref AGVs[i].Paths, old_c + (c - 1));
 
-            
-            for (int i = 0; i < StartPos.Count; i++)
+
+            for (int i = 0; i < startPos.Count; i++)
                 for (int j = 0; j < AGVs[i].JumpPoints.Count - 1; j++) {
                     GridLine line = new GridLine(
                         m_rectangles
@@ -1140,20 +1098,20 @@ namespace kagv {
 
                     AGVs[i].Paths[j] = line;
                 }
-            
+
             this.Invalidate();
         }
 
         //function that starts the needed timers
-        private void timers() {
+        private void Timers() {
             //every timer is responsible for every agv for up to 5 AGVs
-            
+
             int _c = 0;
-            for (int i=0; i< TrappedStatus.Length;i++)
-                if (!TrappedStatus[i]) //array containing the status of AGV
+            for (int i = 0; i < trappedStatus.Length; i++)
+                if (!trappedStatus[i]) //array containing the status of AGV
                     _c++; //counts the number of free-to-move AGVs
 
-            switch(_c) //depending on the _c, the required timers will be started
+            switch (_c) //depending on the _c, the required timers will be started
             {
                 case 1:
                     timer0.Start();
@@ -1183,27 +1141,25 @@ namespace kagv {
             }
         }
 
-        private void ConfigUI()
-        {
+        private void ConfigUI() {
 
-            if (Constants.__SemiTransparency)
-                Constants.__SemiTransparent = Color.FromArgb(Constants.__Opacity, Color.WhiteSmoke);
+            if (Constants._SemiTransparency)
+                Constants._SemiTransparent = Color.FromArgb(Constants._Opacity, Color.WhiteSmoke);
 
-            for (int i = 0; i < StartPos.Count; i++)
-            {
+            for (int i = 0; i < startPos.Count; i++) {
                 AGVs[i] = new Vehicle(this);
                 AGVs[i].ID = i;
             }
 
             DoubleBuffered = true;
-            Width = ((Constants.__WidthBlocks + 1) * Constants.__BlockSide) + Constants.__LeftBarOffset;
-            Height = (Constants.__HeightBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset + 7; //+7 for borders
-            Size = new Size(Width, Height + Constants.__BottomBarOffset);
+            Width = ((Constants._WidthBlocks + 1) * Constants._BlockSide) + Constants._LeftBarOffset;
+            Height = (Constants._HeightBlocks + 1) * Constants._BlockSide + Constants._BottomBarOffset + 7; //+7 for borders
+            Size = new Size(Width, Height + Constants._BottomBarOffset);
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;
 
             //Transparent and SemiTransparent feature serves the agri/industrial branch recursively
-            importImageLayoutToolStripMenuItem.Enabled = Constants.__SemiTransparency;
+            importImageLayoutToolStripMenuItem.Enabled = Constants._SemiTransparency;
 
             if (importImageLayoutToolStripMenuItem.Enabled)
                 importImageLayoutToolStripMenuItem.Text = "Import image layout";
@@ -1219,7 +1175,7 @@ namespace kagv {
 
 
             Text = "K-aGv2 Simulator (Industrial branch)";
-            gb_monitor.Size = new Size(Constants.__gb_monitor_width, Constants.__gb_monitor_height);
+            gb_monitor.Size = new Size(Constants._gb_monitor_width, Constants._gb_monitor_height);
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 50;
             refresh_label.Text = "Delay :" + timer0.Interval + " ms";
 
@@ -1233,7 +1189,7 @@ namespace kagv {
             agv5steps_LB.Text = "";
 
             //Do not show the START menu because there is no valid path yet
-            triggerStartMenu(false);
+            TriggerStartMenu(false);
 
             rb_start.Checked = true;
             BackColor = Color.DarkGray;
@@ -1259,7 +1215,7 @@ namespace kagv {
             panel_resize.Visible = false;
             nud_side.BackColor = panel_resize.BackColor;
 
-            nud_weight.Value = Convert.ToDecimal(Constants.__AStarWeight);
+            nud_weight.Value = Convert.ToDecimal(Constants._AStarWeight);
             statusStrip1.Location = new Point(tree_stats.Width, Height - statusStrip1.Height);
 
             statusStrip1.BringToFront();
@@ -1279,35 +1235,29 @@ namespace kagv {
 
         }
         //Initializes all the objects in main_form
-        private void initialization() {
+        private void Initialization() {
 
             //m_rectangels is an array of two 1d arrays
             //declares the length of the first 1d array
-            m_rectangles = new GridBox[Constants.__WidthBlocks][];
+            m_rectangles = new GridBox[Constants._WidthBlocks][];
 
 
-            for (int widthTrav = 0; widthTrav < Constants.__WidthBlocks; widthTrav++)
-            {
+            for (int widthTrav = 0; widthTrav < Constants._WidthBlocks; widthTrav++) {
                 //declares the length of the seconds 1d array
-                m_rectangles[widthTrav] = new GridBox[Constants.__HeightBlocks];
-                for (int heightTrav = 0; heightTrav < Constants.__HeightBlocks; heightTrav++)
-                {
+                m_rectangles[widthTrav] = new GridBox[Constants._HeightBlocks];
+                for (int heightTrav = 0; heightTrav < Constants._HeightBlocks; heightTrav++) {
 
                     //dynamically add the gridboxes into the m_rectangles.
                     //size of the m_rectangels is constantly increasing (while adding
                     //the gridbox values) until size=height or size = width.
-                    if (imported)
-                    { //this IF is executed as long as the user has imported a map of his choice
-                        m_rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Constants.__BlockSide) + Constants.__LeftBarOffset, heightTrav * Constants.__BlockSide + Constants.__TopBarOffset, importmap[widthTrav, heightTrav]);
-                        if (importmap[widthTrav, heightTrav] == BoxType.Load)
-                        {
+                    if (imported) { //this IF is executed as long as the user has imported a map of his choice
+                        m_rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Constants._BlockSide) + Constants._LeftBarOffset, heightTrav * Constants._BlockSide + Constants._TopBarOffset, importmap[widthTrav, heightTrav]);
+                        if (importmap[widthTrav, heightTrav] == BoxType.Load) {
                             isLoad[widthTrav, heightTrav] = 1;
                             loads++;
                         }
-                    }
-                    else
-                    {
-                        m_rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Constants.__BlockSide) + Constants.__LeftBarOffset, heightTrav * Constants.__BlockSide + Constants.__TopBarOffset, BoxType.Normal);
+                    } else {
+                        m_rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Constants._BlockSide) + Constants._LeftBarOffset, heightTrav * Constants._BlockSide + Constants._TopBarOffset, BoxType.Normal);
                         isLoad[widthTrav, heightTrav] = 2;
                     }
 
@@ -1318,22 +1268,22 @@ namespace kagv {
                 imported = false;
 
             searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
-            jumpParam = new AStarParam(searchGrid, Convert.ToSingle(Constants.__AStarWeight));//Default value until user edit it
+            jumpParam = new AStarParam(searchGrid, Convert.ToSingle(Constants._AStarWeight));//Default value until user edit it
             jumpParam.SetHeuristic(HeuristicMode.MANHATTAN); //default value until user edit it
 
             ConfigUI();
         }
 
         //Function for exporting the map
-        private void export() {
+        private void Export() {
             sfd_exportmap.FileName = "";
             sfd_exportmap.Filter = "kagv Map (*.kmap)|*.kmap";
 
             if (sfd_exportmap.ShowDialog() == DialogResult.OK) {
                 StreamWriter writer = new StreamWriter(sfd_exportmap.FileName);
-                writer.WriteLine("Map info:\r\nWidth blocks: " + Constants.__WidthBlocks + "  Height blocks: " + Constants.__HeightBlocks + "\r\n");
-                for (int i = 0; i < Constants.__WidthBlocks; i++) {
-                    for (int j = 0; j < Constants.__HeightBlocks; j++) {
+                writer.WriteLine("Map info:\r\nWidth blocks: " + Constants._WidthBlocks + "  Height blocks: " + Constants._HeightBlocks + "\r\n");
+                for (int i = 0; i < Constants._WidthBlocks; i++) {
+                    for (int j = 0; j < Constants._HeightBlocks; j++) {
                         writer.Write(m_rectangles[i][j].boxType + " ");
                     }
                     writer.Write("\r\n");
@@ -1344,7 +1294,7 @@ namespace kagv {
         }
 
         //Function for importing a map 
-        private void import() {
+        private void Import() {
 
             ofd_importmap.Filter = "kagv Map (*.kmap)|*.kmap";
             ofd_importmap.FileName = "";
@@ -1360,16 +1310,16 @@ namespace kagv {
                     _line = _tmpReader.ReadLine();
                     if (_line.Contains("Width blocks:") && _line.Contains("Height blocks:"))
                         proceed = true;
-                } while (!(_line.Contains("Width blocks:") && _line.Contains("Height blocks:")) && 
+                } while (!(_line.Contains("Width blocks:") && _line.Contains("Height blocks:")) &&
                          !_tmpReader.EndOfStream);
                 _tmpReader.Close();
                 string[] _lineArray = _line.Split(sep);
 
-                
+
                 if (proceed) {
 
-                    Constants.__WidthBlocks = Convert.ToInt32(_lineArray[3]);
-                    Constants.__HeightBlocks = Convert.ToInt32(_lineArray[8]);
+                    Constants._WidthBlocks = Convert.ToInt32(_lineArray[3]);
+                    Constants._HeightBlocks = Convert.ToInt32(_lineArray[8]);
 
                     FullyRestore();
 
@@ -1434,10 +1384,10 @@ namespace kagv {
                             m_rectangles[z][i].boxType = importmap[z, i];
 
                     nUD_AGVs.Value = starts_counter;
-                    initialization();
+                    Initialization();
                     Redraw();
                     if (overImage) {
-                        importedLayout = p;
+                        importedLayout = importedImageFile;
                         overImage = false;
                     }
                 } else
@@ -1446,46 +1396,44 @@ namespace kagv {
         }
 
         //function for importing an image as background
-        Image p;
-        private void importImage() {
+        private void ImportImage() {
             ofd_importmap.Filter = "PNG (*.png)|*.png|JPEG (*.jpg)|(*.jpg)";
             ofd_importmap.FileName = "";
 
             if (ofd_importmap.ShowDialog() == DialogResult.OK) {
                 importedLayout = Image.FromFile(ofd_importmap.FileName);
-                p = Image.FromFile(ofd_importmap.FileName);
+                importedImageFile = Image.FromFile(ofd_importmap.FileName);
                 overImage = true;
             }
-            
+
         }
 
         //Function that validates the user's click 
-        private bool isvalid(Point _temp) {
-           
+        private bool Isvalid(Point _temp) {
+
             //The function received the coordinates of the user's click.
             //Clicking anywhere but on the Grid itself, will cause a "false" return, preventing
             //the click from giving any results
 
             if (_temp.Y < menuPanel.Location.Y)
                 return false;
-           
-            if (_temp.X > m_rectangles[Constants.__WidthBlocks - 1][Constants.__HeightBlocks - 1].boxRec.X + (Constants.__BlockSide - 1) + Constants.__LeftBarOffset
-            || _temp.Y > m_rectangles[Constants.__WidthBlocks - 1][Constants.__HeightBlocks - 1].boxRec.Y + (Constants.__BlockSide - 1)) // 18 because its 20-boarder size
+
+            if (_temp.X > m_rectangles[Constants._WidthBlocks - 1][Constants._HeightBlocks - 1].boxRec.X + (Constants._BlockSide - 1) + Constants._LeftBarOffset
+            || _temp.Y > m_rectangles[Constants._WidthBlocks - 1][Constants._HeightBlocks - 1].boxRec.Y + (Constants._BlockSide - 1)) // 18 because its 20-boarder size
                 return false;
-            
-            if (!m_rectangles[(_temp.X - Constants.__LeftBarOffset) / Constants.__BlockSide][(_temp.Y - Constants.__TopBarOffset) / Constants.__BlockSide].boxRec.Contains(_temp))
+
+            if (!m_rectangles[(_temp.X - Constants._LeftBarOffset) / Constants._BlockSide][(_temp.Y - Constants._TopBarOffset) / Constants._BlockSide].boxRec.Contains(_temp))
                 return false;
 
             return true;
         }
 
-        private void updateGridStats()
-        {
-            int pixelsWidth = Constants.__WidthBlocks * Constants.__BlockSide;
-            int pixelsHeight = Constants.__HeightBlocks * Constants.__BlockSide;
-            lb_width.Text = "Width blocks: " + Constants.__WidthBlocks +".  "+ pixelsWidth + " pixels";
-            lb_height.Text = "Height blocks: " + Constants.__HeightBlocks + ". " + pixelsHeight + " pixels";
-            nud_side.Value = Convert.ToDecimal(Constants.__BlockSide);
+        private void UpdateGridStats() {
+            int pixelsWidth = Constants._WidthBlocks * Constants._BlockSide;
+            int pixelsHeight = Constants._HeightBlocks * Constants._BlockSide;
+            lb_width.Text = "Width blocks: " + Constants._WidthBlocks + ".  " + pixelsWidth + " pixels";
+            lb_height.Text = "Height blocks: " + Constants._HeightBlocks + ". " + pixelsHeight + " pixels";
+            nud_side.Value = Convert.ToDecimal(Constants._BlockSide);
         }
 
     }
