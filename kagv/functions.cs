@@ -827,12 +827,15 @@ namespace kagv {
                     loadPos.RemoveAt(list_index); //remove that load from the list
                     removed = true;
                 }
-                if (!removed)
+                if (!removed) { 
+                    searchGrid.SetWalkableAt(loadPos[list_index], false);
                     list_index++;
+                }
+                
             } while (list_index < loadPos.Count); //loop repeats untill all loads are checked
 
-            for (int i = 0; i < loadPos.Count; i++)
-                searchGrid.SetWalkableAt(loadPos[i], false); //re-sets every Load to non-walkable
+            //for (int i = 0; i < loadPos.Count; i++)
+            //    searchGrid.SetWalkableAt(loadPos[i], false); //re-sets every Load to non-walkable
 
             if (loadPos.Count == 0)
                 mapHasLoads = false;
