@@ -362,22 +362,19 @@ namespace kagv {
         private void nUD_AGVs_ValueChanged(object sender, EventArgs e) {
 
             //if we change the AGVs value from numeric updown,do the following
-            int starts_counter = 0;
             bool removed = false;
             List<GridPos> start_position = new List<GridPos>();
 
             for (int widthTrav = 0; widthTrav < Constants._WidthBlocks; widthTrav++)
                 for (int heightTrav = 0; heightTrav < Constants._HeightBlocks; heightTrav++) {
-                    if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Start) {
+                    if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Start)
                         start_position.Add(new GridPos(widthTrav, heightTrav));
-                        starts_counter++;
-                    }
                     //if we reduce the numeric value and become less than the already-drawn agvs,remove the rest agvs
                     if (start_position.Count > nUD_AGVs.Value) {
                         m_rectangles[start_position[0].x][start_position[0].y].SwitchEnd_StartToNormal(); //removes the very last
                         removed = true;
                         gb_monitor.Controls.Find(
-                     "agv" + (starts_counter) + "steps_LB",
+                     "agv" + (start_position.Count) + "steps_LB",
                  true)
                  [0].Text = "";
                         Invalidate();
