@@ -82,7 +82,6 @@ namespace kagv {
                 for (int i = 0; i < startPos.Count; i++) {
                     AGVs[i].StepsCounter = 0;
 
-                    if (!noJumpPointsFound)//if jump points found...
                         for (int resultTrav = 0; resultTrav < c; resultTrav++)
                             try {
                                 if (linesToolStripMenuItem.Checked)

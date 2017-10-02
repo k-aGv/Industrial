@@ -76,7 +76,6 @@ namespace kagv {
         bool beforeStart = true;
         bool calibrated = false;//flag checking if current point is correctly callibrated in the middle of the rectangle
         bool isMouseDown = false;
-        bool noJumpPointsFound;
         bool mapHasLoads = false;
         bool allowHighlight = true;
 

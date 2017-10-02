@@ -513,8 +513,7 @@ namespace kagv {
             alwaysCross =
             aGVIndexToolStripMenuItem.Checked =
             beforeStart =
-            allowHighlight =
-            noJumpPointsFound = true;
+            allowHighlight = true;
 
             atLeastOneObstacle =
             ifNoObstacles =
@@ -714,7 +713,6 @@ namespace kagv {
             if (!start_found || !end_found)
                 return; //will return if there are no starting or end points in the Grid
 
-            noJumpPointsFound = true;
 
             pos_index = 0;
 
@@ -768,7 +766,6 @@ namespace kagv {
                             jumpParam.Reset(loadPos[0], endPos);
                             JumpPointsList = AStarFinder.FindPath(jumpParam, nud_weight.Value);
                             AGVs[i].JumpPoints.AddRange(JumpPointsList);
-                            noJumpPointsFound = false;
 
                             //marks the load that each AGV picks up on the 1st route, as 3, so each agv knows where to go after delivering the 1st load
                             isLoad[loadPos[0].x, loadPos[0].y] = 3;
@@ -782,7 +779,6 @@ namespace kagv {
                             JumpPointsList = AStarFinder.FindPath(jumpParam, nud_weight.Value);
 
                             AGVs[i].JumpPoints = JumpPointsList;
-                            noJumpPointsFound = false;
                             break;
                     }
                 }
