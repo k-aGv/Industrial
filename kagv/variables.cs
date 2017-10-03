@@ -40,14 +40,14 @@ namespace kagv {
         //not a Load = 2
         //Marked by an AGV Load = 3
         //Temporarily trapped Load = 4
-        int[,] isLoad = new int[Constants._WidthBlocks, Constants._HeightBlocks];
+        int[,] isLoad = new int[Globals._WidthBlocks, Globals._HeightBlocks];
 
         BoxType[,] importmap;
 
         GridBox[][] m_rectangles;//2d jagged array. Contains grid information (coords of each box, boxtype, etc etc)  
 
         int[] timer_counter;
-        bool[] fromstart = new bool[Constants._MaximumAGVs];
+        bool[] fromstart = new bool[Globals._MaximumAGVs];
 
         List<Vehicle> AGVs = new List<Vehicle>();
         List<GridPos> startPos = new List<GridPos>(); //Contains the coords of the Start boxes
@@ -87,7 +87,7 @@ namespace kagv {
         int labeled_loads; //index that is used for displaying how many loads have not been picked up
 
         Color selectedColor = Color.DarkGray;
-        Color boxDefaultColor = (Constants._SemiTransparency) ? Color.FromArgb(Constants._Opacity, Color.WhiteSmoke) : Color.WhiteSmoke;
+        Color boxDefaultColor = (Globals._SemiTransparency) ? Color.FromArgb(Globals._Opacity, Color.WhiteSmoke) : Color.WhiteSmoke;
 
         Image importedImageFile;
         Image importedLayout = null;

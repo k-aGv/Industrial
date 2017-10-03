@@ -52,10 +52,10 @@ namespace kagv {
             boxType = iType;
             switch (iType) {
                 case BoxType.Normal:
-                    if (!Constants._SemiTransparency)
+                    if (!Globals._SemiTransparency)
                         brush = new SolidBrush(Color.WhiteSmoke);
                     else
-                        brush = new SolidBrush(Constants._SemiTransparent);
+                        brush = new SolidBrush(Globals._SemiTransparent);
                     break;
                 case BoxType.End:
                     brush = new SolidBrush(Color.Red);
@@ -71,7 +71,7 @@ namespace kagv {
                     break;
 
             }
-            width = height = Constants._BlockSide - 1;
+            width = height = Globals._BlockSide - 1;
 
             boxRec = new Rectangle(x, y, width, height);
         }
@@ -91,10 +91,10 @@ namespace kagv {
         public void SwitchEnd_StartToNormal() {
             if (brush != null)
                 brush.Dispose();
-            if (!Constants._SemiTransparency)
+            if (!Globals._SemiTransparency)
                 brush = new SolidBrush(Color.WhiteSmoke);
             else
-                brush = new SolidBrush(Constants._SemiTransparent);
+                brush = new SolidBrush(Globals._SemiTransparent);
             boxType = BoxType.Normal;
 
         }
@@ -116,10 +116,10 @@ namespace kagv {
         public void BeVisible() {
             switch (boxType) {
                 case BoxType.Normal:
-                    if (!Constants._SemiTransparency)
+                    if (!Globals._SemiTransparency)
                         brush = new SolidBrush(Color.WhiteSmoke);
                     else
-                        brush = new SolidBrush(Constants._SemiTransparent);
+                        brush = new SolidBrush(Globals._SemiTransparent);
                     break;
                 case BoxType.Wall:
                     if (brush != null)
@@ -142,10 +142,10 @@ namespace kagv {
                     if (brush != null)
                         brush.Dispose();
 
-                    if (!Constants._SemiTransparency)
+                    if (!Globals._SemiTransparency)
                         brush = new SolidBrush(Color.WhiteSmoke);
                     else
-                        brush = new SolidBrush(Constants._SemiTransparent);
+                        brush = new SolidBrush(Globals._SemiTransparent);
 
 
                     boxType = BoxType.Normal;

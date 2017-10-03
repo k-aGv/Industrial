@@ -112,7 +112,7 @@
     <Compile Include="About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="Constants.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="DLL source\AStarFinder.cs" />
     <Compile Include="DLL source\BaseGrid.cs" />
     <Compile Include="DLL source\DiagonalMovement.cs" />

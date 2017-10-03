@@ -58,7 +58,7 @@ namespace kagv {
         }
         //=========================================
         //AGV Path
-        public GridLine[] Paths = new GridLine[Constants._MaximumSteps];
+        public GridLine[] Paths = new GridLine[Globals._MaximumSteps];
         public Point Location;
         public Point MarkedLoad;
 
@@ -109,8 +109,8 @@ namespace kagv {
         /// <returns></returns>
         public Point GetMarkedLoad() {
             Point _p = new Point(
-                (MarkedLoad.X * Constants._BlockSide) + Constants._LeftBarOffset,
-                (MarkedLoad.Y * Constants._BlockSide) + Constants._TopBarOffset
+                (MarkedLoad.X * Globals._BlockSide) + Globals._LeftBarOffset,
+                (MarkedLoad.Y * Globals._BlockSide) + Globals._TopBarOffset
                 );
             return _p;
         }
@@ -121,7 +121,7 @@ namespace kagv {
             mirroredForm = handle;
             this.status.Busy = false;
             this.status.Loaded = false;
-            this.steps = new AGVSteps[Constants._MaximumSteps];
+            this.steps = new AGVSteps[Globals._MaximumSteps];
             for (int i = 0; i < steps.Length; i++) {
                 steps[i] = new AGVSteps();
                 steps[i].X = -1;
@@ -140,7 +140,7 @@ namespace kagv {
 
             AgvPortrait.Controls.Add(AgvIcon);
 
-            Size _size = new Size(Constants._BlockSide - 2, Constants._BlockSide - 2);
+            Size _size = new Size(Globals._BlockSide - 2, Globals._BlockSide - 2);
             Point _location = new Point(StartX, StartY);
             AgvPortrait.Size = _size;
             AgvPortrait.Location = _location;

@@ -26,7 +26,7 @@ using System.Linq;
 using System.Drawing;
 
 namespace kagv {
-    public static class Constants {
+    public static class Globals {
         public const int _MaximumSteps = 2000;
         public const int _TopBarOffset = 75 + 24 + 2;//distance from top to the grid=offset+menubar+2pixel of gray border
         public const int _BottomBarOffset = 50 +20;//distance between grid and the bottom of the form +20 for bottom toolstrip

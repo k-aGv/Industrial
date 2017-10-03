@@ -41,10 +41,10 @@ namespace kagv {
         public Pen pen;
 
         public GridLine(GridBox iFrom, GridBox iTo) {
-            fromX = iFrom.boxRec.X + ((Constants._BlockSide / 2) - 1);
-            fromY = iFrom.boxRec.Y + ((Constants._BlockSide / 2) - 1);
-            toX = iTo.boxRec.X + ((Constants._BlockSide / 2) - 1);
-            toY = iTo.boxRec.Y + ((Constants._BlockSide / 2) - 1);
+            fromX = iFrom.boxRec.X + ((Globals._BlockSide / 2) - 1);
+            fromY = iFrom.boxRec.Y + ((Globals._BlockSide / 2) - 1);
+            toX = iTo.boxRec.X + ((Globals._BlockSide / 2) - 1);
+            toY = iTo.boxRec.Y + ((Globals._BlockSide / 2) - 1);
             pen = new Pen(Color.BlueViolet);
             pen.Width = 1;
 
