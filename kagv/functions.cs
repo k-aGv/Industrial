@@ -1277,7 +1277,13 @@ namespace kagv {
 
             if (sfd_exportmap.ShowDialog() == DialogResult.OK) {
                 StreamWriter writer = new StreamWriter(sfd_exportmap.FileName);
-                writer.WriteLine("Map info:\r\nWidth blocks: " + Constants._WidthBlocks + "  Height blocks: " + Constants._HeightBlocks + "\r\n");
+                writer.WriteLine(
+                    "Map info:\r\n"+
+                    "Width blocks: " + Constants._WidthBlocks + 
+                    "  Height blocks: " + Constants._HeightBlocks + 
+                    "  BlockSide: " + Constants._BlockSide + 
+                    "\r\n"
+                    );
                 for (int i = 0; i < Constants._WidthBlocks; i++) {
                     for (int j = 0; j < Constants._HeightBlocks; j++) {
                         writer.Write(m_rectangles[i][j].boxType + " ");
@@ -1304,9 +1310,9 @@ namespace kagv {
                 StreamReader _tmpReader = new StreamReader(ofd_importmap.FileName);
                 do {
                     _line = _tmpReader.ReadLine();
-                    if (_line.Contains("Width blocks:") && _line.Contains("Height blocks:"))
+                    if (_line.Contains("Width blocks:") && _line.Contains("Height blocks:") && _line.Contains("BlockSide:"))
                         proceed = true;
-                } while (!(_line.Contains("Width blocks:") && _line.Contains("Height blocks:")) &&
+                } while (!(_line.Contains("Width blocks:") && _line.Contains("Height blocks:") && _line.Contains("BlockSide:")) &&
                          !_tmpReader.EndOfStream);
                 _tmpReader.Close();
                 string[] _lineArray = _line.Split(sep);
@@ -1316,6 +1322,7 @@ namespace kagv {
 
                     Constants._WidthBlocks = Convert.ToInt32(_lineArray[3]);
                     Constants._HeightBlocks = Convert.ToInt32(_lineArray[8]);
+                    Constants._BlockSide = Convert.ToInt32(_lineArray[12]);
 
                     FullyRestore();
 
@@ -1349,7 +1356,7 @@ namespace kagv {
 
                     reader.ReadLine();
 
-                    importmap = new BoxType[width_blocks, height_blocks];
+                    importmap = new BoxType[Constants._WidthBlocks, Constants._HeightBlocks];
                     words = reader.ReadLine().Split(delim);
 
                     int starts_counter = 0;
