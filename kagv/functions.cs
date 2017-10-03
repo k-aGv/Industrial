@@ -174,14 +174,16 @@ namespace kagv {
                 else
                     GlobalWarming += 0.64;
             }
-            if (!tree_stats.Nodes[0].IsExpanded)
-                tree_stats.Nodes[0].Expand();
 
-            tree_stats.Nodes[0].Nodes[0].Text = "CO: " + Math.Round(CO, 2) + " gr";
-            tree_stats.Nodes[0].Nodes[1].Text = "CO2: " + Math.Round(CO2, 2) + " gr";
-            tree_stats.Nodes[0].Nodes[2].Text = "NOx: " + Math.Round(NOx, 2) + " gr";
-            tree_stats.Nodes[0].Nodes[3].Text = "THC: " + Math.Round(THC, 2) + " gr";
-            tree_stats.Nodes[0].Nodes[4].Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
+
+            if (!tree_stats.Nodes[1].IsExpanded)
+                tree_stats.Nodes[1].Expand();
+
+            tree_stats.Nodes[1].Nodes[0].Text = "CO: " + Math.Round(CO, 2) + " gr";
+            tree_stats.Nodes[1].Nodes[1].Text = "CO2: " + Math.Round(CO2, 2) + " gr";
+            tree_stats.Nodes[1].Nodes[2].Text = "NOx: " + Math.Round(NOx, 2) + " gr";
+            tree_stats.Nodes[1].Nodes[3].Text = "THC: " + Math.Round(THC, 2) + " gr";
+            tree_stats.Nodes[1].Nodes[4].Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
 
         }
 
@@ -470,14 +472,14 @@ namespace kagv {
         private void FullyRestore() {
 
           
-            if (tree_stats.Nodes[0].IsExpanded)
-                tree_stats.Nodes[0].Collapse();
+            if (tree_stats.Nodes[1].IsExpanded)
+                tree_stats.Nodes[1].Collapse();
 
-            tree_stats.Nodes[0].Nodes[0].Text = "CO: -";
-            tree_stats.Nodes[0].Nodes[1].Text = "CO2: -";
-            tree_stats.Nodes[0].Nodes[2].Text = "NOx: -";
-            tree_stats.Nodes[0].Nodes[3].Text = "THC: -";
-            tree_stats.Nodes[0].Nodes[4].Text = "Global Warming eq: -";
+            tree_stats.Nodes[1].Nodes[0].Text = "CO: -";
+            tree_stats.Nodes[1].Nodes[1].Text = "CO2: -";
+            tree_stats.Nodes[1].Nodes[2].Text = "NOx: -";
+            tree_stats.Nodes[1].Nodes[3].Text = "THC: -";
+            tree_stats.Nodes[1].Nodes[4].Text = "Global Warming eq: -";
 
             loads_label.Text = "";
             labeled_loads = 0;
@@ -1137,9 +1139,8 @@ namespace kagv {
                     break;
             }
         }
-
+      
         private void ConfigUI() {
-
 
             if (Constants._SemiTransparency)
                 Constants._SemiTransparent = Color.FromArgb(Constants._Opacity, Color.WhiteSmoke);
@@ -1200,7 +1201,26 @@ namespace kagv {
             manhattanToolStripMenuItem.Checked = true;
 
             tree_stats.Location = new Point(0, 25);
-            tree_stats.Height = statusStrip1.Location.Y- tree_stats.Location.Y ;
+            tree_stats.Height = statusStrip1.Location.Y - tree_stats.Location.Y;
+
+
+            debugToolStripMenuItem.Visible = Constants._Debug;
+            if (!Constants._Debug) {
+                TreeNode[] tmpagvnodes = tree_stats.Nodes.Find("node_debug", false);
+                tmpagvnodes[0].Text = "Debug is not available";
+                for (int i = 0; i < tmpagvnodes[0].Nodes.Count; i++) {
+                    tmpagvnodes[0].Nodes[i].Text = "Debug is not available";
+                    tmpagvnodes[0].Nodes[i].ForeColor = Color.Red;
+                }
+
+            }
+
+            tree_stats.Nodes[1].Nodes[0].Text = "CO: -";
+            tree_stats.Nodes[1].Nodes[1].Text = "CO2: -";
+            tree_stats.Nodes[1].Nodes[2].Text = "NOx: -";
+            tree_stats.Nodes[1].Nodes[3].Text = "THC: -";
+            tree_stats.Nodes[1].Nodes[4].Text = "Global Warming eq: -";
+
 
             //dynamically add the location of menupanel.
             //We have to do it dynamically because the forms size is always depended on PCs actual screen size
@@ -1228,11 +1248,7 @@ namespace kagv {
                 ToolTipTitle = "Grid Block Information",
             };
 
-            tree_stats.Nodes[0].Nodes[0].Text = "CO: -";
-            tree_stats.Nodes[0].Nodes[1].Text = "CO2: -";
-            tree_stats.Nodes[0].Nodes[2].Text = "NOx: -";
-            tree_stats.Nodes[0].Nodes[3].Text = "THC: -";
-            tree_stats.Nodes[0].Nodes[4].Text = "Global Warming eq: -";
+           
 
         }
 

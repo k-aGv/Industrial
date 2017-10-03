@@ -45,5 +45,9 @@ namespace kagv {
         public static Color _SemiTransparent;
 
         public static double _AStarWeight = 0.5;
+
+        //This value is needed since the application does not allow me to change the Debug menu
+        //visibility before form shown
+        public static bool _Debug = false;
     }
 }

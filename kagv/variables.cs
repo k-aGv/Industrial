@@ -92,6 +92,8 @@ namespace kagv {
         Image importedImageFile;
         Image importedLayout = null;
 
-      
+        decimal CountAgvs = 0;
+
+
     }
 }

@@ -48,8 +48,6 @@ namespace kagv {
             paper = e.Graphics;
             paper.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
-            
-
             try {
                 if (importedLayout != null) {
 
@@ -107,10 +105,8 @@ namespace kagv {
 
             } catch { }
         }
-
+     
         private void main_form_Load(object sender, EventArgs e) {
-
-            debugToolStripMenuItem.Visible = true;
 
             //Automatically enable the CPUs for this app.
             var _proc = System.Diagnostics.Process.GetCurrentProcess();
@@ -122,6 +118,7 @@ namespace kagv {
 
             _proc.ProcessorAffinity = new IntPtr(coreFlag);
             //More infos here:https://msdn.microsoft.com/en-us/library/system.diagnostics.processthread.processoraffinity(v=vs.110).aspx
+           
         }
 
         private void main_form_MouseDown(object sender, MouseEventArgs e) {
@@ -360,7 +357,7 @@ namespace kagv {
             Invalidate();
         }
 
-
+        
         private void nUD_AGVs_ValueChanged(object sender, EventArgs e) {
 
             //if we change the AGVs value from numeric updown,do the following
@@ -384,6 +381,21 @@ namespace kagv {
                 }
             if (removed)
                 Redraw();
+
+            TreeNode node = new TreeNode("AGV:" + nUD_AGVs.Value);
+            node.Name = "AGV:" + nUD_AGVs.Value;
+            if (CountAgvs < nUD_AGVs.Value) {
+                tree_stats.Nodes.Add(node);
+                TreeNodeCollection s = tree_stats.Nodes;
+                tree_stats.Nodes[s.Count - 1].Nodes.Add("Test child1");
+                tree_stats.Nodes[s.Count - 1].Nodes.Add("Test child2");
+                CountAgvs++;
+            } else {
+                TreeNode[] agvnodes = tree_stats.Nodes.Find("AGV:"+ CountAgvs, true);
+                tree_stats.Nodes.Remove(agvnodes[agvnodes.Length-1]);
+                CountAgvs--;
+            }
+            tree_stats.Refresh();
         }
 
         private void main_form_MouseClick(object sender, MouseEventArgs e) {

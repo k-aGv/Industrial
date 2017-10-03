@@ -24,25 +24,25 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node2");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Node3");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Node4");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Node5");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Node6");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Emissions", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("We will add vars here");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("more var");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("even moar");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("even even moar");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("EVEN MOAR");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("me think itz enuf");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Debug", new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2,
             treeNode3,
             treeNode4,
-            treeNode5});
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("We will add vars here");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Node1");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Node2");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Node3");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Node4");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Node5");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Debug", new System.Windows.Forms.TreeNode[] {
-            treeNode7,
+            treeNode5,
+            treeNode6});
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Node2");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Node3");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Node4");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Node5");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Node6");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Emissions", new System.Windows.Forms.TreeNode[] {
             treeNode8,
             treeNode9,
             treeNode10,
@@ -870,34 +870,36 @@
             // 
             this.tree_stats.Location = new System.Drawing.Point(0, 27);
             this.tree_stats.Name = "tree_stats";
-            treeNode1.Name = "Node2";
-            treeNode1.Text = "Node2";
-            treeNode2.Name = "Node3";
-            treeNode2.Text = "Node3";
-            treeNode3.Name = "Node4";
-            treeNode3.Text = "Node4";
-            treeNode4.Name = "Node5";
-            treeNode4.Text = "Node5";
-            treeNode5.Name = "Node6";
-            treeNode5.Text = "Node6";
-            treeNode6.Name = "Node0";
-            treeNode6.Text = "Emissions";
-            treeNode7.Name = "Node0";
-            treeNode7.Text = "We will add vars here";
-            treeNode8.Name = "Node1";
-            treeNode8.Text = "Node1";
-            treeNode9.Name = "Node2";
-            treeNode9.Text = "Node2";
-            treeNode10.Name = "Node3";
-            treeNode10.Text = "Node3";
-            treeNode11.Name = "Node4";
-            treeNode11.Text = "Node4";
-            treeNode12.Name = "Node5";
-            treeNode12.Text = "Node5";
-            treeNode13.Name = "node_debug";
-            treeNode13.Text = "Debug";
+            treeNode1.Name = "Node0";
+            treeNode1.Text = "We will add vars here";
+            treeNode2.Name = "Node1";
+            treeNode2.Text = "more var";
+            treeNode3.Name = "Node2";
+            treeNode3.Text = "even moar";
+            treeNode4.Name = "Node3";
+            treeNode4.Text = "even even moar";
+            treeNode5.Name = "Node4";
+            treeNode5.Text = "EVEN MOAR";
+            treeNode6.Name = "Node5";
+            treeNode6.Text = "me think itz enuf";
+            treeNode7.Checked = true;
+            treeNode7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            treeNode7.Name = "node_debug";
+            treeNode7.Text = "Debug";
+            treeNode8.Name = "Node2";
+            treeNode8.Text = "Node2";
+            treeNode9.Name = "Node3";
+            treeNode9.Text = "Node3";
+            treeNode10.Name = "Node4";
+            treeNode10.Text = "Node4";
+            treeNode11.Name = "Node5";
+            treeNode11.Text = "Node5";
+            treeNode12.Name = "Node6";
+            treeNode12.Text = "Node6";
+            treeNode13.Name = "node_emissions";
+            treeNode13.Text = "Emissions";
             this.tree_stats.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode6,
+            treeNode7,
             treeNode13});
             this.tree_stats.Size = new System.Drawing.Size(150, 280);
             this.tree_stats.TabIndex = 12;
