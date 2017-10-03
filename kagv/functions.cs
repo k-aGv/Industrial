@@ -1307,14 +1307,13 @@ namespace kagv {
                 string _line = "";
                 char[] sep = { ':', ' ' };
 
-                StreamReader _tmpReader = new StreamReader(ofd_importmap.FileName);
+                StreamReader reader = new StreamReader(ofd_importmap.FileName);
                 do {
-                    _line = _tmpReader.ReadLine();
+                    _line = reader.ReadLine();
                     if (_line.Contains("Width blocks:") && _line.Contains("Height blocks:") && _line.Contains("BlockSide:"))
                         proceed = true;
                 } while (!(_line.Contains("Width blocks:") && _line.Contains("Height blocks:") && _line.Contains("BlockSide:")) &&
-                         !_tmpReader.EndOfStream);
-                _tmpReader.Close();
+                         !reader.EndOfStream);
                 string[] _lineArray = _line.Split(sep);
 
 
@@ -1326,36 +1325,9 @@ namespace kagv {
 
                     FullyRestore();
 
-                    StreamReader reader = new StreamReader(ofd_importmap.FileName);
-                    reader.ReadLine();
-
-                    imported = true;
-
-                    string map_details = reader.ReadLine();
-
+                    string[] words;
                     char[] delim = { ' ' };
-                    string[] words = map_details.Split(delim);
-
-                    bool isNumber;
-                    int _tempNumber;
-                    int whichNumber = 1;
-
-                    int width_blocks = 0;
-                    int height_blocks = 0;
-
-                    foreach (string _s in words) {
-                        isNumber = int.TryParse(_s, out _tempNumber);
-                        if (isNumber) {
-                            if (whichNumber == 1) {
-                                width_blocks = Convert.ToInt32(_s);
-                                whichNumber++;
-                            } else if (whichNumber == 2)
-                                height_blocks = Convert.ToInt32(_s);
-                        }
-                    }
-
                     reader.ReadLine();
-
                     importmap = new BoxType[Constants._WidthBlocks, Constants._HeightBlocks];
                     words = reader.ReadLine().Split(delim);
 
@@ -1382,11 +1354,8 @@ namespace kagv {
                     }
                     reader.Close();
 
-                    for (int z = 0; z < importmap.GetLength(0); z++)
-                        for (int i = 0; i < importmap.GetLength(1); i++)
-                            m_rectangles[z][i].boxType = importmap[z, i];
-
                     nUD_AGVs.Value = starts_counter;
+                    imported = true;
                     Initialization();
                     Redraw();
                     if (overImage) {
