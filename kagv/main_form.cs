@@ -36,6 +36,7 @@ namespace kagv {
         public main_form() {
             InitializeComponent();//Create the form layout
             Application.AddMessageFilter(this);
+            MeasureScreen();
             Initialization();//initialize our stuff
         }
 

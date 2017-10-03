@@ -560,7 +560,9 @@ namespace kagv {
                 for (int j = 0; j < Constants._HeightBlocks; j++)
                     m_rectangles[i][j] = new GridBox(i * Constants._BlockSide, j * Constants._BlockSide + Constants._TopBarOffset, BoxType.Normal);
 
+           
             Initialization();
+
             main_form_Load(new object(), new EventArgs());
 
             for (int i = 0; i < AGVs.Count; i++)
@@ -1139,6 +1141,7 @@ namespace kagv {
 
         private void ConfigUI() {
 
+
             if (Constants._SemiTransparency)
                 Constants._SemiTransparent = Color.FromArgb(Constants._Opacity, Color.WhiteSmoke);
 
@@ -1229,9 +1232,15 @@ namespace kagv {
             //********************************************************
 
         }
+
+        private void MeasureScreen() {
+            int usableSize = Screen.PrimaryScreen.Bounds.Height - menuPanel.Height - Constants._BottomBarOffset - Constants._TopBarOffset;
+            Constants._HeightBlocks = usableSize / Constants._BlockSide;
+        }
+
         //Initializes all the objects in main_form
         private void Initialization() {
-
+            
             //m_rectangels is an array of two 1d arrays
             //declares the length of the first 1d array
             m_rectangles = new GridBox[Constants._WidthBlocks][];
