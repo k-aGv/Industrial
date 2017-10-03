@@ -34,6 +34,7 @@ namespace kagv {
 
         //custom constructor of this form.
         public main_form() {
+            DoubleBuffered = true;
             InitializeComponent();//Create the form layout
             Application.AddMessageFilter(this);
             MeasureScreen();

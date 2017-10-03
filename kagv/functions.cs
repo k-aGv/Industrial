@@ -1149,7 +1149,6 @@ namespace kagv {
                 AGVs[i].ID = i;
             }
 
-            DoubleBuffered = true;
             Width = ((Constants._WidthBlocks + 1) * Constants._BlockSide) + Constants._LeftBarOffset;
             Height = (Constants._HeightBlocks + 1) * Constants._BlockSide + Constants._BottomBarOffset + 7; //+7 for borders
             Size = new Size(Width, Height + Constants._BottomBarOffset);
