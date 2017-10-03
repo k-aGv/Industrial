@@ -108,6 +108,8 @@ namespace kagv {
      
         private void main_form_Load(object sender, EventArgs e) {
 
+            ReflectVariables();
+
             //Automatically enable the CPUs for this app.
             var _proc = System.Diagnostics.Process.GetCurrentProcess();
             int coreFlag;

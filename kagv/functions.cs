@@ -1433,5 +1433,21 @@ namespace kagv {
             nud_side.Value = Convert.ToDecimal(Globals._BlockSide);
         }
 
+        private void ToDebugPanel(object var, string varname) {
+            TreeNode node = new TreeNode(varname.ToString())
+            {
+                Name = varname,
+                Text = varname + ":" + var,
+            };
+            tree_stats.Nodes[0].Nodes.Add(node);
+        }
+
+        private void ReflectVariables() {
+            if (Globals._Debug) {
+                ToDebugPanel(Globals._AStarWeight, nameof(Globals._AStarWeight));
+                //add more reflections here
+            }
+        }
+
     }
 }
