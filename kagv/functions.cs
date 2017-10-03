@@ -32,7 +32,6 @@ namespace kagv {
 
     public partial class main_form : IMessageFilter {
 
-        bool holdCTRL;
 
         //Message callback of key
         public bool PreFilterMessage(ref Message _msg) {
