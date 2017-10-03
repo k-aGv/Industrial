@@ -1260,7 +1260,7 @@ namespace kagv {
 
         //Initializes all the objects in main_form
         private void Initialization() {
-            
+            isLoad = new int[Globals._WidthBlocks, Globals._HeightBlocks];
             //m_rectangels is an array of two 1d arrays
             //declares the length of the first 1d array
             m_rectangles = new GridBox[Globals._WidthBlocks][];

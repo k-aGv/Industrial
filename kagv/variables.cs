@@ -40,7 +40,7 @@ namespace kagv {
         //not a Load = 2
         //Marked by an AGV Load = 3
         //Temporarily trapped Load = 4
-        int[,] isLoad = new int[Globals._WidthBlocks, Globals._HeightBlocks];
+        int[,] isLoad; 
 
         BoxType[,] importmap;
 
