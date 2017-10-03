@@ -126,6 +126,9 @@
     <Compile Include="DLL source\ParamBase.cs" />
     <Compile Include="DLL source\SingletonHolder.cs" />
     <Compile Include="DLL source\Util.cs" />
+    <Compile Include="DoubleBufferedTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="emissions.cs">
       <SubType>Form</SubType>
     </Compile>

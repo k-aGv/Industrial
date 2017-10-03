@@ -32,7 +32,6 @@ namespace kagv {
 
     public partial class main_form : IMessageFilter {
 
-
         //Message callback of key
         public bool PreFilterMessage(ref Message _msg) {
             if (timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled)
@@ -185,6 +184,20 @@ namespace kagv {
                     GlobalWarming += 0.64;
             }
             //Math.Round(, 2) is used to keep the 2 decimals of the emissions shown
+            TreeNodeCollection s = tree_stats.Nodes;
+            TreeNodeCollection emissionNodes = s[0].Nodes;
+            //MessageBox.Show(s[0].Text + " " + s[1].Text);
+
+
+            if (!tree_stats.Nodes[0].IsExpanded)
+                tree_stats.Nodes[0].Expand();
+
+            emissionNodes[0].Text = "CO2: " + Math.Round(CO2, 2) + " gr";
+            emissionNodes[1].Text = "CO2: " + Math.Round(CO2, 2) + " gr";
+            emissionNodes[2].Text = "NOx: " + Math.Round(NOx, 2) + " gr";
+            emissionNodes[3].Text = "THC: " + Math.Round(THC, 2) + " gr";
+            emissionNodes[4].Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
+
             emissions.CO2_label.Text = "CO2: " + Math.Round(CO2, 2) + " gr";
             emissions.CO_label.Text = "CO: " + Math.Round(CO, 2) + " gr";
             emissions.NOx_label.Text = "NOx: " + Math.Round(NOx, 2) + " gr";

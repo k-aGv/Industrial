@@ -24,14 +24,18 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node4");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Node0", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Node2");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Node3");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Node1", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node2");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Node3");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Node4");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Node5");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Node6");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Node0", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
             treeNode3,
-            treeNode4});
+            treeNode4,
+            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Node1");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main_form));
             this.timer0 = new System.Windows.Forms.Timer(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
@@ -99,6 +103,8 @@
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.borderColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showGridBlockLocationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
             this.panel_resize = new System.Windows.Forms.Panel();
             this.lb_blockside = new System.Windows.Forms.Label();
@@ -115,9 +121,7 @@
             this.btn_right = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tree_stats = new System.Windows.Forms.TreeView();
-            this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showGridBlockLocationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tree_stats = new BufferedTreeView();
             this.menuPanel.SuspendLayout();
             this.gb_type.SuspendLayout();
             this.gb_monitor.SuspendLayout();
@@ -682,6 +686,22 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
+            // debugToolStripMenuItem
+            // 
+            this.debugToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showGridBlockLocationsToolStripMenuItem});
+            this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
+            this.debugToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.debugToolStripMenuItem.Text = "Debug";
+            // 
+            // showGridBlockLocationsToolStripMenuItem
+            // 
+            this.showGridBlockLocationsToolStripMenuItem.Name = "showGridBlockLocationsToolStripMenuItem";
+            this.showGridBlockLocationsToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.showGridBlockLocationsToolStripMenuItem.Text = "Show grid block locations";
+            this.showGridBlockLocationsToolStripMenuItem.MouseEnter += new System.EventHandler(this.showGridBlockLocationsToolStripMenuItem_MouseEnter);
+            this.showGridBlockLocationsToolStripMenuItem.MouseLeave += new System.EventHandler(this.showGridBlockLocationsToolStripMenuItem_MouseLeave);
+            // 
             // panel_resize
             // 
             this.panel_resize.Controls.Add(this.lb_blockside);
@@ -838,37 +858,25 @@
             // 
             this.tree_stats.Location = new System.Drawing.Point(0, 27);
             this.tree_stats.Name = "tree_stats";
-            treeNode1.Name = "Node4";
-            treeNode1.Text = "Node4";
-            treeNode2.Name = "Node0";
-            treeNode2.Text = "Node0";
-            treeNode3.Name = "Node2";
-            treeNode3.Text = "Node2";
-            treeNode4.Name = "Node3";
-            treeNode4.Text = "Node3";
-            treeNode5.Name = "Node1";
-            treeNode5.Text = "Node1";
+            treeNode1.Name = "Node2";
+            treeNode1.Text = "Node2";
+            treeNode2.Name = "Node3";
+            treeNode2.Text = "Node3";
+            treeNode3.Name = "Node4";
+            treeNode3.Text = "Node4";
+            treeNode4.Name = "Node5";
+            treeNode4.Text = "Node5";
+            treeNode5.Name = "Node6";
+            treeNode5.Text = "Node6";
+            treeNode6.Name = "Node0";
+            treeNode6.Text = "Node0";
+            treeNode7.Name = "Node1";
+            treeNode7.Text = "Node1";
             this.tree_stats.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode5});
+            treeNode6,
+            treeNode7});
             this.tree_stats.Size = new System.Drawing.Size(150, 414);
-            this.tree_stats.TabIndex = 11;
-            // 
-            // debugToolStripMenuItem
-            // 
-            this.debugToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showGridBlockLocationsToolStripMenuItem});
-            this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
-            this.debugToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
-            this.debugToolStripMenuItem.Text = "Debug";
-            // 
-            // showGridBlockLocationsToolStripMenuItem
-            // 
-            this.showGridBlockLocationsToolStripMenuItem.Name = "showGridBlockLocationsToolStripMenuItem";
-            this.showGridBlockLocationsToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
-            this.showGridBlockLocationsToolStripMenuItem.Text = "Show grid block locations";
-            this.showGridBlockLocationsToolStripMenuItem.MouseEnter += new System.EventHandler(this.showGridBlockLocationsToolStripMenuItem_MouseEnter);
-            this.showGridBlockLocationsToolStripMenuItem.MouseLeave += new System.EventHandler(this.showGridBlockLocationsToolStripMenuItem_MouseLeave);
+            this.tree_stats.TabIndex = 12;
             // 
             // main_form
             // 
@@ -999,9 +1007,9 @@
         private System.Windows.Forms.Label lb_width;
         private System.Windows.Forms.Label lb_blockside;
         private System.Windows.Forms.NumericUpDown nud_side;
-        private System.Windows.Forms.TreeView tree_stats;
         private System.Windows.Forms.ToolStripMenuItem debugToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showGridBlockLocationsToolStripMenuItem;
+        private BufferedTreeView tree_stats;
     }
 }
 
