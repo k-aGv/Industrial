@@ -1234,6 +1234,7 @@ namespace kagv {
         }
 
         private void MeasureScreen() {
+            Location = Screen.PrimaryScreen.Bounds.Location;
             int usableSize = Screen.PrimaryScreen.Bounds.Height - menuPanel.Height - Constants._BottomBarOffset - Constants._TopBarOffset;
             Constants._HeightBlocks = usableSize / Constants._BlockSide;
         }
