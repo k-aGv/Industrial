@@ -132,15 +132,6 @@ namespace kagv {
 
         }
         /*-----------------------------------------------------*/
-        //function for emissions Form
-        private void Show_emissions() {
-            //creates a set of coordinates (Point) that determine the Location of the emissions Form
-            Point emissions_loc = new Point(this.Location.X + this.Size.Width - emissions.Size.Width, this.Location.Y + 30);
-            emissions.Show();
-            emissions.Location = emissions_loc;
-            emissions.BringToFront();
-        }
-
         //function for updating the values that are shown in the emissions Form
         private void Update_emissions(int whichAGV) {
 
@@ -183,26 +174,15 @@ namespace kagv {
                 else
                     GlobalWarming += 0.64;
             }
-            //Math.Round(, 2) is used to keep the 2 decimals of the emissions shown
-            TreeNodeCollection s = tree_stats.Nodes;
-            TreeNodeCollection emissionNodes = s[0].Nodes;
-            //MessageBox.Show(s[0].Text + " " + s[1].Text);
-
-
             if (!tree_stats.Nodes[0].IsExpanded)
                 tree_stats.Nodes[0].Expand();
 
-            emissionNodes[0].Text = "CO2: " + Math.Round(CO2, 2) + " gr";
-            emissionNodes[1].Text = "CO2: " + Math.Round(CO2, 2) + " gr";
-            emissionNodes[2].Text = "NOx: " + Math.Round(NOx, 2) + " gr";
-            emissionNodes[3].Text = "THC: " + Math.Round(THC, 2) + " gr";
-            emissionNodes[4].Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
+            tree_stats.Nodes[0].Nodes[0].Text = "CO: " + Math.Round(CO, 2) + " gr";
+            tree_stats.Nodes[0].Nodes[1].Text = "CO2: " + Math.Round(CO2, 2) + " gr";
+            tree_stats.Nodes[0].Nodes[2].Text = "NOx: " + Math.Round(NOx, 2) + " gr";
+            tree_stats.Nodes[0].Nodes[3].Text = "THC: " + Math.Round(THC, 2) + " gr";
+            tree_stats.Nodes[0].Nodes[4].Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
 
-            emissions.CO2_label.Text = "CO2: " + Math.Round(CO2, 2) + " gr";
-            emissions.CO_label.Text = "CO: " + Math.Round(CO, 2) + " gr";
-            emissions.NOx_label.Text = "NOx: " + Math.Round(NOx, 2) + " gr";
-            emissions.THC_label.Text = "THC: " + Math.Round(THC, 2) + " gr";
-            emissions.Global_label.Text = "Global Warming eq: " + Math.Round(GlobalWarming, 2) + " kgr";
         }
 
         private void StopTimers(int agv_index) {
@@ -488,6 +468,17 @@ namespace kagv {
 
         //function that resets all of the used objects so they are ready for reuse, preventing memory leaks
         private void FullyRestore() {
+
+          
+            if (tree_stats.Nodes[0].IsExpanded)
+                tree_stats.Nodes[0].Collapse();
+
+            tree_stats.Nodes[0].Nodes[0].Text = "CO: -";
+            tree_stats.Nodes[0].Nodes[1].Text = "CO2: -";
+            tree_stats.Nodes[0].Nodes[2].Text = "NOx: -";
+            tree_stats.Nodes[0].Nodes[3].Text = "THC: -";
+            tree_stats.Nodes[0].Nodes[4].Text = "Global Warming eq: -";
+
             loads_label.Text = "";
             labeled_loads = 0;
 
@@ -550,11 +541,7 @@ namespace kagv {
 
 
             AGVs = new List<Vehicle>();
-            if (emissions != null) {
-                emissions.Dispose();
-                CO2 = CO = NOx = THC = GlobalWarming = 0;
-                emissions = new emissions();
-            }
+            CO2 = CO = NOx = THC = GlobalWarming = 0;
 
             allowHighlight = true;
             highlightOverCurrentBoxToolStripMenuItem.Enabled = true;
@@ -1213,7 +1200,7 @@ namespace kagv {
             manhattanToolStripMenuItem.Checked = true;
 
             tree_stats.Location = new Point(0, 25);
-            tree_stats.Height = Height;
+            tree_stats.Height = statusStrip1.Location.Y- tree_stats.Location.Y ;
 
             //dynamically add the location of menupanel.
             //We have to do it dynamically because the forms size is always depended on PCs actual screen size
@@ -1240,7 +1227,12 @@ namespace kagv {
                 ToolTipIcon = ToolTipIcon.Info,
                 ToolTipTitle = "Grid Block Information",
             };
-            //********************************************************
+
+            tree_stats.Nodes[0].Nodes[0].Text = "CO: -";
+            tree_stats.Nodes[0].Nodes[1].Text = "CO2: -";
+            tree_stats.Nodes[0].Nodes[2].Text = "NOx: -";
+            tree_stats.Nodes[0].Nodes[3].Text = "THC: -";
+            tree_stats.Nodes[0].Nodes[4].Text = "Global Warming eq: -";
 
         }
 

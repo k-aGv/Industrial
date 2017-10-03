@@ -29,7 +29,6 @@ namespace kagv {
 
     public partial class main_form {
 
-        emissions emissions = new emissions();
         double CO2 = 0, CO = 0, NOx = 0, THC = 0, GlobalWarming = 0;
 
 

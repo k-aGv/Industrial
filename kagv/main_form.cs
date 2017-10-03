@@ -682,8 +682,6 @@ namespace kagv {
             nud_weight.Enabled = false;
             cb_type.Enabled = false;
             toolStripStatusLabel1.Text = "Simulation is running...";
-
-            Show_emissions();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -716,16 +714,6 @@ namespace kagv {
             borderColorToolStripMenuItem.Checked = false;
         }
 
-        private void resolutionToolStripMenuItem_Click(object sender, EventArgs e) {
-
-
-        }
-
-        private void main_form_LocationChanged(object sender, EventArgs e) {
-
-            emissions.Location = new Point(Location.X + Size.Width, Location.Y);
-
-        }
 
         private void fileToolStripMenuItem_Click(object sender, EventArgs e) {
 
