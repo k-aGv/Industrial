@@ -1176,7 +1176,6 @@ namespace kagv {
             refresh_label.Text = "Delay :" + timer0.Interval + " ms";
 
             loads_label.Location = new Point(refresh_label.Location.X + refresh_label.Width, refresh_label.Location.Y);
-            nUD_AGVs.Value = 0;
 
             agv1steps_LB.Text =
             agv2steps_LB.Text =
