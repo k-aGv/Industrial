@@ -263,7 +263,7 @@ namespace kagv {
 
                 AGVs[agv_index].Status.Busy = true; //Sets the status of the AGV to Busy (because it has just picked-up the marked Load
                 AGVs[agv_index].SetLoaded(); //changes the icon of the AGV and it now appears as Loaded
-                this.Refresh();
+                Refresh();
 
                 //We needed to find a way to know if the animation is scheduled by Redraw or by GetNextLoad
                 //fromstart means that an AGV is starting from its VERY FIRST position, heading to a Load and then to exit
@@ -500,8 +500,8 @@ namespace kagv {
                 Array.Clear(importmap, 0, importmap.GetLength(1));
             }
 
-            if (this.BackgroundImage != null)
-                this.BackgroundImage = null;
+            if (BackgroundImage != null)
+                BackgroundImage = null;
 
             fromstart = new bool[Globals._MaximumAGVs];
 
@@ -580,19 +580,16 @@ namespace kagv {
                 for (int i = 0; i < Globals._WidthBlocks; i++)
                     for (int j = 0; j < Globals._HeightBlocks; j++)
                         m_rectangles[i][j].BeTransparent();
-                this.BackColor = Color.DarkGray;
+                BackColor = Color.DarkGray;
             } else {
                 for (int i = 0; i < Globals._WidthBlocks; i++)
                     for (int j = 0; j < Globals._HeightBlocks; j++)
                         if (m_rectangles[i][j].boxType == BoxType.Normal) {
                             m_rectangles[i][j].BeVisible();
 
-                            if (!Globals._SemiTransparency)
-                                boxDefaultColor = Color.WhiteSmoke;
-                            else
-                                boxDefaultColor = Color.FromArgb(128, 255, 0, 255);
+                            boxDefaultColor = Globals._SemiTransparency ? Color.FromArgb(128, 255, 0, 255) : Color.WhiteSmoke;
                         }
-                this.BackColor = selectedColor;
+                BackColor = selectedColor;
             }
 
             //no need of invalidation since its done after the call of this function
@@ -1098,7 +1095,7 @@ namespace kagv {
                     AGVs[i].Paths[j] = line;
                 }
 
-            this.Invalidate();
+            Invalidate();
         }
 
         //function that starts the needed timers
