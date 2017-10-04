@@ -112,6 +112,7 @@
     <Compile Include="About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
+    <Compile Include="DLL source\StaticGrid.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="DLL source\AStarFinder.cs" />
     <Compile Include="DLL source\BaseGrid.cs" />

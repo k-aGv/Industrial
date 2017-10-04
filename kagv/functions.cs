@@ -1290,7 +1290,8 @@ namespace kagv {
             if (imported)
                 imported = false;
 
-            searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
+
+            searchGrid = new StaticGrid(Globals._WidthBlocks, Globals._HeightBlocks);
             jumpParam = new AStarParam(searchGrid, Convert.ToSingle(Globals._AStarWeight));//Default value until user edit it
             jumpParam.SetHeuristic(HeuristicMode.MANHATTAN); //default value until user edit it
 
