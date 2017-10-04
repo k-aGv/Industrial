@@ -36,6 +36,8 @@ namespace kagv {
         public const int _gb_monitor_height = 65;
         public const bool _SemiTransparency = true;
 
+        
+
         //Grid's stats
         public static int _WidthBlocks = 70; //grid blocks
         public static int _HeightBlocks = 44; //grid blocks
@@ -47,5 +49,6 @@ namespace kagv {
         //This value is needed since the application does not allow me to change the Debug menu
         //visibility before form shown
         public static bool _Debug = true;
+        public static bool _FirstFormLoad = true;
     }
 }

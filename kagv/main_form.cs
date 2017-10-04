@@ -25,6 +25,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.IO;
 
 
 namespace kagv {
@@ -113,7 +114,8 @@ namespace kagv {
         }
      
         private void main_form_Load(object sender, EventArgs e) {
-
+            
+            
             ReflectVariables();
 
             //Automatically enable the CPUs for this app.
@@ -979,6 +981,18 @@ namespace kagv {
             Redraw();
             Refresh();
         }
-    }
+        
+        private void main_form_FormClosing(object sender, FormClosingEventArgs e) {
+            if (File.Exists("info.txt"))
+                File.Delete("info.txt");
 
+            StreamWriter writer = new StreamWriter("info.txt");
+            writer.WriteLine(
+                Globals._WidthBlocks + "\n" +
+                Globals._HeightBlocks + "\n" +
+                Globals._BlockSide);
+            writer.Dispose();
+        }
+    }
+    
 }

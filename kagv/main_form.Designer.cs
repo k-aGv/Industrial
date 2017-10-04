@@ -923,6 +923,7 @@
             this.MaximizeBox = false;
             this.Name = "main_form";
             this.Text = "kagv Simulation-Industrial";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_form_FormClosing);
             this.Load += new System.EventHandler(this.main_form_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.main_form_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseClick);

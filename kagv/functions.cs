@@ -1251,6 +1251,20 @@ namespace kagv {
 
         //Initializes all the objects in main_form
         private void Initialization() {
+            if (Globals._FirstFormLoad) {
+                if (File.Exists("info.txt")) {
+                    StreamReader reader = new StreamReader("info.txt");
+                    try {
+                        Globals._WidthBlocks = Convert.ToInt32(reader.ReadLine());
+                        Globals._HeightBlocks = Convert.ToInt32(reader.ReadLine());
+                        Globals._BlockSide = Convert.ToInt32(reader.ReadLine());
+                    } catch { MessageBox.Show("An error has occured while parsing the file to initialize form.\nPlease delete the file."); }
+                }
+                Globals._FirstFormLoad = false;
+            }
+
+
+
             isLoad = new int[Globals._WidthBlocks, Globals._HeightBlocks];
             //m_rectangels is an array of two 1d arrays
             //declares the length of the first 1d array
