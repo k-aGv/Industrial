@@ -221,7 +221,7 @@ namespace kagv {
 
         //function that executes the whole animation. Will be explaining thoroughly below
         private void Animator(int steps_counter, int agv_index) {
-            TreeNodeCollection treeNodeCollection = tree_stats.Nodes;
+            
             
 
             //we use the incoming parameters, given from the corresponding Timer that calls Animator at a given time
@@ -291,8 +291,7 @@ namespace kagv {
                     AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
 
                     AGVs[agv_index].LoadsDelivered++;
-                    treeNodeCollection.Find("AGV:" + (agv_index), false)[0].Nodes[0].Text = "Loads Delivered: " + AGVs[agv_index].LoadsDelivered;
-
+                    tree_stats.Nodes.Find("AGV:" + (agv_index), false)[0].Nodes[0].Text = "Loads Delivered: " + AGVs[agv_index].LoadsDelivered;
                     AGVs[agv_index].Status.Busy = false; //change the AGV's status back to available again (not busy obviously)
 
                     //here we scan the Grid and search for Loads that either ARE available or WILL BE available
@@ -1440,7 +1439,7 @@ namespace kagv {
 
         private void ReflectVariables() {
             if (Globals._Debug) {
-                ToDebugPanel(Globals._AStarWeight, nameof(Globals._AStarWeight));
+                //ToDebugPanel(Globals._AStarWeight, nameof(Globals._AStarWeight));
                 //add more reflections here
             }
         }
