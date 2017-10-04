@@ -76,6 +76,7 @@ namespace kagv {
                         UpdateGridStats();
                         toolStripStatusLabel1.Text = "Release CTRL to return...";
                         panel_resize.Visible = true;
+                        FullyRestore();
                         return true;
                     } else return false;
                 }
@@ -89,6 +90,7 @@ namespace kagv {
                         toolStripStatusLabel1.Text = "Release CTRL to return...";
                         panel_resize.Visible = true;
                         overImage = false;
+                        FullyRestore();
                         return true;
                     } else return false;
                 } else {
