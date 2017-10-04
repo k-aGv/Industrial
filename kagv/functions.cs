@@ -515,7 +515,8 @@ namespace kagv {
             for (int i = 0; i < startPos.Count(); i++)
                 AGVs[i].JumpPoints = new List<GridPos>();
 
-            searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
+            
+            searchGrid = new StaticGrid(Globals._WidthBlocks, Globals._HeightBlocks);
 
             alwaysCross =
             aGVIndexToolStripMenuItem.Checked =
