@@ -335,12 +335,6 @@ namespace kagv {
                 if (isLoad[AGVs[agv_index].MarkedLoad.X, AGVs[agv_index].MarkedLoad.Y] == 2) //if the AGV has picked up the Load it has marked...
                     if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
                         AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
-                        AGVs[agv_index].LoadsDelivered++;
-                        treeNodeCollection.Find("AGV:" + (agv_index + 1), false)[0].Nodes[0].Text = "Loads Delivered: " + AGVs[agv_index].LoadsDelivered;
-
-
-
-
                         StopTimers(agv_index);
                     }
             }

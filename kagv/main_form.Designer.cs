@@ -307,6 +307,7 @@
             // rb_wall
             // 
             this.rb_wall.AutoSize = true;
+            this.rb_wall.Checked = true;
             this.rb_wall.Location = new System.Drawing.Point(9, 19);
             this.rb_wall.Name = "rb_wall";
             this.rb_wall.Size = new System.Drawing.Size(46, 17);
@@ -322,7 +323,6 @@
             this.rb_start.Name = "rb_start";
             this.rb_start.Size = new System.Drawing.Size(47, 17);
             this.rb_start.TabIndex = 4;
-            this.rb_start.TabStop = true;
             this.rb_start.Text = "Start";
             this.rb_start.UseVisualStyleBackColor = true;
             // 
@@ -333,7 +333,6 @@
             this.rb_stop.Name = "rb_stop";
             this.rb_stop.Size = new System.Drawing.Size(47, 17);
             this.rb_stop.TabIndex = 4;
-            this.rb_stop.TabStop = true;
             this.rb_stop.Text = "Stop";
             this.rb_stop.UseVisualStyleBackColor = true;
             // 
@@ -344,7 +343,6 @@
             this.rb_load.Name = "rb_load";
             this.rb_load.Size = new System.Drawing.Size(49, 17);
             this.rb_load.TabIndex = 17;
-            this.rb_load.TabStop = true;
             this.rb_load.Text = "Load";
             this.rb_load.UseVisualStyleBackColor = true;
             // 

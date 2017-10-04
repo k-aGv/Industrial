@@ -389,19 +389,28 @@ namespace kagv {
                 }
             if (removed)
                 Redraw();
+            
 
-            TreeNode node = new TreeNode("AGV:" + nUD_AGVs.Value);
-            node.Name = "AGV:" + nUD_AGVs.Value;
-            if (CountAgvs < nUD_AGVs.Value) {
-                tree_stats.Nodes.Add(node);
-                TreeNodeCollection s = tree_stats.Nodes;
-                tree_stats.Nodes[s.Count - 1].Nodes.Add("Loads Delivered");
-                tree_stats.Nodes[s.Count - 1].Nodes.Add("Test child2");
-                CountAgvs++;
-            } else {
-                TreeNode[] agvnodes = tree_stats.Nodes.Find("AGV:"+ CountAgvs, true);
-                tree_stats.Nodes.Remove(agvnodes[agvnodes.Length-1]);
-                CountAgvs--;
+            int node_list = 0;
+            do {
+                
+                removed = false;
+                if (tree_stats.Nodes[node_list].Text.Contains("AGV")) {
+                    tree_stats.Nodes[node_list].Remove();
+                    removed = true;
+                }
+
+                if (!removed)
+                    node_list++;
+                
+            } while (node_list < tree_stats.Nodes.Count);
+
+            for (int p = 0; p < nUD_AGVs.Value; p++) {
+                TreeNode n = new TreeNode("AGV:" + (p + 1));
+                n.Name = ("AGV:" + (p + 1));
+                n.Nodes.Add("Loads Delivered");
+                n.Nodes.Add("Will add moar");
+                tree_stats.Nodes.Add(n);
             }
             tree_stats.Refresh();
         }
