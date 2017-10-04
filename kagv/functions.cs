@@ -711,7 +711,7 @@ namespace kagv {
                     }
                 }
 
-            Reset();
+    
 
             if (!start_found || !end_found)
                 return; //will return if there are no starting or end points in the Grid
@@ -909,24 +909,6 @@ namespace kagv {
 
             if (step >= 0) return step;
             else return -1;
-        }
-
-        //resets the all AGVs' embedded arrays - memory leaks prevention
-        private void Reset() {
-
-            int c = 0;
-            for (int i = 0; i < startPos.Count; i++)
-                c += AGVs[i].JumpPoints.Count;
-
-
-            for (int i = 0; i < AGVs.Count; i++)
-                for (int j = 0; j < Globals._MaximumSteps; j++) {
-                    AGVs[i].Steps[j].X = 0;
-                    AGVs[i].Steps[j].Y = 0;
-                    AGVs[i].StepsCounter = new int();
-                    AGVs[i].Paths = new GridLine[Globals._MaximumSteps];
-                }
-
         }
 
         //Reset function with overload for specific AGV 
