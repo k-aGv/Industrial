@@ -216,6 +216,8 @@ namespace kagv {
 
         //function that executes the whole animation. Will be explaining thoroughly below
         private void Animator(int steps_counter, int agv_index) {
+            TreeNodeCollection treeNodeCollection = tree_stats.Nodes;
+            
 
             //we use the incoming parameters, given from the corresponding Timer that calls Animator at a given time
             //steps_counter index tells us on which Step the timer is AT THE TIME this function is called
@@ -283,6 +285,8 @@ namespace kagv {
                 if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
                     AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
 
+                    AGVs[agv_index].LoadsDelivered++;
+                    treeNodeCollection.Find("AGV:" + (agv_index + 1), false)[0].Nodes[0].Text = "Loads Delivered: " + AGVs[agv_index].LoadsDelivered;
 
                     AGVs[agv_index].Status.Busy = false; //change the AGV's status back to available again (not busy obviously)
 
@@ -330,8 +334,15 @@ namespace kagv {
                 }
                 if (isLoad[AGVs[agv_index].MarkedLoad.X, AGVs[agv_index].MarkedLoad.Y] == 2) //if the AGV has picked up the Load it has marked...
                     if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
-                        AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y)
+                        AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
+                        AGVs[agv_index].LoadsDelivered++;
+                        treeNodeCollection.Find("AGV:" + (agv_index + 1), false)[0].Nodes[0].Text = "Loads Delivered: " + AGVs[agv_index].LoadsDelivered;
+
+
+
+
                         StopTimers(agv_index);
+                    }
             }
 
 

@@ -395,7 +395,7 @@ namespace kagv {
             if (CountAgvs < nUD_AGVs.Value) {
                 tree_stats.Nodes.Add(node);
                 TreeNodeCollection s = tree_stats.Nodes;
-                tree_stats.Nodes[s.Count - 1].Nodes.Add("Test child1");
+                tree_stats.Nodes[s.Count - 1].Nodes.Add("Loads Delivered");
                 tree_stats.Nodes[s.Count - 1].Nodes.Add("Test child2");
                 CountAgvs++;
             } else {

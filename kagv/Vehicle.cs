@@ -68,6 +68,7 @@ namespace kagv {
         public int SizeX;
         public int SizeY;
         public int ID = -1;
+        public int LoadsDelivered = 0;
 
         private Panel AgvPortrait;
         private PictureBox AgvIcon;
