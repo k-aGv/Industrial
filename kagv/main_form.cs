@@ -46,7 +46,13 @@ namespace kagv {
         //mouse clicks ,hovers and clicks are also considered as triggers
         private void main_form_Paint(object sender, PaintEventArgs e) {
             paper = e.Graphics;
-            paper.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            paper.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low;
+            paper.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
+            paper.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+            paper.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighSpeed;
+            paper.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
+            SetStyle(
+            ControlStyles.DoubleBuffer, true);
 
             try {
                 if (importedLayout != null) {
@@ -943,8 +949,6 @@ namespace kagv {
             g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighSpeed;
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
             SetStyle(
-            ControlStyles.AllPaintingInWmPaint |
-            ControlStyles.UserPaint |
             ControlStyles.DoubleBuffer, true);
             
             for (int widthTrav = 0; widthTrav < Globals._WidthBlocks; widthTrav++) {

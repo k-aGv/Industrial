@@ -875,7 +875,7 @@ namespace kagv {
             bool removed;
             do {
                 removed = false;
-                if (isLoad[loadPos[list_index].x, loadPos[list_index].y] == 4) {
+               // if (isLoad[loadPos[list_index].x, loadPos[list_index].y] == 4) {
                     searchGrid.SetWalkableAt(new GridPos(loadPos[list_index].x, loadPos[list_index].y), true);
                     jumpParam.Reset(startPos[0], loadPos[list_index]);
                     if (AStarFinder.FindPath(jumpParam, nud_weight.Value).Count == 0) {
@@ -885,7 +885,7 @@ namespace kagv {
                         removed = true;
                     } else
                         isLoad[loadPos[list_index].x, loadPos[list_index].y] = 1;
-                }
+               // }
 
                 if (!removed)
                     list_index++;
@@ -1023,8 +1023,8 @@ namespace kagv {
                     if (isLoad[i, j] == 1 || isLoad[i, j] == 4)
                         loadPos.Add(new GridPos(i, j));
                 }
-            //loadPos = checkForTrappedLoads(loadPos); //scans the loadPos list to check which loads are available
-            CheckForTrappedLoads();
+            loadPos = CheckForTrappedLoads(loadPos); //scans the loadPos list to check which loads are available
+            //CheckForTrappedLoads();
             isLoad[loadPos[0].x, loadPos[0].y] = 3;
             AGVs[whichAGV].MarkedLoad = new Point(loadPos[0].x, loadPos[0].y);
             loads--;
