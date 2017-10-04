@@ -406,8 +406,8 @@ namespace kagv {
             } while (node_list < tree_stats.Nodes.Count);
 
             for (int p = 0; p < nUD_AGVs.Value; p++) {
-                TreeNode n = new TreeNode("AGV:" + (p + 1));
-                n.Name = ("AGV:" + (p + 1));
+                TreeNode n = new TreeNode("AGV:" + (p));
+                n.Name = ("AGV:" + (p));
                 n.Nodes.Add("Loads Delivered");
                 n.Nodes.Add("Will add moar");
                 tree_stats.Nodes.Add(n);

@@ -177,7 +177,12 @@ namespace kagv {
                     GlobalWarming += 0.64;
             }
 
-
+            foreach ( TreeNode s in tree_stats.Nodes) {
+                if (s.Name.Contains("AGV")) {
+                    if (!s.IsExpanded)
+                        s.Expand();
+                }
+            }
             if (!tree_stats.Nodes[1].IsExpanded)
                 tree_stats.Nodes[1].Expand();
 
@@ -193,23 +198,23 @@ namespace kagv {
             switch (agv_index) {
                 case 0:
                     timer0.Stop();
-                    agv1steps_LB.Text = "AGV 1: Finished";
+                    agv1steps_LB.Text = "AGV 0: Finished";
                     break;
                 case 1:
                     timer1.Stop();
-                    agv2steps_LB.Text = "AGV 2: Finished";
+                    agv2steps_LB.Text = "AGV 1: Finished";
                     break;
                 case 2:
                     timer2.Stop();
-                    agv3steps_LB.Text = "AGV 3: Finished";
+                    agv3steps_LB.Text = "AGV 2: Finished";
                     break;
                 case 3:
                     timer3.Stop();
-                    agv4steps_LB.Text = "AGV 4: Finished";
+                    agv4steps_LB.Text = "AGV 3: Finished";
                     break;
                 case 4:
                     timer4.Stop();
-                    agv5steps_LB.Text = "AGV 5: Finished";
+                    agv5steps_LB.Text = "AGV 4: Finished";
                     break;
             }
         }
@@ -286,7 +291,7 @@ namespace kagv {
                     AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
 
                     AGVs[agv_index].LoadsDelivered++;
-                    treeNodeCollection.Find("AGV:" + (agv_index + 1), false)[0].Nodes[0].Text = "Loads Delivered: " + AGVs[agv_index].LoadsDelivered;
+                    treeNodeCollection.Find("AGV:" + (agv_index), false)[0].Nodes[0].Text = "Loads Delivered: " + AGVs[agv_index].LoadsDelivered;
 
                     AGVs[agv_index].Status.Busy = false; //change the AGV's status back to available again (not busy obviously)
 
@@ -951,7 +956,7 @@ namespace kagv {
             }
 
             gb_monitor.Controls.Find(
-                "agv" + (agv_index + 1) + "steps_LB",
+                "agv" + (agv_index +1) + "steps_LB",
                  true)
                  [0].Text = agvinfo;
 
