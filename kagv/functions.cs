@@ -1245,8 +1245,13 @@ namespace kagv {
 
         private void MeasureScreen() {
             Location = Screen.PrimaryScreen.Bounds.Location;
+
             int usableSize = Screen.PrimaryScreen.Bounds.Height - menuPanel.Height - Globals._BottomBarOffset - Globals._TopBarOffset;
             Globals._HeightBlocks = usableSize / Globals._BlockSide;
+
+            usableSize = Screen.PrimaryScreen.Bounds.Width - tree_stats.Width - Globals._LeftBarOffset;
+            Globals._WidthBlocks = usableSize / Globals._BlockSide;
+            
         }
 
         //Initializes all the objects in main_form

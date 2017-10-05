@@ -36,11 +36,10 @@ namespace kagv {
         public const int _gb_monitor_height = 65;
         public const bool _SemiTransparency = true;
 
-        
 
         //Grid's stats
-        public static int _WidthBlocks = 70; //grid blocks
-        public static int _HeightBlocks = 44; //grid blocks
+        public static int _WidthBlocks; //grid blocks
+        public static int _HeightBlocks; //grid blocks
         public static int _BlockSide = 15;
         public static byte _Opacity = (byte) ( (BitConverter.GetBytes(Color.WhiteSmoke.ToArgb()).Reverse().ToArray())[0] - (100) );
         public static Color _SemiTransparent;
