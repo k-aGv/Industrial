@@ -177,12 +177,7 @@ namespace kagv {
                     GlobalWarming += 0.64;
             }
 
-            foreach ( TreeNode s in tree_stats.Nodes) {
-                if (s.Name.Contains("AGV")) {
-                    if (!s.IsExpanded)
-                        s.Expand();
-                }
-            }
+            
             if (!tree_stats.Nodes[1].IsExpanded)
                 tree_stats.Nodes[1].Expand();
 
@@ -403,6 +398,8 @@ namespace kagv {
 
             general.Interval = 50;
             refresh_label.Text = "Delay:" + general.Interval + " ms";
+
+            nUD_AGVs.Value = AGVs.Count;
 
         }
 
@@ -1241,7 +1238,7 @@ namespace kagv {
 
         private void ReflectVariables() {
             if (Globals._Debug) {
-                ToDebugPanel(Globals._AStarWeight, nameof(Globals._AStarWeight));
+                //ToDebugPanel(Globals._AStarWeight, nameof(Globals._AStarWeight));
                 //add more reflections here
             }
         }
