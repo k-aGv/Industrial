@@ -135,10 +135,10 @@ namespace kagv {
         }
         /*-----------------------------------------------------*/
         //function for updating the values that are shown in the emissions Form
-        private void Update_emissions(int whichAGV) {
+        private void Update_emissions(int which_agv) {
 
             if (cb_type.SelectedItem.ToString() == "LPG") {
-                if (AGVs[whichAGV].Status.Busy) {
+                if (AGVs[which_agv].Status.Busy) {
                     CO2 += 2959.57;
                     CO += 27.04;
                     NOx += 19.63;
@@ -152,7 +152,7 @@ namespace kagv {
                     GlobalWarming += 2.33;
                 }
             } else if (cb_type.SelectedItem.ToString() == "DSL") {
-                if (AGVs[whichAGV].Status.Busy) {
+                if (AGVs[which_agv].Status.Busy) {
                     CO2 += 2130.11;
                     CO += 7.28;
                     NOx += 20.16;
@@ -171,7 +171,7 @@ namespace kagv {
                 CO = 0;
                 NOx = 0;
                 THC = 0;
-                if (AGVs[whichAGV].Status.Busy)
+                if (AGVs[which_agv].Status.Busy)
                     GlobalWarming += 0.67;
                 else
                     GlobalWarming += 0.64;
@@ -220,15 +220,15 @@ namespace kagv {
         }
 
         //function that executes the whole animation. Will be explaining thoroughly below
-        private void Animator(int steps_counter, int agv_index) {
+        private void Animator(int which_step, int which_agv) {
             
             
 
             //we use the incoming parameters, given from the corresponding Timer that calls Animator at a given time
             //steps_counter index tells us on which Step the timer is AT THE TIME this function is called
             //agv_index index tells us which timer is calling this function so as to know which AGV will be handled
-            int stepx = Convert.ToInt32(AGVs[agv_index].Steps[steps_counter].X);
-            int stepy = Convert.ToInt32(AGVs[agv_index].Steps[steps_counter].Y);
+            int stepx = Convert.ToInt32(AGVs[which_agv].Steps[which_step].X);
+            int stepy = Convert.ToInt32(AGVs[which_agv].Steps[which_step].Y);
 
             //if, for any reason, the above steps are set to "0", obviously something is wrong so function returns
             if (stepx == 0 || stepx == 0)
@@ -238,61 +238,61 @@ namespace kagv {
             bool isfreeload = false;
             bool halted = false;
 
-            DisplayStepsToLoad(steps_counter, agv_index); //Call of function that shows information regarding the status of AGVs in the Monitoring Panel
-            Update_emissions(agv_index); //Call of function that updates the values of emissions
+            DisplayStepsToLoad(which_step, which_agv); //Call of function that shows information regarding the status of AGVs in the Monitoring Panel
+            Update_emissions(which_agv); //Call of function that updates the values of emissions
 
             //RULES OF WHICH AGV WILL STOP WILL BE ADDED
             if (use_Halt) {
                 for (int i = 0; i < startPos.Count; i++)
-                    if (agv_index != i
+                    if (which_agv != i
                         && AGVs[i].GetLocation() != new Point(0, 0)
-                        && AGVs[agv_index].GetLocation() == AGVs[i].GetLocation()
-                        && AGVs[agv_index].GetLocation() != endPointCoords
+                        && AGVs[which_agv].GetLocation() == AGVs[i].GetLocation()
+                        && AGVs[which_agv].GetLocation() != endPointCoords
                         ) {
-                        Halt(agv_index, steps_counter); //function for manipulating the movement of AGVs - must be perfected (still under dev)
+                        Halt(which_agv, which_step); //function for manipulating the movement of AGVs - must be perfected (still under dev)
                         halted = true;
                     } else
                         if (!halted)
-                        AGVs[agv_index].SetLocation(stepx - ((Globals._BlockSide / 2) - 1) + 1, stepy - ((Globals._BlockSide / 2) - 1) + 1);
+                        AGVs[which_agv].SetLocation(stepx - ((Globals._BlockSide / 2) - 1) + 1, stepy - ((Globals._BlockSide / 2) - 1) + 1);
             } else
-                AGVs[agv_index].SetLocation(stepx - ((Globals._BlockSide / 2) - 1) + 1, stepy - ((Globals._BlockSide / 2) - 1) + 1); //this is how we move the AGV on the grid (Setlocation function)
+                AGVs[which_agv].SetLocation(stepx - ((Globals._BlockSide / 2) - 1) + 1, stepy - ((Globals._BlockSide / 2) - 1) + 1); //this is how we move the AGV on the grid (Setlocation function)
 
             /////////////////////////////////////////////////////////////////
             //Here is the part where an AGV arrives at the Load it has marked.
-            if (AGVs[agv_index].GetMarkedLoad() == AGVs[agv_index].GetLocation() &&
-                !AGVs[agv_index].Status.Busy) {
+            if (AGVs[which_agv].GetMarkedLoad() == AGVs[which_agv].GetLocation() &&
+                !AGVs[which_agv].Status.Busy) {
 
-                m_rectangles[AGVs[agv_index].MarkedLoad.X][AGVs[agv_index].MarkedLoad.Y].SwitchLoad(); //converts a specific GridBox, from Load, to Normal box (SwitchLoad function)
-                searchGrid.SetWalkableAt(AGVs[agv_index].MarkedLoad.X, AGVs[agv_index].MarkedLoad.Y, true);//marks the picked-up load as walkable AGAIN (since it is now a normal gridbox)
+                m_rectangles[AGVs[which_agv].MarkedLoad.X][AGVs[which_agv].MarkedLoad.Y].SwitchLoad(); //converts a specific GridBox, from Load, to Normal box (SwitchLoad function)
+                searchGrid.SetWalkableAt(AGVs[which_agv].MarkedLoad.X, AGVs[which_agv].MarkedLoad.Y, true);//marks the picked-up load as walkable AGAIN (since it is now a normal gridbox)
                 labeled_loads--;
                 if (labeled_loads <= 0)
                     loads_label.Text = "All loads have been picked up";
                 else
                     loads_label.Text = "Loads remaining: " + labeled_loads;
 
-                AGVs[agv_index].Status.Busy = true; //Sets the status of the AGV to Busy (because it has just picked-up the marked Load
-                AGVs[agv_index].SetLoaded(); //changes the icon of the AGV and it now appears as Loaded
+                AGVs[which_agv].Status.Busy = true; //Sets the status of the AGV to Busy (because it has just picked-up the marked Load
+                AGVs[which_agv].SetLoaded(); //changes the icon of the AGV and it now appears as Loaded
                 Refresh();
 
                 //We needed to find a way to know if the animation is scheduled by Redraw or by GetNextLoad
                 //fromstart means that an AGV is starting from its VERY FIRST position, heading to a Load and then to exit
                 //When fromstart becomes false, it means that the AGV has completed its first task and now it is handled by GetNextLoad
-                if (fromstart[agv_index]) {
+                if (fromstart[which_agv]) {
                     loads--;
-                    isLoad[AGVs[agv_index].MarkedLoad.X, AGVs[agv_index].MarkedLoad.Y] = 2;
+                    isLoad[AGVs[which_agv].MarkedLoad.X, AGVs[which_agv].MarkedLoad.Y] = 2;
 
-                    fromstart[agv_index] = false;
+                    fromstart[which_agv] = false;
                 }
             }
 
-            if (!fromstart[agv_index]) {
+            if (!fromstart[which_agv]) {
                 //this is how we check if the AGV has arrived at the exit (red block - end point)
-                if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
-                    AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
+                if (AGVs[which_agv].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
+                    AGVs[which_agv].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
 
-                    AGVs[agv_index].LoadsDelivered++;
-                    tree_stats.Nodes.Find("AGV:" + (agv_index), false)[0].Nodes[0].Text = "Loads Delivered: " + AGVs[agv_index].LoadsDelivered;
-                    AGVs[agv_index].Status.Busy = false; //change the AGV's status back to available again (not busy obviously)
+                    AGVs[which_agv].LoadsDelivered++;
+                    tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[0].Text = "Loads Delivered: " + AGVs[which_agv].LoadsDelivered;
+                    AGVs[which_agv].Status.Busy = false; //change the AGV's status back to available again (not busy obviously)
 
                     //here we scan the Grid and search for Loads that either ARE available or WILL BE available
                     //if there's at least 1 available Load, set isfreeload = true and stop the double For-loops
@@ -311,35 +311,35 @@ namespace kagv {
 
                     if (loads > 0 && isfreeload) { //means that the are still Loads left in the Grid, that can be picked up
 
-                        Reset(agv_index);
-                        AGVs[agv_index].Status.Busy = true;
-                        AGVs[agv_index].MarkedLoad = new Point();
-                        GetNextLoad(agv_index); //function that is responsible for Aaaaaall the future path planning
+                        Reset(which_agv);
+                        AGVs[which_agv].Status.Busy = true;
+                        AGVs[which_agv].MarkedLoad = new Point();
+                        GetNextLoad(which_agv); //function that is responsible for Aaaaaall the future path planning
 
 
-                        AGVs[agv_index].Status.Busy = false;
-                        AGVs[agv_index].SetEmpty();
+                        AGVs[which_agv].Status.Busy = false;
+                        AGVs[which_agv].SetEmpty();
 
                     } else { //if no other AVAILABLE Loads are found in the grid
-                        AGVs[agv_index].SetEmpty();
+                        AGVs[which_agv].SetEmpty();
                         isfreeload = false;
-                        StopTimers(agv_index);
+                        StopTimers(which_agv);
                     }
 
-                    timer_counter[agv_index] = -1;
-                    steps_counter = 0;
+                    on_which_step[which_agv] = -1;
+                    which_step = 0;
 
                 }
             } else {
-                if (!AGVs[agv_index].HasLoadToPick) {
-                    if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
-                        AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y)
-                        StopTimers(agv_index);
+                if (!AGVs[which_agv].HasLoadToPick) {
+                    if (AGVs[which_agv].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
+                        AGVs[which_agv].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y)
+                        StopTimers(which_agv);
                 }
-                if (isLoad[AGVs[agv_index].MarkedLoad.X, AGVs[agv_index].MarkedLoad.Y] == 2) //if the AGV has picked up the Load it has marked...
-                    if (AGVs[agv_index].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
-                        AGVs[agv_index].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
-                        StopTimers(agv_index);
+                if (isLoad[AGVs[which_agv].MarkedLoad.X, AGVs[which_agv].MarkedLoad.Y] == 2) //if the AGV has picked up the Load it has marked...
+                    if (AGVs[which_agv].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
+                        AGVs[which_agv].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
+                        StopTimers(which_agv);
                     }
             }
 
@@ -495,8 +495,8 @@ namespace kagv {
             loads_label.Text = "";
             labeled_loads = 0;
 
-            if (timer_counter != null)
-                Array.Clear(timer_counter, 0, timer_counter.GetLength(0));
+            if (on_which_step != null)
+                Array.Clear(on_which_step, 0, on_which_step.GetLength(0));
 
             if (trappedStatus != null)
                 Array.Clear(trappedStatus, 0, trappedStatus.GetLength(0));
@@ -905,15 +905,15 @@ namespace kagv {
         }
 
         //returns the number of steps until AGV reaches the marked Load
-        private int GetStepsToLoad(int whichAGV) {
-            Point iCords = new Point(AGVs[whichAGV].GetMarkedLoad().X, AGVs[whichAGV].GetMarkedLoad().Y);
+        private int GetStepsToLoad(int which_agv) {
+            Point iCords = new Point(AGVs[which_agv].GetMarkedLoad().X, AGVs[which_agv].GetMarkedLoad().Y);
             int step = -1;
 
-            for (int i = 0; i < AGVs[whichAGV].Steps.GetLength(0); i++)
-                if (AGVs[whichAGV].Steps[i].X - ((Globals._BlockSide / 2) - 1) == iCords.X &&
-                    AGVs[whichAGV].Steps[i].Y - ((Globals._BlockSide / 2) - 1) == iCords.Y) {
+            for (int i = 0; i < AGVs[which_agv].Steps.GetLength(0); i++)
+                if (AGVs[which_agv].Steps[i].X - ((Globals._BlockSide / 2) - 1) == iCords.X &&
+                    AGVs[which_agv].Steps[i].Y - ((Globals._BlockSide / 2) - 1) == iCords.Y) {
                     step = i;
-                    i = AGVs[whichAGV].Steps.GetLength(0);
+                    i = AGVs[which_agv].Steps.GetLength(0);
                 }
 
             if (step >= 0) return step;
@@ -921,23 +921,23 @@ namespace kagv {
         }
 
         //Reset function with overload for specific AGV 
-        private void Reset(int whichAGV) //overloaded Reset
+        private void Reset(int which_agv) //overloaded Reset
         {
             int c = AGVs[0].Paths.Length;
 
-            AGVs[whichAGV].JumpPoints = new List<GridPos>(); //empties the AGV's JumpPoints List for the new JumpPoints to be added
+            AGVs[which_agv].JumpPoints = new List<GridPos>(); //empties the AGV's JumpPoints List for the new JumpPoints to be added
 
-            startPos[whichAGV] = new GridPos(); //empties the correct start Pos for each AGV
+            startPos[which_agv] = new GridPos(); //empties the correct start Pos for each AGV
 
             for (int i = 0; i < c; i++)
-                AGVs[whichAGV].Paths[i] = null;
+                AGVs[which_agv].Paths[i] = null;
 
             for (int j = 0; j < Globals._MaximumSteps; j++) {
-                AGVs[whichAGV].Steps[j].X = 0;
-                AGVs[whichAGV].Steps[j].Y = 0;
+                AGVs[which_agv].Steps[j].X = 0;
+                AGVs[which_agv].Steps[j].Y = 0;
             }
 
-            AGVs[whichAGV].StepsCounter = 0;
+            AGVs[which_agv].StepsCounter = 0;
         }
 
         //Shows information on the Monitor Panel
@@ -963,7 +963,7 @@ namespace kagv {
 
         //function for holding the AGV back so another can pass without colliding
         private void Halt(int index, int _c) {
-            timer_counter[index]--;
+            on_which_step[index]--;
             if (!(_c - 1 < 0)) //in case the intersection is in the 1st step of the route, then the index of that step will be 0. 
             {                  //this means that trying to get to the "_c -1" step, will have the index decreased to -1 causing the "index out of bound" crash
                 int stepx = Convert.ToInt32(AGVs[index].Steps[_c - 1].X);
@@ -987,7 +987,7 @@ namespace kagv {
         }
 
         //Path-planner for collecting all the remaining Loads in the Grid
-        private void GetNextLoad(int whichAGV) {
+        private void GetNextLoad(int which_agv) {
 
             aGVIndexToolStripMenuItem.Checked = false;
             GridPos endPos = new GridPos();
@@ -998,9 +998,9 @@ namespace kagv {
                 for (int heightTrav = 0; heightTrav < Globals._HeightBlocks; heightTrav++)
                     if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.End)
                         try {
-                            startPos[whichAGV] = new GridPos(widthTrav, heightTrav);
-                            a = startPos[whichAGV].x;
-                            b = startPos[whichAGV].y;
+                            startPos[which_agv] = new GridPos(widthTrav, heightTrav);
+                            a = startPos[which_agv].x;
+                            b = startPos[which_agv].y;
                         } catch { }
 
             List<GridPos> loadPos = new List<GridPos>();
@@ -1017,7 +1017,7 @@ namespace kagv {
             loadPos = CheckForTrappedLoads(loadPos); //scans the loadPos list to check which loads are available
             //CheckForTrappedLoads();
             isLoad[loadPos[0].x, loadPos[0].y] = 3;
-            AGVs[whichAGV].MarkedLoad = new Point(loadPos[0].x, loadPos[0].y);
+            AGVs[which_agv].MarkedLoad = new Point(loadPos[0].x, loadPos[0].y);
             loads--;
             endPos = loadPos[0];
 
@@ -1027,9 +1027,9 @@ namespace kagv {
             searchGrid.SetWalkableAt(loadPos[0], true);
 
             //creates the path between the AGV (which at the moment is at the exit) and the Load
-            jumpParam.Reset(startPos[whichAGV], endPos);
+            jumpParam.Reset(startPos[which_agv], endPos);
             List<GridPos> JumpPointsList = AStarFinder.FindPath(jumpParam, nud_weight.Value);
-            AGVs[whichAGV].JumpPoints = JumpPointsList;//adds the result from A* to the AGV's
+            AGVs[which_agv].JumpPoints = JumpPointsList;//adds the result from A* to the AGV's
                                                        //embedded List
 
             //Mark all loads as unwalkable
@@ -1045,26 +1045,26 @@ namespace kagv {
                     Array.Resize(ref AGVs[i].Paths, c - 1);
 
 
-            for (int j = 0; j < AGVs[whichAGV].JumpPoints.Count - 1; j++) {
+            for (int j = 0; j < AGVs[which_agv].JumpPoints.Count - 1; j++) {
                 GridLine line = new GridLine(
                     m_rectangles
-                        [AGVs[whichAGV].JumpPoints[j].x]
-                        [AGVs[whichAGV].JumpPoints[j].y],
+                        [AGVs[which_agv].JumpPoints[j].x]
+                        [AGVs[which_agv].JumpPoints[j].y],
                    m_rectangles
-                        [AGVs[whichAGV].JumpPoints[j + 1].x]
-                        [AGVs[whichAGV].JumpPoints[j + 1].y]
+                        [AGVs[which_agv].JumpPoints[j + 1].x]
+                        [AGVs[which_agv].JumpPoints[j + 1].y]
                                            );
 
-                AGVs[whichAGV].Paths[j] = line;
+                AGVs[which_agv].Paths[j] = line;
             }
 
 
             //2nd part of route: Go to exit
             int old_c = c - 1;
 
-            jumpParam.Reset(endPos, startPos[whichAGV]);
+            jumpParam.Reset(endPos, startPos[which_agv]);
             JumpPointsList = AStarFinder.FindPath(jumpParam, nud_weight.Value);
-            AGVs[whichAGV].JumpPoints.AddRange(JumpPointsList);
+            AGVs[which_agv].JumpPoints.AddRange(JumpPointsList);
 
             c = 0;
             for (int i = 0; i < startPos.Count; i++)

@@ -706,7 +706,7 @@ namespace kagv {
                 AGVs[i].Init();
             }
 
-            timer_counter = new int[startPos.Count];
+            on_which_step = new int[startPos.Count];
             Timers();
             settings_menu.Enabled = false;
             gb_settings.Enabled = false;
@@ -770,9 +770,9 @@ namespace kagv {
 
             AGVs[0].StepsCounter = mysteps;//add them inside the class
 
-            Animator(timer_counter[0], 0); //animate that class/agv
+            Animator(on_which_step[0], 0); //animate that class/agv
 
-            timer_counter[0]++;
+            on_which_step[0]++;
         }
         private void timer1_Tick(object sender, EventArgs e) {
             int mysteps = 0;
@@ -784,9 +784,9 @@ namespace kagv {
 
             AGVs[1].StepsCounter = mysteps;
 
-            Animator(timer_counter[1], 1);
+            Animator(on_which_step[1], 1);
 
-            timer_counter[1]++;
+            on_which_step[1]++;
         }
 
         private void timer2_Tick(object sender, EventArgs e) {
@@ -799,9 +799,9 @@ namespace kagv {
 
             AGVs[2].StepsCounter = mysteps;
 
-            Animator(timer_counter[2], 2);
+            Animator(on_which_step[2], 2);
 
-            timer_counter[2]++;
+            on_which_step[2]++;
         }
 
         private void timer3_Tick(object sender, EventArgs e) {
@@ -814,9 +814,9 @@ namespace kagv {
 
             AGVs[3].StepsCounter = mysteps;
 
-            Animator(timer_counter[3], 3);
+            Animator(on_which_step[3], 3);
 
-            timer_counter[3]++;
+            on_which_step[3]++;
         }
 
         private void timer4_Tick(object sender, EventArgs e) {
@@ -829,9 +829,9 @@ namespace kagv {
 
             AGVs[4].StepsCounter = mysteps;
 
-            Animator(timer_counter[4], 4);
+            Animator(on_which_step[4], 4);
 
-            timer_counter[4]++;
+            on_which_step[4]++;
         }
 
         private void importImageLayoutToolStripMenuItem_Click(object sender, EventArgs e) {

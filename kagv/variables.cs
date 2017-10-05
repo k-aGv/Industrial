@@ -46,7 +46,7 @@ namespace kagv {
 
         GridBox[][] m_rectangles;//2d jagged array. Contains grid information (coords of each box, boxtype, etc etc)  
 
-        int[] timer_counter;
+        int[] on_which_step;
         bool[] fromstart = new bool[Globals._MaximumAGVs];
 
         List<Vehicle> AGVs = new List<Vehicle>();
@@ -91,8 +91,6 @@ namespace kagv {
 
         Image importedImageFile;
         Image importedLayout = null;
-
-        decimal CountAgvs = 0;
 
 
     }
