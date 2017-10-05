@@ -657,6 +657,7 @@ namespace kagv {
         private void allToolStripMenuItem_Click(object sender, EventArgs e) {
 
             FullyRestore();
+            
         }
 
         private void exportMapToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -707,6 +708,14 @@ namespace kagv {
             nud_weight.Enabled = false;
             cb_type.Enabled = false;
             toolStripStatusLabel1.Text = "Simulation is running...";
+
+            foreach (TreeNode s in tree_stats.Nodes) {
+                if (s.Name.Contains("AGV")) {
+                    if (!s.IsExpanded) {
+                        s.Expand();
+                    }
+                }
+            }
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
