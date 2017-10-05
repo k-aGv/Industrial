@@ -69,6 +69,7 @@ namespace kagv {
         public int SizeY;
         public int ID = -1;
         public int LoadsDelivered = 0;
+        public int on_which_step;
 
         private Panel AgvPortrait;
         private PictureBox AgvIcon;
@@ -76,6 +77,7 @@ namespace kagv {
         private Form mirroredForm;
 
         public bool HasLoadToPick;
+        public bool KeepMoving = true;
 
         //*****************************************
         //AGV JumpPoints
@@ -134,6 +136,7 @@ namespace kagv {
             //init vars
             this.status.Busy = false;
             this.status.Loaded = false;
+            on_which_step = 0;
 
             AgvPortrait = new Panel();
             AgvPortrait.Name = "AGVPORTRAIT";

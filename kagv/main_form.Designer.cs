@@ -51,8 +51,8 @@
             treeNode12,
             treeNode13});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main_form));
-            this.timer0 = new System.Windows.Forms.Timer(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.gb_type = new System.Windows.Forms.GroupBox();
             this.cb_type = new System.Windows.Forms.ComboBox();
             this.gb_monitor = new System.Windows.Forms.GroupBox();
@@ -75,10 +75,6 @@
             this.tp_info = new System.Windows.Forms.ToolTip(this.components);
             this.sfd_exportmap = new System.Windows.Forms.SaveFileDialog();
             this.ofd_importmap = new System.Windows.Forms.OpenFileDialog();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.timer3 = new System.Windows.Forms.Timer(this.components);
-            this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.ofd_importpic = new System.Windows.Forms.OpenFileDialog();
             this.settings_menu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,6 +98,7 @@
             this.manhattanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.euclideanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chebyshevToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stepsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -116,7 +113,7 @@
             this.wallsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.borderColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultGridSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showGridBlockLocationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
@@ -135,7 +132,7 @@
             this.btn_right = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.defaultGridSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.general = new System.Windows.Forms.Timer(this.components);
             this.tree_stats = new BufferedTreeView();
             this.menuPanel.SuspendLayout();
             this.gb_type.SuspendLayout();
@@ -151,13 +148,10 @@
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // timer0
-            // 
-            this.timer0.Tick += new System.EventHandler(this.timer0_Tick);
-            // 
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.menuPanel.Controls.Add(this.label1);
             this.menuPanel.Controls.Add(this.gb_type);
             this.menuPanel.Controls.Add(this.gb_monitor);
             this.menuPanel.Controls.Add(this.gb_settings);
@@ -166,6 +160,15 @@
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(656, 75);
             this.menuPanel.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(226, 53);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 30;
+            this.label1.Text = "label1";
             // 
             // gb_type
             // 
@@ -375,22 +378,6 @@
             // 
             this.ofd_importmap.FileName = "openFileDialog1";
             // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // timer2
-            // 
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
-            // timer3
-            // 
-            this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
-            // 
-            // timer4
-            // 
-            this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
-            // 
             // ofd_importpic
             // 
             this.ofd_importpic.FileName = "openFileDialog1";
@@ -582,6 +569,13 @@
             this.chebyshevToolStripMenuItem.Text = "Chebyshev";
             this.chebyshevToolStripMenuItem.Click += new System.EventHandler(this.chebyshevToolStripMenuItem_Click);
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
             // gridToolStripMenuItem
             // 
             this.gridToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -603,7 +597,7 @@
             this.highlightOverCurrentBoxToolStripMenuItem,
             this.aGVIndexToolStripMenuItem});
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.showToolStripMenuItem.Text = "Show...";
             // 
             // stepsToolStripMenuItem
@@ -651,14 +645,14 @@
             // borderColorToolStripMenuItem
             // 
             this.borderColorToolStripMenuItem.Name = "borderColorToolStripMenuItem";
-            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.borderColorToolStripMenuItem.Text = "Border Color";
             this.borderColorToolStripMenuItem.Click += new System.EventHandler(this.borderColorToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(138, 6);
             // 
             // clearToolStripMenuItem
             // 
@@ -668,7 +662,7 @@
             this.borderColorToolStripMenuItem1,
             this.defaultGridSizeToolStripMenuItem});
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             // 
             // wallsToolStripMenuItem
@@ -693,12 +687,12 @@
             this.borderColorToolStripMenuItem1.Text = "Border Color";
             this.borderColorToolStripMenuItem1.Click += new System.EventHandler(this.borderColorToolStripMenuItem1_Click);
             // 
-            // aboutToolStripMenuItem
+            // defaultGridSizeToolStripMenuItem
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.defaultGridSizeToolStripMenuItem.Name = "defaultGridSizeToolStripMenuItem";
+            this.defaultGridSizeToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.defaultGridSizeToolStripMenuItem.Text = "Default Grid size";
+            this.defaultGridSizeToolStripMenuItem.Click += new System.EventHandler(this.defaultGridSizeToolStripMenuItem_Click);
             // 
             // debugToolStripMenuItem
             // 
@@ -868,12 +862,10 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(190, 17);
             this.toolStripStatusLabel1.Text = "Hold CTRL for grid configuration...";
             // 
-            // defaultGridSizeToolStripMenuItem
+            // general
             // 
-            this.defaultGridSizeToolStripMenuItem.Name = "defaultGridSizeToolStripMenuItem";
-            this.defaultGridSizeToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.defaultGridSizeToolStripMenuItem.Text = "Default Grid size";
-            this.defaultGridSizeToolStripMenuItem.Click += new System.EventHandler(this.defaultGridSizeToolStripMenuItem_Click);
+            this.general.Interval = 50;
+            this.general.Tick += new System.EventHandler(this.general_Tick);
             // 
             // tree_stats
             // 
@@ -940,6 +932,7 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseUp);
             this.menuPanel.ResumeLayout(false);
+            this.menuPanel.PerformLayout();
             this.gb_type.ResumeLayout(false);
             this.gb_monitor.ResumeLayout(false);
             this.gb_monitor.PerformLayout();
@@ -962,8 +955,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer timer0;
         private System.Windows.Forms.Panel menuPanel;
         private System.Windows.Forms.RadioButton rb_stop;
         private System.Windows.Forms.RadioButton rb_start;
@@ -972,10 +963,6 @@
         private System.Windows.Forms.SaveFileDialog sfd_exportmap;
         private System.Windows.Forms.OpenFileDialog ofd_importmap;
         private System.Windows.Forms.NumericUpDown nUD_AGVs;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Timer timer2;
-        private System.Windows.Forms.Timer timer3;
-        private System.Windows.Forms.Timer timer4;
         private System.Windows.Forms.RadioButton rb_load;
         private System.Windows.Forms.OpenFileDialog ofd_importpic;
         private System.Windows.Forms.MenuStrip settings_menu;
@@ -1049,6 +1036,8 @@
         private System.Windows.Forms.ToolStripMenuItem showGridBlockLocationsToolStripMenuItem;
         private BufferedTreeView tree_stats;
         private System.Windows.Forms.ToolStripMenuItem defaultGridSizeToolStripMenuItem;
+        private System.Windows.Forms.Timer general;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -133,7 +133,7 @@ namespace kagv {
 
         private void main_form_MouseDown(object sender, MouseEventArgs e) {
             //If the simulation is running, do not do anything.leave the function explicitly
-            if (timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled)
+            if (general.Enabled)
                 return;
 
             //Supposing that timers are not enabled(that means that the simulation is not running)
@@ -313,13 +313,7 @@ namespace kagv {
                 }
             }
 
-            if (
-                 timer0.Enabled ||
-                 timer1.Enabled ||
-                 timer2.Enabled ||
-                 timer3.Enabled ||
-                 timer4.Enabled
-               )
+            if (general.Enabled)
                 return;
 
             //if user enable the highlighting over a box while mouse hovering
@@ -349,11 +343,7 @@ namespace kagv {
         private void main_form_MouseUp(object sender, MouseEventArgs e) {
 
 
-            if (timer0.Enabled
-                || timer1.Enabled
-                || timer2.Enabled
-                || timer3.Enabled
-                || timer4.Enabled) return;
+            if (general.Enabled) return;
 
             isMouseDown = false;
 
@@ -419,11 +409,7 @@ namespace kagv {
 
         private void main_form_MouseClick(object sender, MouseEventArgs e) {
 
-            if (timer0.Enabled
-                || timer1.Enabled
-                || timer2.Enabled
-                || timer3.Enabled
-                || timer4.Enabled) return;
+            if (general.Enabled) return;
 
 
             Point click_coords = new Point(e.X, e.Y);
@@ -707,7 +693,7 @@ namespace kagv {
             }
 
             on_which_step = new int[startPos.Count];
-            Timers();
+            general.Start();
             settings_menu.Enabled = false;
             gb_settings.Enabled = false;
             nud_weight.Enabled = false;
@@ -721,20 +707,20 @@ namespace kagv {
         }
 
         private void increaseSpeedToolStripMenuItem_Click(object sender, EventArgs e) {
-            int d = timer0.Interval;
+            int d = general.Interval;
             d += 50;
-            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = d;
-            refresh_label.Text = "Delay:" + timer0.Interval + " ms";
+            general.Interval = d;
+            refresh_label.Text = "Delay:" + general.Interval + " ms";
         }
 
         private void decreaseSpeedToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (timer0.Interval == 50)
+            if (general.Interval == 50)
                 return;
 
-            int d = timer0.Interval;
+            int d = general.Interval;
             d -= 50;
-            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = d;
-            refresh_label.Text = "Delay:" + timer0.Interval + " ms";
+            general.Interval = d;
+            refresh_label.Text = "Delay:" + general.Interval + " ms";
 
         }
 
@@ -757,83 +743,6 @@ namespace kagv {
             else
                 TriggerStartMenu(false);
         }
-
-
-        //one timer for each agv.
-        private void timer0_Tick(object sender, EventArgs e) {
-            int mysteps = 0;//init the steps
-            for (int i = 0; i < Globals._MaximumSteps; i++)
-                if (AGVs[0].Steps[i].X == 0 || AGVs[0].Steps[i].Y == 0)
-                    i = Globals._MaximumSteps;
-                else
-                    mysteps++;//really count the steps
-
-            AGVs[0].StepsCounter = mysteps;//add them inside the class
-
-            Animator(on_which_step[0], 0); //animate that class/agv
-
-            on_which_step[0]++;
-        }
-        private void timer1_Tick(object sender, EventArgs e) {
-            int mysteps = 0;
-            for (int i = 0; i < Globals._MaximumSteps; i++)
-                if (AGVs[1].Steps[i].X == 0 || AGVs[1].Steps[i].Y == 0)
-                    i = Globals._MaximumSteps;
-                else
-                    mysteps++;
-
-            AGVs[1].StepsCounter = mysteps;
-
-            Animator(on_which_step[1], 1);
-
-            on_which_step[1]++;
-        }
-
-        private void timer2_Tick(object sender, EventArgs e) {
-            int mysteps = 0;
-            for (int i = 0; i < Globals._MaximumSteps; i++)
-                if (AGVs[2].Steps[i].X == 0 || AGVs[2].Steps[i].Y == 0)
-                    i = Globals._MaximumSteps;
-                else
-                    mysteps++;
-
-            AGVs[2].StepsCounter = mysteps;
-
-            Animator(on_which_step[2], 2);
-
-            on_which_step[2]++;
-        }
-
-        private void timer3_Tick(object sender, EventArgs e) {
-            int mysteps = 0;
-            for (int i = 0; i < Globals._MaximumSteps; i++)
-                if (AGVs[3].Steps[i].X == 0 || AGVs[3].Steps[i].Y == 0)
-                    i = Globals._MaximumSteps;
-                else
-                    mysteps++;
-
-            AGVs[3].StepsCounter = mysteps;
-
-            Animator(on_which_step[3], 3);
-
-            on_which_step[3]++;
-        }
-
-        private void timer4_Tick(object sender, EventArgs e) {
-            int mysteps = 0;
-            for (int i = 0; i < Globals._MaximumSteps; i++)
-                if (AGVs[4].Steps[i].X == 0 || AGVs[4].Steps[i].Y == 0)
-                    i = Globals._MaximumSteps;
-                else
-                    mysteps++;
-
-            AGVs[4].StepsCounter = mysteps;
-
-            Animator(on_which_step[4], 4);
-
-            on_which_step[4]++;
-        }
-
         private void importImageLayoutToolStripMenuItem_Click(object sender, EventArgs e) {
             ImportImage();
         }
@@ -998,6 +907,140 @@ namespace kagv {
             Globals._BlockSide = 15;
             MeasureScreen();
             Initialization();
+        }
+
+        private void general_Tick(object sender, EventArgs e) {
+            for (int which_agv = 0; which_agv < AGVs.Count; which_agv++) {
+                bool isfreeload = false;
+
+                if (AGVs[which_agv].KeepMoving) {
+
+                    int stepx = Convert.ToInt32(AGVs[which_agv].Steps[AGVs[which_agv].on_which_step].X);
+                    int stepy = Convert.ToInt32(AGVs[which_agv].Steps[AGVs[which_agv].on_which_step].Y);
+
+                    AGVs[which_agv].SetLocation(stepx - ((Globals._BlockSide / 2) - 1) + 1, stepy - ((Globals._BlockSide / 2) - 1) + 1); //this is how we move the AGV on the grid (Setlocation function)
+
+
+                    if (AGVs[which_agv].GetMarkedLoad() == AGVs[which_agv].GetLocation() &&
+                    !AGVs[which_agv].Status.Busy) {
+
+                        m_rectangles[AGVs[which_agv].MarkedLoad.X][AGVs[which_agv].MarkedLoad.Y].SwitchLoad(); //converts a specific GridBox, from Load, to Normal box (SwitchLoad function)
+                        searchGrid.SetWalkableAt(AGVs[which_agv].MarkedLoad.X, AGVs[which_agv].MarkedLoad.Y, true);//marks the picked-up load as walkable AGAIN (since it is now a normal gridbox)
+                        labeled_loads--;
+                        if (labeled_loads <= 0)
+                            loads_label.Text = "All loads have been picked up";
+                        else
+                            loads_label.Text = "Loads remaining: " + labeled_loads;
+
+                        AGVs[which_agv].Status.Busy = true; //Sets the status of the AGV to Busy (because it has just picked-up the marked Load
+                        AGVs[which_agv].SetLoaded(); //changes the icon of the AGV and it now appears as Loaded
+                        Refresh();
+
+                        //We needed to find a way to know if the animation is scheduled by Redraw or by GetNextLoad
+                        //fromstart means that an AGV is starting from its VERY FIRST position, heading to a Load and then to exit
+                        //When fromstart becomes false, it means that the AGV has completed its first task and now it is handled by GetNextLoad
+                        if (fromstart[which_agv]) {
+                            loads--;
+                            isLoad[AGVs[which_agv].MarkedLoad.X, AGVs[which_agv].MarkedLoad.Y] = 2;
+
+                            fromstart[which_agv] = false;
+                        }
+                    }
+
+
+
+                    if (!fromstart[which_agv]) {
+                        //this is how we check if the AGV has arrived at the exit (red block - end point)
+                        if (AGVs[which_agv].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
+                            AGVs[which_agv].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
+
+                            AGVs[which_agv].LoadsDelivered++;
+                            tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[0].Text = "Loads Delivered: " + AGVs[which_agv].LoadsDelivered;
+                            AGVs[which_agv].Status.Busy = false; //change the AGV's status back to available again (not busy obviously)
+
+                            //here we scan the Grid and search for Loads that either ARE available or WILL BE available
+                            //if there's at least 1 available Load, set isfreeload = true and stop the double For-loops
+                            for (int k = 0; k < Globals._WidthBlocks; k++) {
+                                for (int b = 0; b < Globals._HeightBlocks; b++) {
+                                    if (isLoad[k, b] == 1 || isLoad[k, b] == 4) //isLoad[ , ] == 1 means the corresponding Load is available at the moment
+                                                                                //isLoad[ ,] == 4 means that the corresponding Load is surrounded by other 
+                                    {                                        //loads and TEMPORARILY unavailable - will be freed later
+                                        isfreeload = true;
+                                        k = Globals._WidthBlocks;
+                                        b = Globals._HeightBlocks;
+                                    }
+                                }
+                            }
+
+
+                            if (loads > 0 && isfreeload) { //means that the are still Loads left in the Grid, that can be picked up
+
+                                AGVs[which_agv].KeepMoving = true;
+                                Reset(which_agv);
+                                AGVs[which_agv].Status.Busy = true;
+                                AGVs[which_agv].MarkedLoad = new Point();
+                                GetNextLoad(which_agv); //function that is responsible for Aaaaaall the future path planning
+
+
+                                AGVs[which_agv].Status.Busy = false;
+                                AGVs[which_agv].SetEmpty();
+
+                            } else { //if no other AVAILABLE Loads are found in the grid
+                                AGVs[which_agv].SetEmpty();
+                                isfreeload = false;
+                                AGVs[which_agv].KeepMoving = false;
+                                //agv1steps_LB.Text = "AGV 0: Finished"; must be different for each agv
+                            }
+
+                            on_which_step[which_agv] = -1;
+                            AGVs[which_agv].on_which_step = 0;
+
+                        }
+                    } else {
+                        if (!AGVs[which_agv].HasLoadToPick) {
+                            if (AGVs[which_agv].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
+                                AGVs[which_agv].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y)
+                                AGVs.Remove(AGVs[which_agv]);
+                            AGVs[which_agv].KeepMoving = false;
+                            //agv1steps_LB.Text = "AGV 0: Finished"; must be different for each agv
+                        }
+                        if (isLoad[AGVs[which_agv].MarkedLoad.X, AGVs[which_agv].MarkedLoad.Y] == 2) //if the AGV has picked up the Load it has marked...
+                            if (AGVs[which_agv].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
+                                AGVs[which_agv].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
+                                AGVs.Remove(AGVs[which_agv]);
+                                AGVs[which_agv].KeepMoving = false;
+                                //agv1steps_LB.Text = "AGV 0: Finished"; must be different for each agv
+                            }
+                    }
+                    AGVs[which_agv].on_which_step++;
+                }
+            }
+            Refresh();
+            Invalidate();
+            Application.DoEvents();
+
+            int inactive_agvs = 0;
+            for (int which_agv = 0; which_agv < AGVs.Count; which_agv++) {
+                if (!AGVs[which_agv].KeepMoving)
+                    inactive_agvs++;
+            }
+            if (inactive_agvs == AGVs.Count) {
+                gb_settings.Enabled = true;
+                settings_menu.Enabled = true;
+                nud_weight.Enabled = true;
+                cb_type.Enabled = true;
+
+                toolStripStatusLabel1.Text = "Hold CTRL for grid configuration...";
+                allowHighlight = false;
+                highlightOverCurrentBoxToolStripMenuItem.Checked = allowHighlight;
+                TriggerStartMenu(false);
+                Refresh();
+                Invalidate(); //invalidates the form, causing it to "refresh" the graphics
+
+                general.Stop();
+                return;
+            }
+
         }
     }
     
