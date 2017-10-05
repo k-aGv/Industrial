@@ -993,6 +993,14 @@ namespace kagv {
                 Globals._BlockSide);
             writer.Dispose();
         }
+
+        private void defaultGridSizeToolStripMenuItem_Click(object sender, EventArgs e) {
+            Globals._WidthBlocks = 70;
+            Globals._HeightBlocks = 44; 
+            Globals._BlockSide = 15;
+            Initialization();
+            
+        }
     }
     
 }

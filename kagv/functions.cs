@@ -1453,7 +1453,7 @@ namespace kagv {
 
         private void ReflectVariables() {
             if (Globals._Debug) {
-                //ToDebugPanel(Globals._AStarWeight, nameof(Globals._AStarWeight));
+                ToDebugPanel(Globals._AStarWeight, nameof(Globals._AStarWeight));
                 //add more reflections here
             }
         }

@@ -135,6 +135,7 @@
             this.btn_right = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.defaultGridSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tree_stats = new BufferedTreeView();
             this.menuPanel.SuspendLayout();
             this.gb_type.SuspendLayout();
@@ -399,8 +400,8 @@
             this.settings_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.aToolStripMenuItem,
-            this.gridToolStripMenuItem,
             this.aboutToolStripMenuItem,
+            this.gridToolStripMenuItem,
             this.debugToolStripMenuItem});
             this.settings_menu.Location = new System.Drawing.Point(0, 0);
             this.settings_menu.Name = "settings_menu";
@@ -602,7 +603,7 @@
             this.highlightOverCurrentBoxToolStripMenuItem,
             this.aGVIndexToolStripMenuItem});
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.showToolStripMenuItem.Text = "Show...";
             // 
             // stepsToolStripMenuItem
@@ -650,29 +651,30 @@
             // borderColorToolStripMenuItem
             // 
             this.borderColorToolStripMenuItem.Name = "borderColorToolStripMenuItem";
-            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.borderColorToolStripMenuItem.Text = "Border Color";
             this.borderColorToolStripMenuItem.Click += new System.EventHandler(this.borderColorToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(138, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.wallsToolStripMenuItem,
             this.allToolStripMenuItem,
-            this.borderColorToolStripMenuItem1});
+            this.borderColorToolStripMenuItem1,
+            this.defaultGridSizeToolStripMenuItem});
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             // 
             // wallsToolStripMenuItem
             // 
             this.wallsToolStripMenuItem.Name = "wallsToolStripMenuItem";
-            this.wallsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.wallsToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.wallsToolStripMenuItem.Text = "Walls";
             this.wallsToolStripMenuItem.Click += new System.EventHandler(this.wallsToolStripMenuItem_Click);
             // 
@@ -680,14 +682,14 @@
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
             this.allToolStripMenuItem.ShortcutKeyDisplayString = "(F5)";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.allToolStripMenuItem.Text = "All";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.allToolStripMenuItem_Click);
             // 
             // borderColorToolStripMenuItem1
             // 
             this.borderColorToolStripMenuItem1.Name = "borderColorToolStripMenuItem1";
-            this.borderColorToolStripMenuItem1.Size = new System.Drawing.Size(141, 22);
+            this.borderColorToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
             this.borderColorToolStripMenuItem1.Text = "Border Color";
             this.borderColorToolStripMenuItem1.Click += new System.EventHandler(this.borderColorToolStripMenuItem1_Click);
             // 
@@ -866,6 +868,13 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(190, 17);
             this.toolStripStatusLabel1.Text = "Hold CTRL for grid configuration...";
             // 
+            // defaultGridSizeToolStripMenuItem
+            // 
+            this.defaultGridSizeToolStripMenuItem.Name = "defaultGridSizeToolStripMenuItem";
+            this.defaultGridSizeToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.defaultGridSizeToolStripMenuItem.Text = "Default Grid size";
+            this.defaultGridSizeToolStripMenuItem.Click += new System.EventHandler(this.defaultGridSizeToolStripMenuItem_Click);
+            // 
             // tree_stats
             // 
             this.tree_stats.Location = new System.Drawing.Point(0, 27);
@@ -1039,6 +1048,7 @@
         private System.Windows.Forms.ToolStripMenuItem debugToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showGridBlockLocationsToolStripMenuItem;
         private BufferedTreeView tree_stats;
+        private System.Windows.Forms.ToolStripMenuItem defaultGridSizeToolStripMenuItem;
     }
 }
 
