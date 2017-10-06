@@ -919,6 +919,29 @@ namespace kagv {
         }
 
         private void general_Tick(object sender, EventArgs e) {
+            int inactive_agvs = 0;
+            for (int which_agv = 0; which_agv < AGVs.Count; which_agv++) {
+                if (!AGVs[which_agv].KeepMoving)
+                    inactive_agvs++;
+            }
+            if (inactive_agvs == AGVs.Count) {
+                gb_settings.Enabled = true;
+                settings_menu.Enabled = true;
+                nud_weight.Enabled = true;
+                cb_type.Enabled = true;
+
+                toolStripStatusLabel1.Text = "Hold CTRL for grid configuration...";
+                allowHighlight = false;
+                highlightOverCurrentBoxToolStripMenuItem.Checked = allowHighlight;
+                TriggerStartMenu(false);
+                Refresh();
+                Invalidate(); //invalidates the form, causing it to "refresh" the graphics
+
+                general.Stop();
+                return;
+            }
+
+
             for (int which_agv = 0; which_agv < AGVs.Count; which_agv++) {
                 bool isfreeload = false;
 
@@ -956,8 +979,6 @@ namespace kagv {
                         }
                     }
 
-
-
                     if (!fromstart[which_agv]) {
                         //this is how we check if the AGV has arrived at the exit (red block - end point)
                         if (AGVs[which_agv].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
@@ -973,7 +994,7 @@ namespace kagv {
                                 for (int b = 0; b < Globals._HeightBlocks; b++) {
                                     if (isLoad[k, b] == 1 || isLoad[k, b] == 4) //isLoad[ , ] == 1 means the corresponding Load is available at the moment
                                                                                 //isLoad[ ,] == 4 means that the corresponding Load is surrounded by other 
-                                    {                                        //loads and TEMPORARILY unavailable - will be freed later
+                                    {                                           //loads and TEMPORARILY unavailable - will be freed later
                                         isfreeload = true;
                                         k = Globals._WidthBlocks;
                                         b = Globals._HeightBlocks;
@@ -998,6 +1019,7 @@ namespace kagv {
                                 AGVs[which_agv].SetEmpty();
                                 isfreeload = false;
                                 AGVs[which_agv].KeepMoving = false;
+                                //gb_monitor.Controls.Count;
                                 //agv1steps_LB.Text = "AGV 0: Finished"; must be different for each agv
                             }
 
@@ -1008,15 +1030,14 @@ namespace kagv {
                     } else {
                         if (!AGVs[which_agv].HasLoadToPick) {
                             if (AGVs[which_agv].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
-                                AGVs[which_agv].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y)
-                                AGVs.Remove(AGVs[which_agv]);
-                            AGVs[which_agv].KeepMoving = false;
+                                AGVs[which_agv].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
+                                AGVs[which_agv].KeepMoving = false;
+                            }
                             //agv1steps_LB.Text = "AGV 0: Finished"; must be different for each agv
                         }
                         if (isLoad[AGVs[which_agv].MarkedLoad.X, AGVs[which_agv].MarkedLoad.Y] == 2) //if the AGV has picked up the Load it has marked...
                             if (AGVs[which_agv].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
                                 AGVs[which_agv].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
-                                AGVs.Remove(AGVs[which_agv]);
                                 AGVs[which_agv].KeepMoving = false;
                                 //agv1steps_LB.Text = "AGV 0: Finished"; must be different for each agv
                             }
@@ -1028,27 +1049,7 @@ namespace kagv {
             Invalidate();
             Application.DoEvents();
 
-            int inactive_agvs = 0;
-            for (int which_agv = 0; which_agv < AGVs.Count; which_agv++) {
-                if (!AGVs[which_agv].KeepMoving)
-                    inactive_agvs++;
-            }
-            if (inactive_agvs == AGVs.Count) {
-                gb_settings.Enabled = true;
-                settings_menu.Enabled = true;
-                nud_weight.Enabled = true;
-                cb_type.Enabled = true;
-
-                toolStripStatusLabel1.Text = "Hold CTRL for grid configuration...";
-                allowHighlight = false;
-                highlightOverCurrentBoxToolStripMenuItem.Checked = allowHighlight;
-                TriggerStartMenu(false);
-                Refresh();
-                Invalidate(); //invalidates the form, causing it to "refresh" the graphics
-
-                general.Stop();
-                return;
-            }
+            
 
         }
     }
