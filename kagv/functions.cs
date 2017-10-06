@@ -1236,6 +1236,119 @@ namespace kagv {
             tree_stats.Nodes[0].Nodes.Add(node);
         }
 
+        private void Animate() {
+
+            for (int which_agv = 0; which_agv < AGVs.Count; which_agv++) {
+                bool isfreeload = false;
+
+                if (AGVs[which_agv].KeepMoving) {
+
+                    int stepx = Convert.ToInt32(AGVs[which_agv].Steps[AGVs[which_agv].on_which_step].X);
+                    int stepy = Convert.ToInt32(AGVs[which_agv].Steps[AGVs[which_agv].on_which_step].Y);
+                    if(AGVs[which_agv].HasLoadToPick)
+                        tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[1].Text = "Load at: " + GetStepsToLoad(which_agv);
+                    else
+                        tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[1].Text = "No load to pick";
+
+                    AGVs[which_agv].SetLocation(stepx - ((Globals._BlockSide / 2) - 1) + 1, stepy - ((Globals._BlockSide / 2) - 1) + 1); //this is how we move the AGV on the grid (Setlocation function)
+                    
+
+                    if (AGVs[which_agv].GetMarkedLoad() == AGVs[which_agv].GetLocation() &&
+                    !AGVs[which_agv].Status.Busy) {
+
+                        m_rectangles[AGVs[which_agv].MarkedLoad.X][AGVs[which_agv].MarkedLoad.Y].SwitchLoad(); //converts a specific GridBox, from Load, to Normal box (SwitchLoad function)
+                        searchGrid.SetWalkableAt(AGVs[which_agv].MarkedLoad.X, AGVs[which_agv].MarkedLoad.Y, true);//marks the picked-up load as walkable AGAIN (since it is now a normal gridbox)
+                        labeled_loads--;
+                        if (labeled_loads <= 0)
+                            loads_label.Text = "All loads have been picked up";
+                        else
+                            loads_label.Text = "Loads remaining: " + labeled_loads;
+
+                        AGVs[which_agv].Status.Busy = true; //Sets the status of the AGV to Busy (because it has just picked-up the marked Load
+                        AGVs[which_agv].SetLoaded(); //changes the icon of the AGV and it now appears as Loaded
+                        tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[2].Text = "Status: Loaded";
+                        Refresh();
+
+                        //We needed to find a way to know if the animation is scheduled by Redraw or by GetNextLoad
+                        //fromstart means that an AGV is starting from its VERY FIRST position, heading to a Load and then to exit
+                        //When fromstart becomes false, it means that the AGV has completed its first task and now it is handled by GetNextLoad
+                        if (fromstart[which_agv]) {
+                            loads--;
+                            isLoad[AGVs[which_agv].MarkedLoad.X, AGVs[which_agv].MarkedLoad.Y] = 2;
+
+                            fromstart[which_agv] = false;
+                        }
+                    }
+
+                    if (!fromstart[which_agv]) {
+                        //this is how we check if the AGV has arrived at the exit (red block - end point)
+                        if (AGVs[which_agv].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
+                            AGVs[which_agv].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
+
+                            AGVs[which_agv].LoadsDelivered++;
+                            tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[0].Text = "Loads Delivered: " + AGVs[which_agv].LoadsDelivered;
+                            
+                            AGVs[which_agv].Status.Busy = false; //change the AGV's status back to available again (not busy obviously)
+                            tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[2].Text = "Status: Empty";
+                            //here we scan the Grid and search for Loads that either ARE available or WILL BE available
+                            //if there's at least 1 available Load, set isfreeload = true and stop the double For-loops
+                            for (int k = 0; k < Globals._WidthBlocks; k++) {
+                                for (int b = 0; b < Globals._HeightBlocks; b++) {
+                                    if (isLoad[k, b] == 1 || isLoad[k, b] == 4) //isLoad[ , ] == 1 means the corresponding Load is available at the moment
+                                                                                //isLoad[ ,] == 4 means that the corresponding Load is surrounded by other 
+                                    {                                           //loads and TEMPORARILY unavailable - will be freed later
+                                        isfreeload = true;
+                                        k = Globals._WidthBlocks;
+                                        b = Globals._HeightBlocks;
+                                    }
+                                }
+                            }
+
+
+                            if (loads > 0 && isfreeload) { //means that the are still Loads left in the Grid, that can be picked up
+
+                                AGVs[which_agv].KeepMoving = true;
+                                Reset(which_agv);
+                                AGVs[which_agv].Status.Busy = true;
+                                AGVs[which_agv].MarkedLoad = new Point();
+                                GetNextLoad(which_agv); //function that is responsible for Aaaaaall the future path planning
+                                
+
+                                AGVs[which_agv].Status.Busy = false;
+                                AGVs[which_agv].SetEmpty();
+
+                            } else { //if no other AVAILABLE Loads are found in the grid
+                                AGVs[which_agv].SetEmpty();
+                                isfreeload = false;
+                                AGVs[which_agv].KeepMoving = false;
+                                tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[2].Text = "Status: Finished";
+                                tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[1].Text = "No load to pick";
+                            }
+
+                            on_which_step[which_agv] = -1;
+                            AGVs[which_agv].on_which_step = 0;
+
+                        }
+                    } else {
+                        if (!AGVs[which_agv].HasLoadToPick) {
+                            if (AGVs[which_agv].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
+                                AGVs[which_agv].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
+                                AGVs[which_agv].KeepMoving = false;
+                                tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[1].Text = "No load to pick";
+                            }
+                        }
+                        if (isLoad[AGVs[which_agv].MarkedLoad.X, AGVs[which_agv].MarkedLoad.Y] == 2) //if the AGV has picked up the Load it has marked...
+                            if (AGVs[which_agv].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
+                                AGVs[which_agv].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
+                                AGVs[which_agv].KeepMoving = false;
+                            }
+                    }
+                    AGVs[which_agv].on_which_step++;
+                }
+            }
+
+        }
+
         private void ReflectVariables() {
             if (Globals._Debug) {
                 //ToDebugPanel(Globals._AStarWeight, nameof(Globals._AStarWeight));

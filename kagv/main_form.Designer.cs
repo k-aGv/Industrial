@@ -52,7 +52,6 @@
             treeNode13});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main_form));
             this.menuPanel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.gb_type = new System.Windows.Forms.GroupBox();
             this.cb_type = new System.Windows.Forms.ComboBox();
             this.gb_monitor = new System.Windows.Forms.GroupBox();
@@ -151,7 +150,6 @@
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.menuPanel.Controls.Add(this.label1);
             this.menuPanel.Controls.Add(this.gb_type);
             this.menuPanel.Controls.Add(this.gb_monitor);
             this.menuPanel.Controls.Add(this.gb_settings);
@@ -160,15 +158,6 @@
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(656, 75);
             this.menuPanel.TabIndex = 7;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(226, 53);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 30;
-            this.label1.Text = "label1";
             // 
             // gb_type
             // 
@@ -932,7 +921,6 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseUp);
             this.menuPanel.ResumeLayout(false);
-            this.menuPanel.PerformLayout();
             this.gb_type.ResumeLayout(false);
             this.gb_monitor.ResumeLayout(false);
             this.gb_monitor.PerformLayout();
@@ -1037,7 +1025,6 @@
         private BufferedTreeView tree_stats;
         private System.Windows.Forms.ToolStripMenuItem defaultGridSizeToolStripMenuItem;
         private System.Windows.Forms.Timer general;
-        private System.Windows.Forms.Label label1;
     }
 }
 
