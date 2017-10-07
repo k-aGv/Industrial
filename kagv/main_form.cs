@@ -372,10 +372,6 @@ namespace kagv {
                     if (start_position.Count > nUD_AGVs.Value) {
                         m_rectangles[start_position[0].x][start_position[0].y].SwitchEnd_StartToNormal(); //removes the very last
                         removed = true;
-                        gb_monitor.Controls.Find(
-                     "agv" + (start_position.Count) + "steps_LB",
-                 true)
-                 [0].Text = "";
                         Invalidate();
                     }
                 }
@@ -667,13 +663,7 @@ namespace kagv {
 
             //refresh the numeric value regarding the drawn agvs
             nUD_AGVs.Value = GetNumberOfAGVs();
-
-            //if we add more than 2 agvs,we have to resize the monitor.
-            if (nUD_AGVs.Value > 2)
-                gb_monitor.Size = new Size(Globals._gb_monitor_width * 2, Globals._gb_monitor_height);
-            else
-                gb_monitor.Size = new Size(Globals._gb_monitor_width, Globals._gb_monitor_height);
-
+            
             for (int i = 0; i < fromstart.Length; i++)
                 fromstart[i] = true;
 
@@ -721,7 +711,7 @@ namespace kagv {
             int d = general.Interval;
             d += 50;
             general.Interval = d;
-            refresh_label.Text = "Delay:" + general.Interval + " ms";
+            
         }
 
         private void decreaseSpeedToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -731,7 +721,6 @@ namespace kagv {
             int d = general.Interval;
             d -= 50;
             general.Interval = d;
-            refresh_label.Text = "Delay:" + general.Interval + " ms";
 
         }
 
@@ -939,7 +928,7 @@ namespace kagv {
                 Refresh();
                 Invalidate(); //invalidates the form, causing it to "refresh" the graphics
 
-                general.Stop();
+              general.Stop();
                 return;
             }
 

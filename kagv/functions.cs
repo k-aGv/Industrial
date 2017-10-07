@@ -307,7 +307,7 @@ namespace kagv {
             tree_stats.Nodes[1].Nodes[3].Text = "THC: -";
             tree_stats.Nodes[1].Nodes[4].Text = "Global Warming eq: -";
 
-            loads_label.Text = "";
+            
             labeled_loads = 0;
 
             if (on_which_step != null)
@@ -397,10 +397,9 @@ namespace kagv {
                 AGVs[i].Status.Busy = false;
 
             general.Interval = 50;
-            refresh_label.Text = "Delay:" + general.Interval + " ms";
 
             nUD_AGVs.Value = AGVs.Count;
-
+            tree_stats.Nodes[2].Text = "Loads remaining: ";
         }
 
         //has to do with optical features in the Grid option from the menu
@@ -633,8 +632,12 @@ namespace kagv {
             for (int i = 0; i < startPos.Count; i++)
                 if ((c - 1) > 0)
                     Array.Resize(ref AGVs[i].Paths, c - 1); //resize of the AGVs steps Table
+
             if (loads != 0)
-                loads_label.Text = "Loads: " + loads;
+                tree_stats.Nodes[2].Text = "Remaining loads: " + loads;
+            else
+                tree_stats.Nodes[2].Text = "Remaining loads: ";
+
             Invalidate();
         }
 
@@ -770,12 +773,7 @@ namespace kagv {
                 if (stepstoload < 0)
                     agvinfo = "AGV " + (agv_index) + " is Loaded.";
             }
-
-            gb_monitor.Controls.Find(
-                "agv" + (agv_index +1) + "steps_LB",
-                 true)
-                 [0].Text = agvinfo;
-
+            
         }
 
         //function for holding the AGV back so another can pass without colliding
@@ -943,17 +941,7 @@ namespace kagv {
 
 
             Text = "K-aGv2 Simulator (Industrial branch)";
-            gb_monitor.Size = new Size(Globals._gb_monitor_width, Globals._gb_monitor_height);
             general.Interval = 50;
-            refresh_label.Text = "Delay :" + general.Interval + " ms";
-
-            loads_label.Location = new Point(refresh_label.Location.X + refresh_label.Width, refresh_label.Location.Y);
-
-            agv1steps_LB.Text =
-            agv2steps_LB.Text =
-            agv3steps_LB.Text =
-            agv4steps_LB.Text =
-            agv5steps_LB.Text = "";
 
             //Do not show the START menu because there is no valid path yet
             TriggerStartMenu(false);
@@ -1260,9 +1248,9 @@ namespace kagv {
                         searchGrid.SetWalkableAt(AGVs[which_agv].MarkedLoad.X, AGVs[which_agv].MarkedLoad.Y, true);//marks the picked-up load as walkable AGAIN (since it is now a normal gridbox)
                         labeled_loads--;
                         if (labeled_loads <= 0)
-                            loads_label.Text = "All loads have been picked up";
+                            tree_stats.Nodes[2].Text = "All loads were picked up";
                         else
-                            loads_label.Text = "Loads remaining: " + labeled_loads;
+                            tree_stats.Nodes[2].Text = "Remaining loads: " + labeled_loads;
 
                         AGVs[which_agv].Status.Busy = true; //Sets the status of the AGV to Busy (because it has just picked-up the marked Load
                         AGVs[which_agv].SetLoaded(); //changes the icon of the AGV and it now appears as Loaded
