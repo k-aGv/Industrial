@@ -1239,7 +1239,7 @@ namespace kagv {
                         tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[1].Text = "No load to pick";
 
                     AGVs[which_agv].SetLocation(stepx - ((Globals._BlockSide / 2) - 1) + 1, stepy - ((Globals._BlockSide / 2) - 1) + 1); //this is how we move the AGV on the grid (Setlocation function)
-                    
+                    Refresh();
 
                     if (AGVs[which_agv].GetMarkedLoad() == AGVs[which_agv].GetLocation() &&
                     !AGVs[which_agv].Status.Busy) {
