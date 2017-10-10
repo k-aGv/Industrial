@@ -343,7 +343,8 @@ namespace kagv {
                         StopTimers(which_agv);
                     }
             }
-
+            if (!AGVs[which_agv].HasLoadToPick)
+                StopTimers(which_agv);
 
             //if at least 1 timer is active, do not let the user access the Checkboxes etc. etc
             if (!(timer0.Enabled
@@ -750,7 +751,7 @@ namespace kagv {
             //For-loop to repeat the path-finding process for ALL the AGVs that participate in the simulation
             for (int i = 0; i < startPos.Count; i++) {
                 if (loadPos.Count != 0)
-                    loadPos = CheckForTrappedLoads(loadPos);
+                    loadPos = CheckForTrappedLoads(loadPos,endPos);
 
                 if (loadPos.Count == 0) {
                     mapHasLoads = false;
@@ -832,10 +833,10 @@ namespace kagv {
         private void KeepValidLoads(GridPos EndPoint) {
             int list_index = 0;
             bool removed;
-
             for (int i = 0; i < loadPos.Count; i++)
                 searchGrid.SetWalkableAt(loadPos[i], true); //assumes that all loads are walkable
                                                             //and only walls are in fact the only obstacles in the grid
+
             do {
                 removed = false;
                 jumpParam.Reset(loadPos[list_index], EndPoint); //tries to find path between each Load and the exit
@@ -846,69 +847,41 @@ namespace kagv {
                     loadPos.RemoveAt(list_index); //remove that load from the list
                     removed = true;
                 }
-                if (!removed) { 
-                    searchGrid.SetWalkableAt(loadPos[list_index], false);
+                if (!removed) {
                     list_index++;
                 }
-                
-            } while (list_index < loadPos.Count); //loop repeats untill all loads are checked
 
-            //for (int i = 0; i < loadPos.Count; i++)
-            //    searchGrid.SetWalkableAt(loadPos[i], false); //re-sets every Load to non-walkable
+            } while (list_index < loadPos.Count); //loop repeats untill all loads are checked
 
             if (loadPos.Count == 0)
                 mapHasLoads = false;
         }
 
         //function that scans and finds which loads are surrounded by other loads
-        private List<GridPos> CheckForTrappedLoads(List<GridPos> pos) {
+        private List<GridPos> CheckForTrappedLoads(List<GridPos> pos, GridPos endPos) {
             int list_index = 0;
-            bool removed;
+
+            for (int i = 0; i < pos.Count; i++) {
+                searchGrid.SetWalkableAt(pos[i], false);
+                isLoad[pos[i].x, pos[i].y] = 4;
+            }
 
             //if the 1st AGV  cannot reach a Load, then that Load is  
             //removed from the loadPos and not considered as available - marked as "4"  (temporarily trapped)
             do {
-                removed = false;
-                searchGrid.SetWalkableAt(new GridPos(pos[list_index].x, pos[list_index].y), true);
-                jumpParam.Reset(startPos[0], pos[list_index]);
+                searchGrid.SetWalkableAt(new GridPos(pos[0].x, pos[0].y), true);
+                jumpParam.Reset(pos[0], endPos);
                 if (AStarFinder.FindPath(jumpParam, nud_weight.Value).Count == 0) {
-                    searchGrid.SetWalkableAt(new GridPos(pos[list_index].x, pos[list_index].y), false);
-                    isLoad[pos[list_index].x, pos[list_index].y] = 4; //load is marked as trapped
-                    pos.Remove(pos[list_index]); //load is removed from the List with available Loads
-                    removed = true;
-                } else
-                    isLoad[pos[list_index].x, pos[list_index].y] = 1; //otherwise, Load is marked as available
+                    searchGrid.SetWalkableAt(new GridPos(pos[0].x, pos[0].y), false);
+                    pos.Remove(pos[0]); //load is removed from the List with available Loads
 
-                if (!removed)
-                    list_index++;
+                } else {
+                    isLoad[pos[0].x, pos[0].y] = 1; //otherwise, Load is marked as available
+                    list_index = pos.Count;
+                }
             } while (list_index < pos.Count);
 
             return pos;
-        }
-
-        private void CheckForTrappedLoads() {
-            int list_index = 0;
-            bool removed;
-            do {
-                removed = false;
-               // if (isLoad[loadPos[list_index].x, loadPos[list_index].y] == 4) {
-                    searchGrid.SetWalkableAt(new GridPos(loadPos[list_index].x, loadPos[list_index].y), true);
-                    jumpParam.Reset(startPos[0], loadPos[list_index]);
-                    if (AStarFinder.FindPath(jumpParam, nud_weight.Value).Count == 0) {
-
-                        searchGrid.SetWalkableAt(new GridPos(loadPos[list_index].x, loadPos[list_index].y), false);
-                        loadPos.Remove(loadPos[list_index]);
-                        removed = true;
-                    } else
-                        isLoad[loadPos[list_index].x, loadPos[list_index].y] = 1;
-               // }
-
-                if (!removed)
-                    list_index++;
-
-
-
-            } while (list_index < loadPos.Count);
         }
 
         //returns the number of steps until AGV reaches the marked Load
@@ -1015,8 +988,11 @@ namespace kagv {
                     if (isLoad[i, j] == 1 || isLoad[i, j] == 4)
                         loadPos.Add(new GridPos(i, j));
                 }
-            loadPos = CheckForTrappedLoads(loadPos); //scans the loadPos list to check which loads are available
-            //CheckForTrappedLoads();
+            loadPos = CheckForTrappedLoads(loadPos,new GridPos(a,b)); //scans the loadPos list to check which loads are available
+            if (loadPos.Count == 0) {
+                AGVs[which_agv].HasLoadToPick = false;
+                return;
+            }
             isLoad[loadPos[0].x, loadPos[0].y] = 3;
             AGVs[which_agv].MarkedLoad = new Point(loadPos[0].x, loadPos[0].y);
             loads--;
