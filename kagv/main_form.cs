@@ -40,6 +40,7 @@ namespace kagv {
             Application.AddMessageFilter(this);
             MeasureScreen();
             Initialization();//initialize our stuff
+            ConfigUI();
         }
 
         //paint event on form.
@@ -80,16 +81,11 @@ namespace kagv {
 
                     }
                 }
-
-                
-
-                int c = 0;
-                for (int i = 0; i < startPos.Count; i++) //count how much agvs we have added to the grid
-                    c += AGVs[i].JumpPoints.Count; //...and add them in a variable
+               
 
                 for (int i = 0; i < startPos.Count; i++) {
                     AGVs[i].StepsCounter = 0;
-                    for (int resultTrav = 0; resultTrav < c; resultTrav++)
+                    for (int resultTrav = 0; resultTrav < AGVs[i].JumpPoints.Count; resultTrav++)
                         try {
                             if (linesToolStripMenuItem.Checked)
                                 AGVs[i].Paths[resultTrav].drawLine(paper);//draw the lines 
@@ -915,6 +911,12 @@ namespace kagv {
                 if (!AGVs[which_agv].KeepMoving)
                     inactive_agvs++;
             }
+
+            if ((5 - inactive_agvs > 0))
+                general.Interval = Globals._TimerInterval / (5 - inactive_agvs);
+            else
+                general.Interval = Globals._TimerInterval;
+
             if (inactive_agvs == AGVs.Count) {
                 gb_settings.Enabled = true;
                 settings_menu.Enabled = true;
@@ -928,15 +930,10 @@ namespace kagv {
                 Refresh();
                 Invalidate(); //invalidates the form, causing it to "refresh" the graphics
 
-              general.Stop();
+                general.Stop();
                 return;
             }
-
             Animate();
-
-            Refresh();
-            Invalidate();
-            Application.DoEvents();
         }
 
     }

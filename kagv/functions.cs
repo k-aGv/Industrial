@@ -994,6 +994,7 @@ namespace kagv {
 
             statusStrip1.BringToFront();
 
+            general.Interval = Globals._TimerInterval;
             tp = new ToolTip
             {
 
@@ -1074,7 +1075,6 @@ namespace kagv {
             jumpParam = new AStarParam(searchGrid, Convert.ToSingle(Globals._AStarWeight));//Default value until user edit it
             jumpParam.SetHeuristic(HeuristicMode.MANHATTAN); //default value until user edit it
 
-            ConfigUI();
         }
 
         //Function for exporting the map
@@ -1222,6 +1222,7 @@ namespace kagv {
                 Text = varname + ":" + var,
             };
             tree_stats.Nodes[0].Nodes.Add(node);
+            tree_stats.Nodes[0].Expand();
         }
 
         private void Animate() {
@@ -1255,7 +1256,6 @@ namespace kagv {
                         AGVs[which_agv].Status.Busy = true; //Sets the status of the AGV to Busy (because it has just picked-up the marked Load
                         AGVs[which_agv].SetLoaded(); //changes the icon of the AGV and it now appears as Loaded
                         tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[2].Text = "Status: Loaded";
-                        Refresh();
 
                         //We needed to find a way to know if the animation is scheduled by Redraw or by GetNextLoad
                         //fromstart means that an AGV is starting from its VERY FIRST position, heading to a Load and then to exit
@@ -1291,10 +1291,11 @@ namespace kagv {
                                     }
                                 }
                             }
+                            
 
 
                             if (loads > 0 && isfreeload) { //means that the are still Loads left in the Grid, that can be picked up
-
+                                
                                 AGVs[which_agv].KeepMoving = true;
                                 Reset(which_agv);
                                 AGVs[which_agv].Status.Busy = true;
@@ -1339,7 +1340,7 @@ namespace kagv {
 
         private void ReflectVariables() {
             if (Globals._Debug) {
-                //ToDebugPanel(Globals._AStarWeight, nameof(Globals._AStarWeight));
+                ToDebugPanel(Globals._AStarWeight, nameof(Globals._AStarWeight));
                 //add more reflections here
             }
         }

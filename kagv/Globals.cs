@@ -49,5 +49,7 @@ namespace kagv {
         //visibility before form shown
         public static bool _Debug = true;
         public static bool _FirstFormLoad = true;
+
+        public static int _TimerInterval = 50;
     }
 }
