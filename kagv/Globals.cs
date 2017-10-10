@@ -38,7 +38,9 @@ namespace kagv {
 
 
         //Grid's stats
-        public static int _TimerInterval =50;
+        public static int _TimerInterval =50; //the actual timer interval in ms
+        public static int _TimerStep = 50; //the step of increase/decrease the interval
+
         public static int _WidthBlocks; //grid blocks
         public static int _HeightBlocks; //grid blocks
         public static int _BlockSide = 15;

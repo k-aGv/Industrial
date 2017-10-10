@@ -404,8 +404,10 @@ namespace kagv {
                 n.Nodes.Add("Loads Delivered");
                 n.Nodes.Add("Load at: ");
                 n.Nodes.Add("Status: ");
+                n.Nodes.Add("Delay: "+Globals._TimerInterval+" ms");
                 tree_stats.Nodes.Add(n);
             }
+            
             tree_stats.Refresh();
         }
 
@@ -717,18 +719,28 @@ namespace kagv {
         }
 
         private void increaseSpeedToolStripMenuItem_Click(object sender, EventArgs e) {
-            int d = Globals._TimerInterval;
-            d += Globals._TimerInterval;
-            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = d;
+           
+            Globals._TimerInterval += Globals._TimerStep;
+            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = Globals._TimerInterval;
+
+            for (int i = 0; i < nUD_AGVs.Value; i++) {
+                tree_stats.Nodes.Find("AGV:" + (i), false)[0].Expand();
+                tree_stats.Nodes.Find("AGV:" + (i), false)[0].Nodes[3].Text = ("Delay: " + Globals._TimerInterval + " ms");
+                
+            }
         }
 
         private void decreaseSpeedToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (timer0.Interval == Globals._TimerInterval)
+            if (Globals._TimerInterval - Globals._TimerStep == 0)
                 return;
 
-            int d = timer0.Interval;
-            d -= Globals._TimerInterval;
-            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = d;
+            Globals._TimerInterval -= Globals._TimerStep;
+            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = Globals._TimerInterval;
+
+            for (int i = 0; i < nUD_AGVs.Value; i++) {
+                tree_stats.Nodes.Find("AGV:" + (i), false)[0].Nodes[3].Text = ("Delay: " + Globals._TimerInterval + " ms");
+                tree_stats.Nodes.Find("AGV:" + (i), false)[0].Expand();
+            }
         }
 
 

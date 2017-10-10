@@ -581,6 +581,7 @@ namespace kagv {
             for (int i = 0; i < AGVs.Count; i++)
                 AGVs[i].Status.Busy = false;
 
+            Globals._TimerStep = 0;
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = Globals._TimerInterval;
             
 
