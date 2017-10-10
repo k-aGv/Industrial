@@ -333,18 +333,23 @@ namespace kagv {
                     if (AGVs[which_agv].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
                         AGVs[which_agv].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
                         tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[1].Text = "No load to pick";
+                        tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[2].Text = "Status: Finished";
                         StopTimers(which_agv);
                     }
                 }
                 if (isLoad[AGVs[which_agv].MarkedLoad.X, AGVs[which_agv].MarkedLoad.Y] == 2) //if the AGV has picked up the Load it has marked...
                     if (AGVs[which_agv].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
                         AGVs[which_agv].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
+                        tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[1].Text = "No load to pick";
                         tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[2].Text = "Status: Finished";
                         StopTimers(which_agv);
                     }
             }
-            if (!AGVs[which_agv].HasLoadToPick)
+            if (!AGVs[which_agv].HasLoadToPick && !fromstart[which_agv]) {
+                tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[1].Text = "No load to pick";
+                tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[2].Text = "Status: Finished";
                 StopTimers(which_agv);
+            }
 
             //if at least 1 timer is active, do not let the user access the Checkboxes etc. etc
             if (!(timer0.Enabled
