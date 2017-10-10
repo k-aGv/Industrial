@@ -50,19 +50,12 @@
             treeNode11,
             treeNode12,
             treeNode13});
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Remaining loads:");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main_form));
             this.timer0 = new System.Windows.Forms.Timer(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
             this.gb_type = new System.Windows.Forms.GroupBox();
             this.cb_type = new System.Windows.Forms.ComboBox();
-            this.gb_monitor = new System.Windows.Forms.GroupBox();
-            this.loads_label = new System.Windows.Forms.Label();
-            this.agv3steps_LB = new System.Windows.Forms.Label();
-            this.refresh_label = new System.Windows.Forms.Label();
-            this.agv4steps_LB = new System.Windows.Forms.Label();
-            this.agv1steps_LB = new System.Windows.Forms.Label();
-            this.agv5steps_LB = new System.Windows.Forms.Label();
-            this.agv2steps_LB = new System.Windows.Forms.Label();
             this.gb_settings = new System.Windows.Forms.GroupBox();
             this.gb_agvs = new System.Windows.Forms.GroupBox();
             this.nUD_AGVs = new System.Windows.Forms.NumericUpDown();
@@ -102,6 +95,7 @@
             this.manhattanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.euclideanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chebyshevToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stepsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -116,7 +110,7 @@
             this.wallsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.borderColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultGridSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showGridBlockLocationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
@@ -135,11 +129,9 @@
             this.btn_right = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.defaultGridSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tree_stats = new BufferedTreeView();
             this.menuPanel.SuspendLayout();
             this.gb_type.SuspendLayout();
-            this.gb_monitor.SuspendLayout();
             this.gb_settings.SuspendLayout();
             this.gb_agvs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_AGVs)).BeginInit();
@@ -159,7 +151,6 @@
             // 
             this.menuPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.menuPanel.Controls.Add(this.gb_type);
-            this.menuPanel.Controls.Add(this.gb_monitor);
             this.menuPanel.Controls.Add(this.gb_settings);
             this.menuPanel.Controls.Add(this.groupBox1);
             this.menuPanel.Location = new System.Drawing.Point(191, 27);
@@ -189,84 +180,6 @@
             this.cb_type.Size = new System.Drawing.Size(55, 21);
             this.cb_type.TabIndex = 0;
             this.cb_type.Text = "LPG";
-            // 
-            // gb_monitor
-            // 
-            this.gb_monitor.Controls.Add(this.loads_label);
-            this.gb_monitor.Controls.Add(this.agv3steps_LB);
-            this.gb_monitor.Controls.Add(this.refresh_label);
-            this.gb_monitor.Controls.Add(this.agv4steps_LB);
-            this.gb_monitor.Controls.Add(this.agv1steps_LB);
-            this.gb_monitor.Controls.Add(this.agv5steps_LB);
-            this.gb_monitor.Controls.Add(this.agv2steps_LB);
-            this.gb_monitor.Location = new System.Drawing.Point(376, 5);
-            this.gb_monitor.Name = "gb_monitor";
-            this.gb_monitor.Size = new System.Drawing.Size(262, 65);
-            this.gb_monitor.TabIndex = 26;
-            this.gb_monitor.TabStop = false;
-            this.gb_monitor.Text = "Monitor";
-            // 
-            // loads_label
-            // 
-            this.loads_label.AutoSize = true;
-            this.loads_label.Location = new System.Drawing.Point(77, 52);
-            this.loads_label.Name = "loads_label";
-            this.loads_label.Size = new System.Drawing.Size(0, 13);
-            this.loads_label.TabIndex = 30;
-            // 
-            // agv3steps_LB
-            // 
-            this.agv3steps_LB.AutoSize = true;
-            this.agv3steps_LB.Location = new System.Drawing.Point(272, 15);
-            this.agv3steps_LB.Name = "agv3steps_LB";
-            this.agv3steps_LB.Size = new System.Drawing.Size(35, 13);
-            this.agv3steps_LB.TabIndex = 22;
-            this.agv3steps_LB.Text = "AGV3";
-            // 
-            // refresh_label
-            // 
-            this.refresh_label.AutoSize = true;
-            this.refresh_label.Location = new System.Drawing.Point(6, 49);
-            this.refresh_label.Name = "refresh_label";
-            this.refresh_label.Size = new System.Drawing.Size(65, 13);
-            this.refresh_label.TabIndex = 19;
-            this.refresh_label.Text = "Refresh rate";
-            // 
-            // agv4steps_LB
-            // 
-            this.agv4steps_LB.AutoSize = true;
-            this.agv4steps_LB.Location = new System.Drawing.Point(272, 32);
-            this.agv4steps_LB.Name = "agv4steps_LB";
-            this.agv4steps_LB.Size = new System.Drawing.Size(35, 13);
-            this.agv4steps_LB.TabIndex = 23;
-            this.agv4steps_LB.Text = "AGV4";
-            // 
-            // agv1steps_LB
-            // 
-            this.agv1steps_LB.AutoSize = true;
-            this.agv1steps_LB.Location = new System.Drawing.Point(6, 16);
-            this.agv1steps_LB.Name = "agv1steps_LB";
-            this.agv1steps_LB.Size = new System.Drawing.Size(35, 13);
-            this.agv1steps_LB.TabIndex = 20;
-            this.agv1steps_LB.Text = "AGV1";
-            // 
-            // agv5steps_LB
-            // 
-            this.agv5steps_LB.AutoSize = true;
-            this.agv5steps_LB.Location = new System.Drawing.Point(272, 48);
-            this.agv5steps_LB.Name = "agv5steps_LB";
-            this.agv5steps_LB.Size = new System.Drawing.Size(35, 13);
-            this.agv5steps_LB.TabIndex = 24;
-            this.agv5steps_LB.Text = "AGV5";
-            // 
-            // agv2steps_LB
-            // 
-            this.agv2steps_LB.AutoSize = true;
-            this.agv2steps_LB.Location = new System.Drawing.Point(6, 32);
-            this.agv2steps_LB.Name = "agv2steps_LB";
-            this.agv2steps_LB.Size = new System.Drawing.Size(35, 13);
-            this.agv2steps_LB.TabIndex = 21;
-            this.agv2steps_LB.Text = "AGV2";
             // 
             // gb_settings
             // 
@@ -582,6 +495,13 @@
             this.chebyshevToolStripMenuItem.Text = "Chebyshev";
             this.chebyshevToolStripMenuItem.Click += new System.EventHandler(this.chebyshevToolStripMenuItem_Click);
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
             // gridToolStripMenuItem
             // 
             this.gridToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -603,7 +523,7 @@
             this.highlightOverCurrentBoxToolStripMenuItem,
             this.aGVIndexToolStripMenuItem});
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.showToolStripMenuItem.Text = "Show...";
             // 
             // stepsToolStripMenuItem
@@ -651,14 +571,14 @@
             // borderColorToolStripMenuItem
             // 
             this.borderColorToolStripMenuItem.Name = "borderColorToolStripMenuItem";
-            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.borderColorToolStripMenuItem.Text = "Border Color";
             this.borderColorToolStripMenuItem.Click += new System.EventHandler(this.borderColorToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(138, 6);
             // 
             // clearToolStripMenuItem
             // 
@@ -668,7 +588,7 @@
             this.borderColorToolStripMenuItem1,
             this.defaultGridSizeToolStripMenuItem});
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             // 
             // wallsToolStripMenuItem
@@ -693,12 +613,12 @@
             this.borderColorToolStripMenuItem1.Text = "Border Color";
             this.borderColorToolStripMenuItem1.Click += new System.EventHandler(this.borderColorToolStripMenuItem1_Click);
             // 
-            // aboutToolStripMenuItem
+            // defaultGridSizeToolStripMenuItem
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.defaultGridSizeToolStripMenuItem.Name = "defaultGridSizeToolStripMenuItem";
+            this.defaultGridSizeToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.defaultGridSizeToolStripMenuItem.Text = "Default Grid size";
+            this.defaultGridSizeToolStripMenuItem.Click += new System.EventHandler(this.defaultGridSizeToolStripMenuItem_Click);
             // 
             // debugToolStripMenuItem
             // 
@@ -868,13 +788,6 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(190, 17);
             this.toolStripStatusLabel1.Text = "Hold CTRL for grid configuration...";
             // 
-            // defaultGridSizeToolStripMenuItem
-            // 
-            this.defaultGridSizeToolStripMenuItem.Name = "defaultGridSizeToolStripMenuItem";
-            this.defaultGridSizeToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.defaultGridSizeToolStripMenuItem.Text = "Default Grid size";
-            this.defaultGridSizeToolStripMenuItem.Click += new System.EventHandler(this.defaultGridSizeToolStripMenuItem_Click);
-            // 
             // tree_stats
             // 
             this.tree_stats.Location = new System.Drawing.Point(0, 27);
@@ -909,9 +822,12 @@
             treeNode13.Text = "Node6";
             treeNode14.Name = "node_emissions";
             treeNode14.Text = "Emissions";
+            treeNode15.Name = "Loads";
+            treeNode15.Text = "Remaining loads:";
             this.tree_stats.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode8,
-            treeNode14});
+            treeNode14,
+            treeNode15});
             this.tree_stats.Size = new System.Drawing.Size(150, 280);
             this.tree_stats.TabIndex = 12;
             // 
@@ -941,8 +857,6 @@
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseUp);
             this.menuPanel.ResumeLayout(false);
             this.gb_type.ResumeLayout(false);
-            this.gb_monitor.ResumeLayout(false);
-            this.gb_monitor.PerformLayout();
             this.gb_settings.ResumeLayout(false);
             this.gb_settings.PerformLayout();
             this.gb_agvs.ResumeLayout(false);
@@ -1004,18 +918,11 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.Label refresh_label;
         private System.Windows.Forms.ToolStripMenuItem increaseSpeedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decreaseSpeedToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
-        private System.Windows.Forms.Label agv5steps_LB;
-        private System.Windows.Forms.Label agv4steps_LB;
-        private System.Windows.Forms.Label agv3steps_LB;
-        private System.Windows.Forms.Label agv2steps_LB;
-        private System.Windows.Forms.Label agv1steps_LB;
         private System.Windows.Forms.GroupBox gb_settings;
         private System.Windows.Forms.GroupBox gb_agvs;
-        private System.Windows.Forms.GroupBox gb_monitor;
         private System.Windows.Forms.ToolStripMenuItem bordersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem borderColorToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem highlightOverCurrentBoxToolStripMenuItem;
@@ -1029,7 +936,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem noObstaclesMenu;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label loads_label;
         private System.Windows.Forms.Panel panel_resize;
         private System.Windows.Forms.Button btn_down;
         private System.Windows.Forms.Button btn_up;

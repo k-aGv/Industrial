@@ -376,10 +376,7 @@ namespace kagv {
                     if (start_position.Count > nUD_AGVs.Value) {
                         m_rectangles[start_position[0].x][start_position[0].y].SwitchEnd_StartToNormal(); //removes the very last
                         removed = true;
-                        gb_monitor.Controls.Find(
-                     "agv" + (start_position.Count) + "steps_LB",
-                 true)
-                 [0].Text = "";
+                        
                         Invalidate();
                     }
                 }
@@ -405,7 +402,8 @@ namespace kagv {
                 TreeNode n = new TreeNode("AGV:" + (p));
                 n.Name = ("AGV:" + (p));
                 n.Nodes.Add("Loads Delivered");
-                n.Nodes.Add("Will add moar");
+                n.Nodes.Add("Load at: ");
+                n.Nodes.Add("Status: ");
                 tree_stats.Nodes.Add(n);
             }
             tree_stats.Refresh();
@@ -675,12 +673,6 @@ namespace kagv {
             //refresh the numeric value regarding the drawn agvs
             nUD_AGVs.Value = GetNumberOfAGVs();
 
-            //if we add more than 2 agvs,we have to resize the monitor.
-            if (nUD_AGVs.Value > 2)
-                gb_monitor.Size = new Size(Globals._gb_monitor_width * 2, Globals._gb_monitor_height);
-            else
-                gb_monitor.Size = new Size(Globals._gb_monitor_width, Globals._gb_monitor_height);
-
             for (int i = 0; i < fromstart.Length; i++)
                 fromstart[i] = true;
 
@@ -713,6 +705,7 @@ namespace kagv {
                 if (s.Name.Contains("AGV")) {
                     if (!s.IsExpanded) {
                         s.Expand();
+                        s.Nodes[2].Text = "Status: Empty";
                     }
                 }
             }
@@ -727,7 +720,6 @@ namespace kagv {
             int d = timer0.Interval;
             d += 50;
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = d;
-            refresh_label.Text = "Delay:" + timer0.Interval + " ms";
         }
 
         private void decreaseSpeedToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -737,8 +729,6 @@ namespace kagv {
             int d = timer0.Interval;
             d -= 50;
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = d;
-            refresh_label.Text = "Delay:" + timer0.Interval + " ms";
-
         }
 
 

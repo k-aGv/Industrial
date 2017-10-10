@@ -193,23 +193,18 @@ namespace kagv {
             switch (agv_index) {
                 case 0:
                     timer0.Stop();
-                    agv1steps_LB.Text = "AGV 0: Finished";
                     break;
                 case 1:
                     timer1.Stop();
-                    agv2steps_LB.Text = "AGV 1: Finished";
                     break;
                 case 2:
                     timer2.Stop();
-                    agv3steps_LB.Text = "AGV 2: Finished";
                     break;
                 case 3:
                     timer3.Stop();
-                    agv4steps_LB.Text = "AGV 3: Finished";
                     break;
                 case 4:
                     timer4.Stop();
-                    agv5steps_LB.Text = "AGV 4: Finished";
                     break;
             }
         }
@@ -224,7 +219,10 @@ namespace kagv {
             //agv_index index tells us which timer is calling this function so as to know which AGV will be handled
             int stepx = Convert.ToInt32(AGVs[which_agv].Steps[which_step].X);
             int stepy = Convert.ToInt32(AGVs[which_agv].Steps[which_step].Y);
-
+            if (AGVs[which_agv].HasLoadToPick)
+                tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[1].Text = "Load at: " + GetStepsToLoad(which_agv);
+            else
+                tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[1].Text = "No load to pick";
             //if, for any reason, the above steps are set to "0", obviously something is wrong so function returns
             if (stepx == 0 || stepx == 0)
                 return;
@@ -261,12 +259,13 @@ namespace kagv {
                 searchGrid.SetWalkableAt(AGVs[which_agv].MarkedLoad.X, AGVs[which_agv].MarkedLoad.Y, true);//marks the picked-up load as walkable AGAIN (since it is now a normal gridbox)
                 labeled_loads--;
                 if (labeled_loads <= 0)
-                    loads_label.Text = "All loads have been picked up";
+                tree_stats.Nodes[2].Text = "All loads were picked up";
                 else
-                    loads_label.Text = "Loads remaining: " + labeled_loads;
+                tree_stats.Nodes[2].Text = "Remaining loads: " + labeled_loads;
 
                 AGVs[which_agv].Status.Busy = true; //Sets the status of the AGV to Busy (because it has just picked-up the marked Load
                 AGVs[which_agv].SetLoaded(); //changes the icon of the AGV and it now appears as Loaded
+                tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[2].Text = "Status: Loaded";
                 Refresh();
 
                 //We needed to find a way to know if the animation is scheduled by Redraw or by GetNextLoad
@@ -287,8 +286,9 @@ namespace kagv {
 
                     AGVs[which_agv].LoadsDelivered++;
                     tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[0].Text = "Loads Delivered: " + AGVs[which_agv].LoadsDelivered;
-                    AGVs[which_agv].Status.Busy = false; //change the AGV's status back to available again (not busy obviously)
 
+                    AGVs[which_agv].Status.Busy = false; //change the AGV's status back to available again (not busy obviously)
+                    tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[2].Text = "Status: Empty";
                     //here we scan the Grid and search for Loads that either ARE available or WILL BE available
                     //if there's at least 1 available Load, set isfreeload = true and stop the double For-loops
                     for (int k = 0; k < Globals._WidthBlocks; k++) {
@@ -318,6 +318,9 @@ namespace kagv {
                     } else { //if no other AVAILABLE Loads are found in the grid
                         AGVs[which_agv].SetEmpty();
                         isfreeload = false;
+                        
+                        tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[2].Text = "Status: Finished";
+                        tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[1].Text = "No load to pick";
                         StopTimers(which_agv);
                     }
 
@@ -328,12 +331,15 @@ namespace kagv {
             } else {
                 if (!AGVs[which_agv].HasLoadToPick) {
                     if (AGVs[which_agv].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
-                        AGVs[which_agv].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y)
+                        AGVs[which_agv].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
+                        tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[1].Text = "No load to pick";
                         StopTimers(which_agv);
+                    }
                 }
                 if (isLoad[AGVs[which_agv].MarkedLoad.X, AGVs[which_agv].MarkedLoad.Y] == 2) //if the AGV has picked up the Load it has marked...
                     if (AGVs[which_agv].GetLocation().X == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].x &&
                         AGVs[which_agv].GetLocation().Y == m_rectangles[endPointCoords.X / Globals._BlockSide][(endPointCoords.Y - Globals._TopBarOffset) / Globals._BlockSide].y) {
+                        tree_stats.Nodes.Find("AGV:" + (which_agv), false)[0].Nodes[2].Text = "Status: Finished";
                         StopTimers(which_agv);
                     }
             }
@@ -486,8 +492,7 @@ namespace kagv {
             tree_stats.Nodes[1].Nodes[2].Text = "NOx: -";
             tree_stats.Nodes[1].Nodes[3].Text = "THC: -";
             tree_stats.Nodes[1].Nodes[4].Text = "Global Warming eq: -";
-
-            loads_label.Text = "";
+            
             labeled_loads = 0;
 
             if (on_which_step != null)
@@ -577,9 +582,11 @@ namespace kagv {
                 AGVs[i].Status.Busy = false;
 
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 50;
-            refresh_label.Text = "Delay:" + timer0.Interval + " ms";
+            
 
             nUD_AGVs.Value = AGVs.Count;
+            tree_stats.Nodes[2].Text = "Loads remaining: ";
+
 
         }
 
@@ -814,7 +821,9 @@ namespace kagv {
                 if ((c - 1) > 0)
                     Array.Resize(ref AGVs[i].Paths, c - 1); //resize of the AGVs steps Table
             if (loads != 0)
-                loads_label.Text = "Loads: " + loads;
+                tree_stats.Nodes[2].Text = "Remaining loads: " + loads;
+            else
+            tree_stats.Nodes[2].Text = "Remaining loads: ";
             Invalidate();
         }
 
@@ -950,12 +959,6 @@ namespace kagv {
                 if (stepstoload < 0)
                     agvinfo = "AGV " + (agv_index) + " is Loaded.";
             }
-
-            gb_monitor.Controls.Find(
-                "agv" + (agv_index +1) + "steps_LB",
-                 true)
-                 [0].Text = agvinfo;
-
         }
 
         //function for holding the AGV back so another can pass without colliding
@@ -1161,18 +1164,8 @@ namespace kagv {
 
 
             Text = "K-aGv2 Simulator (Industrial branch)";
-            gb_monitor.Size = new Size(Globals._gb_monitor_width, Globals._gb_monitor_height);
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 50;
-            refresh_label.Text = "Delay :" + timer0.Interval + " ms";
-
-            loads_label.Location = new Point(refresh_label.Location.X + refresh_label.Width, refresh_label.Location.Y);
-
-            agv1steps_LB.Text =
-            agv2steps_LB.Text =
-            agv3steps_LB.Text =
-            agv4steps_LB.Text =
-            agv5steps_LB.Text = "";
-
+            
             //Do not show the START menu because there is no valid path yet
             TriggerStartMenu(false);
 
