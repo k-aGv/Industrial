@@ -6,3 +6,6 @@
 **More details:**
 Please read our [Manifest](https://github.com/k-aGv/manifest)
 
+***DotNet documentation***
+http://www.dotnetframework.org
+
