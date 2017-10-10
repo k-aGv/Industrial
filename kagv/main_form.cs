@@ -81,15 +81,9 @@ namespace kagv {
                     }
                 }
 
-                
-
-                int c = 0;
-                for (int i = 0; i < startPos.Count; i++) //count how much agvs we have added to the grid
-                    c += AGVs[i].JumpPoints.Count; //...and add them in a variable
-
                 for (int i = 0; i < startPos.Count; i++) {
                     AGVs[i].StepsCounter = 0;
-                    for (int resultTrav = 0; resultTrav < c; resultTrav++)
+                    for (int resultTrav = 0; resultTrav < AGVs[i].JumpPoints.Count; resultTrav++)
                         try {
                             if (linesToolStripMenuItem.Checked)
                                 AGVs[i].Paths[resultTrav].drawLine(paper);//draw the lines 
