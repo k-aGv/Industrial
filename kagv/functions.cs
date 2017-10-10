@@ -1452,6 +1452,7 @@ namespace kagv {
                 Text = varname + ":" + var,
             };
             tree_stats.Nodes[0].Nodes.Add(node);
+            tree_stats.Nodes[0].Expand();
         }
 
         private void ReflectVariables() {
