@@ -745,12 +745,11 @@ namespace kagv {
                 KeepValidLoads(endPos); //calls a function that checks which Loads are available
                                         //to be picked up by AGVs and removed the trapped ones.
 
+            if (loadPos.Count != 0)
+                loadPos = CheckForTrappedLoads(loadPos);
 
             //For-loop to repeat the path-finding process for ALL the AGVs that participate in the simulation
             for (int i = 0; i < startPos.Count; i++) {
-                if (loadPos.Count != 0)
-                    loadPos = CheckForTrappedLoads(loadPos);
-
                 if (loadPos.Count == 0) {
                     mapHasLoads = false;
                     AGVs[i].HasLoadToPick = false;
