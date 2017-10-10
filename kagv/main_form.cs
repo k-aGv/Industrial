@@ -717,17 +717,17 @@ namespace kagv {
         }
 
         private void increaseSpeedToolStripMenuItem_Click(object sender, EventArgs e) {
-            int d = timer0.Interval;
-            d += 50;
+            int d = Globals._TimerInterval;
+            d += Globals._TimerInterval;
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = d;
         }
 
         private void decreaseSpeedToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (timer0.Interval == 50)
+            if (timer0.Interval == Globals._TimerInterval)
                 return;
 
             int d = timer0.Interval;
-            d -= 50;
+            d -= Globals._TimerInterval;
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = d;
         }
 

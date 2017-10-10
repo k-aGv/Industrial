@@ -38,6 +38,7 @@ namespace kagv {
 
 
         //Grid's stats
+        public static int _TimerInterval =50;
         public static int _WidthBlocks; //grid blocks
         public static int _HeightBlocks; //grid blocks
         public static int _BlockSide = 15;

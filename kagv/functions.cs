@@ -581,7 +581,7 @@ namespace kagv {
             for (int i = 0; i < AGVs.Count; i++)
                 AGVs[i].Status.Busy = false;
 
-            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 50;
+            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = Globals._TimerInterval;
             
 
             nUD_AGVs.Value = AGVs.Count;
@@ -1163,7 +1163,7 @@ namespace kagv {
 
 
             Text = "K-aGv2 Simulator (Industrial branch)";
-            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 50;
+            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = Globals._TimerInterval;
             
             //Do not show the START menu because there is no valid path yet
             TriggerStartMenu(false);
