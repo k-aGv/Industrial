@@ -2,15 +2,9 @@ Add logic for frontal collision avoidance
 ---------------
 Remove Tries	
 ---------------
-Embed timers to Vehicle.cs **NOT NEEDED**
----------------	
 Dynamic Obstacles
 ---------------	
 Allow multitasking (?)
----------------
-Smooth animation **DONE**
----------------
-Upstream with China **DONE**	 
 ---------------
 Dynamic AGVs quantity	
 ---------------
@@ -22,13 +16,19 @@ Cherrypick edits to gmaps
 ---------------
 add option to allow user save his configs ( heuristic/weight/speed etc)	
 ---------------
-change resolution by adding-removing boxes **DONE**	
+~~change resolution by adding-removing boxes~~	
 ---------------
-do not allow space press while simulation is active **DONE**	
+~~do not allow space press while simulation is active~~	
 ---------------
-add treeview **DONE**	
+~~add treeview~~	
 ---------------
-stable resize **DONE**	
+~~stable resize~~
 ---------------
-Cleaner UI initialization **DONE**	
+~~Cleaner UI initialization~~
+---------------
+~~Embed timers to Vehicle.cs **NOT NEEDED** ~~
+---------------	
+~~Smooth animation~~
+---------------
+~~Upstream with China~~ 
 ---------------
