@@ -1235,8 +1235,10 @@ namespace kagv {
                         Globals._WidthBlocks = Convert.ToInt32(reader.ReadLine());
                         Globals._HeightBlocks = Convert.ToInt32(reader.ReadLine());
                         Globals._BlockSide = Convert.ToInt32(reader.ReadLine());
-                    } catch { MessageBox.Show("An error has occured while parsing the file to initialize form.\nPlease delete the file."); }
-                    reader.Dispose();
+                    } catch {
+                        MessageBox.Show("An error has occured while parsing the file to initialize form.\nPlease delete the file.");
+                    }
+                    reader.Close();
                 }
                 Globals._FirstFormLoad = false;
             }
