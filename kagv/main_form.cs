@@ -341,20 +341,99 @@ namespace kagv {
         //shown in the screen
         private void main_form_MouseUp(object sender, MouseEventArgs e) {
 
-
             if (timer0.Enabled
                 || timer1.Enabled
                 || timer2.Enabled
                 || timer3.Enabled
                 || timer4.Enabled) return;
 
-            isMouseDown = false;
+            Point click_coords = new Point(e.X, e.Y);
+            if (!Isvalid(click_coords) || e.Button != MouseButtons.Left || nUD_AGVs.Value == 0)
+                return;
 
-            for (int i = 0; i < startPos.Count; i++)
-                AGVs[i].StepsCounter = 0;
+            isMouseDown = false;
 
             if (e.Button == MouseButtons.Right)
                 tp.Hide(this);
+
+            if (rb_load.Checked)
+                for (int widthTrav = 0; widthTrav < Globals._WidthBlocks; widthTrav++)
+                    for (int heightTrav = 0; heightTrav < Globals._HeightBlocks; heightTrav++)
+                        if (m_rectangles[widthTrav][heightTrav].boxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1)))) {
+                            m_lastBoxType = m_rectangles[widthTrav][heightTrav].boxType;
+                            m_lastBoxSelect = m_rectangles[widthTrav][heightTrav];
+                            switch (m_lastBoxType) {
+                                case BoxType.Normal:
+                                    m_rectangles[widthTrav][heightTrav].SwitchLoad();
+                                    isLoad[widthTrav, heightTrav] = 1;
+                                    break;
+                                case BoxType.Load:
+                                    loads--;
+                                    m_rectangles[widthTrav][heightTrav].SwitchLoad();
+                                    isLoad[widthTrav, heightTrav] = 2;
+                                    break;
+                                case BoxType.Wall:
+                                case BoxType.Start:
+                                case BoxType.End:
+                                    break;
+                            }
+                        }
+
+            if (rb_start.Checked) {
+
+                if (nUD_AGVs.Value == 1)//Saves only the last Click position to place the Start (1 start exists)
+                {
+                    for (int widthTrav = 0; widthTrav < Globals._WidthBlocks; widthTrav++)
+                        for (int heightTrav = 0; heightTrav < Globals._HeightBlocks; heightTrav++)
+                            if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Start)
+                                m_rectangles[widthTrav][heightTrav].SwitchEnd_StartToNormal();
+                } else if (nUD_AGVs.Value > 1) {//Deletes the start with the smallest iX - iY coords and keeps the rest
+
+                    int starts_counter = 0;
+                    int[,] starts_position = new int[2, Convert.ToInt32(nUD_AGVs.Value)];
+
+
+                    for (int widthTrav = 0; widthTrav < Globals._WidthBlocks; widthTrav++)
+                        for (int heightTrav = 0; heightTrav < Globals._HeightBlocks; heightTrav++) {
+                            if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Start) {
+                                starts_position[0, starts_counter] = widthTrav;
+                                starts_position[1, starts_counter] = heightTrav;
+                                starts_counter++;
+                            }
+                            if (starts_counter == nUD_AGVs.Value) {
+                                m_rectangles[starts_position[0, 0]][starts_position[1, 0]].SwitchEnd_StartToNormal();
+                            }
+                        }
+                }
+
+              
+                //Converts the clicked box to Start point
+                for (int widthTrav = 0; widthTrav < Globals._WidthBlocks; widthTrav++)
+                    for (int heightTrav = 0; heightTrav < Globals._HeightBlocks; heightTrav++)
+                        if (m_rectangles[widthTrav][heightTrav].boxRec.Contains(click_coords)
+                         && m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal)
+                            m_rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Globals._BlockSide) + Globals._LeftBarOffset, heightTrav * Globals._BlockSide + Globals._TopBarOffset, BoxType.Start);
+
+
+
+            }
+            //same for Stop
+          
+            if (rb_stop.Checked) {
+                for (int widthTrav = 0; widthTrav < Globals._WidthBlocks; widthTrav++)
+                    for (int heightTrav = 0; heightTrav < Globals._HeightBlocks; heightTrav++)
+                        if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.End)
+                            m_rectangles[widthTrav][heightTrav].SwitchEnd_StartToNormal();//allow only one end point
+
+
+                for (int widthTrav = 0; widthTrav < Globals._WidthBlocks; widthTrav++)
+                    for (int heightTrav = 0; heightTrav < Globals._HeightBlocks; heightTrav++)
+                        if (m_rectangles[widthTrav][heightTrav].boxRec.Contains(click_coords)
+                             &&
+                            m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal) {
+                            m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * Globals._BlockSide + Globals._LeftBarOffset, heightTrav * Globals._BlockSide + Globals._TopBarOffset, BoxType.End);
+                        }
+            }
 
             Redraw();//The main function of this executable.Contains almost every drawing and calculating stuff
             Invalidate();
@@ -412,98 +491,7 @@ namespace kagv {
 
         private void main_form_MouseClick(object sender, MouseEventArgs e) {
 
-            if (timer0.Enabled
-                || timer1.Enabled
-                || timer2.Enabled
-                || timer3.Enabled
-                || timer4.Enabled) return;
-
-
-            Point click_coords = new Point(e.X, e.Y);
-            if (!Isvalid(click_coords) || e.Button != MouseButtons.Left || nUD_AGVs.Value == 0)
-                return;
-
-            if (rb_load.Checked)
-                for (int widthTrav = 0; widthTrav < Globals._WidthBlocks; widthTrav++)
-                    for (int heightTrav = 0; heightTrav < Globals._HeightBlocks; heightTrav++)
-                        if (m_rectangles[widthTrav][heightTrav].boxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1)))) {
-                            m_lastBoxType = m_rectangles[widthTrav][heightTrav].boxType;
-                            m_lastBoxSelect = m_rectangles[widthTrav][heightTrav];
-                            switch (m_lastBoxType) {
-                                case BoxType.Normal:
-                                    //loads++;
-                                    m_rectangles[widthTrav][heightTrav].SwitchLoad();
-                                    isLoad[widthTrav, heightTrav] = 1;
-                                    Invalidate();
-                                    break;
-                                case BoxType.Load:
-                                    loads--;
-                                    m_rectangles[widthTrav][heightTrav].SwitchLoad();
-                                    isLoad[widthTrav, heightTrav] = 2;
-                                    Invalidate();
-                                    break;
-                                case BoxType.Wall:
-                                case BoxType.Start:
-                                case BoxType.End:
-                                    break;
-                            }
-                        }
-
-            if (rb_start.Checked) {
-
-                if (nUD_AGVs.Value == 1)//Saves only the last Click position to place the Start (1 start exists)
-                {
-                    for (int widthTrav = 0; widthTrav < Globals._WidthBlocks; widthTrav++)
-                        for (int heightTrav = 0; heightTrav < Globals._HeightBlocks; heightTrav++)
-                            if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Start)
-                                m_rectangles[widthTrav][heightTrav].SwitchEnd_StartToNormal();
-                } else if (nUD_AGVs.Value > 1)//Deletes the start with the smallest iX - iY coords and keeps the rest
-                {
-                    int starts_counter = 0;
-                    int[,] starts_position = new int[2, Convert.ToInt32(nUD_AGVs.Value)];
-
-
-                    for (int widthTrav = 0; widthTrav < Globals._WidthBlocks; widthTrav++)
-                        for (int heightTrav = 0; heightTrav < Globals._HeightBlocks; heightTrav++) {
-                            if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.Start) {
-                                starts_position[0, starts_counter] = widthTrav;
-                                starts_position[1, starts_counter] = heightTrav;
-                                starts_counter++;
-                            }
-                            if (starts_counter == nUD_AGVs.Value) {
-                                m_rectangles[starts_position[0, 0]][starts_position[1, 0]].SwitchEnd_StartToNormal();
-                            }
-                        }
-                }
-
-                //Converts the clicked box to Start point
-                for (int widthTrav = 0; widthTrav < Globals._WidthBlocks; widthTrav++)
-                    for (int heightTrav = 0; heightTrav < Globals._HeightBlocks; heightTrav++)
-                        if (m_rectangles[widthTrav][heightTrav].boxRec.Contains(click_coords)
-                         && m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal)
-                            m_rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Globals._BlockSide) + Globals._LeftBarOffset, heightTrav * Globals._BlockSide + Globals._TopBarOffset, BoxType.Start);
-
-
-
-            }
-            //same for Stop
-            if (rb_stop.Checked) {
-                for (int widthTrav = 0; widthTrav < Globals._WidthBlocks; widthTrav++)
-                    for (int heightTrav = 0; heightTrav < Globals._HeightBlocks; heightTrav++)
-                        if (m_rectangles[widthTrav][heightTrav].boxType == BoxType.End)
-                            m_rectangles[widthTrav][heightTrav].SwitchEnd_StartToNormal();//allow only one end point
-
-
-                for (int widthTrav = 0; widthTrav < Globals._WidthBlocks; widthTrav++)
-                    for (int heightTrav = 0; heightTrav < Globals._HeightBlocks; heightTrav++)
-                        if (m_rectangles[widthTrav][heightTrav].boxRec.Contains(click_coords)
-                             &&
-                            m_rectangles[widthTrav][heightTrav].boxType == BoxType.Normal) {
-                            m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * Globals._BlockSide + Globals._LeftBarOffset, heightTrav * Globals._BlockSide + Globals._TopBarOffset, BoxType.End);
-                        }
-            }
-
-            Invalidate();
+            
         }
         //parametres
         private void useRecursiveToolStripMenuItem_Click(object sender, EventArgs e) {
