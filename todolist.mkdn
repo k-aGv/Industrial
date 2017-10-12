@@ -26,7 +26,7 @@ add option to allow user save his configs ( heuristic/weight/speed etc)
 ---------------
 ~~Cleaner UI initialization~~
 ---------------
-~~Embed timers to Vehicle.cs **NOT NEEDED** ~~
+~~Embed timers to Vehicle.cs~~
 ---------------	
 ~~Smooth animation~~
 ---------------
