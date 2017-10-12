@@ -1,0 +1,34 @@
+Add logic for frontal collision avoidance
+---------------
+Remove Tries	
+---------------
+Embed timers to Vehicle.cs **NOT NEEDED**
+---------------	
+Dynamic Obstacles
+---------------	
+Allow multitasking (?)
+---------------
+Smooth animation **DONE**
+---------------
+Upstream with China **DONE**	 
+---------------
+Dynamic AGVs quantity	
+---------------
+scan png kai export stin o8oni ws pixel H export map to png	
+---------------
+?a µp??e? ? e????a p?? ???eta? import ?a ?????eta? ???? ?ste ?a ta???a?e? ?a?a sta walls
+---------------	
+Cherrypick edits to gmaps	
+---------------
+add option to allow user save his configs ( heuristic/weight/speed etc)	
+---------------
+change resolution by adding-removing boxes **DONE**	
+---------------
+do not allow space press while simulation is active **DONE**	
+---------------
+add treeview **DONE**	
+---------------
+stable resize **DONE**	
+---------------
+Cleaner UI initialization **DONE**	
+---------------
