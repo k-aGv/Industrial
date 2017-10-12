@@ -132,8 +132,7 @@ namespace kagv {
 
             //Supposing that timers are not enabled(that means that the simulation is not running)
             //we have a clicked point.Check if that point is valid.if not explicitly leave
-            Point _validationPoint = new Point(e.X, e.Y);
-            if (!Isvalid(_validationPoint))
+            if (!Isvalid(new Point(e.X, e.Y)))
                 return;
             //if the clicked point is inside a rectangle...
             isMouseDown = true;
