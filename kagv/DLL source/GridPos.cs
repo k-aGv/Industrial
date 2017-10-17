@@ -34,27 +34,27 @@ THE SOFTWARE.
 */
 using System;
 
-namespace kagv {
+namespace kagv.DLL_source {
     public class GridPos : IEquatable<GridPos> {
-        public int x;
-        public int y;
+        public int X;
+        public int Y;
 
         public GridPos() {
-            x = 0;
-            y = 0;
+            X = 0;
+            Y = 0;
         }
         public GridPos(int iX, int iY) {
-            x = iX;
-            y = iY;
+            X = iX;
+            Y = iY;
         }
 
         public GridPos(GridPos b) {
-            x = b.x;
-            y = b.y;
+            X = b.X;
+            Y = b.Y;
         }
 
         public override int GetHashCode() {
-            return x ^ y;
+            return X ^ Y;
         }
 
         public override bool Equals(System.Object obj) {
@@ -68,7 +68,7 @@ namespace kagv {
             }
 
             // Return true if the fields match:
-            return (x == p.x) && (y == p.y);
+            return (X == p.X) && (Y == p.Y);
         }
 
         public bool Equals(GridPos p) {
@@ -76,7 +76,7 @@ namespace kagv {
                 return false;
             
             // Return true if the fields match:
-            return (x == p.x) && (y == p.y);
+            return (X == p.X) && (Y == p.Y);
         }
 
         public static bool operator ==(GridPos a, GridPos b) {
@@ -89,7 +89,7 @@ namespace kagv {
                 return false;
             
             // Return true if the fields match:
-            return a.x == b.x && a.y == b.y;
+            return a.X == b.X && a.Y == b.Y;
         }
 
         public static bool operator !=(GridPos a, GridPos b) {
@@ -97,13 +97,13 @@ namespace kagv {
         }
 
         public GridPos Set(int iX, int iY) {
-            x = iX;
-            y = iY;
+            X = iX;
+            Y = iY;
             return this;
         }
 
         public override string ToString() {
-            return string.Format("({0},{1})", x, y);
+            return string.Format("({0},{1})", X, Y);
         }
     }
 }

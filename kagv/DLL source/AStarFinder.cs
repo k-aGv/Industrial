@@ -3,19 +3,19 @@ using C5;
 using System;
 using System.Collections.Generic;
 
-namespace kagv {
+namespace kagv.DLL_source {
     public class AStarParam : ParamBase {
         public delegate float HeuristicDelegate(int iDx, int iDy);
 
 
         public float Weight;
 
-        public AStarParam(BaseGrid iGrid, GridPos iStartPos, GridPos iEndPos, float iweight, DiagonalMovement iDiagonalMovement = DiagonalMovement.IfAtLeastOneWalkable, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
+        public AStarParam(BaseGrid iGrid, GridPos iStartPos, GridPos iEndPos, float iweight, DiagonalMovement iDiagonalMovement = DiagonalMovement.IfAtLeastOneWalkable, HeuristicMode iMode = HeuristicMode.Euclidean)
             : base(iGrid, iStartPos, iEndPos, iDiagonalMovement, iMode) {
             Weight = iweight;
         }
 
-        public AStarParam(BaseGrid iGrid, float iweight, DiagonalMovement iDiagonalMovement = DiagonalMovement.IfAtLeastOneWalkable, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
+        public AStarParam(BaseGrid iGrid, float iweight, DiagonalMovement iDiagonalMovement = DiagonalMovement.IfAtLeastOneWalkable, HeuristicMode iMode = HeuristicMode.Euclidean)
             : base(iGrid, iDiagonalMovement, iMode) {
             Weight = iweight;
         }
@@ -43,15 +43,15 @@ namespace kagv {
             // var weight = iParam.Weight;
             var weight = iWeight;
 
-            startNode.startToCurNodeLen = 0;
-            startNode.heuristicStartToEndLen = 0;
+            startNode.StartToCurNodeLen = 0;
+            startNode.HeuristicStartToEndLen = 0;
 
             openList.Add(startNode);
-            startNode.isOpened = true;
+            startNode.IsOpened = true;
 
             while (openList.Count != 0) {
                 var node = openList.DeleteMin();
-                node.isClosed = true;
+                node.IsClosed = true;
 
                 if (node == endNode) 
                     return Node.Backtrace(endNode);
@@ -62,22 +62,22 @@ namespace kagv {
                 Parallel.ForEach(neighbors, neighbor =>
                 {
 
-                    if (neighbor.isClosed) return;
-                    var x = neighbor.x;
-                    var y = neighbor.y;
-                    float ng = node.startToCurNodeLen + (float)((x - node.x == 0 || y - node.y == 0) ? 1 : Math.Sqrt(2));
+                    if (neighbor.IsClosed) return;
+                    var x = neighbor.X;
+                    var y = neighbor.Y;
+                    float ng = node.StartToCurNodeLen + (float)((x - node.X == 0 || y - node.Y == 0) ? 1 : Math.Sqrt(2));
 
-                    if (!neighbor.isOpened || ng < neighbor.startToCurNodeLen) {
-                        neighbor.startToCurNodeLen = ng;
-                        if (neighbor.heuristicCurNodeToEndLen == null)
-                            neighbor.heuristicCurNodeToEndLen = Convert.ToSingle(weight) * heuristic(Math.Abs(x - endNode.x), Math.Abs(y - endNode.y));
-                        neighbor.heuristicStartToEndLen = neighbor.startToCurNodeLen + neighbor.heuristicCurNodeToEndLen.Value;
-                        neighbor.parent = node;
-                        if (!neighbor.isOpened) {
+                    if (!neighbor.IsOpened || ng < neighbor.StartToCurNodeLen) {
+                        neighbor.StartToCurNodeLen = ng;
+                        if (neighbor.HeuristicCurNodeToEndLen == null)
+                            neighbor.HeuristicCurNodeToEndLen = Convert.ToSingle(weight) * heuristic(Math.Abs(x - endNode.X), Math.Abs(y - endNode.Y));
+                        neighbor.HeuristicStartToEndLen = neighbor.StartToCurNodeLen + neighbor.HeuristicCurNodeToEndLen.Value;
+                        neighbor.Parent = node;
+                        if (!neighbor.IsOpened) {
                             lock (lo) {
                                 openList.Add(neighbor);
                             }
-                            neighbor.isOpened = true;
+                            neighbor.IsOpened = true;
                         } 
                     }
                 });

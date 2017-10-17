@@ -33,11 +33,11 @@ THE SOFTWARE.
 
 */
 using System;
-namespace kagv {
+namespace kagv.DLL_source {
     public enum HeuristicMode {
-        MANHATTAN,
-        EUCLIDEAN,
-        CHEBYSHEV,
+        Manhattan,
+        Euclidean,
+        Chebyshev,
 
     };
 

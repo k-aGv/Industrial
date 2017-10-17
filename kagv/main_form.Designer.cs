@@ -1,5 +1,5 @@
 ﻿namespace kagv {
-    partial class main_form {
+    partial class MainForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -51,7 +51,7 @@
             treeNode12,
             treeNode13});
             System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Remaining loads:");
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main_form));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.timer0 = new System.Windows.Forms.Timer(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
             this.gb_type = new System.Windows.Forms.GroupBox();

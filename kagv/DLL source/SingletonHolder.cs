@@ -33,20 +33,22 @@ THE SOFTWARE.
 
 */
 
-namespace kagv {
+namespace kagv.DLL_source {
     public class SingletonHolder<T> where T : new() {
-        private static T m_instance;
+        private static T _instance;
 
         private SingletonHolder() {
         }
 
         public static T Instance
         {
-            get {
-                if (m_instance == null) {
-                    m_instance = new T();
+            get
+            {
+               
+                if (_instance == null) {
+                    _instance = new T();
                 }
-                return m_instance;
+                return _instance;
             }
         }
     }

@@ -35,32 +35,34 @@ THE SOFTWARE.
 */
 using System.Drawing;
 
-namespace kagv {
+namespace kagv.DLL_source {
     class GridLine {
-        public int fromX, fromY, toX, toY;
-        public Pen pen;
+        public int FromX, FromY, ToX, ToY;
+        public Pen Pen;
 
         public GridLine(GridBox iFrom, GridBox iTo) {
-            fromX = iFrom.boxRec.X + ((Globals._BlockSide / 2) - 1);
-            fromY = iFrom.boxRec.Y + ((Globals._BlockSide / 2) - 1);
-            toX = iTo.boxRec.X + ((Globals._BlockSide / 2) - 1);
-            toY = iTo.boxRec.Y + ((Globals._BlockSide / 2) - 1);
-            pen = new Pen(Color.BlueViolet);
-            pen.Width = 1;
+            FromX = iFrom.BoxRec.X + ((Globals.BlockSide / 2) - 1);
+            FromY = iFrom.BoxRec.Y + ((Globals.BlockSide / 2) - 1);
+            ToX = iTo.BoxRec.X + ((Globals.BlockSide / 2) - 1);
+            ToY = iTo.BoxRec.Y + ((Globals.BlockSide / 2) - 1);
+            Pen = new Pen( Color.BlueViolet)
+            {
+                Width =  1
+            };
+           
 
 
         }
 
-        public void drawLine(Graphics iPaper) {
-            iPaper.DrawLine(pen, fromX, fromY, toX, toY);
+        public void DrawLine(Graphics iPaper) {
+            iPaper.DrawLine(Pen, FromX, FromY, ToX, ToY);
 
         }
 
 
-        public void Dispose() {
-            if (pen != null)
-                pen.Dispose();
-
+        public void Dispose()
+        {
+            Pen?.Dispose();
         }
     }
 }

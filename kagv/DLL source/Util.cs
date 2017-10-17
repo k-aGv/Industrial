@@ -1,5 +1,5 @@
 ﻿
-namespace kagv {
+namespace kagv.DLL_source {
     public class Util {
         public static DiagonalMovement GetDiagonalMovement(bool iCrossCorners, bool iCrossAdjacentPoint) {
 

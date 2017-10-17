@@ -26,37 +26,37 @@ THE SOFTWARE.
 @section DESCRIPTION
 An Interface for the StaticGrid Class.
 */
-namespace kagv {
+namespace kagv.DLL_source {
     public class StaticGrid : BaseGrid {
-        public override int width { get; protected set; }
+        public override int Width { get; protected set; }
 
-        public override int height { get; protected set; }
+        public override int Height { get; protected set; }
 
-        private Node[][] m_nodes;
+        private Node[][] _nodes;
 
         public StaticGrid(int iWidth, int iHeight, bool[][] iMatrix = null) : base() {
-            width = iWidth;
-            height = iHeight;
-            m_gridRect.minX = 0;
-            m_gridRect.minY = 0;
-            m_gridRect.maxX = iWidth - 1;
-            m_gridRect.maxY = iHeight - 1;
-            this.m_nodes = buildNodes(iWidth, iHeight, iMatrix);
+            Width = iWidth;
+            Height = iHeight;
+            MGridRect.MinX = 0;
+            MGridRect.MinY = 0;
+            MGridRect.MaxX = iWidth - 1;
+            MGridRect.MaxY = iHeight - 1;
+            _nodes = buildNodes(iWidth, iHeight, iMatrix);
         }
 
         public StaticGrid(StaticGrid b)
             : base(b) {
-            bool[][] tMatrix = new bool[b.width][];
-            for (int widthTrav = 0; widthTrav < b.width; widthTrav++) {
-                tMatrix[widthTrav] = new bool[b.height];
-                for (int heightTrav = 0; heightTrav < b.height; heightTrav++) {
+            bool[][] tMatrix = new bool[b.Width][];
+            for (int widthTrav = 0; widthTrav < b.Width; widthTrav++) {
+                tMatrix[widthTrav] = new bool[b.Height];
+                for (int heightTrav = 0; heightTrav < b.Height; heightTrav++) {
                     if (b.IsWalkableAt(widthTrav, heightTrav))
                         tMatrix[widthTrav][heightTrav] = true;
                     else
                         tMatrix[widthTrav][heightTrav] = false;
                 }
             }
-            this.m_nodes = buildNodes(b.width, b.height, tMatrix);
+            _nodes = buildNodes(b.Width, b.Height, tMatrix);
         }
 
         private Node[][] buildNodes(int iWidth, int iHeight, bool[][] iMatrix) {
@@ -81,9 +81,9 @@ namespace kagv {
             for (int widthTrav = 0; widthTrav < iWidth; widthTrav++) {
                 for (int heightTrav = 0; heightTrav < iHeight; heightTrav++) {
                     if (iMatrix[widthTrav][heightTrav]) {
-                        tNodes[widthTrav][heightTrav].walkable = true;
+                        tNodes[widthTrav][heightTrav].Walkable = true;
                     } else {
-                        tNodes[widthTrav][heightTrav].walkable = false;
+                        tNodes[widthTrav][heightTrav].Walkable = false;
                     }
                 }
             }
@@ -91,36 +91,36 @@ namespace kagv {
         }
 
         public override Node GetNodeAt(int iX, int iY) {
-            return this.m_nodes[iX][iY];
+            return _nodes[iX][iY];
         }
 
         public override bool IsWalkableAt(int iX, int iY) {
-            return isInside(iX, iY) && this.m_nodes[iX][iY].walkable;
+            return IsInside(iX, iY) && _nodes[iX][iY].Walkable;
         }
 
-        protected bool isInside(int iX, int iY) {
-            return (iX >= 0 && iX < width) && (iY >= 0 && iY < height);
+        protected bool IsInside(int iX, int iY) {
+            return (iX >= 0 && iX < Width) && (iY >= 0 && iY < Height);
         }
 
         public override bool SetWalkableAt(int iX, int iY, bool iWalkable) {
-            this.m_nodes[iX][iY].walkable = iWalkable;
+            _nodes[iX][iY].Walkable = iWalkable;
             return true;
         }
 
-        protected bool isInside(GridPos iPos) {
-            return isInside(iPos.x, iPos.y);
+        protected bool IsInside(GridPos iPos) {
+            return IsInside(iPos.X, iPos.Y);
         }
 
         public override Node GetNodeAt(GridPos iPos) {
-            return GetNodeAt(iPos.x, iPos.y);
+            return GetNodeAt(iPos.X, iPos.Y);
         }
 
         public override bool IsWalkableAt(GridPos iPos) {
-            return IsWalkableAt(iPos.x, iPos.y);
+            return IsWalkableAt(iPos.X, iPos.Y);
         }
 
         public override bool SetWalkableAt(GridPos iPos, bool iWalkable) {
-            return SetWalkableAt(iPos.x, iPos.y, iWalkable);
+            return SetWalkableAt(iPos.X, iPos.Y, iWalkable);
         }
 
         public override void Reset() {
@@ -128,45 +128,45 @@ namespace kagv {
         }
 
         public void Reset(bool[][] iMatrix) {
-            for (int widthTrav = 0; widthTrav < width; widthTrav++) {
-                for (int heightTrav = 0; heightTrav < height; heightTrav++) {
-                    m_nodes[widthTrav][heightTrav].Reset();
+            for (int widthTrav = 0; widthTrav < Width; widthTrav++) {
+                for (int heightTrav = 0; heightTrav < Height; heightTrav++) {
+                    _nodes[widthTrav][heightTrav].Reset();
                 }
             }
 
             if (iMatrix == null) {
                 return;
             }
-            if (iMatrix.Length != width || iMatrix[0].Length != height) {
+            if (iMatrix.Length != Width || iMatrix[0].Length != Height) {
                 throw new System.Exception("Matrix size does not fit");
             }
 
-            for (int widthTrav = 0; widthTrav < width; widthTrav++) {
-                for (int heightTrav = 0; heightTrav < height; heightTrav++) {
+            for (int widthTrav = 0; widthTrav < Width; widthTrav++) {
+                for (int heightTrav = 0; heightTrav < Height; heightTrav++) {
                     if (iMatrix[widthTrav][heightTrav]) {
-                        m_nodes[widthTrav][heightTrav].walkable = true;
+                        _nodes[widthTrav][heightTrav].Walkable = true;
                     } else {
-                        m_nodes[widthTrav][heightTrav].walkable = false;
+                        _nodes[widthTrav][heightTrav].Walkable = false;
                     }
                 }
             }
         }
 
         public override BaseGrid Clone() {
-            int tWidth = width;
-            int tHeight = height;
-            Node[][] tNodes = this.m_nodes;
+            int tWidth = Width;
+            int tHeight = Height;
+            Node[][] tNodes = _nodes;
 
-            StaticGrid tNewGrid = new StaticGrid(tWidth, tHeight, null);
+            StaticGrid tNewGrid = new StaticGrid(tWidth, tHeight);
 
             Node[][] tNewNodes = new Node[tWidth][];
             for (int widthTrav = 0; widthTrav < tWidth; widthTrav++) {
                 tNewNodes[widthTrav] = new Node[tHeight];
                 for (int heightTrav = 0; heightTrav < tHeight; heightTrav++) {
-                    tNewNodes[widthTrav][heightTrav] = new Node(widthTrav, heightTrav, tNodes[widthTrav][heightTrav].walkable);
+                    tNewNodes[widthTrav][heightTrav] = new Node(widthTrav, heightTrav, tNodes[widthTrav][heightTrav].Walkable);
                 }
             }
-            tNewGrid.m_nodes = tNewNodes;
+            tNewGrid._nodes = tNewNodes;
 
             return tNewGrid;
         }

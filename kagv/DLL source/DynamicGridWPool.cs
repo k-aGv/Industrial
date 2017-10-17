@@ -35,50 +35,51 @@ THE SOFTWARE.
 using System.Collections.Generic;
 
 
-namespace kagv {
+namespace kagv.DLL_source {
     public class DynamicGridWPool : BaseGrid {
-        private bool m_notSet;
-        private NodePool m_nodePool;
+        private bool _mNotSet;
+        private readonly NodePool _mNodePool;
 
-        public override int width
+        public override int Width
         {
             get {
-                if (m_notSet)
-                    setBoundingBox();
-                return m_gridRect.maxX - m_gridRect.minX;
+                if (_mNotSet)
+                    SetBoundingBox();
+                return MGridRect.MaxX - MGridRect.MinX;
             }
             protected set {
 
             }
         }
 
-        public override int height
+        public override int Height
         {
             get {
-                if (m_notSet)
-                    setBoundingBox();
-                return m_gridRect.maxY - m_gridRect.minY;
+                if (_mNotSet)
+                    SetBoundingBox();
+                return MGridRect.MaxY - MGridRect.MinY;
             }
             protected set {
 
             }
         }
 
-        public DynamicGridWPool(NodePool iNodePool)
-            : base() {
-            m_gridRect = new GridRect();
-            m_gridRect.minX = 0;
-            m_gridRect.minY = 0;
-            m_gridRect.maxX = 0;
-            m_gridRect.maxY = 0;
-            m_notSet = true;
-            m_nodePool = iNodePool;
+        public DynamicGridWPool(NodePool iNodePool) {
+            MGridRect = new GridRect()
+            {
+                MinX = 0,
+                MinY = 0,
+                MaxX = 0,
+                MaxY = 0
+            };
+            _mNotSet = true;
+            _mNodePool = iNodePool;
         }
 
         public DynamicGridWPool(DynamicGridWPool b)
             : base(b) {
-            m_notSet = b.m_notSet;
-            m_nodePool = b.m_nodePool;
+            _mNotSet = b._mNotSet;
+            _mNodePool = b._mNodePool;
         }
 
         public override Node GetNodeAt(int iX, int iY) {
@@ -91,63 +92,63 @@ namespace kagv {
             return IsWalkableAt(pos);
         }
 
-        private void setBoundingBox() {
-            foreach (KeyValuePair<GridPos, Node> pair in m_nodePool.Nodes) {
-                if (pair.Key.x < m_gridRect.minX || m_notSet)
-                    m_gridRect.minX = pair.Key.x;
-                if (pair.Key.x > m_gridRect.maxX || m_notSet)
-                    m_gridRect.maxX = pair.Key.x;
-                if (pair.Key.y < m_gridRect.minY || m_notSet)
-                    m_gridRect.minY = pair.Key.y;
-                if (pair.Key.y > m_gridRect.maxY || m_notSet)
-                    m_gridRect.maxY = pair.Key.y;
-                m_notSet = false;
+        private void SetBoundingBox() {
+            foreach (KeyValuePair<GridPos, Node> pair in _mNodePool.Nodes) {
+                if (pair.Key.X < MGridRect.MinX || _mNotSet)
+                    MGridRect.MinX = pair.Key.X;
+                if (pair.Key.X > MGridRect.MaxX || _mNotSet)
+                    MGridRect.MaxX = pair.Key.X;
+                if (pair.Key.Y < MGridRect.MinY || _mNotSet)
+                    MGridRect.MinY = pair.Key.Y;
+                if (pair.Key.Y > MGridRect.MaxY || _mNotSet)
+                    MGridRect.MaxY = pair.Key.Y;
+                _mNotSet = false;
             }
-            m_notSet = false;
+            _mNotSet = false;
         }
 
         public override bool SetWalkableAt(int iX, int iY, bool iWalkable) {
             GridPos pos = new GridPos(iX, iY);
-            m_nodePool.SetNode(pos, iWalkable);
+            _mNodePool.SetNode(pos, iWalkable);
             if (iWalkable) {
-                if (iX < m_gridRect.minX || m_notSet)
-                    m_gridRect.minX = iX;
-                if (iX > m_gridRect.maxX || m_notSet)
-                    m_gridRect.maxX = iX;
-                if (iY < m_gridRect.minY || m_notSet)
-                    m_gridRect.minY = iY;
-                if (iY > m_gridRect.maxY || m_notSet)
-                    m_gridRect.maxY = iY;
-                m_notSet = false;
+                if (iX < MGridRect.MinX || _mNotSet)
+                    MGridRect.MinX = iX;
+                if (iX > MGridRect.MaxX || _mNotSet)
+                    MGridRect.MaxX = iX;
+                if (iY < MGridRect.MinY || _mNotSet)
+                    MGridRect.MinY = iY;
+                if (iY > MGridRect.MaxY || _mNotSet)
+                    MGridRect.MaxY = iY;
+                _mNotSet = false;
             } else {
-                if (iX == m_gridRect.minX || iX == m_gridRect.maxX || iY == m_gridRect.minY || iY == m_gridRect.maxY)
-                    m_notSet = true;
+                if (iX == MGridRect.MinX || iX == MGridRect.MaxX || iY == MGridRect.MinY || iY == MGridRect.MaxY)
+                    _mNotSet = true;
 
             }
             return true;
         }
 
         public override Node GetNodeAt(GridPos iPos) {
-            return m_nodePool.GetNode(iPos);
+            return _mNodePool.GetNode(iPos);
         }
 
         public override bool IsWalkableAt(GridPos iPos) {
-            return m_nodePool.Nodes.ContainsKey(iPos);
+            return _mNodePool.Nodes.ContainsKey(iPos);
         }
 
         public override bool SetWalkableAt(GridPos iPos, bool iWalkable) {
-            return SetWalkableAt(iPos.x, iPos.y, iWalkable);
+            return SetWalkableAt(iPos.X, iPos.Y, iWalkable);
         }
 
 
         public override void Reset() {
-            foreach (KeyValuePair<GridPos, Node> keyValue in m_nodePool.Nodes) {
+            foreach (KeyValuePair<GridPos, Node> keyValue in _mNodePool.Nodes) {
                 keyValue.Value.Reset();
             }
         }
 
         public override BaseGrid Clone() {
-            DynamicGridWPool tNewGrid = new DynamicGridWPool(m_nodePool);
+            DynamicGridWPool tNewGrid = new DynamicGridWPool(_mNodePool);
             return tNewGrid;
         }
     }
