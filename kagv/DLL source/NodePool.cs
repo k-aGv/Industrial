@@ -44,7 +44,7 @@ namespace kagv.DLL_source {
 
         public Dictionary<GridPos, Node> Nodes
         {
-            get { return Mnodes; }
+            get => Mnodes;
         }
         public Node GetNode(int iX, int iY) {
             GridPos pos = new GridPos(iX, iY);
@@ -70,9 +70,9 @@ namespace kagv.DLL_source {
                     Node newNode = new Node(iPos.X, iPos.Y, iWalkable);
                     Mnodes.Add(iPos, newNode);
                     return newNode;
-                } else {
-                    RemoveNode(iPos);
-                }
+                } 
+                RemoveNode(iPos);
+                
 
             } else {
                 Node newNode = new Node(iPos.X, iPos.Y, true);

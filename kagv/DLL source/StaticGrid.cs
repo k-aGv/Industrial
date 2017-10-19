@@ -34,7 +34,7 @@ namespace kagv.DLL_source {
 
         private Node[][] _nodes;
 
-        public StaticGrid(int iWidth, int iHeight, bool[][] iMatrix = null) : base() {
+        public StaticGrid(int iWidth, int iHeight, bool[][] iMatrix = null) { //it extends : base() anyway
             Width = iWidth;
             Height = iHeight;
             MGridRect.MinX = 0;
@@ -65,7 +65,7 @@ namespace kagv.DLL_source {
             for (int widthTrav = 0; widthTrav < iWidth; widthTrav++) {
                 tNodes[widthTrav] = new Node[iHeight];
                 for (int heightTrav = 0; heightTrav < iHeight; heightTrav++) {
-                    tNodes[widthTrav][heightTrav] = new Node(widthTrav, heightTrav, null);
+                    tNodes[widthTrav][heightTrav] = new Node(widthTrav, heightTrav);// ,null is redundant
                 }
             }
 
@@ -79,12 +79,9 @@ namespace kagv.DLL_source {
 
 
             for (int widthTrav = 0; widthTrav < iWidth; widthTrav++) {
-                for (int heightTrav = 0; heightTrav < iHeight; heightTrav++) {
-                    if (iMatrix[widthTrav][heightTrav]) {
-                        tNodes[widthTrav][heightTrav].Walkable = true;
-                    } else {
-                        tNodes[widthTrav][heightTrav].Walkable = false;
-                    }
+                for (int heightTrav = 0; heightTrav < iHeight; heightTrav++)
+                {
+                    tNodes[widthTrav][heightTrav].Walkable = iMatrix[widthTrav][heightTrav];
                 }
             }
             return tNodes;
@@ -142,12 +139,9 @@ namespace kagv.DLL_source {
             }
 
             for (int widthTrav = 0; widthTrav < Width; widthTrav++) {
-                for (int heightTrav = 0; heightTrav < Height; heightTrav++) {
-                    if (iMatrix[widthTrav][heightTrav]) {
-                        _nodes[widthTrav][heightTrav].Walkable = true;
-                    } else {
-                        _nodes[widthTrav][heightTrav].Walkable = false;
-                    }
+                for (int heightTrav = 0; heightTrav < Height; heightTrav++)
+                {
+                    _nodes[widthTrav][heightTrav].Walkable = iMatrix[widthTrav][heightTrav];
                 }
             }
         }

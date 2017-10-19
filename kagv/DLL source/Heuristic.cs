@@ -37,9 +37,8 @@ namespace kagv.DLL_source {
     public enum HeuristicMode {
         Manhattan,
         Euclidean,
-        Chebyshev,
-
-    };
+        Chebyshev
+    }
 
     public class Heuristic {
         public static float Manhattan(int iDx, int iDy) {

@@ -36,7 +36,7 @@ THE SOFTWARE.
 using System.Drawing;
 
 namespace kagv.DLL_source {
-    class GridLine {
+    internal class GridLine {
         public int FromX, FromY, ToX, ToY;
         public Pen Pen;
 

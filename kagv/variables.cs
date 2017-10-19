@@ -29,68 +29,67 @@ namespace kagv {
 
     public partial class MainForm {
 
-        double _CO2 = 0, _CO = 0, _NOx = 0, _THC = 0, _globalWarming = 0;
+        private double _CO2 , _CO , _NOx , _THC, _globalWarming ;//default value =0 
 
 
         //Handle our custom functions
-        readonly k_aGv_functions.Functions _f = new k_aGv_functions.Functions();
+        private readonly k_aGv_functions.Functions _f = new k_aGv_functions.Functions();
 
         //cells that represent Load can have 4 vallues:
         //available Load = 1
         //not a Load = 2
         //Marked by an AGV Load = 3
         //Temporarily trapped Load = 4
-        int[,] _isLoad; 
+        private int[,] _isLoad;
 
-        BoxType[,] _importmap;
+        private BoxType[,] _importmap;
 
-        GridBox[][] _rectangles;//2d jagged array. Contains grid information (coords of each box, boxtype, etc etc)  
+        private GridBox[][] _rectangles;//2d jagged array. Contains grid information (coords of each box, boxtype, etc etc)  
 
-        int[] _onWhichStep;
-        bool[] _fromstart = new bool[Globals.MaximumAGVs];
+        private int[] _onWhichStep;
+        private bool[] _fromstart = new bool[Globals.MaximumAGVs];
 
-        List<Vehicle> _AGVs = new List<Vehicle>();
-        List<GridPos> _startPos = new List<GridPos>(); //Contains the coords of the Start boxes
-        List<GridPos> _loadPos;
-        readonly bool[] _trappedStatus = new bool[5];
+        private List<Vehicle> _AGVs = new List<Vehicle>();
+        private List<GridPos> _startPos = new List<GridPos>(); //Contains the coords of the Start boxes
+        private List<GridPos> _loadPos;
+        private readonly bool[] _trappedStatus = new bool[5];
 
 
-        int _a; //temporary X.Used to calculate the remained length of current line
-        int _b; //temporary Y.Used to calculate the remained length of current line
-        int _posIndex = 0;
-        BaseGrid _searchGrid;
-        AStarParam _jumpParam;//custom jump method with its features exposed
-        static Graphics _paper;//main graphics for grid
+        private int _a; //temporary X.Used to calculate the remained length of current line
+        private int _b; //temporary Y.Used to calculate the remained length of current line
+        private int _posIndex; //=0 s the default value anyway
+        private BaseGrid _searchGrid;
+        private AStarParam _jumpParam;//custom jump method with its features exposed
+        private static Graphics _paper;//main graphics for grid
 
-        GridBox _lastBoxSelect;
-        BoxType _lastBoxType = new BoxType();
-        ToolTip _tp;
-        Point _endPointCoords = new Point(-1, -1);
+        private GridBox _lastBoxSelect;
+        private BoxType _lastBoxType;
+        private ToolTip _tp;
+        private Point _endPointCoords = new Point(-1, -1);
 
-        bool _holdCtrl;
-        bool _useHalt = false;
-        bool _overImage = false;
-        bool _imported;
-        bool _importedImage = false;
-        bool _beforeStart = true;
-        bool _calibrated = false;//flag checking if current point is correctly callibrated in the middle of the rectangle
-        bool _isMouseDown = false;
-        bool _mapHasLoads = false;
-        bool _allowHighlight = true;
+        private bool _holdCtrl;
+        private bool _useHalt;
+        private bool _overImage;
+        private bool _imported;
+        private bool _beforeStart = true;
+        private bool _calibrated ;//flag checking if current point is correctly callibrated in the middle of the rectangle
+        private bool _isMouseDown;
+        private bool _mapHasLoads;
+        private bool _allowHighlight = true;
 
-        bool _alwaysCross = true;
-        bool _atLeastOneObstacle = false;
-        bool _ifNoObstacles = false;
-        bool _never = false;
+        private bool _alwaysCross = true;
+        private bool _atLeastOneObstacle ;
+        private bool _ifNoObstacles ;
+        private bool _never ;
 
-        int _loads = 0; //index for keeping count of how many Loads there are in the Grid
-        int _labeled_loads; //index that is used for displaying how many loads have not been picked up
+        private int _loads ; //default=0 anyways...index for keeping count of how many Loads there are in the Grid
+        private int _labeled_loads; //index that is used for displaying how many loads have not been picked up
 
-        Color selectedColor = Color.DarkGray;
-        Color _boxDefaultColor = (Globals.SemiTransparency) ? Color.FromArgb(Globals.Opacity, Color.WhiteSmoke) : Color.WhiteSmoke;
+        private Color _selectedColor = Color.DarkGray;
+        private Color _boxDefaultColor = (Globals.SemiTransparency) ? Color.FromArgb(Globals.Opacity, Color.WhiteSmoke) : Color.WhiteSmoke;
 
-        Image _importedImageFile;
-        Image _importedLayout = null;
+        private Image _importedImageFile;
+        private Image _importedLayout = null;
 
 
     }

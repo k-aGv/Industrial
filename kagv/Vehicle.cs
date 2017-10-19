@@ -26,9 +26,10 @@ using System.Windows.Forms;
 using System.IO;
 using System.Collections.Generic;
 using kagv.DLL_source;
+
 namespace kagv {
 
-    class Vehicle {
+    internal class Vehicle {
 
         //****************************************
         //AGV Status
@@ -37,11 +38,7 @@ namespace kagv {
             public bool Loaded { get; set; }
         }
 
-        private readonly AGVStatus _status = new AGVStatus();
-        public AGVStatus Status
-        {
-            get { return _status; }
-        }
+        public AGVStatus Status { get; } = new AGVStatus();
         //=========================================
 
         //*****************************************
@@ -54,7 +51,7 @@ namespace kagv {
         private readonly AGVSteps[] _steps;
         public AGVSteps[] Steps
         {
-            get { return _steps; }
+            get => _steps; 
         }
         //=========================================
         //AGV Path
@@ -82,27 +79,12 @@ namespace kagv {
         private List<GridPos> _jmpPnts = new List<GridPos>();
         public List<GridPos> JumpPoints
         {
-            get {
-                return _jmpPnts;
-            }
-            set {
-                _jmpPnts = value;
-            }
+            get => _jmpPnts;
+            set => _jmpPnts=value;
         }
-        //=========================================
+ 
+        public int StepsCounter { get; set; }
 
-        //*****************************************
-        //AGV StepsCounter
-        private int _stepsCounter;
-        public int StepsCounter
-        {
-            get {
-                return _stepsCounter;
-            }
-            set {
-                _stepsCounter = value;
-            }
-        }
         //=========================================
         /// <summary>
         /// Returns the absolute Location of the Marked Load on the Grid
@@ -120,23 +102,27 @@ namespace kagv {
 
         public Vehicle(Form handle) { //constructor
             _mirroredForm = handle;
-            _status.Busy = false;
-            _status.Loaded = false;
+            Status.Busy = false;
+            Status.Loaded = false;
             _steps = new AGVSteps[Globals.MaximumSteps];
             for (int i = 0; i < _steps.Length; i++) {
-                _steps[i] = new AGVSteps();
-                _steps[i].X = -1;
-                _steps[i].Y = -1;
+                _steps[i] = new AGVSteps
+                {
+                    X = -1,
+                    Y = -1
+                };
             }
         }
      
         public void Init() {
             //init vars
-            _status.Busy = false;
-            _status.Loaded = false;
+            Status.Busy = false;
+            Status.Loaded = false;
 
-            _agvPortrait = new Panel();
-            _agvPortrait.Name = "AGVPORTRAIT";
+            _agvPortrait = new Panel
+            {
+                Name = "AGVPORTRAIT"
+            };
             _agvIcon = new PictureBox();
 
             _agvPortrait.Controls.Add(_agvIcon);
@@ -171,9 +157,9 @@ namespace kagv {
         private Image _getEmbedResource(string a) {
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
             Stream myStream = assembly.GetManifestResourceStream("kagv.Resources." + a);
+            if (myStream == null) return null;
             Image b = Image.FromStream(myStream);
             return b;
-
         }
 
         public void KillIcon() {
@@ -186,12 +172,12 @@ namespace kagv {
 
         public void SetLoaded() {
             _agvIcon.Image = _getEmbedResource("loaded.png");
-            _status.Loaded = true;
+            Status.Loaded = true;
         }
 
         public void SetEmpty() {
             _agvIcon.Image = _getEmbedResource("empty.png");
-            _status.Loaded = false;
+            Status.Loaded = false;
         }
 
         public void UpdateAGV() {

@@ -71,7 +71,9 @@ namespace kagv.DLL_source {
                         neighbor.StartToCurNodeLen = ng;
                         if (neighbor.HeuristicCurNodeToEndLen == null)
                             neighbor.HeuristicCurNodeToEndLen = Convert.ToSingle(weight) * heuristic(Math.Abs(x - endNode.X), Math.Abs(y - endNode.Y));
-                        neighbor.HeuristicStartToEndLen = neighbor.StartToCurNodeLen + neighbor.HeuristicCurNodeToEndLen.Value;
+                        if (neighbor.HeuristicCurNodeToEndLen != null)
+                            neighbor.HeuristicStartToEndLen =
+                                neighbor.StartToCurNodeLen + neighbor.HeuristicCurNodeToEndLen.Value;
                         neighbor.Parent = node;
                         if (!neighbor.IsOpened) {
                             lock (lo) {

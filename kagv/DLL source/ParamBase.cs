@@ -80,16 +80,16 @@ namespace kagv.DLL_source {
             Mheuristic = null;
             switch (iMode) {
                 case HeuristicMode.Manhattan:
-                    Mheuristic = new HeuristicDelegate(Heuristic.Manhattan);
+                    Mheuristic = Heuristic.Manhattan;
                     break;
                 case HeuristicMode.Euclidean:
-                    Mheuristic = new HeuristicDelegate(Heuristic.Euclidean);
+                    Mheuristic = Heuristic.Euclidean;
                     break;
                 case HeuristicMode.Chebyshev:
-                    Mheuristic = new HeuristicDelegate(Heuristic.Chebyshev);
+                    Mheuristic = Heuristic.Chebyshev;
                     break;
                 default:
-                    Mheuristic = new HeuristicDelegate(Heuristic.Euclidean);
+                    Mheuristic = Heuristic.Euclidean;
                     break;
             }
         }

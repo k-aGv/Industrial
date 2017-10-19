@@ -57,7 +57,7 @@ namespace kagv.DLL_source {
             return X ^ Y;
         }
 
-        public override bool Equals(System.Object obj) {
+        public override bool Equals(Object obj) {
             // Unlikely to compare incorrect type so removed for performance
             // if (!(obj.GetType() == typeof(GridPos)))
             //     return false;
@@ -103,7 +103,7 @@ namespace kagv.DLL_source {
         }
 
         public override string ToString() {
-            return string.Format("({0},{1})", X, Y);
+            return $"({X},{Y})";
         }
     }
 }

@@ -37,8 +37,8 @@ using System.Collections.Generic;
 
 namespace kagv.DLL_source {
     public class Node : IComparable<Node> {
-        public int X;
-        public int Y;
+        public readonly int X;
+        public readonly int Y;
         public bool Walkable;
         public float HeuristicStartToEndLen; // which passes current node
         public float StartToCurNodeLen;
@@ -50,7 +50,7 @@ namespace kagv.DLL_source {
         public Node(int iX, int iY, bool? iWalkable = null) {
             X = iX;
             Y = iY;
-            Walkable = iWalkable.HasValue ? iWalkable.Value : false ;
+            Walkable = iWalkable.HasValue && iWalkable.Value ;
             HeuristicStartToEndLen = 0;
             StartToCurNodeLen = 0;
             // this must be initialized as null to verify that its value never initialized
@@ -98,8 +98,7 @@ namespace kagv.DLL_source {
 
 
         public static List<GridPos> Backtrace(Node iNode) {
-            List<GridPos> path = new List<GridPos>();
-            path.Add(new GridPos(iNode.X, iNode.Y));
+            List<GridPos> path = new List<GridPos> {new GridPos(iNode.X, iNode.Y)};
             while (iNode.Parent != null) {
                 iNode = (Node)iNode.Parent;
                 path.Add(new GridPos(iNode.X, iNode.Y));
@@ -121,7 +120,7 @@ namespace kagv.DLL_source {
 
             // If parameter cannot be cast to Point return false.
             Node p = obj as Node;
-            if ((System.Object)p == null) {
+            if ((Object)p == null) {
                 return false;
             }
 
@@ -237,8 +236,6 @@ namespace kagv.DLL_source {
                     tD1 = tS0 && tS1;
                     tD2 = tS1 && tS2;
                     tD3 = tS2 && tS3;
-                    break;
-                default:
                     break;
             }
 

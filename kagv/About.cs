@@ -13,8 +13,12 @@ namespace kagv {
         private Image _getEmbedResource(string a) {
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
             Stream myStream = assembly.GetManifestResourceStream("kagv.Resources." + a);
-            Image b = Image.FromStream(myStream);
-            return b;
+            if (myStream != null) {
+                Image b = Image.FromStream(myStream);
+                return b;
+            }
+            return null;
+           
         }
 
         private void About_Load(object sender, EventArgs e) {

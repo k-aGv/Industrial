@@ -36,9 +36,9 @@ using System;
 using System.Drawing;
 
 namespace kagv.DLL_source {
-    enum BoxType { Start, End, Wall, Normal, Load };
+    internal enum BoxType { Start, End, Wall, Normal, Load };
 
-    class GridBox : IDisposable {
+    internal class GridBox : IDisposable {
         public int X, Y, Width, Height;
 
         public Rectangle BoxRec;
@@ -86,8 +86,7 @@ namespace kagv.DLL_source {
         }
 
         public void SwitchEnd_StartToNormal(){
-            if (_brush != null)
-                _brush.Dispose();
+            _brush?.Dispose();
             _brush = Globals.SemiTransparency ? new SolidBrush(Globals.SemiTransparent) : new SolidBrush(Color.WhiteSmoke);
             BoxType = BoxType.Normal;
 
@@ -113,8 +112,7 @@ namespace kagv.DLL_source {
                     _brush = Globals.SemiTransparency ? new SolidBrush(Globals.SemiTransparent) : new SolidBrush(Color.WhiteSmoke);
                     break;
                 case BoxType.Wall:
-                    if (_brush != null)
-                        _brush.Dispose();
+                    _brush?.Dispose();
                     BoxType = BoxType.Normal;
                     break;
             }
@@ -124,14 +122,12 @@ namespace kagv.DLL_source {
         public void SwitchLoad() {
             switch (BoxType) {
                 case BoxType.Normal:
-                    if (_brush != null)
-                        _brush.Dispose();
+                    _brush?.Dispose();
                     _brush = new SolidBrush(_myBrown);
                     BoxType = BoxType.Load;
                     break;
                 case BoxType.Load:
-                    if (_brush != null)
-                        _brush.Dispose();
+                    _brush?.Dispose();
 
                     _brush = Globals.SemiTransparency ? new SolidBrush(Globals.SemiTransparent) : new SolidBrush(Color.WhiteSmoke);
                     BoxType = BoxType.Normal;
@@ -144,14 +140,12 @@ namespace kagv.DLL_source {
         public void SwitchBox() {
             switch (BoxType) {
                 case BoxType.Normal:
-                    if (_brush != null)
-                        _brush.Dispose();
+                    _brush?.Dispose();
                     _brush = new SolidBrush(Color.Gray);
                     BoxType = BoxType.Wall;
                     break;
                 case BoxType.Wall:
-                    if (_brush != null)
-                        _brush.Dispose();
+                    _brush?.Dispose();
                     _brush = new SolidBrush(Color.WhiteSmoke);
                     BoxType = BoxType.Normal;
                     break;
@@ -160,31 +154,27 @@ namespace kagv.DLL_source {
         }
 
         public void SetNormalBox() {
-            if (_brush != null)
-                _brush.Dispose();
+            _brush?.Dispose();
             _brush = new SolidBrush(Color.WhiteSmoke);
             BoxType = BoxType.Normal;
         }
 
         public void SetStartBox() {
-            if (_brush != null)
-                _brush.Dispose();
+            _brush?.Dispose();
             _brush = new SolidBrush(Color.Green);
             BoxType = BoxType.Start;
         }
 
         public void SetEndBox() {
-            if (_brush != null)
-                _brush.Dispose();
+            _brush?.Dispose();
             _brush = new SolidBrush(Color.Red);
             BoxType = BoxType.End;
         }
 
 
-        public void Dispose() {
-            if (_brush != null)
-                _brush.Dispose();
-
+        public void Dispose()
+        {
+            _brush?.Dispose();
         }
     }
 }

@@ -5,11 +5,7 @@ namespace kagv.DLL_source {
 
             if (iCrossCorners && iCrossAdjacentPoint) 
                 return DiagonalMovement.Always;
-            else if (iCrossCorners) 
-                return DiagonalMovement.IfAtLeastOneWalkable;
-            else 
-                return DiagonalMovement.OnlyWhenNoObstacles;
-            
+            return iCrossCorners ? DiagonalMovement.IfAtLeastOneWalkable : DiagonalMovement.OnlyWhenNoObstacles;
         }
     }
 }

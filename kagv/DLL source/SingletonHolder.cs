@@ -44,10 +44,8 @@ namespace kagv.DLL_source {
         {
             get
             {
-               
-                if (_instance == null) {
-                    _instance = new T();
-                }
+                if (_instance != null) return _instance;
+                _instance = new T();
                 return _instance;
             }
         }
