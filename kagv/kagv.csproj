@@ -113,6 +113,93 @@
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
     <Compile Include="DLL source\StaticGrid.cs" />
+    <Compile Include="Functions\Animator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\CheckForTrappedLoads.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\ConfigUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\DrawPoints.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\Export.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\FullyRestore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\GetNextLoads.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\GetNumberOfAGVs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\GetStepsToLoad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\Halt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\Import.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\ImportImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\Initialization.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\IsValid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\KeepValidLoads.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\MeasureScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\NotTrappedVehicles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\PreFilterMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\ProcessCmdKey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\Redraw.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\ReflectVariables.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\Reset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\StopTimers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\Timers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\ToDebugPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\TriggerStartMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\UpdateBorderVisibility.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\UpdateGridStats.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\Update_emissions.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Globals.cs" />
     <Compile Include="DLL source\AStarFinder.cs" />
     <Compile Include="DLL source\BaseGrid.cs" />
@@ -135,9 +222,6 @@
     </Compile>
     <Compile Include="main_form.Designer.cs">
       <DependentUpon>main_form.cs</DependentUpon>
-    </Compile>
-    <Compile Include="functions.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
