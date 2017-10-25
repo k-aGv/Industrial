@@ -343,15 +343,17 @@ namespace kagv {
                 || timer3.Enabled
                 || timer4.Enabled) return;
 
+            if (e.Button == MouseButtons.Right) {
+                _tp.Hide(this);
+                return;
+            }
+
             Point clickCoords = new Point(e.X, e.Y);
-            if (!Isvalid(clickCoords) || e.Button != MouseButtons.Left || nUD_AGVs.Value == 0)
+            if (!Isvalid(clickCoords) || nUD_AGVs.Value == 0)
                 return;
 
             _isMouseDown = false;
 
-            if (e.Button == MouseButtons.Right)
-                _tp.Hide(this);
-            
             if (rb_load.Checked)
                 for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++)
                     for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++)
