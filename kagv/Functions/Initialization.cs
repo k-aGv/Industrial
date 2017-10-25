@@ -59,9 +59,14 @@ namespace kagv {
 
 
             _searchGrid = new StaticGrid(Globals.WidthBlocks, Globals.HeightBlocks);
-            _jumpParam = new AStarParam(_searchGrid, Convert.ToSingle(Globals.AStarWeight));//Default value until user edit it
-            _jumpParam.SetHeuristic(HeuristicMode.Manhattan); //default value until user edit it
-
+            _jumpParam = new AStarParam (
+                _searchGrid,
+                Convert.ToSingle(Globals.AStarWeight),
+                DiagonalMovement.Always,
+                HeuristicMode.Manhattan
+                );
+            
+            
             ConfigUi();
         }
     }
