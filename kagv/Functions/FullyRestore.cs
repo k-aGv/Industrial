@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Diagnostics;
 
 namespace kagv {
 
@@ -42,6 +43,14 @@ namespace kagv {
             if (BackgroundImage != null)
                 BackgroundImage = null;
 
+            StackTrace trace = new StackTrace();
+            System.Windows.Forms.MessageBox.Show(trace.GetFrame(1).GetMethod().Name);
+            if (trace.GetFrame(1).GetMethod().Name != "Import")
+            {
+                Globals.SemiTransparency = false;
+                _boxDefaultColor = (Globals.SemiTransparency) ? Color.FromArgb(Globals.Opacity, Color.WhiteSmoke) : Color.WhiteSmoke;
+            }
+            
             _fromstart = new bool[Globals.MaximumAGVs];
 
 

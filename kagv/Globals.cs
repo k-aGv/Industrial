@@ -34,7 +34,7 @@ namespace kagv {
         public const int MaximumAGVs = 5;
         public const int GbMonitorWidth = 275;
         public const int GbMonitorHeight = 65;
-        public const bool SemiTransparency = true;
+        
 
 
         //Grid's stats
@@ -46,6 +46,7 @@ namespace kagv {
         public static int BlockSide = 15;
         public static byte Opacity = (byte) ( (BitConverter.GetBytes(Color.WhiteSmoke.ToArgb()).Reverse().ToArray())[0] - (100) );
         public static Color SemiTransparent;
+        public static bool SemiTransparency = false;
         public static double AStarWeight = 0.5;
 
         //This value is needed since the application does not allow me to change the Debug menu

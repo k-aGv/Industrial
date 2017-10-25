@@ -14,6 +14,9 @@ namespace kagv {
                 _importedLayout = Image.FromFile(ofd_importmap.FileName);
                 _importedImageFile = Image.FromFile(ofd_importmap.FileName);
                 _overImage = true;
+
+                Globals.SemiTransparency = true;
+                _boxDefaultColor = (Globals.SemiTransparency) ? Color.FromArgb(Globals.Opacity, Color.WhiteSmoke) : Color.WhiteSmoke;
             }
 
         }

@@ -122,7 +122,6 @@ namespace kagv {
 
             proc.ProcessorAffinity = new IntPtr(coreFlag);
             //More infos here:https://msdn.microsoft.com/en-us/library/system.diagnostics.processthread.processoraffinity(v=vs.110).aspx
-           
         }
 
         private void main_form_MouseDown(object sender, MouseEventArgs e) {
