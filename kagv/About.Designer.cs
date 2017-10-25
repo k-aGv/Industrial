@@ -73,9 +73,9 @@
             this.label4.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.label4.Location = new System.Drawing.Point(1, 160);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 15);
+            this.label4.Size = new System.Drawing.Size(130, 15);
             this.label4.TabIndex = 41;
-            this.label4.Text = "Φοιτητές:";
+            this.label4.Text = "Υπεύθυνοι ανάπτυξης:";
             // 
             // label1
             // 

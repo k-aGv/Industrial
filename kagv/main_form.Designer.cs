@@ -50,7 +50,7 @@
             treeNode11,
             treeNode12,
             treeNode13});
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Remaining loads:");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Loads remaining:");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.timer0 = new System.Windows.Forms.Timer(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
@@ -129,7 +129,7 @@
             this.btn_right = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tree_stats = new BufferedTreeView();
+            this.tree_stats = new kagv.BufferedTreeView();
             this.menuPanel.SuspendLayout();
             this.gb_type.SuspendLayout();
             this.gb_settings.SuspendLayout();
@@ -823,7 +823,7 @@
             treeNode14.Name = "node_emissions";
             treeNode14.Text = "Emissions";
             treeNode15.Name = "Loads";
-            treeNode15.Text = "Remaining loads:";
+            treeNode15.Text = "Loads remaining:";
             this.tree_stats.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode8,
             treeNode14,
@@ -831,7 +831,7 @@
             this.tree_stats.Size = new System.Drawing.Size(150, 280);
             this.tree_stats.TabIndex = 12;
             // 
-            // main_form
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -846,8 +846,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.settings_menu;
             this.MaximizeBox = false;
-            this.Name = "main_form";
-            this.Text = "kagv Simulation-Industrial";
+            this.Name = "MainForm";
+            this.Text = "K-aGv Simulation-Industrial";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_form_FormClosing);
             this.Load += new System.EventHandler(this.main_form_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.main_form_Paint);
