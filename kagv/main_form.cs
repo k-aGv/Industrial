@@ -488,11 +488,6 @@ namespace kagv {
             
             tree_stats.Refresh();
         }
-
-        private void main_form_MouseClick(object sender, MouseEventArgs e) {
-
-            
-        }
         //parametres
         private void useRecursiveToolStripMenuItem_Click(object sender, EventArgs e) {
             (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
