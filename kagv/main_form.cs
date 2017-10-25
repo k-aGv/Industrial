@@ -970,9 +970,18 @@ namespace kagv {
 
             StreamWriter writer = new StreamWriter("info.txt");
             writer.WriteLine(
-                Globals.WidthBlocks + "\n" +
-                Globals.HeightBlocks + "\n" +
-                Globals.BlockSide);
+                "WidthBlocks:"+Globals.WidthBlocks + "\n" +
+                "HeightBlocks:"+Globals.HeightBlocks + "\n" +
+                "BlockSide:"+Globals.BlockSide + "\n" +
+                "DiagonalMovement:"+_jumpParam.DiagonalMovement+"\n"+
+                "Heuristic:"+_jumpParam.HeuristicFunc.Method+"\n"+
+                "ShowSteps:"+stepsToolStripMenuItem.Checked+"\n"+
+                "ShowLines:"+linesToolStripMenuItem.Checked+"\n"+
+                "ShowDots:"+dotsToolStripMenuItem.Checked+"\n"+
+                "ShowBorders:"+bordersToolStripMenuItem.Checked+"\n"+
+                "Highlight:"+highlightOverCurrentBoxToolStripMenuItem.Checked+"\n"+
+                "ShowAGVindex:"+aGVIndexToolStripMenuItem.Checked
+                );
             writer.Dispose();
         }
 

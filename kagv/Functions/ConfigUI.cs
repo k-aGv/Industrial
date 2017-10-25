@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace kagv {
 
@@ -22,17 +23,20 @@ namespace kagv {
             Size = new Size(Width, Height + Globals.BottomBarOffset);
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            
-            stepsToolStripMenuItem.Checked = false;
-            linesToolStripMenuItem.Checked =
-            dotsToolStripMenuItem.Checked =
-            bordersToolStripMenuItem.Checked =
-            aGVIndexToolStripMenuItem.Checked =
-            highlightOverCurrentBoxToolStripMenuItem.Checked = true;
 
-            
-            timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = Globals.TimerInterval;
+            StackTrace trace = new StackTrace();
+            if (trace.GetFrame(2).GetMethod().Name.Contains("MenuItem_Click") || Globals.FirstFormLoad)
+            {
+                stepsToolStripMenuItem.Checked = false;
+                linesToolStripMenuItem.Checked =
+                dotsToolStripMenuItem.Checked =
+                bordersToolStripMenuItem.Checked =
+                aGVIndexToolStripMenuItem.Checked =
+                highlightOverCurrentBoxToolStripMenuItem.Checked = true;
 
+                timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = 50;
+                Globals.AStarWeight = 0.5;
+            }
             //Do not show the START menu because there is no valid path yet
             TriggerStartMenu(false);
 

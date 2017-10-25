@@ -44,7 +44,6 @@ namespace kagv {
                 BackgroundImage = null;
 
             StackTrace trace = new StackTrace();
-            System.Windows.Forms.MessageBox.Show(trace.GetFrame(1).GetMethod().Name);
             if (trace.GetFrame(1).GetMethod().Name != "Import")
             {
                 Globals.SemiTransparency = false;

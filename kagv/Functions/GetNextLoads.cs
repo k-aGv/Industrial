@@ -52,7 +52,7 @@ namespace kagv {
 
             //creates the path between the AGV (which at the moment is at the exit) and the Load
             _jumpParam.Reset(_startPos[whichAgv], endPos);
-            List<GridPos> jumpPointsList = AStarFinder.FindPath(_jumpParam, nud_weight.Value);
+            List<GridPos> jumpPointsList = AStarFinder.FindPath(_jumpParam, Globals.AStarWeight);
             _AGVs[whichAgv].JumpPoints = jumpPointsList;//adds the result from A* to the AGV's
                                                         //embedded List
 
@@ -86,7 +86,7 @@ namespace kagv {
             int oldC = c - 1;
 
             _jumpParam.Reset(endPos, _startPos[whichAgv]);
-            jumpPointsList = AStarFinder.FindPath(_jumpParam, nud_weight.Value);
+            jumpPointsList = AStarFinder.FindPath(_jumpParam, Globals.AStarWeight);
             _AGVs[whichAgv].JumpPoints.AddRange(jumpPointsList);
 
             c = 0;

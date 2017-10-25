@@ -120,7 +120,7 @@ namespace kagv {
 
                             //use of the A* alorithms to find the path between AGV and its marked Load
                             _jumpParam.Reset(_startPos[_posIndex], _loadPos[0]);
-                            jumpPointsList = AStarFinder.FindPath(_jumpParam, nud_weight.Value);
+                            jumpPointsList = AStarFinder.FindPath(_jumpParam, Globals.AStarWeight);
                             _AGVs[i].JumpPoints = jumpPointsList;
                             _AGVs[i].Status.Busy = true;
                             //====create the path FROM START TO LOAD, if load exists=====
@@ -129,7 +129,7 @@ namespace kagv {
                             for (int m = 0; m < _loadPos.Count; m++)
                                 _searchGrid.SetWalkableAt(_loadPos[m], false);
                             _jumpParam.Reset(_loadPos[0], endPos);
-                            jumpPointsList = AStarFinder.FindPath(_jumpParam, nud_weight.Value);
+                            jumpPointsList = AStarFinder.FindPath(_jumpParam, Globals.AStarWeight);
                             _AGVs[i].JumpPoints.AddRange(jumpPointsList);
 
                             //marks the load that each AGV picks up on the 1st route, as 3, so each agv knows where to go after delivering the 1st load
@@ -141,7 +141,7 @@ namespace kagv {
                             break;
                         case false:
                             _jumpParam.Reset(_startPos[_posIndex], endPos);
-                            jumpPointsList = AStarFinder.FindPath(_jumpParam, nud_weight.Value);
+                            jumpPointsList = AStarFinder.FindPath(_jumpParam, Globals.AStarWeight);
 
                             _AGVs[i].JumpPoints = jumpPointsList;
                             break;
