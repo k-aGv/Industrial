@@ -40,6 +40,25 @@ namespace kagv {
             Application.AddMessageFilter(this);
             MeasureScreen();
             Initialization();//initialize our stuff
+
+            /*
+            * 'this' is not a mandatory here but i need 
+            * a clean and understandable solution on that 
+            * dynamically created event
+            */
+            this.MouseWheel += MainForm_ScrollEvent;
+
+            /*
+            * Focus is needed to execute the MouseWheel event.
+            * although i dont use it because the form is 
+            * already focused on load
+            */
+            //this.Focus();
+        }
+
+        //dynamic scroll event
+        private void MainForm_ScrollEvent(object sender,MouseEventArgs e) {
+            MessageBox.Show("You just scrolled");
         }
 
         //paint event on form.
