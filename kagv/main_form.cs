@@ -27,6 +27,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.IO;
 using kagv.DLL_source;
+using System.ComponentModel;
 
 namespace kagv {
 
@@ -40,6 +41,42 @@ namespace kagv {
             Application.AddMessageFilter(this);
             MeasureScreen();
             Initialization();//initialize our stuff
+
+            /*
+            * 'this' is not a mandatory here but i need 
+            * a clean and understandable solution on that 
+            * dynamically created event
+            */
+            this.myMouseWheel += new MouseEventHandler(main_form_MouseWheel);
+
+            /*
+            * Focus is needed to execute the MouseWheel event.
+            * although i dont use it because the form is 
+            * already focused on load
+            */
+            this.Focus();
+        }
+
+        private static readonly object EventMouseWheel = new object();
+        [Description("Occurs when the mouse wheel moves while the control has focus."), Category("Event"), Browsable(true), EditorBrowsable(EditorBrowsableState.Always)]
+        public event MouseEventHandler myMouseWheel
+        {
+            add {
+                Events.AddHandler(EventMouseWheel, value);
+            }
+            remove {
+                Events.RemoveHandler(EventMouseWheel, value);
+            }
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Advanced), Browsable(true)]
+        protected override void OnMouseWheel(MouseEventArgs e) {
+            ((MouseEventHandler)Events[EventMouseWheel])?.Invoke(this, e);
+        }
+
+        //dynamic scroll event
+        public void main_form_MouseWheel(object sender, MouseEventArgs e) {
+            MessageBox.Show("You just scrolled");
         }
 
         //paint event on form.
@@ -106,10 +143,10 @@ namespace kagv {
 
             } catch { }
         }
-     
+
         private void main_form_Load(object sender, EventArgs e) {
-            
-            
+
+
             ReflectVariables();
 
             //Automatically enable the CPUs for this app.
@@ -404,7 +441,7 @@ namespace kagv {
                         }
                 }
 
-              
+
                 //Converts the clicked box to Start point
                 for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++)
                     for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++)
@@ -416,7 +453,7 @@ namespace kagv {
 
             }
             //same for Stop
-          
+
             if (rb_stop.Checked) {
                 for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++)
                     for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++)
@@ -437,7 +474,7 @@ namespace kagv {
             Invalidate();
         }
 
-        
+
         private void nUD_AGVs_ValueChanged(object sender, EventArgs e) {
 
             //if we change the AGVs value from numeric updown,do the following
@@ -452,17 +489,17 @@ namespace kagv {
                     if (startPosition.Count > nUD_AGVs.Value) {
                         _rectangles[startPosition[0].X][startPosition[0].Y].SwitchEnd_StartToNormal(); //removes the very last
                         removed = true;
-                        
+
                         Invalidate();
                     }
                 }
             if (removed)
                 Redraw();
-            
+
 
             int nodeList = 0;
             do {
-                
+
                 removed = false;
                 if (tree_stats.Nodes[nodeList].Text.Contains("AGV")) {
                     tree_stats.Nodes[nodeList].Remove();
@@ -471,7 +508,7 @@ namespace kagv {
 
                 if (!removed)
                     nodeList++;
-                
+
             } while (nodeList < tree_stats.Nodes.Count);
 
             for (short p = 0; p < nUD_AGVs.Value; p++) {
@@ -482,10 +519,10 @@ namespace kagv {
                 n.Nodes.Add("Loads Delivered");
                 n.Nodes.Add("Load at: ");
                 n.Nodes.Add("Status: ");
-                n.Nodes.Add("Delay: "+Globals.TimerInterval+" ms");
+                n.Nodes.Add("Delay: " + Globals.TimerInterval + " ms");
                 tree_stats.Nodes.Add(n);
             }
-            
+
             tree_stats.Refresh();
         }
         //parametres
@@ -639,7 +676,7 @@ namespace kagv {
         private void allToolStripMenuItem_Click(object sender, EventArgs e) {
 
             FullyRestore();
-            
+
         }
 
         private void exportMapToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -701,14 +738,14 @@ namespace kagv {
         }
 
         private void increaseSpeedToolStripMenuItem_Click(object sender, EventArgs e) {
-           
+
             Globals.TimerInterval += Globals.TimerStep;
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = Globals.TimerInterval;
 
             for (short i = 0; i < nUD_AGVs.Value; i++) {
                 tree_stats.Nodes.Find("AGV:" + (i), false)[0].Expand();
                 tree_stats.Nodes.Find("AGV:" + (i), false)[0].Nodes[3].Text = ("Delay: " + Globals.TimerInterval + " ms");
-                
+
             }
         }
 
@@ -822,8 +859,7 @@ namespace kagv {
             ImportImage();
         }
 
-        private void priorityRulesbetaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        private void priorityRulesbetaToolStripMenuItem_Click(object sender, EventArgs e) {
             _useHalt = !_useHalt;
             priorityRulesbetaToolStripMenuItem.Checked = _useHalt;
         }
@@ -943,7 +979,7 @@ namespace kagv {
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
             SetStyle(
             ControlStyles.DoubleBuffer, true);
-            
+
             for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++) {
                 for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++) {
                     g.DrawString("x" + widthTrav + "\n" + "y" + heightTrav,
@@ -951,7 +987,7 @@ namespace kagv {
                                     new SolidBrush(Color.DarkSlateBlue),
                                     new Point(_rectangles[widthTrav][heightTrav].X, _rectangles[widthTrav][heightTrav].Y)
                                     );
-                    
+
                 }
             }
 
@@ -963,24 +999,24 @@ namespace kagv {
             Redraw();
             Refresh();
         }
-        
+
         private void main_form_FormClosing(object sender, FormClosingEventArgs e) {
             if (File.Exists("info.txt"))
                 File.Delete("info.txt");
 
             StreamWriter writer = new StreamWriter("info.txt");
             writer.WriteLine(
-                "WidthBlocks:"+Globals.WidthBlocks + "\n" +
-                "HeightBlocks:"+Globals.HeightBlocks + "\n" +
-                "BlockSide:"+Globals.BlockSide + "\n" +
-                "DiagonalMovement:"+_jumpParam.DiagonalMovement+"\n"+
-                "Heuristic:"+_jumpParam.HeuristicFunc.Method+"\n"+
-                "ShowSteps:"+stepsToolStripMenuItem.Checked+"\n"+
-                "ShowLines:"+linesToolStripMenuItem.Checked+"\n"+
-                "ShowDots:"+dotsToolStripMenuItem.Checked+"\n"+
-                "ShowBorders:"+bordersToolStripMenuItem.Checked+"\n"+
-                "Highlight:"+highlightOverCurrentBoxToolStripMenuItem.Checked+"\n"+
-                "ShowAGVindex:"+aGVIndexToolStripMenuItem.Checked
+                "WidthBlocks:" + Globals.WidthBlocks + "\n" +
+                "HeightBlocks:" + Globals.HeightBlocks + "\n" +
+                "BlockSide:" + Globals.BlockSide + "\n" +
+                "DiagonalMovement:" + _jumpParam.DiagonalMovement + "\n" +
+                "Heuristic:" + _jumpParam.HeuristicFunc.Method + "\n" +
+                "ShowSteps:" + stepsToolStripMenuItem.Checked + "\n" +
+                "ShowLines:" + linesToolStripMenuItem.Checked + "\n" +
+                "ShowDots:" + dotsToolStripMenuItem.Checked + "\n" +
+                "ShowBorders:" + bordersToolStripMenuItem.Checked + "\n" +
+                "Highlight:" + highlightOverCurrentBoxToolStripMenuItem.Checked + "\n" +
+                "ShowAGVindex:" + aGVIndexToolStripMenuItem.Checked
                 );
             writer.Dispose();
         }
@@ -991,5 +1027,5 @@ namespace kagv {
             Initialization();
         }
     }
-    
+
 }
