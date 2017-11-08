@@ -120,9 +120,11 @@ namespace kagv {
 
             //For-loop to repeat the path-finding process for ALL the _AGVs that participate in the simulation
             for (short i = 0; i < _startPos.Count; i++) {
-                if (_loadPos.Count != 0)
-                    _loadPos = CheckForTrappedLoads(_loadPos, endPos);
-
+                if (_loadPos.Count != 0) {
+                    var task = System.Threading.Tasks.Task.Run( () =>  CheckForTrappedLoads(_loadPos, endPos));
+                    _loadPos = task.Result;
+                     //_loadPos = await CheckForTrappedLoads(_loadPos, endPos);
+                }
                 if (_loadPos.Count == 0) {
                     _mapHasLoads = false;
                     _AGVs[i].HasLoadToPick = false;

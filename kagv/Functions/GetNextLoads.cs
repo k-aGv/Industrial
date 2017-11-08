@@ -58,7 +58,7 @@ namespace kagv {
                     if (_isLoad[i, j] == 1 || _isLoad[i, j] == 4)
                         loadPos.Add(new GridPos(i, j));
                 }
-            loadPos = CheckForTrappedLoads(loadPos, new GridPos(_a, _b)); //scans the loadPos list to check which loads are available
+            loadPos = CheckForTrappedLoads(loadPos, new GridPos(_a, _b),true); //scans the loadPos list to check which loads are available
             if (loadPos.Count == 0) {
                 _AGVs[whichAgv].HasLoadToPick = false;
                 return;
