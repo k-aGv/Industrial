@@ -84,7 +84,7 @@ namespace kagv {
                 _AGVs[i].JumpPoints = new List<GridPos>();
 
 
-            _searchGrid = new StaticGrid(Globals.WidthBlocks, Globals.HeightBlocks);
+            wms.SearchGrid = new StaticGrid(Globals.WidthBlocks, Globals.HeightBlocks);
 
             _alwaysCross =
             aGVIndexToolStripMenuItem.Checked =

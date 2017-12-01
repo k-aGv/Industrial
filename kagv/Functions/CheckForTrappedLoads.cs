@@ -34,17 +34,17 @@ namespace kagv {
             int listIndex = 0;
 
             for (int i = 0; i < pos.Count; i++) {
-                _searchGrid.SetWalkableAt(pos[i], false);
+                wms.SearchGrid.SetWalkableAt(pos[i], false);
                 wms.IsLoad[pos[i].X, pos[i].Y] = 4;
             }
 
             //if the 1st AGV  cannot reach a Load, then that Load is  
             //removed from the loadPos and not considered as available - marked as "4"  (temporarily trapped)
             do {
-                _searchGrid.SetWalkableAt(new GridPos(pos[0].X, pos[0].Y), true);
+                wms.SearchGrid.SetWalkableAt(new GridPos(pos[0].X, pos[0].Y), true);
                 _jumpParam.Reset(pos[0], endPos);
                 if (AStarFinder.FindPath(_jumpParam, nud_weight.Value).Count == 0) {
-                    _searchGrid.SetWalkableAt(new GridPos(pos[0].X, pos[0].Y), false);
+                    wms.SearchGrid.SetWalkableAt(new GridPos(pos[0].X, pos[0].Y), false);
                     pos.Remove(pos[0]); //load is removed from the List with available Loads
 
                 } else {
@@ -62,17 +62,17 @@ namespace kagv {
             int listIndex = 0;
 
             for (int i = 0; i < pos.Count; i++) {
-                _searchGrid.SetWalkableAt(pos[i], false);
+                wms.SearchGrid.SetWalkableAt(pos[i], false);
                 wms.IsLoad[pos[i].X, pos[i].Y] = 4;
             }
 
             //if the 1st AGV  cannot reach a Load, then that Load is  
             //removed from the loadPos and not considered as available - marked as "4"  (temporarily trapped)
             do {
-                _searchGrid.SetWalkableAt(new GridPos(pos[0].X, pos[0].Y), true);
+                wms.SearchGrid.SetWalkableAt(new GridPos(pos[0].X, pos[0].Y), true);
                 _jumpParam.Reset(pos[0], endPos);
                 if (AStarFinder.FindPath(_jumpParam, nud_weight.Value).Count == 0) {
-                    _searchGrid.SetWalkableAt(new GridPos(pos[0].X, pos[0].Y), false);
+                    wms.SearchGrid.SetWalkableAt(new GridPos(pos[0].X, pos[0].Y), false);
                     pos.Remove(pos[0]); //load is removed from the List with available Loads
 
                 } else {

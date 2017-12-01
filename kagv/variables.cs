@@ -40,7 +40,6 @@ namespace kagv {
         //not a Load = 2
         //Marked by an AGV Load = 3
         //Temporarily trapped Load = 4
-        //private int[,] wms.IsLoad;
 
         private BoxType[,] _importmap;
 
@@ -51,14 +50,13 @@ namespace kagv {
 
         private List<Vehicle> _AGVs = new List<Vehicle>();
         private List<GridPos> _startPos = new List<GridPos>(); //Contains the coords of the Start boxes
-        //private List<GridPos> wms.LoadPos;
+        
         private readonly bool[] _trappedStatus = new bool[5];
-
-
+        
         private int _a; //temporary X.Used to calculate the remained length of current line
         private int _b; //temporary Y.Used to calculate the remained length of current line
         private int _posIndex; //=0 s the default value anyway
-        private BaseGrid _searchGrid;
+        
         private AStarParam _jumpParam;//custom jump method with its features exposed
         private static Graphics _paper;//main graphics for grid
 
@@ -81,8 +79,7 @@ namespace kagv {
         private bool _atLeastOneObstacle ;
         private bool _ifNoObstacles ;
         private bool _never ;
-
-        //private int wms.LoadsCount ; //default=0 anyways...index for keeping count of how many Loads there are in the Grid
+        
         private int _labeled_loads; //index that is used for displaying how many loads have not been picked up
 
         private Color _selectedColor = Color.DarkGray;
@@ -90,7 +87,5 @@ namespace kagv {
 
         private Image _importedImageFile;
         private Image _importedLayout = null;
-
-
     }
 }

@@ -76,7 +76,7 @@ namespace kagv {
                 !_AGVs[whichAgv].Status.Busy) {
 
                 wms.Rectangles[_AGVs[whichAgv].MarkedLoad.X][_AGVs[whichAgv].MarkedLoad.Y].SwitchLoad(); //converts a specific GridBox, from Load, to Normal box (SwitchLoad function)
-                _searchGrid.SetWalkableAt(_AGVs[whichAgv].MarkedLoad.X, _AGVs[whichAgv].MarkedLoad.Y, true);//marks the picked-up load as walkable AGAIN (since it is now a normal gridbox)
+                wms.SearchGrid.SetWalkableAt(_AGVs[whichAgv].MarkedLoad.X, _AGVs[whichAgv].MarkedLoad.Y, true);//marks the picked-up load as walkable AGAIN (since it is now a normal gridbox)
                 _labeled_loads--;
                 if (_labeled_loads <= 0)
                     tree_stats.Nodes[2].Text = "All loads were picked up";

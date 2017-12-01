@@ -50,13 +50,13 @@ namespace kagv {
                 for (var j = 0; j < Globals.HeightBlocks; j++) {
 
                     if (wms.Rectangles[i][j].BoxType == BoxType.Wall)
-                        _searchGrid.SetWalkableAt(new GridPos(i, j), false);//Walls are marked as non-walkable
+                        wms.SearchGrid.SetWalkableAt(new GridPos(i, j), false);//Walls are marked as non-walkable
                     else
-                        _searchGrid.SetWalkableAt(new GridPos(i, j), true);//every other block is marked as walkable (for now)
+                        wms.SearchGrid.SetWalkableAt(new GridPos(i, j), true);//every other block is marked as walkable (for now)
 
                     if (wms.Rectangles[i][j].BoxType == BoxType.Load) {
                         _mapHasLoads = true;
-                        _searchGrid.SetWalkableAt(new GridPos(i, j), false); //marks every Load as non-walkable
+                        wms.SearchGrid.SetWalkableAt(new GridPos(i, j), false); //marks every Load as non-walkable
                         wms.IsLoad[i, j] = 1; //considers every Load as available
                         wms.LoadsCount++; //counts the number of available Loads in the grid
                         wms.LoadPos.Add(new GridPos(i, j)); //inserts the coordinates of the Load inside a list
@@ -67,9 +67,9 @@ namespace kagv {
                     if (wms.Rectangles[i][j].BoxType == BoxType.Start) {
 
                         if (_beforeStart) {
-                            _searchGrid.SetWalkableAt(new GridPos(i, j), false); //initial starting points of AGV are non walkable until 1st run is completed
+                            wms.SearchGrid.SetWalkableAt(new GridPos(i, j), false); //initial starting points of AGV are non walkable until 1st run is completed
                         } else
-                            _searchGrid.SetWalkableAt(new GridPos(i, j), true);
+                            wms.SearchGrid.SetWalkableAt(new GridPos(i, j), true);
 
                         startFound = true;
 
@@ -140,8 +140,8 @@ namespace kagv {
                         case true:
                             //====create the path FROM START TO LOAD, if load exists=====
                             for (int m = 0; m < wms.LoadPos.Count; m++)
-                                _searchGrid.SetWalkableAt(wms.LoadPos[m], false); //Do not allow walk over any other load except the targeted one
-                            _searchGrid.SetWalkableAt(wms.LoadPos[0], true);
+                                wms.SearchGrid.SetWalkableAt(wms.LoadPos[m], false); //Do not allow walk over any other load except the targeted one
+                            wms.SearchGrid.SetWalkableAt(wms.LoadPos[0], true);
 
                             //use of the A* alorithms to find the path between AGV and its marked Load
                             _jumpParam.Reset(_startPos[_posIndex], wms.LoadPos[0]);
@@ -152,7 +152,7 @@ namespace kagv {
 
                             //======FROM LOAD TO END======
                             for (int m = 0; m < wms.LoadPos.Count; m++)
-                                _searchGrid.SetWalkableAt(wms.LoadPos[m], false);
+                                wms.SearchGrid.SetWalkableAt(wms.LoadPos[m], false);
                             _jumpParam.Reset(wms.LoadPos[0], endPos);
                             jumpPointsList = AStarFinder.FindPath(_jumpParam, Globals.AStarWeight);
                             _AGVs[i].JumpPoints.AddRange(jumpPointsList);

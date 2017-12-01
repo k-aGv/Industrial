@@ -94,9 +94,9 @@ namespace kagv {
                 _imported = false;
 
 
-            _searchGrid = new StaticGrid(Globals.WidthBlocks, Globals.HeightBlocks);
+            wms.SearchGrid = new StaticGrid(Globals.WidthBlocks, Globals.HeightBlocks);
             _jumpParam = new AStarParam (
-                _searchGrid,
+                wms.SearchGrid,
                 Convert.ToSingle(Globals.AStarWeight),
                 diagonalMovement,
                 heuristicMode

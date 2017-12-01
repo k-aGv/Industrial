@@ -31,7 +31,7 @@ namespace kagv {
         private void KeepValidLoads(GridPos endPoint) {
             int listIndex = 0;
             for (int i = 0; i < wms.LoadPos.Count; i++)
-                _searchGrid.SetWalkableAt(wms.LoadPos[i], true); //assumes that all loads are walkable
+                wms.SearchGrid.SetWalkableAt(wms.LoadPos[i], true); //assumes that all loads are walkable
                                                               //and only walls are in fact the only obstacles in the grid
 
             do {

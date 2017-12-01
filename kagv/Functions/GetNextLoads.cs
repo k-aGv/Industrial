@@ -52,7 +52,7 @@ namespace kagv {
             for (var i = 0; i < Globals.WidthBlocks; i++)
                 for (var j = 0; j < Globals.HeightBlocks; j++) {
                     if (wms.Rectangles[i][j].BoxType == BoxType.Load)
-                        _searchGrid.SetWalkableAt(new GridPos(i, j), false);
+                        wms.SearchGrid.SetWalkableAt(new GridPos(i, j), false);
 
                     //places the available AND the temporarily trapped loads in a list
                     if (wms.IsLoad[i, j] == 1 || wms.IsLoad[i, j] == 4)
@@ -70,8 +70,8 @@ namespace kagv {
 
             //Mark all loads as unwalkable,except the targetted ones
             for (var m = 0; m < loadPos.Count; m++)
-                _searchGrid.SetWalkableAt(loadPos[m], false);
-            _searchGrid.SetWalkableAt(loadPos[0], true);
+                wms.SearchGrid.SetWalkableAt(loadPos[m], false);
+            wms.SearchGrid.SetWalkableAt(loadPos[0], true);
 
             //creates the path between the AGV (which at the moment is at the exit) and the Load
             _jumpParam.Reset(_startPos[whichAgv], endPos);
@@ -81,7 +81,7 @@ namespace kagv {
 
             //Mark all loads as unwalkable
             for (var m = 0; m < loadPos.Count; m++)
-                _searchGrid.SetWalkableAt(loadPos[m], false);
+                wms.SearchGrid.SetWalkableAt(loadPos[m], false);
 
             int c = 0;
             for (short i = 0; i < _startPos.Count; i++) {
