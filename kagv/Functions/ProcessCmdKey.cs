@@ -39,7 +39,7 @@ namespace kagv {
 
                 for (int k = 0; k < Globals.WidthBlocks; k++) {
                     for (int l = 0; l < Globals.HeightBlocks; l++) {
-                        if (_rectangles[k][l].BoxType != BoxType.Normal) {
+                        if (wms.Rectangles[k][l].BoxType != BoxType.Normal) {
                             emptymap = false;
                             break;
                         }

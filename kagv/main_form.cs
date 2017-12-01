@@ -77,9 +77,9 @@ namespace kagv {
             try {
                 if (_importedLayout != null) {
 
-                    Rectangle r = new Rectangle(new Point(_rectangles[0][0].X, _rectangles[0][0].Y)
-                        , new Size((_rectangles[Globals.WidthBlocks - 1][Globals.HeightBlocks - 1].X) - Globals.LeftBarOffset + Globals.BlockSide
-                            , (_rectangles[Globals.WidthBlocks - 1][Globals.HeightBlocks - 1].Y) - Globals.TopBarOffset + Globals.BlockSide));
+                    Rectangle r = new Rectangle(new Point(wms.Rectangles[0][0].X, wms.Rectangles[0][0].Y)
+                        , new Size((wms.Rectangles[Globals.WidthBlocks - 1][Globals.HeightBlocks - 1].X) - Globals.LeftBarOffset + Globals.BlockSide
+                            , (wms.Rectangles[Globals.WidthBlocks - 1][Globals.HeightBlocks - 1].Y) - Globals.TopBarOffset + Globals.BlockSide));
                     _paper.DrawImage(_importedLayout, r);
 
                 }
@@ -87,15 +87,15 @@ namespace kagv {
                 for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++) {
                     for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++) {
                         //show the relative box color regarding the box type we have chose
-                        _rectangles[widthTrav][heightTrav].DrawBox(_paper, BoxType.Normal);
-                        _rectangles[widthTrav][heightTrav].DrawBox(_paper, BoxType.Start);
-                        _rectangles[widthTrav][heightTrav].DrawBox(_paper, BoxType.End);
-                        _rectangles[widthTrav][heightTrav].DrawBox(_paper, BoxType.Wall);
-                        _rectangles[widthTrav][heightTrav].DrawBox(_paper, BoxType.Load);
+                        wms.Rectangles[widthTrav][heightTrav].DrawBox(_paper, BoxType.Normal);
+                        wms.Rectangles[widthTrav][heightTrav].DrawBox(_paper, BoxType.Start);
+                        wms.Rectangles[widthTrav][heightTrav].DrawBox(_paper, BoxType.End);
+                        wms.Rectangles[widthTrav][heightTrav].DrawBox(_paper, BoxType.Wall);
+                        wms.Rectangles[widthTrav][heightTrav].DrawBox(_paper, BoxType.Load);
 
-                        if (_rectangles[widthTrav][heightTrav].BoxType == BoxType.Load
-                            && _isLoad[widthTrav, heightTrav] == 3)
-                            _rectangles[widthTrav][heightTrav].SetAsTargetted(_paper);
+                        if (wms.Rectangles[widthTrav][heightTrav].BoxType == BoxType.Load
+                            && wms.IsLoad[widthTrav, heightTrav] == 3)
+                            wms.Rectangles[widthTrav][heightTrav].SetAsTargetted(_paper);
 
                     }
                 }
@@ -157,13 +157,13 @@ namespace kagv {
             if ((e.Button == MouseButtons.Left) && (rb_wall.Checked))
                 for (int widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++)
                     for (int heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++)
-                        if (_rectangles[widthTrav][heightTrav].BoxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1)))) {
-                            _lastBoxType = _rectangles[widthTrav][heightTrav].BoxType;
-                            _lastBoxSelect = _rectangles[widthTrav][heightTrav];
+                        if (wms.Rectangles[widthTrav][heightTrav].BoxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1)))) {
+                            _lastBoxType = wms.Rectangles[widthTrav][heightTrav].BoxType;
+                            _lastBoxSelect = wms.Rectangles[widthTrav][heightTrav];
                             switch (_lastBoxType) { //...measure the reaction
                                 case BoxType.Normal: //if its wall or normal ,switch it to the opposite.
                                 case BoxType.Wall:
-                                    _rectangles[widthTrav][heightTrav].SwitchBox();
+                                    wms.Rectangles[widthTrav][heightTrav].SwitchBox();
                                     Invalidate();
                                     break;
                                 case BoxType.Start: //if its start or end,do nothing.
@@ -185,15 +185,15 @@ namespace kagv {
                 bool isPathBlock = false;
                 for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++)
                     for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++)
-                        if (_rectangles[widthTrav][heightTrav].BoxRec.Contains(mycoords)) {
+                        if (wms.Rectangles[widthTrav][heightTrav].BoxRec.Contains(mycoords)) {
                             currentBoxType =
                                 "Block type: " +
-                                _rectangles[widthTrav][heightTrav].BoxType + "\r\n";
+                                wms.Rectangles[widthTrav][heightTrav].BoxType + "\r\n";
                             currentBoxCoords =
                                 "X: " +
-                                _rectangles[widthTrav][heightTrav].BoxRec.X + " " +
+                                wms.Rectangles[widthTrav][heightTrav].BoxRec.X + " " +
                                 "Y: " +
-                                _rectangles[widthTrav][heightTrav].BoxRec.Y + "\r\n";
+                                wms.Rectangles[widthTrav][heightTrav].BoxRec.Y + "\r\n";
                             currentBoxIndex =
                                 "Index: " +
                                 "iX: " + widthTrav + " " + "iY: " + heightTrav + "\r\n";
@@ -203,7 +203,7 @@ namespace kagv {
                             if (_startPos != null) {
                                 for (int j = 0; j < _startPos.Count; j++)
                                     for (int i = 0; i < Globals.MaximumSteps; i++)
-                                        if (_rectangles[widthTrav][heightTrav].BoxRec.Contains
+                                        if (wms.Rectangles[widthTrav][heightTrav].BoxRec.Contains
                                             (
                                                    new Point(
                                                        Convert.ToInt32(_AGVs[j].Steps[i].X),
@@ -215,7 +215,7 @@ namespace kagv {
                                             i = Globals.MaximumSteps;
                                             j = _startPos.Count;
                                         }
-                                clickedBox = _rectangles[widthTrav][heightTrav];
+                                clickedBox = wms.Rectangles[widthTrav][heightTrav];
                             }
                             _tp.ToolTipIcon = ToolTipIcon.Info;
                             if (isPathBlock && _startPos != null) {
@@ -266,13 +266,13 @@ namespace kagv {
                     if (_lastBoxSelect == null) {
                         for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++) {
                             for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++) {
-                                if (_rectangles[widthTrav][heightTrav].BoxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1)))) {
-                                    _lastBoxType = _rectangles[widthTrav][heightTrav].BoxType;
-                                    _lastBoxSelect = _rectangles[widthTrav][heightTrav];
+                                if (wms.Rectangles[widthTrav][heightTrav].BoxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1)))) {
+                                    _lastBoxType = wms.Rectangles[widthTrav][heightTrav].BoxType;
+                                    _lastBoxSelect = wms.Rectangles[widthTrav][heightTrav];
                                     switch (_lastBoxType) {
                                         case BoxType.Normal:
                                         case BoxType.Wall:
-                                            _rectangles[widthTrav][heightTrav].SwitchBox(); //switch it if needed...
+                                            wms.Rectangles[widthTrav][heightTrav].SwitchBox(); //switch it if needed...
                                             Invalidate();
                                             break;
                                         case BoxType.Start:
@@ -289,27 +289,27 @@ namespace kagv {
                     }
                     for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++) {
                         for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++) {
-                            if (_rectangles[widthTrav][heightTrav].BoxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1)))) {
-                                if (_rectangles[widthTrav][heightTrav] == _lastBoxSelect) {
+                            if (wms.Rectangles[widthTrav][heightTrav].BoxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1)))) {
+                                if (wms.Rectangles[widthTrav][heightTrav] == _lastBoxSelect) {
                                     return;
                                 }
                                 switch (_lastBoxType) {
                                     case BoxType.Normal:
                                     case BoxType.Wall:
-                                        if (_rectangles[widthTrav][heightTrav].BoxType == _lastBoxType) {
-                                            _rectangles[widthTrav][heightTrav].SwitchBox();
-                                            _lastBoxSelect = _rectangles[widthTrav][heightTrav];
+                                        if (wms.Rectangles[widthTrav][heightTrav].BoxType == _lastBoxType) {
+                                            wms.Rectangles[widthTrav][heightTrav].SwitchBox();
+                                            _lastBoxSelect = wms.Rectangles[widthTrav][heightTrav];
                                             Invalidate();
                                         }
                                         break;
                                     case BoxType.Start:
                                         _lastBoxSelect.SetNormalBox();
-                                        _lastBoxSelect = _rectangles[widthTrav][heightTrav];
+                                        _lastBoxSelect = wms.Rectangles[widthTrav][heightTrav];
                                         Invalidate();
                                         break;
                                     case BoxType.End:
                                         _lastBoxSelect.SetNormalBox();
-                                        _lastBoxSelect = _rectangles[widthTrav][heightTrav];
+                                        _lastBoxSelect = wms.Rectangles[widthTrav][heightTrav];
                                         _lastBoxSelect.SetEndBox();
                                         Invalidate();
                                         break;
@@ -334,20 +334,20 @@ namespace kagv {
             if (_allowHighlight)
                 for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++)
                     for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++)
-                        if (_rectangles[widthTrav][heightTrav].BoxRec.Contains(new Point(e.X, e.Y))
-                            && _rectangles[widthTrav][heightTrav].BoxType == BoxType.Normal) {
+                        if (wms.Rectangles[widthTrav][heightTrav].BoxRec.Contains(new Point(e.X, e.Y))
+                            && wms.Rectangles[widthTrav][heightTrav].BoxType == BoxType.Normal) {
                             if (rb_load.Checked)
-                                _rectangles[widthTrav][heightTrav].OnHover(Color.FromArgb(150, Color.FromArgb(138, 109, 86)));
+                                wms.Rectangles[widthTrav][heightTrav].OnHover(Color.FromArgb(150, Color.FromArgb(138, 109, 86)));
                             else if (rb_start.Checked)
-                                _rectangles[widthTrav][heightTrav].OnHover(Color.LightGreen);
+                                wms.Rectangles[widthTrav][heightTrav].OnHover(Color.LightGreen);
                             else if (rb_stop.Checked)
-                                _rectangles[widthTrav][heightTrav].OnHover(Color.FromArgb(80, Color.FromArgb(255, 26, 26)));
+                                wms.Rectangles[widthTrav][heightTrav].OnHover(Color.FromArgb(80, Color.FromArgb(255, 26, 26)));
                             else //wall
-                                _rectangles[widthTrav][heightTrav].OnHover(Color.FromArgb(20, Color.LightGray));
+                                wms.Rectangles[widthTrav][heightTrav].OnHover(Color.FromArgb(20, Color.LightGray));
 
                             Invalidate();
-                        } else if (_rectangles[widthTrav][heightTrav].BoxType == BoxType.Normal) {
-                            _rectangles[widthTrav][heightTrav].OnHover(_boxDefaultColor);
+                        } else if (wms.Rectangles[widthTrav][heightTrav].BoxType == BoxType.Normal) {
+                            wms.Rectangles[widthTrav][heightTrav].OnHover(_boxDefaultColor);
                             Invalidate();
                         }
         }
@@ -376,18 +376,18 @@ namespace kagv {
             if (rb_load.Checked)
                 for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++)
                     for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++)
-                        if (_rectangles[widthTrav][heightTrav].BoxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1)))) {
-                            _lastBoxType = _rectangles[widthTrav][heightTrav].BoxType;
-                            _lastBoxSelect = _rectangles[widthTrav][heightTrav];
+                        if (wms.Rectangles[widthTrav][heightTrav].BoxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1)))) {
+                            _lastBoxType = wms.Rectangles[widthTrav][heightTrav].BoxType;
+                            _lastBoxSelect = wms.Rectangles[widthTrav][heightTrav];
                             switch (_lastBoxType) {
                                 case BoxType.Normal:
-                                    _rectangles[widthTrav][heightTrav].SwitchLoad();
-                                    _isLoad[widthTrav, heightTrav] = 1;
+                                    wms.Rectangles[widthTrav][heightTrav].SwitchLoad();
+                                    wms.IsLoad[widthTrav, heightTrav] = 1;
                                     break;
                                 case BoxType.Load:
-                                    _loads--;
-                                    _rectangles[widthTrav][heightTrav].SwitchLoad();
-                                    _isLoad[widthTrav, heightTrav] = 2;
+                                    wms.LoadsCount--;
+                                    wms.Rectangles[widthTrav][heightTrav].SwitchLoad();
+                                    wms.IsLoad[widthTrav, heightTrav] = 2;
                                     break;
                                 case BoxType.Wall:
                                 case BoxType.Start:
@@ -402,8 +402,8 @@ namespace kagv {
                 {
                     for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++)
                         for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++)
-                            if (_rectangles[widthTrav][heightTrav].BoxType == BoxType.Start)
-                                _rectangles[widthTrav][heightTrav].SwitchEnd_StartToNormal();
+                            if (wms.Rectangles[widthTrav][heightTrav].BoxType == BoxType.Start)
+                                wms.Rectangles[widthTrav][heightTrav].SwitchEnd_StartToNormal();
                 } else if (nUD_AGVs.Value > 1) {//Deletes the start with the smallest iX - iY coords and keeps the rest
 
                     int startsCounter = 0;
@@ -412,13 +412,13 @@ namespace kagv {
 
                     for (int widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++)
                         for (int heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++) {
-                            if (_rectangles[widthTrav][heightTrav].BoxType == BoxType.Start) {
+                            if (wms.Rectangles[widthTrav][heightTrav].BoxType == BoxType.Start) {
                                 startsPosition[0, startsCounter] = widthTrav;
                                 startsPosition[1, startsCounter] = heightTrav;
                                 startsCounter++;
                             }
                             if (startsCounter == nUD_AGVs.Value) {
-                                _rectangles[startsPosition[0, 0]][startsPosition[1, 0]].SwitchEnd_StartToNormal();
+                                wms.Rectangles[startsPosition[0, 0]][startsPosition[1, 0]].SwitchEnd_StartToNormal();
                             }
                         }
                 }
@@ -427,9 +427,9 @@ namespace kagv {
                 //Converts the clicked box to Start point
                 for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++)
                     for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++)
-                        if (_rectangles[widthTrav][heightTrav].BoxRec.Contains(clickCoords)
-                         && _rectangles[widthTrav][heightTrav].BoxType == BoxType.Normal)
-                            _rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Globals.BlockSide) + Globals.LeftBarOffset, heightTrav * Globals.BlockSide + Globals.TopBarOffset, BoxType.Start);
+                        if (wms.Rectangles[widthTrav][heightTrav].BoxRec.Contains(clickCoords)
+                         && wms.Rectangles[widthTrav][heightTrav].BoxType == BoxType.Normal)
+                            wms.Rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Globals.BlockSide) + Globals.LeftBarOffset, heightTrav * Globals.BlockSide + Globals.TopBarOffset, BoxType.Start);
 
 
 
@@ -439,16 +439,16 @@ namespace kagv {
             if (rb_stop.Checked) {
                 for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++)
                     for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++)
-                        if (_rectangles[widthTrav][heightTrav].BoxType == BoxType.End)
-                            _rectangles[widthTrav][heightTrav].SwitchEnd_StartToNormal();//allow only one end point
+                        if (wms.Rectangles[widthTrav][heightTrav].BoxType == BoxType.End)
+                            wms.Rectangles[widthTrav][heightTrav].SwitchEnd_StartToNormal();//allow only one end point
 
 
                 for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++)
                     for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++)
-                        if (_rectangles[widthTrav][heightTrav].BoxRec.Contains(clickCoords)
+                        if (wms.Rectangles[widthTrav][heightTrav].BoxRec.Contains(clickCoords)
                              &&
-                            _rectangles[widthTrav][heightTrav].BoxType == BoxType.Normal) {
-                            _rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * Globals.BlockSide + Globals.LeftBarOffset, heightTrav * Globals.BlockSide + Globals.TopBarOffset, BoxType.End);
+                            wms.Rectangles[widthTrav][heightTrav].BoxType == BoxType.Normal) {
+                            wms.Rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * Globals.BlockSide + Globals.LeftBarOffset, heightTrav * Globals.BlockSide + Globals.TopBarOffset, BoxType.End);
                         }
             }
 
@@ -465,11 +465,11 @@ namespace kagv {
 
             for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++)
                 for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++) {
-                    if (_rectangles[widthTrav][heightTrav].BoxType == BoxType.Start)
+                    if (wms.Rectangles[widthTrav][heightTrav].BoxType == BoxType.Start)
                         startPosition.Add(new GridPos(widthTrav, heightTrav));
                     //if we reduce the numeric value and become less than the already-drawn agvs,remove the rest agvs
                     if (startPosition.Count > nUD_AGVs.Value) {
-                        _rectangles[startPosition[0].X][startPosition[0].Y].SwitchEnd_StartToNormal(); //removes the very last
+                        wms.Rectangles[startPosition[0].X][startPosition[0].Y].SwitchEnd_StartToNormal(); //removes the very last
                         removed = true;
                         
                         Invalidate();
@@ -642,13 +642,13 @@ namespace kagv {
 
             for (int widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++)
                 for (int heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++)
-                    switch (_rectangles[widthTrav][heightTrav].BoxType) {
+                    switch (wms.Rectangles[widthTrav][heightTrav].BoxType) {
                         case BoxType.Normal:
                         case BoxType.Start:
                         case BoxType.End:
                             break;
                         case BoxType.Wall:
-                            _rectangles[widthTrav][heightTrav].SetNormalBox();
+                            wms.Rectangles[widthTrav][heightTrav].SetNormalBox();
                             break;
                     }
             Invalidate();
@@ -687,10 +687,10 @@ namespace kagv {
 
             Redraw();
 
-            _labeled_loads = _loads;
+            _labeled_loads = wms.LoadsCount;
             for (short i = 0; i < _startPos.Count; i++) {
-                _AGVs[i].StartX = _rectangles[_startPos[i].X][_startPos[i].Y].BoxRec.X;
-                _AGVs[i].StartY = _rectangles[_startPos[i].X][_startPos[i].Y].BoxRec.Y;
+                _AGVs[i].StartX = wms.Rectangles[_startPos[i].X][_startPos[i].Y].BoxRec.X;
+                _AGVs[i].StartY = wms.Rectangles[_startPos[i].X][_startPos[i].Y].BoxRec.Y;
                 _AGVs[i].SizeX = Globals.BlockSide - 1;
                 _AGVs[i].SizeY = Globals.BlockSide - 1;
                 _AGVs[i].Init();
@@ -968,7 +968,7 @@ namespace kagv {
                     g.DrawString("x" + widthTrav + "\n" + "y" + heightTrav,
                                     new Font("Tahoma", 5, FontStyle.Bold),
                                     new SolidBrush(Color.DarkSlateBlue),
-                                    new Point(_rectangles[widthTrav][heightTrav].X, _rectangles[widthTrav][heightTrav].Y)
+                                    new Point(wms.Rectangles[widthTrav][heightTrav].X, wms.Rectangles[widthTrav][heightTrav].Y)
                                     );
                     
                 }

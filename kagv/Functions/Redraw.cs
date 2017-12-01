@@ -43,28 +43,28 @@ namespace kagv {
             _posIndex = 0;
             _startPos = new List<GridPos>(); //list that will be filled with the starting points of every AGV
             _AGVs = new List<Vehicle>();  //list that will be filled with objects of the class Vehicle
-            _loadPos = new List<GridPos>(); //list that will be filled with the points of every Load
-            _loads = 0;
+            wms.LoadPos = new List<GridPos>(); //list that will be filled with the points of every Load
+            wms.LoadsCount = 0;
             //Double FOR-loops to scan the whole Grid and perform the needed actions
             for (var i = 0; i < Globals.WidthBlocks; i++)
                 for (var j = 0; j < Globals.HeightBlocks; j++) {
 
-                    if (_rectangles[i][j].BoxType == BoxType.Wall)
+                    if (wms.Rectangles[i][j].BoxType == BoxType.Wall)
                         _searchGrid.SetWalkableAt(new GridPos(i, j), false);//Walls are marked as non-walkable
                     else
                         _searchGrid.SetWalkableAt(new GridPos(i, j), true);//every other block is marked as walkable (for now)
 
-                    if (_rectangles[i][j].BoxType == BoxType.Load) {
+                    if (wms.Rectangles[i][j].BoxType == BoxType.Load) {
                         _mapHasLoads = true;
                         _searchGrid.SetWalkableAt(new GridPos(i, j), false); //marks every Load as non-walkable
-                        _isLoad[i, j] = 1; //considers every Load as available
-                        _loads++; //counts the number of available Loads in the grid
-                        _loadPos.Add(new GridPos(i, j)); //inserts the coordinates of the Load inside a list
+                        wms.IsLoad[i, j] = 1; //considers every Load as available
+                        wms.LoadsCount++; //counts the number of available Loads in the grid
+                        wms.LoadPos.Add(new GridPos(i, j)); //inserts the coordinates of the Load inside a list
                     }
-                    if (_rectangles[i][j].BoxType == BoxType.Normal)
-                        _rectangles[i][j].OnHover(_boxDefaultColor);
+                    if (wms.Rectangles[i][j].BoxType == BoxType.Normal)
+                        wms.Rectangles[i][j].OnHover(_boxDefaultColor);
 
-                    if (_rectangles[i][j].BoxType == BoxType.Start) {
+                    if (wms.Rectangles[i][j].BoxType == BoxType.Start) {
 
                         if (_beforeStart) {
                             _searchGrid.SetWalkableAt(new GridPos(i, j), false); //initial starting points of AGV are non walkable until 1st run is completed
@@ -73,7 +73,7 @@ namespace kagv {
 
                         startFound = true;
 
-                        _AGVs.Add(new Vehicle(this));
+                        _AGVs.Add(new Vehicle(this,wms));
                         _AGVs[_posIndex].ID = _posIndex;
 
                         _startPos.Add(new GridPos(i, j)); //adds the starting coordinates of an AGV to the StartPos list
@@ -88,7 +88,7 @@ namespace kagv {
                         }
                     }
 
-                    if (_rectangles[i][j].BoxType == BoxType.End) {
+                    if (wms.Rectangles[i][j].BoxType == BoxType.End) {
                         endFound = true;
                         endPos.X = i;
                         endPos.Y = j;
@@ -120,12 +120,12 @@ namespace kagv {
 
             //For-loop to repeat the path-finding process for ALL the _AGVs that participate in the simulation
             for (short i = 0; i < _startPos.Count; i++) {
-                if (_loadPos.Count != 0) {
-                    var task = System.Threading.Tasks.Task.Run( () =>  CheckForTrappedLoads(_loadPos, endPos));
-                    _loadPos = task.Result;
-                     //_loadPos = await CheckForTrappedLoads(_loadPos, endPos);
+                if (wms.LoadPos.Count != 0) {
+                    var task = System.Threading.Tasks.Task.Run( () =>  CheckForTrappedLoads(wms.LoadPos, endPos));
+                    wms.LoadPos = task.Result;
+                     //wms.LoadPos = await CheckForTrappedLoads(wms.LoadPos, endPos);
                 }
-                if (_loadPos.Count == 0) {
+                if (wms.LoadPos.Count == 0) {
                     _mapHasLoads = false;
                     _AGVs[i].HasLoadToPick = false;
                 } else {
@@ -139,29 +139,29 @@ namespace kagv {
                     switch (_mapHasLoads) {
                         case true:
                             //====create the path FROM START TO LOAD, if load exists=====
-                            for (int m = 0; m < _loadPos.Count; m++)
-                                _searchGrid.SetWalkableAt(_loadPos[m], false); //Do not allow walk over any other load except the targeted one
-                            _searchGrid.SetWalkableAt(_loadPos[0], true);
+                            for (int m = 0; m < wms.LoadPos.Count; m++)
+                                _searchGrid.SetWalkableAt(wms.LoadPos[m], false); //Do not allow walk over any other load except the targeted one
+                            _searchGrid.SetWalkableAt(wms.LoadPos[0], true);
 
                             //use of the A* alorithms to find the path between AGV and its marked Load
-                            _jumpParam.Reset(_startPos[_posIndex], _loadPos[0]);
+                            _jumpParam.Reset(_startPos[_posIndex], wms.LoadPos[0]);
                             jumpPointsList = AStarFinder.FindPath(_jumpParam, Globals.AStarWeight);
                             _AGVs[i].JumpPoints = jumpPointsList;
                             _AGVs[i].Status.Busy = true;
                             //====create the path FROM START TO LOAD, if load exists=====
 
                             //======FROM LOAD TO END======
-                            for (int m = 0; m < _loadPos.Count; m++)
-                                _searchGrid.SetWalkableAt(_loadPos[m], false);
-                            _jumpParam.Reset(_loadPos[0], endPos);
+                            for (int m = 0; m < wms.LoadPos.Count; m++)
+                                _searchGrid.SetWalkableAt(wms.LoadPos[m], false);
+                            _jumpParam.Reset(wms.LoadPos[0], endPos);
                             jumpPointsList = AStarFinder.FindPath(_jumpParam, Globals.AStarWeight);
                             _AGVs[i].JumpPoints.AddRange(jumpPointsList);
 
                             //marks the load that each AGV picks up on the 1st route, as 3, so each agv knows where to go after delivering the 1st load
-                            _isLoad[_loadPos[0].X, _loadPos[0].Y] = 3;
-                            _AGVs[i].MarkedLoad = new Point(_loadPos[0].X, _loadPos[0].Y);
+                            wms.IsLoad[wms.LoadPos[0].X, wms.LoadPos[0].Y] = 3;
+                            _AGVs[i].MarkedLoad = new Point(wms.LoadPos[0].X, wms.LoadPos[0].Y);
 
-                            _loadPos.Remove(_loadPos[0]);
+                            wms.LoadPos.Remove(wms.LoadPos[0]);
                             //======FROM LOAD TO END======
                             break;
                         case false:
@@ -184,8 +184,8 @@ namespace kagv {
                 for (int j = 0; j < _AGVs[i].JumpPoints.Count - 1; j++) {
                     GridLine line = new GridLine
                         (
-                        _rectangles[_AGVs[i].JumpPoints[j].X][_AGVs[i].JumpPoints[j].Y],
-                        _rectangles[_AGVs[i].JumpPoints[j + 1].X][_AGVs[i].JumpPoints[j + 1].Y]
+                        wms.Rectangles[_AGVs[i].JumpPoints[j].X][_AGVs[i].JumpPoints[j].Y],
+                        wms.Rectangles[_AGVs[i].JumpPoints[j + 1].X][_AGVs[i].JumpPoints[j + 1].Y]
                         );
 
                     _AGVs[i].Paths[j] = line;
@@ -194,8 +194,8 @@ namespace kagv {
             for (int i = 0; i < _startPos.Count; i++)
                 if ((c - 1) > 0)
                     Array.Resize(ref _AGVs[i].Paths, c - 1); //resize of the _AGVs steps Table
-            if (_loads != 0)
-                tree_stats.Nodes[2].Text = "Remaining loads: " + _loads;
+            if (wms.LoadsCount != 0)
+                tree_stats.Nodes[2].Text = "Remaining loads: " + wms.LoadsCount;
             else
                 tree_stats.Nodes[2].Text = "Remaining loads: ";
             Invalidate();

@@ -40,7 +40,7 @@ namespace kagv {
             //finds the End point and uses it's coordinates as the starting coords for every AGV
             for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++)
                 for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++)
-                    if (_rectangles[widthTrav][heightTrav].BoxType == BoxType.End)
+                    if (wms.Rectangles[widthTrav][heightTrav].BoxType == BoxType.End)
                         try {
                             _startPos[whichAgv] = new GridPos(widthTrav, heightTrav);
                             _a = _startPos[whichAgv].X;
@@ -51,11 +51,11 @@ namespace kagv {
 
             for (var i = 0; i < Globals.WidthBlocks; i++)
                 for (var j = 0; j < Globals.HeightBlocks; j++) {
-                    if (_rectangles[i][j].BoxType == BoxType.Load)
+                    if (wms.Rectangles[i][j].BoxType == BoxType.Load)
                         _searchGrid.SetWalkableAt(new GridPos(i, j), false);
 
                     //places the available AND the temporarily trapped loads in a list
-                    if (_isLoad[i, j] == 1 || _isLoad[i, j] == 4)
+                    if (wms.IsLoad[i, j] == 1 || wms.IsLoad[i, j] == 4)
                         loadPos.Add(new GridPos(i, j));
                 }
             loadPos = CheckForTrappedLoads(loadPos, new GridPos(_a, _b),true); //scans the loadPos list to check which loads are available
@@ -63,9 +63,9 @@ namespace kagv {
                 _AGVs[whichAgv].HasLoadToPick = false;
                 return;
             }
-            _isLoad[loadPos[0].X, loadPos[0].Y] = 3;
+            wms.IsLoad[loadPos[0].X, loadPos[0].Y] = 3;
             _AGVs[whichAgv].MarkedLoad = new Point(loadPos[0].X, loadPos[0].Y);
-            _loads--;
+            wms.LoadsCount--;
             endPos = loadPos[0];
 
             //Mark all loads as unwalkable,except the targetted ones
@@ -93,10 +93,10 @@ namespace kagv {
 
             for (int j = 0; j < _AGVs[whichAgv].JumpPoints.Count - 1; j++) {
                 GridLine line = new GridLine(
-                    _rectangles
+                    wms.Rectangles
                         [_AGVs[whichAgv].JumpPoints[j].X]
                         [_AGVs[whichAgv].JumpPoints[j].Y],
-                    _rectangles
+                    wms.Rectangles
                         [_AGVs[whichAgv].JumpPoints[j + 1].X]
                         [_AGVs[whichAgv].JumpPoints[j + 1].Y]
                                            );
@@ -123,10 +123,10 @@ namespace kagv {
             for (short i = 0; i < _startPos.Count; i++)
                 for (int j = 0; j < _AGVs[i].JumpPoints.Count - 1; j++) {
                     GridLine line = new GridLine(
-                        _rectangles
+                        wms.Rectangles
                             [_AGVs[i].JumpPoints[j].X]
                             [_AGVs[i].JumpPoints[j].Y],
-                        _rectangles
+                        wms.Rectangles
                             [_AGVs[i].JumpPoints[j + 1].X]
                             [_AGVs[i].JumpPoints[j + 1].Y]
                                            );

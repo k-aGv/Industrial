@@ -105,7 +105,7 @@ namespace kagv {
             _importedLayout = null;
             _jumpParam = null;
             _paper = null;
-            _loads = _posIndex = 0;
+            wms.LoadsCount = _posIndex = 0;
 
             _a
             = _b
@@ -121,15 +121,15 @@ namespace kagv {
 
 
 
-            _isLoad = new int[Globals.WidthBlocks, Globals.HeightBlocks];
-            _rectangles = new GridBox[Globals.WidthBlocks][];
+            wms.IsLoad = new int[Globals.WidthBlocks, Globals.HeightBlocks];
+            wms.Rectangles = new GridBox[Globals.WidthBlocks][];
             for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++)
-                _rectangles[widthTrav] = new GridBox[Globals.HeightBlocks];
+                wms.Rectangles[widthTrav] = new GridBox[Globals.HeightBlocks];
 
             //jagged array has to be resetted like this
             for (var i = 0; i < Globals.WidthBlocks; i++)
                 for (var j = 0; j < Globals.HeightBlocks; j++)
-                    _rectangles[i][j] = new GridBox(i * Globals.BlockSide, j * Globals.BlockSide + Globals.TopBarOffset, BoxType.Normal);
+                    wms.Rectangles[i][j] = new GridBox(i * Globals.BlockSide, j * Globals.BlockSide + Globals.TopBarOffset, BoxType.Normal);
 
 
             Initialization();

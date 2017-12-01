@@ -100,7 +100,7 @@ namespace kagv {
 
 
 
-        public Vehicle(Form handle) { //constructor
+        public Vehicle(Form handle,WMS wms) { //constructor
             _mirroredForm = handle;
             Status.Busy = false;
             Status.Loaded = false;

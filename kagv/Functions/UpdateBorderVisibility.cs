@@ -33,13 +33,13 @@ namespace kagv {
             if (hide) {
                 for (var i = 0; i < Globals.WidthBlocks; i++)
                     for (var j = 0; j < Globals.HeightBlocks; j++)
-                        _rectangles[i][j].BeTransparent();
+                        wms.Rectangles[i][j].BeTransparent();
                 BackColor = Color.DarkGray;
             } else {
                 for (var i = 0; i < Globals.WidthBlocks; i++)
                     for (var j = 0; j < Globals.HeightBlocks; j++)
-                        if (_rectangles[i][j].BoxType == BoxType.Normal) {
-                            _rectangles[i][j].BeVisible();
+                        if (wms.Rectangles[i][j].BoxType == BoxType.Normal) {
+                            wms.Rectangles[i][j].BeVisible();
 
                             _boxDefaultColor = Globals.SemiTransparency ? Color.FromArgb(128, 255, 0, 255) : Color.WhiteSmoke;
                         }

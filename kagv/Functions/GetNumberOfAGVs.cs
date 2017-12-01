@@ -32,7 +32,7 @@ namespace kagv {
             short agvs = 0;
             for (var i = 0; i < Globals.WidthBlocks; i++)
                 for (var j = 0; j < Globals.HeightBlocks; j++)
-                    if (_rectangles[i][j].BoxType == BoxType.Start)
+                    if (wms.Rectangles[i][j].BoxType == BoxType.Start)
                         agvs++;
 
             return agvs;

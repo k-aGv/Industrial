@@ -44,7 +44,7 @@ namespace kagv {
                     );
                 for (var i = 0; i < Globals.WidthBlocks; i++) {
                     for (var j = 0; j < Globals.HeightBlocks; j++) {
-                        writer.Write(_rectangles[i][j].BoxType + " ");
+                        writer.Write(wms.Rectangles[i][j].BoxType + " ");
                     }
                     writer.Write("\r\n");
                 }

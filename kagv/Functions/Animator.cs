@@ -75,7 +75,7 @@ namespace kagv {
             if (_AGVs[whichAgv].GetMarkedLoad() == _AGVs[whichAgv].GetLocation() &&
                 !_AGVs[whichAgv].Status.Busy) {
 
-                _rectangles[_AGVs[whichAgv].MarkedLoad.X][_AGVs[whichAgv].MarkedLoad.Y].SwitchLoad(); //converts a specific GridBox, from Load, to Normal box (SwitchLoad function)
+                wms.Rectangles[_AGVs[whichAgv].MarkedLoad.X][_AGVs[whichAgv].MarkedLoad.Y].SwitchLoad(); //converts a specific GridBox, from Load, to Normal box (SwitchLoad function)
                 _searchGrid.SetWalkableAt(_AGVs[whichAgv].MarkedLoad.X, _AGVs[whichAgv].MarkedLoad.Y, true);//marks the picked-up load as walkable AGAIN (since it is now a normal gridbox)
                 _labeled_loads--;
                 if (_labeled_loads <= 0)
@@ -92,8 +92,8 @@ namespace kagv {
                 //fromstart means that an AGV is starting from its VERY FIRST position, heading to a Load and then to exit
                 //When fromstart becomes false, it means that the AGV has completed its first task and now it is handled by GetNextLoad
                 if (_fromstart[whichAgv]) {
-                    _loads--;
-                    _isLoad[_AGVs[whichAgv].MarkedLoad.X, _AGVs[whichAgv].MarkedLoad.Y] = 2;
+                    wms.LoadsCount--;
+                    wms.IsLoad[_AGVs[whichAgv].MarkedLoad.X, _AGVs[whichAgv].MarkedLoad.Y] = 2;
 
                     _fromstart[whichAgv] = false;
                 }
@@ -101,8 +101,8 @@ namespace kagv {
 
             if (!_fromstart[whichAgv]) {
                 //this is how we check if the AGV has arrived at the exit (red block - end point)
-                if (_AGVs[whichAgv].GetLocation().X == _rectangles[_endPointCoords.X / Globals.BlockSide][(_endPointCoords.Y - Globals.TopBarOffset) / Globals.BlockSide].X &&
-                    _AGVs[whichAgv].GetLocation().Y == _rectangles[_endPointCoords.X / Globals.BlockSide][(_endPointCoords.Y - Globals.TopBarOffset) / Globals.BlockSide].Y) {
+                if (_AGVs[whichAgv].GetLocation().X == wms.Rectangles[_endPointCoords.X / Globals.BlockSide][(_endPointCoords.Y - Globals.TopBarOffset) / Globals.BlockSide].X &&
+                    _AGVs[whichAgv].GetLocation().Y == wms.Rectangles[_endPointCoords.X / Globals.BlockSide][(_endPointCoords.Y - Globals.TopBarOffset) / Globals.BlockSide].Y) {
 
                     _AGVs[whichAgv].LoadsDelivered++;
                     tree_stats.Nodes.Find("AGV:" + (whichAgv), false)[0].Nodes[0].Text = "Loads Delivered: " + _AGVs[whichAgv].LoadsDelivered;
@@ -113,7 +113,7 @@ namespace kagv {
                     //if there's at least 1 available Load, set isfreeload = true and stop the double For-loops
                     for (var k = 0; k < Globals.WidthBlocks; k++) {
                         for (var b = 0; b < Globals.HeightBlocks; b++) {
-                            if (_isLoad[k, b] == 1 || _isLoad[k, b] == 4) //isLoad[ , ] == 1 means the corresponding Load is available at the moment
+                            if (wms.IsLoad[k, b] == 1 || wms.IsLoad[k, b] == 4) //isLoad[ , ] == 1 means the corresponding Load is available at the moment
                                                                           //isLoad[ ,] == 4 means that the corresponding Load is surrounded by other 
                             {                                        //loads and TEMPORARILY unavailable - will be freed later
                                 isfreeload = true;
@@ -124,7 +124,7 @@ namespace kagv {
                     }
 
 
-                    if (_loads > 0 && isfreeload) { //means that the are still Loads left in the Grid, that can be picked up
+                    if (wms.LoadsCount > 0 && isfreeload) { //means that the are still Loads left in the Grid, that can be picked up
 
                         Reset(whichAgv);
                         _AGVs[whichAgv].Status.Busy = true;
@@ -150,16 +150,16 @@ namespace kagv {
                 }
             } else {
                 if (!_AGVs[whichAgv].HasLoadToPick) {
-                    if (_AGVs[whichAgv].GetLocation().X == _rectangles[_endPointCoords.X / Globals.BlockSide][(_endPointCoords.Y - Globals.TopBarOffset) / Globals.BlockSide].X &&
-                        _AGVs[whichAgv].GetLocation().Y == _rectangles[_endPointCoords.X / Globals.BlockSide][(_endPointCoords.Y - Globals.TopBarOffset) / Globals.BlockSide].Y) {
+                    if (_AGVs[whichAgv].GetLocation().X == wms.Rectangles[_endPointCoords.X / Globals.BlockSide][(_endPointCoords.Y - Globals.TopBarOffset) / Globals.BlockSide].X &&
+                        _AGVs[whichAgv].GetLocation().Y == wms.Rectangles[_endPointCoords.X / Globals.BlockSide][(_endPointCoords.Y - Globals.TopBarOffset) / Globals.BlockSide].Y) {
                         tree_stats.Nodes.Find("AGV:" + (whichAgv), false)[0].Nodes[1].Text = "No load to pick";
                         tree_stats.Nodes.Find("AGV:" + (whichAgv), false)[0].Nodes[2].Text = "Status: Finished";
                         StopTimers(whichAgv);
                     }
                 }
-                if (_isLoad[_AGVs[whichAgv].MarkedLoad.X, _AGVs[whichAgv].MarkedLoad.Y] == 2) //if the AGV has picked up the Load it has marked...
-                    if (_AGVs[whichAgv].GetLocation().X == _rectangles[_endPointCoords.X / Globals.BlockSide][(_endPointCoords.Y - Globals.TopBarOffset) / Globals.BlockSide].X &&
-                        _AGVs[whichAgv].GetLocation().Y == _rectangles[_endPointCoords.X / Globals.BlockSide][(_endPointCoords.Y - Globals.TopBarOffset) / Globals.BlockSide].Y) {
+                if (wms.IsLoad[_AGVs[whichAgv].MarkedLoad.X, _AGVs[whichAgv].MarkedLoad.Y] == 2) //if the AGV has picked up the Load it has marked...
+                    if (_AGVs[whichAgv].GetLocation().X == wms.Rectangles[_endPointCoords.X / Globals.BlockSide][(_endPointCoords.Y - Globals.TopBarOffset) / Globals.BlockSide].X &&
+                        _AGVs[whichAgv].GetLocation().Y == wms.Rectangles[_endPointCoords.X / Globals.BlockSide][(_endPointCoords.Y - Globals.TopBarOffset) / Globals.BlockSide].Y) {
                         tree_stats.Nodes.Find("AGV:" + (whichAgv), false)[0].Nodes[1].Text = "No load to pick";
                         tree_stats.Nodes.Find("AGV:" + (whichAgv), false)[0].Nodes[2].Text = "Status: Finished";
                         StopTimers(whichAgv);

@@ -49,8 +49,8 @@ namespace kagv {
             var y2 = x.ToY;
             double distance = _f.GetLength(x1, y1, x2, y2); //function that returns the Euclidean distance between 2 points
 
-            double side = _f.getSide(_rectangles[0][0].Height
-                            , _rectangles[0][0].Height); //function that returns the hypotenuse of a GridBox
+            double side = _f.getSide(wms.Rectangles[0][0].Height
+                            , wms.Rectangles[0][0].Height); //function that returns the hypotenuse of a GridBox
 
             int distanceBlocks = -1; //the quantity of blocks,matching the current line's length
 
@@ -66,7 +66,7 @@ namespace kagv {
             else if ((x1 > x2) && (y1 > y2)) //diagonal-left top direction
                 distanceBlocks = Convert.ToInt32(distance / side);
             else if ((y1 == y2) || (x1 == x2)) //horizontal or vertical
-                distanceBlocks = Convert.ToInt32(distance / _rectangles[0][0].Width);
+                distanceBlocks = Convert.ToInt32(distance / wms.Rectangles[0][0].Width);
             else
                 MessageBox.Show(this, "Unexpected error", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -89,11 +89,11 @@ namespace kagv {
 
                 for (var k = 0; k < Globals.WidthBlocks; k++)
                     for (var l = 0; l < Globals.HeightBlocks; l++)
-                        if (_rectangles[k][l].BoxRec.Contains(p)) { //this is how we assign the previously calculated pair of X,Y to a GridBox
+                        if (wms.Rectangles[k][l].BoxRec.Contains(p)) { //this is how we assign the previously calculated pair of X,Y to a GridBox
 
                             //a smart way to handle GridBoxes from their center
-                            int sideX = _rectangles[k][l].BoxRec.X + ((Globals.BlockSide / 2) - 1);
-                            int sideY = _rectangles[k][l].BoxRec.Y + ((Globals.BlockSide / 2) - 1);
+                            int sideX = wms.Rectangles[k][l].BoxRec.X + ((Globals.BlockSide / 2) - 1);
+                            int sideY = wms.Rectangles[k][l].BoxRec.Y + ((Globals.BlockSide / 2) - 1);
                             currentLinePoints[i].X = sideX;
                             currentLinePoints[i].Y = sideY;
 

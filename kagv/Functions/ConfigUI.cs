@@ -36,7 +36,7 @@ namespace kagv {
                 Globals.SemiTransparent = Color.FromArgb(Globals.Opacity, Color.WhiteSmoke);
 
             for (int i = 0; i < _startPos.Count; i++) {
-                _AGVs[i] = new Vehicle(this) {
+                _AGVs[i] = new Vehicle(this,wms) {
                     ID = i
                 };
             }

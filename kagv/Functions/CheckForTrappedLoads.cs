@@ -35,7 +35,7 @@ namespace kagv {
 
             for (int i = 0; i < pos.Count; i++) {
                 _searchGrid.SetWalkableAt(pos[i], false);
-                _isLoad[pos[i].X, pos[i].Y] = 4;
+                wms.IsLoad[pos[i].X, pos[i].Y] = 4;
             }
 
             //if the 1st AGV  cannot reach a Load, then that Load is  
@@ -48,7 +48,7 @@ namespace kagv {
                     pos.Remove(pos[0]); //load is removed from the List with available Loads
 
                 } else {
-                    _isLoad[pos[0].X, pos[0].Y] = 1; //otherwise, Load is marked as available
+                    wms.IsLoad[pos[0].X, pos[0].Y] = 1; //otherwise, Load is marked as available
                     listIndex = pos.Count;
                 }
             } while (listIndex < pos.Count);
@@ -63,7 +63,7 @@ namespace kagv {
 
             for (int i = 0; i < pos.Count; i++) {
                 _searchGrid.SetWalkableAt(pos[i], false);
-                _isLoad[pos[i].X, pos[i].Y] = 4;
+                wms.IsLoad[pos[i].X, pos[i].Y] = 4;
             }
 
             //if the 1st AGV  cannot reach a Load, then that Load is  
@@ -76,7 +76,7 @@ namespace kagv {
                     pos.Remove(pos[0]); //load is removed from the List with available Loads
 
                 } else {
-                    _isLoad[pos[0].X, pos[0].Y] = 1; //otherwise, Load is marked as available
+                    wms.IsLoad[pos[0].X, pos[0].Y] = 1; //otherwise, Load is marked as available
                     listIndex = pos.Count;
                 }
             } while (listIndex < pos.Count);

@@ -37,11 +37,11 @@ namespace kagv {
             if (temp.Y < menuPanel.Location.Y)
                 return false;
 
-            if (temp.X > _rectangles[Globals.WidthBlocks - 1][Globals.HeightBlocks - 1].BoxRec.X + (Globals.BlockSide - 1) + Globals.LeftBarOffset
-            || temp.Y > _rectangles[Globals.WidthBlocks - 1][Globals.HeightBlocks - 1].BoxRec.Y + (Globals.BlockSide - 1)) // 18 because its 20-boarder size
+            if (temp.X > wms.Rectangles[Globals.WidthBlocks - 1][Globals.HeightBlocks - 1].BoxRec.X + (Globals.BlockSide - 1) + Globals.LeftBarOffset
+            || temp.Y > wms.Rectangles[Globals.WidthBlocks - 1][Globals.HeightBlocks - 1].BoxRec.Y + (Globals.BlockSide - 1)) // 18 because its 20-boarder size
                 return false;
 
-            if (!_rectangles[(temp.X - Globals.LeftBarOffset) / Globals.BlockSide][(temp.Y - Globals.TopBarOffset) / Globals.BlockSide].BoxRec.Contains(temp))
+            if (!wms.Rectangles[(temp.X - Globals.LeftBarOffset) / Globals.BlockSide][(temp.Y - Globals.TopBarOffset) / Globals.BlockSide].BoxRec.Contains(temp))
                 return false;
 
             return true;

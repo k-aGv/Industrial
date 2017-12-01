@@ -40,18 +40,18 @@ namespace kagv {
         //not a Load = 2
         //Marked by an AGV Load = 3
         //Temporarily trapped Load = 4
-        private int[,] _isLoad;
+        //private int[,] wms.IsLoad;
 
         private BoxType[,] _importmap;
 
-        private GridBox[][] _rectangles;//2d jagged array. Contains grid information (coords of each box, boxtype, etc etc)  
-
+        private WMS wms = new WMS();
+        
         private int[] _onWhichStep;
         private bool[] _fromstart = new bool[Globals.MaximumAGVs];
 
         private List<Vehicle> _AGVs = new List<Vehicle>();
         private List<GridPos> _startPos = new List<GridPos>(); //Contains the coords of the Start boxes
-        private List<GridPos> _loadPos;
+        //private List<GridPos> wms.LoadPos;
         private readonly bool[] _trappedStatus = new bool[5];
 
 
@@ -82,7 +82,7 @@ namespace kagv {
         private bool _ifNoObstacles ;
         private bool _never ;
 
-        private int _loads ; //default=0 anyways...index for keeping count of how many Loads there are in the Grid
+        //private int wms.LoadsCount ; //default=0 anyways...index for keeping count of how many Loads there are in the Grid
         private int _labeled_loads; //index that is used for displaying how many loads have not been picked up
 
         private Color _selectedColor = Color.DarkGray;

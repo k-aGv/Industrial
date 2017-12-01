@@ -59,32 +59,32 @@ namespace kagv {
                 }
                 Globals.FirstFormLoad = false;
             }
-
+            
             
 
-            _isLoad = new int[Globals.WidthBlocks, Globals.HeightBlocks];
+            wms.IsLoad = new int[Globals.WidthBlocks, Globals.HeightBlocks];
             //m_rectangels is an array of two 1d arrays
             //declares the length of the first 1d array
-            _rectangles = new GridBox[Globals.WidthBlocks][];
+            wms.Rectangles = new GridBox[Globals.WidthBlocks][];
 
 
             for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++) {
                 //declares the length of the seconds 1d array
-                _rectangles[widthTrav] = new GridBox[Globals.HeightBlocks];
+                wms.Rectangles[widthTrav] = new GridBox[Globals.HeightBlocks];
                 for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++) {
 
-                    //dynamically add the gridboxes into the _rectangles.
+                    //dynamically add the gridboxes into the wms.Rectangles.
                     //size of the m_rectangels is constantly increasing (while adding
                     //the gridbox values) until size=height or size = width.
                     if (_imported) { //this IF is executed as long as the user has imported a map of his choice
-                        _rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Globals.BlockSide) + Globals.LeftBarOffset, heightTrav * Globals.BlockSide + Globals.TopBarOffset, _importmap[widthTrav, heightTrav]);
+                        wms.Rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Globals.BlockSide) + Globals.LeftBarOffset, heightTrav * Globals.BlockSide + Globals.TopBarOffset, _importmap[widthTrav, heightTrav]);
                         if (_importmap[widthTrav, heightTrav] == BoxType.Load) {
-                            _isLoad[widthTrav, heightTrav] = 1;
-                            _loads++;
+                            wms.IsLoad[widthTrav, heightTrav] = 1;
+                            wms.LoadsCount++;
                         }
                     } else {
-                        _rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Globals.BlockSide) + Globals.LeftBarOffset, heightTrav * Globals.BlockSide + Globals.TopBarOffset, BoxType.Normal);
-                        _isLoad[widthTrav, heightTrav] = 2;
+                        wms.Rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Globals.BlockSide) + Globals.LeftBarOffset, heightTrav * Globals.BlockSide + Globals.TopBarOffset, BoxType.Normal);
+                        wms.IsLoad[widthTrav, heightTrav] = 2;
                     }
 
 
